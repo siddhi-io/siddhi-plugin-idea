@@ -38,6 +38,11 @@
         <!-- Anootator -->
         <annotator language="Siddhi"
                    implementationClass="org.wso2.plugins.idea.codeInsight.SiddhiAnnotator"/>
+        <!--completion-->
+        <completion.contributor language="Siddhi"
+                                implementationClass="org.wso2.plugins.idea.completion.SiddhiCompletionContributor"/>
+        <completion.contributor language="Siddhi"
+                                implementationClass="org.wso2.plugins.idea.completion.SiddhiKeywordsCompletionContributor"/>
 
     </extensions>
 
