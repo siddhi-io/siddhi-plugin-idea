@@ -23,8 +23,10 @@ import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.plugins.idea.grammar.SiddhiQLParser;
 import org.wso2.plugins.idea.psi.SiddhiFile;
+import org.wso2.plugins.idea.psi.StreamIdNode;
 
 import static org.wso2.plugins.idea.grammar.SiddhiQLLexer.*;
+import static org.wso2.plugins.idea.grammar.SiddhiQLParser.RULE_stream_id;
 
 public class SiddhiParserDefinition implements ParserDefinition {
 
@@ -38,7 +40,7 @@ public class SiddhiParserDefinition implements ParserDefinition {
     public static final TokenSet KEYWORDS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, STREAM,
             DEFINE, FUNCTION, TRIGGER, TABLE, APP, FROM, PARTITION, WINDOW, SELECT, GROUP, BY, HAVING, INSERT,
             DELETE, UPDATE, RETURN, EVENTS, INTO, OUTPUT, EXPIRED, CURRENT, SNAPSHOT, FOR, RAW, OF, AS, AT, OR, AND,
-            IN, ON, IS, NOT, WITHIN, WITH, BEGIN, END, NULL, EVERY, LAST, ALL, FIRST, JOIN, INNER, OUTER, RIGHT, LEFT,
+            ON, IN, IS, NOT, WITHIN, WITH, BEGIN, END, NULL, EVERY, LAST, ALL, FIRST, JOIN, INNER, OUTER, RIGHT, LEFT,
             FULL, UNIDIRECTIONAL, YEARS, MONTHS, WEEKS, DAYS, HOURS, MINUTES, SECONDS, MILLISECONDS, FALSE, TRUE,
             STRING, INT, LONG, FLOAT, DOUBLE, BOOL, OBJECT, AGGREGATION, AGGREGATE, PER);
 
@@ -70,7 +72,7 @@ public class SiddhiParserDefinition implements ParserDefinition {
             protected ParseTree parse(Parser parser, IElementType root) {
                 // Start rule depends on root passed in; sometimes we want to create an ID node etc...
                 // Eg: if (root instanceof IFileElementType) { }
-                return ((SiddhiQLParser) parser).siddhi_app();
+                return ((SiddhiQLParser) parser).parse();
             }
         };
     }
@@ -115,6 +117,8 @@ public class SiddhiParserDefinition implements ParserDefinition {
 
         RuleIElementType ruleElType = (RuleIElementType) elementType;
         switch (ruleElType.getRuleIndex()) {
+            case RULE_stream_id:
+                return new StreamIdNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

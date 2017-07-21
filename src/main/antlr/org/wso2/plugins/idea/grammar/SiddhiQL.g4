@@ -19,8 +19,8 @@
 grammar SiddhiQL;
 
 @header {
-	//import org.wso2.siddhi.query.compiler.exception.SiddhiParserException;
 	package org.wso2.plugins.idea.grammar;
+	//import org.wso2.siddhi.query.compiler.exception.SiddhiParserException;
 }
 
 parse
@@ -493,6 +493,7 @@ keyword
     | OR
     | AND
     | ON
+    | IN
     | IS
     | NOT
     | WITHIN
@@ -528,6 +529,9 @@ keyword
     | DOUBLE
     | BOOL
     | OBJECT
+    | AGGREGATION
+    | AGGREGATE
+    | PER
     ;
 
 time_value
