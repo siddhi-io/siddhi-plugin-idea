@@ -22,10 +22,12 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.plugins.idea.grammar.SiddhiQLParser;
+import org.wso2.plugins.idea.psi.AttributeTypeNode;
 import org.wso2.plugins.idea.psi.SiddhiFile;
 import org.wso2.plugins.idea.psi.StreamIdNode;
 
 import static org.wso2.plugins.idea.grammar.SiddhiQLLexer.*;
+import static org.wso2.plugins.idea.grammar.SiddhiQLParser.RULE_attribute_type;
 import static org.wso2.plugins.idea.grammar.SiddhiQLParser.RULE_stream_id;
 
 public class SiddhiParserDefinition implements ParserDefinition {
@@ -119,6 +121,8 @@ public class SiddhiParserDefinition implements ParserDefinition {
         switch (ruleElType.getRuleIndex()) {
             case RULE_stream_id:
                 return new StreamIdNode(node);
+            case RULE_attribute_type:
+                return new AttributeTypeNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

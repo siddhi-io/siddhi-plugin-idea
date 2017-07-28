@@ -32,10 +32,29 @@ error
   //      {throw new SiddhiParserException("You have an error in your SiddhiQL at line " + $UNEXPECTED_CHAR.line + ", unexpected charecter '"+ $UNEXPECTED_CHAR.text +"'");}
     ;
 
+//siddhi_app
+//    : (app_annotation|error)*
+//      ( tempQuery (';' tempQuery)* ';'?
+//      || tempStream (';' tempStream)* (';' tempQuery)* ';'? )
+//    ;
+//
+//tempStream
+//    :   (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error)
+//    ;
+//
+//tempQuery
+//    :   (execution_element|error)
+//    ;
+//siddhi_app --Original
+//    : (app_annotation|error)*
+//      ( (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* ';'?
+//      || (execution_element|error) (';' (execution_element|error))* ';'?
+//      || (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* (';' (execution_element|error))* ';'? )
+//    ;
+
 siddhi_app
     : (app_annotation|error)*
-      ( (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* ';'?
-      || (execution_element|error) (';' (execution_element|error))* ';'?
+      ( (execution_element|error) (';' (execution_element|error))* ';'?
       || (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* (';' (execution_element|error))* ';'? )
     ;
 
