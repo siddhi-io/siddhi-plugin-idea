@@ -25,6 +25,7 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.SiddhiTypes;
 import org.wso2.plugins.idea.psi.AttributeTypeNode;
 
 import static org.wso2.plugins.idea.completion.SiddhiCompletionUtils.*;
@@ -36,12 +37,41 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         PsiElement element = parameters.getPosition();
         PsiElement parent = element.getParent();
 
-        if (parent instanceof PsiErrorElement) {
-            PsiElement parentOfParent = parent.getParent();
-            if(parentOfParent instanceof AttributeTypeNode){
-                addValueTypesAsLookups(result);
+        if (element instanceof LeafPsiElement) {
+            IElementType elementType = ((LeafPsiElement) element).getElementType();
+            if (elementType == SiddhiTypes.IDENTIFIER) {
+                if(elementType!=null){
+                    PsiElement prevVisibleSibling=PsiTreeUtil.prevVisibleLeaf(element);
+                    IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();//TODO:Handle the null pointer exception
+                    if(prevVisibleSiblingElementType==SiddhiTypes.DEFINE){
+                        addDefineTypesAsLookups(result);
+                        //addValueTypesAsLookups(result);
+                        //addInitialTypesAsLookups(result);
+                    }
+                }
+
+
             }
         }
+
+        if (parent instanceof PsiErrorElement) {
+            PsiElement parentOfParent = parent.getParent();
+            PsiElement prevVisibleSibling=PsiTreeUtil.prevVisibleLeaf(parent);
+
+            if(parentOfParent instanceof AttributeTypeNode) {
+                addValueTypesAsLookups(result);
+
+//            }else if(){//prevVisibleSibling != null && "define".equalsIgnoreCase(prevVisibleSibling.getText())){
+//                addDefineTypesAsLookups(result);
+
+//            if(prevVisibleSibling instanceof StreamDefinitionNode ){
+//
+//            }
+            }else{
+                addInitialTypesAsLookups(result);
+            }
+        }
+
 
     }
 }

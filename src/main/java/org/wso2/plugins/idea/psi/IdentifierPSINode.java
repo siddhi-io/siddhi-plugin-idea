@@ -18,6 +18,7 @@ package org.wso2.plugins.idea.psi;
 
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.tree.IElementType;
@@ -28,13 +29,14 @@ import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
 import org.antlr.jetbrains.adaptor.psi.Trees;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.SiddhiLanguage;
 import org.wso2.plugins.idea.SiddhiTypes;
 //import org.wso2.plugins.idea.psi.references.AttributeTypeReference;
 
 import static org.wso2.plugins.idea.grammar.SiddhiQLParser.*;
 
-public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedElement {
+public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedElement, PsiNameIdentifierOwner {
 
     public IdentifierPSINode(IElementType type, CharSequence text) {
         super(type, text);
@@ -105,4 +107,9 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
         return super.getPresentation();
     }
 
+    @Nullable
+    @Override
+    public PsiElement getNameIdentifier() {
+        return null;
+    }
 }

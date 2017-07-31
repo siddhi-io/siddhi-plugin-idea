@@ -39,13 +39,22 @@ public class SiddhiCompletionUtils {
     private static final int KEYWORDS_PRIORITY = VALUE_TYPES_PRIORITY - 2;
 
 
-    //keywords
-    private static final LookupElementBuilder STREAM;
+    //Initial Definition types
     private static final LookupElementBuilder DEFINE;
-    private static final LookupElementBuilder TABLE;
-    private static final LookupElementBuilder FROM;
     private static final LookupElementBuilder PARTITION;
+    private static final LookupElementBuilder FROM;
+    //private static final LookupElementBuilder @; TODO: Add the @ Symbol
+
+    //DEFINE types
+    private static final LookupElementBuilder STREAM;
+    private static final LookupElementBuilder TABLE;
+    private static final LookupElementBuilder TRIGGER;
+    private static final LookupElementBuilder FUNCTION;
     private static final LookupElementBuilder WINDOW;
+
+    //keywords
+
+
     private static final LookupElementBuilder SELECT;
     private static final LookupElementBuilder GROUP;
     private static final LookupElementBuilder BY;
@@ -109,13 +118,17 @@ public class SiddhiCompletionUtils {
 
 
     static {
-
-        STREAM= createKeywordLookupElement("true");
         DEFINE= createKeywordLookupElement("define");
-        TABLE= createKeywordLookupElement("table");
-        FROM= createKeywordLookupElement("from");
         PARTITION= createKeywordLookupElement("partition");
+        FROM= createKeywordLookupElement("from");
+
+
+        STREAM= createKeywordLookupElement("stream");
+        TABLE= createKeywordLookupElement("table");
+        TRIGGER= createKeywordLookupElement("trigger");
+        FUNCTION= createKeywordLookupElement("function");
         WINDOW= createKeywordLookupElement("window");
+
         SELECT= createKeywordLookupElement("select");
         GROUP= createKeywordLookupElement("group");
         BY= createKeywordLookupElement("by");
@@ -258,6 +271,31 @@ public class SiddhiCompletionUtils {
     }
 
     /**
+     * Adds value types as lookups.
+     *
+     * @param resultSet result list which is used to add lookups
+     */
+    static void addInitialTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+        resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(PARTITION, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(FROM, VALUE_TYPES_PRIORITY));
+        //resultSet.addElement(PrioritizedLookupElement.withPriority(@, VALUE_TYPES_PRIORITY)); TODO: @ symbol
+    }
+
+    /**
+     * Adds value types as lookups.
+     *
+     * @param resultSet result list which is used to add lookups
+     */
+    static void addDefineTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+        resultSet.addElement(PrioritizedLookupElement.withPriority(STREAM, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(TABLE, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(TRIGGER, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(FUNCTION, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(WINDOW, VALUE_TYPES_PRIORITY));
+    }
+
+    /**
      * Adds a keyword as a lookup.
      *
      * @param resultSet     result list which is used to add lookups
@@ -279,11 +317,11 @@ public class SiddhiCompletionUtils {
      */
     static void addCommonKeywords(@NotNull CompletionResultSet resultSet) {
 
-        addKeywordAsLookup(resultSet, STREAM);
-        addKeywordAsLookup(resultSet, DEFINE);
+        //addKeywordAsLookup(resultSet, STREAM);
+        //addKeywordAsLookup(resultSet, DEFINE);
         addKeywordAsLookup(resultSet, TABLE);
-        addKeywordAsLookup(resultSet, FROM);
-        addKeywordAsLookup(resultSet, PARTITION);
+        //addKeywordAsLookup(resultSet, FROM);
+        //addKeywordAsLookup(resultSet, PARTITION);
         addKeywordAsLookup(resultSet, WINDOW);
         addKeywordAsLookup(resultSet, SELECT);
         addKeywordAsLookup(resultSet, GROUP);
@@ -344,8 +382,8 @@ public class SiddhiCompletionUtils {
     public static List<LookupElement> createCommonKeywords() {
         List<LookupElement> lookupElements = new LinkedList<>();
 
-        lookupElements.add(createKeywordAsLookup (STREAM));
-        lookupElements.add(createKeywordAsLookup (DEFINE));
+        //lookupElements.add(createKeywordAsLookup (STREAM));
+        //lookupElements.add(createKeywordAsLookup (DEFINE));
         lookupElements.add(createKeywordAsLookup (TABLE));
         lookupElements.add(createKeywordAsLookup (FROM));
         lookupElements.add(createKeywordAsLookup (PARTITION));

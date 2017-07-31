@@ -42,7 +42,7 @@ public class SiddhiTypes {
     //public static final RuleIElementType DEFINITION_STREAM = ruleIElementTypes.get(RULE_definition_stream);
 
     // Other tokens
-    public static final TokenIElementType DEFINE = tokenIElementTypes.get(SiddhiQLLexer.DEFINE);
+   public static final TokenIElementType DEFINE = tokenIElementTypes.get(SiddhiQLLexer.DEFINE);
 
     //public static final RuleIElementType ATTRIBUTE_TYPE = ruleIElementTypes.get(RULE_attribute_type);
 }

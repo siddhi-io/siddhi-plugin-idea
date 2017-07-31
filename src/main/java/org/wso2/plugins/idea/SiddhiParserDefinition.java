@@ -22,13 +22,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.plugins.idea.grammar.SiddhiQLParser;
-import org.wso2.plugins.idea.psi.AttributeTypeNode;
-import org.wso2.plugins.idea.psi.SiddhiFile;
-import org.wso2.plugins.idea.psi.StreamIdNode;
+import org.wso2.plugins.idea.psi.*;
 
-import static org.wso2.plugins.idea.grammar.SiddhiQLLexer.*;
-import static org.wso2.plugins.idea.grammar.SiddhiQLParser.RULE_attribute_type;
-import static org.wso2.plugins.idea.grammar.SiddhiQLParser.RULE_stream_id;
+import static org.wso2.plugins.idea.grammar.SiddhiQLParser.*;
 
 public class SiddhiParserDefinition implements ParserDefinition {
 
@@ -123,6 +119,42 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new StreamIdNode(node);
             case RULE_attribute_type:
                 return new AttributeTypeNode(node);
+//            case RULE_definition_stream:
+//                return new StreamDefinitionNode(node);
+//            case RULE_execution_element:
+//                return new ExecutionElementNode(node);
+//            case RULE_definition_table:
+//                return new DefinitionTableNode(node);
+//            case RULE_definition_window:
+//                return new AttributeTypeNode(node);
+//            case RULE_definition_function:
+//                return new AttributeTypeNode(node);
+//            case RULE_function_name:
+//                return new AttributeTypeNode(node);
+//            case RULE_function_body:
+//                return new AttributeTypeNode(node);
+//            case RULE_definition_trigger:
+//                return new AttributeTypeNode(node);
+//            case RULE_trigger_name:
+//                return new AttributeTypeNode(node);
+//            case RULE_language_name:
+//                return new AttributeTypeNode(node);
+//            case RULE_definition_aggregation:
+//                return new AttributeTypeNode(node);
+//            case RULE_aggregation_name:
+//                return new AttributeTypeNode(node);
+//            case RULE_aggregation_time_duration:
+//                return new AttributeTypeNode(node);
+//            case RULE_aggregation_time:
+//                return new AttributeTypeNode(node);
+//            case RULE_aggregation_time_range:
+//                return new AttributeTypeNode(node);
+//            case RULE_annotation:
+//                return new AttributeTypeNode(node);
+//            case RULE_app_annotation:
+//                return new AttributeTypeNode(node);
+//            case RULE_annotation_element:
+//                return new AttributeTypeNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

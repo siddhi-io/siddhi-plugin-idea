@@ -45,7 +45,7 @@ error
 //tempQuery
 //    :   (execution_element|error)
 //    ;
-//siddhi_app --Original
+//siddhi_app //--Original
 //    : (app_annotation|error)*
 //      ( (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* ';'?
 //      || (execution_element|error) (';' (execution_element|error))* ';'?
