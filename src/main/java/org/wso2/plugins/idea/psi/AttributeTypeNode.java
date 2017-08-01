@@ -12,10 +12,3 @@ public class AttributeTypeNode extends ANTLRPsiNode {
 
     }
 }
-
-//public class AttributeTypeNode extends IdentifierDefSubtree {
-//    public AttributeTypeNode(@NotNull ASTNode node) {
-//        super(node, SiddhiTypes.IDENTIFIER);
-//
-//    }
-//}

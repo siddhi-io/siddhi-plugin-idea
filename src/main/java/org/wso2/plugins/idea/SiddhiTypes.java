@@ -39,10 +39,12 @@ public class SiddhiTypes {
 
     public static final TokenIElementType IDENTIFIER = tokenIElementTypes.get(SiddhiQLLexer.ID);
 
-    //public static final RuleIElementType DEFINITION_STREAM = ruleIElementTypes.get(RULE_definition_stream);
-
     // Other tokens
-   public static final TokenIElementType DEFINE = tokenIElementTypes.get(SiddhiQLLexer.DEFINE);
+    public static final TokenIElementType DEFINE = tokenIElementTypes.get(SiddhiQLLexer.DEFINE);
+    public static final TokenIElementType TABLE = tokenIElementTypes.get(SiddhiQLLexer.TABLE);
+    public static final TokenIElementType AT = tokenIElementTypes.get(SiddhiQLLexer.AT);
+    public static final TokenIElementType CLOSE_PAR = tokenIElementTypes.get(SiddhiQLLexer.CLOSE_PAR);
+    public static final TokenIElementType WHITE_SPACE = tokenIElementTypes.get(SiddhiQLLexer.SPACES);
 
     //public static final RuleIElementType ATTRIBUTE_TYPE = ruleIElementTypes.get(RULE_attribute_type);
 }

@@ -24,9 +24,10 @@ import com.intellij.psi.PsiErrorElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
 import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.SiddhiTypes;
-import org.wso2.plugins.idea.psi.AttributeTypeNode;
+import org.wso2.plugins.idea.psi.*;
 
 import static org.wso2.plugins.idea.completion.SiddhiCompletionUtils.*;
 
@@ -40,13 +41,37 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         if (element instanceof LeafPsiElement) {
             IElementType elementType = ((LeafPsiElement) element).getElementType();
             if (elementType == SiddhiTypes.IDENTIFIER) {
-                if(elementType!=null){
+                if(PsiTreeUtil.prevVisibleLeaf(element)!=null){ //gives null in first line first character
                     PsiElement prevVisibleSibling=PsiTreeUtil.prevVisibleLeaf(element);
-                    IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();//TODO:Handle the null pointer exception
+                    IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();
                     if(prevVisibleSiblingElementType==SiddhiTypes.DEFINE){
                         addDefineTypesAsLookups(result);
-                        //addValueTypesAsLookups(result);
-                        //addInitialTypesAsLookups(result);
+                        return;
+                    }
+                    TriggerDefinitionNode triggerDefinitionNode = PsiTreeUtil.getParentOfType(element, TriggerDefinitionNode.class);
+                    if(triggerDefinitionNode!= null){
+                        TriggerNameNode triggerNameNode = PsiTreeUtil.getParentOfType(prevVisibleSibling, TriggerNameNode.class);
+                        if(triggerNameNode!=null){
+                            addAtKeyword(result);
+                            return;
+                        }
+                        if(prevVisibleSiblingElementType==SiddhiTypes.AT){
+                            addEveryKeyword(result);
+                            return;
+                        }
+                    }
+
+                   WindowDefinitionNode windowDefinitionNode = PsiTreeUtil.getParentOfType(element, WindowDefinitionNode.class);
+                    if(windowDefinitionNode!= null){
+                        FunctionOperationNode functionOperationNode = PsiTreeUtil.getParentOfType(element, FunctionOperationNode.class);
+                        System.out.print(prevVisibleSiblingElementType.toString());//TODO: Handle the space characterS
+                        //if(prevVisibleSiblingElementType.toString().equals("')'") && functionOperationNode!=null){
+                        //PsiElement prevSibling=PsiTreeUtil.prevLeaf(element);
+                        //IElementType prevSiblingElementType = ((LeafPsiElement) prevSibling).getElementType();
+                        if(prevVisibleSiblingElementType==SiddhiTypes.CLOSE_PAR && functionOperationNode!=null){ //&& prevSiblingElementType==SiddhiTypes.WHITE_SPACE ){
+                            addWindowProcessorTypesAsLookups(result);
+                            return;
+                        }
                     }
                 }
 
@@ -61,12 +86,6 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             if(parentOfParent instanceof AttributeTypeNode) {
                 addValueTypesAsLookups(result);
 
-//            }else if(){//prevVisibleSibling != null && "define".equalsIgnoreCase(prevVisibleSibling.getText())){
-//                addDefineTypesAsLookups(result);
-
-//            if(prevVisibleSibling instanceof StreamDefinitionNode ){
-//
-//            }
             }else{
                 addInitialTypesAsLookups(result);
             }

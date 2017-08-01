@@ -119,14 +119,14 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new StreamIdNode(node);
             case RULE_attribute_type:
                 return new AttributeTypeNode(node);
-//            case RULE_definition_stream:
-//                return new StreamDefinitionNode(node);
-//            case RULE_execution_element:
-//                return new ExecutionElementNode(node);
-//            case RULE_definition_table:
-//                return new DefinitionTableNode(node);
-//            case RULE_definition_window:
-//                return new AttributeTypeNode(node);
+            case RULE_trigger_name:
+                return new TriggerNameNode(node);
+            case RULE_definition_trigger:
+                return new TriggerDefinitionNode(node);
+            case RULE_definition_window:
+                return new WindowDefinitionNode(node);
+            case RULE_function_operation:
+                return new FunctionOperationNode(node);
 //            case RULE_definition_function:
 //                return new AttributeTypeNode(node);
 //            case RULE_function_name:

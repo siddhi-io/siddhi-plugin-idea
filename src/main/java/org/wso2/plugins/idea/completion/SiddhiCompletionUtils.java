@@ -39,21 +39,67 @@ public class SiddhiCompletionUtils {
     private static final int KEYWORDS_PRIORITY = VALUE_TYPES_PRIORITY - 2;
 
 
-    //Initial Definition types
+    //Initial Definition Types
     private static final LookupElementBuilder DEFINE;
     private static final LookupElementBuilder PARTITION;
     private static final LookupElementBuilder FROM;
-    //private static final LookupElementBuilder @; TODO: Add the @ Symbol
+    //private static final LookupElementBuilder ;// TODO: Add the @ Symbol
 
-    //DEFINE types
+    //Define Types
     private static final LookupElementBuilder STREAM;
     private static final LookupElementBuilder TABLE;
     private static final LookupElementBuilder TRIGGER;
     private static final LookupElementBuilder FUNCTION;
     private static final LookupElementBuilder WINDOW;
 
-    //keywords
+    //Logical Operators
+    private static final LookupElementBuilder AND;
+    private static final LookupElementBuilder OR;
+    private static final LookupElementBuilder NOT;
+    private static final LookupElementBuilder IN;
+    private static final LookupElementBuilder IS;//TODO: is null
 
+    //Output Event Types
+    private static final LookupElementBuilder CURRENT;
+    private static final LookupElementBuilder ALL;
+    private static final LookupElementBuilder EXPIRED;
+
+    //Time Value Types
+    private static final LookupElementBuilder YEARS;
+    private static final LookupElementBuilder MONTHS;
+    private static final LookupElementBuilder WEEKS;
+    private static final LookupElementBuilder DAYS;
+    private static final LookupElementBuilder HOURS;
+    private static final LookupElementBuilder MINUTES;
+    private static final LookupElementBuilder SECONDS;
+    private static final LookupElementBuilder MILLISECONDS;
+
+    //Data Types
+    private static final LookupElementBuilder STRING;
+    private static final LookupElementBuilder INT;
+    private static final LookupElementBuilder LONG;
+    private static final LookupElementBuilder FLOAT;
+    private static final LookupElementBuilder DOUBLE;
+    private static final LookupElementBuilder BOOL;
+    private static final LookupElementBuilder OBJECT;
+
+    private static final LookupElementBuilder EVERY;
+    private static final LookupElementBuilder AT;
+
+    //Window Processor Code Snippets
+    private static final LookupElementBuilder LENGTH;
+    private static final LookupElementBuilder LENGTHBATCH;
+    private static final LookupElementBuilder SORT;
+    private static final LookupElementBuilder EXTERNALTIMEBATCH;
+    private static final LookupElementBuilder TIME;
+    private static final LookupElementBuilder FREQUENT;
+    private static final LookupElementBuilder LOSSYFREQUENT;
+    private static final LookupElementBuilder TIMEBATCH;
+    private static final LookupElementBuilder CRON;
+    private static final LookupElementBuilder TIMELENGTH;
+    private static final LookupElementBuilder EXTERNALTIME;
+
+    //Other Keywords
 
     private static final LookupElementBuilder SELECT;
     private static final LookupElementBuilder GROUP;
@@ -66,27 +112,18 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder EVENTS;
     private static final LookupElementBuilder INTO;
     private static final LookupElementBuilder OUTPUT;
-    private static final LookupElementBuilder EXPIRED;
-    private static final LookupElementBuilder CURRENT;
     private static final LookupElementBuilder SNAPSHOT;
     private static final LookupElementBuilder FOR;
     private static final LookupElementBuilder RAW;
     private static final LookupElementBuilder OF;
     private static final LookupElementBuilder AS;
-    private static final LookupElementBuilder OR;
-    private static final LookupElementBuilder AND;
     private static final LookupElementBuilder ON;
-    private static final LookupElementBuilder IN;
-    private static final LookupElementBuilder IS;
-    private static final LookupElementBuilder NOT;
     private static final LookupElementBuilder WITHIN;
     private static final LookupElementBuilder WITH;
     private static final LookupElementBuilder BEGIN;
     private static final LookupElementBuilder END;
     private static final LookupElementBuilder NULL;
-    private static final LookupElementBuilder EVERY;
     private static final LookupElementBuilder LAST;
-    private static final LookupElementBuilder ALL;
     private static final LookupElementBuilder FIRST;
     private static final LookupElementBuilder JOIN;
     private static final LookupElementBuilder INNER;
@@ -95,23 +132,10 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder LEFT;
     private static final LookupElementBuilder FULL;
     private static final LookupElementBuilder UNIDIRECTIONAL;
-    private static final LookupElementBuilder YEARS;
-    private static final LookupElementBuilder MONTHS;
-    private static final LookupElementBuilder WEEKS;
-    private static final LookupElementBuilder DAYS;
-    private static final LookupElementBuilder HOURS;
-    private static final LookupElementBuilder MINUTES;
-    private static final LookupElementBuilder SECONDS;
-    private static final LookupElementBuilder MILLISECONDS;
+
     private static final LookupElementBuilder FALSE;
     private static final LookupElementBuilder TRUE;
-    private static final LookupElementBuilder STRING;
-    private static final LookupElementBuilder INT;
-    private static final LookupElementBuilder LONG;
-    private static final LookupElementBuilder FLOAT;
-    private static final LookupElementBuilder DOUBLE;
-    private static final LookupElementBuilder BOOL;
-    private static final LookupElementBuilder OBJECT;
+
     private static final LookupElementBuilder AGGREGATION;
     private static final LookupElementBuilder AGGREGATE;
     private static final LookupElementBuilder PER;
@@ -129,6 +153,29 @@ public class SiddhiCompletionUtils {
         FUNCTION= createKeywordLookupElement("function");
         WINDOW= createKeywordLookupElement("window");
 
+        OR= createKeywordLookupElement("or");
+        AND= createKeywordLookupElement("and");
+        NOT= createKeywordLookupElement("not");
+        IN= createKeywordLookupElement("in");
+        IS= createKeywordLookupElement("is");
+
+        EXPIRED= createKeywordLookupElement("expired");
+        CURRENT= createKeywordLookupElement("current");
+        ALL= createKeywordLookupElement("all");
+
+
+        YEARS= createKeywordLookupElement("years");
+        MONTHS= createKeywordLookupElement("months");
+        WEEKS= createKeywordLookupElement("weeks");
+        DAYS= createKeywordLookupElement("days");
+        HOURS= createKeywordLookupElement("hours");
+        MINUTES= createKeywordLookupElement("minutes");
+        SECONDS= createKeywordLookupElement("seconds");
+        MILLISECONDS= createKeywordLookupElement("milliseconds");
+
+        AT= createKeywordLookupElement("at");
+        EVERY= createKeywordLookupElement("every");
+
         SELECT= createKeywordLookupElement("select");
         GROUP= createKeywordLookupElement("group");
         BY= createKeywordLookupElement("by");
@@ -140,27 +187,19 @@ public class SiddhiCompletionUtils {
         EVENTS= createKeywordLookupElement("events");
         INTO= createKeywordLookupElement("into");
         OUTPUT= createKeywordLookupElement("output");
-        EXPIRED= createKeywordLookupElement("expired");
-        CURRENT= createKeywordLookupElement("current");
         SNAPSHOT= createKeywordLookupElement("snapshot");
         FOR= createKeywordLookupElement("for");
         RAW= createKeywordLookupElement("raw");
         OF= createKeywordLookupElement("of");
         AS= createKeywordLookupElement("as");
-        OR= createKeywordLookupElement("or");
-        AND= createKeywordLookupElement("and");
         ON= createKeywordLookupElement("on");
-        IN= createKeywordLookupElement("in");
-        IS= createKeywordLookupElement("is");
-        NOT= createKeywordLookupElement("not");
         WITHIN= createKeywordLookupElement("within");
         WITH= createKeywordLookupElement("with");
         BEGIN= createKeywordLookupElement("begin");
         END= createKeywordLookupElement("end");
         NULL= createKeywordLookupElement("null");
-        EVERY= createKeywordLookupElement("every");
+
         LAST= createKeywordLookupElement("last");
-        ALL= createKeywordLookupElement("all");
         FIRST= createKeywordLookupElement("first");
         JOIN= createKeywordLookupElement("join");
         INNER= createKeywordLookupElement("inner");
@@ -169,28 +208,35 @@ public class SiddhiCompletionUtils {
         LEFT= createKeywordLookupElement("left");
         FULL= createKeywordLookupElement("full");
         UNIDIRECTIONAL= createKeywordLookupElement("unidirectional");
-        YEARS= createKeywordLookupElement("years");
-        MONTHS= createKeywordLookupElement("months");
-        WEEKS= createKeywordLookupElement("weeks");
-        DAYS= createKeywordLookupElement("days");
-        HOURS= createKeywordLookupElement("hours");
-        MINUTES= createKeywordLookupElement("minutes");
-        SECONDS= createKeywordLookupElement("seconds");
-        MILLISECONDS= createKeywordLookupElement("milliseconds");
+
         FALSE= createKeywordLookupElement("false");
         TRUE= createKeywordLookupElement("true");
-        OBJECT= createKeywordLookupElement("object");
+
         AGGREGATION= createKeywordLookupElement("aggregation");
         AGGREGATE= createKeywordLookupElement("aggregate");
         PER= createKeywordLookupElement("per");
 
 
-        STRING = createTypeLookupElement("string", AddSpaceInsertHandler.INSTANCE);
-        INT = createTypeLookupElement("int", AddSpaceInsertHandler.INSTANCE);
-        LONG = createTypeLookupElement("long", AddSpaceInsertHandler.INSTANCE);
-        FLOAT = createTypeLookupElement("float", AddSpaceInsertHandler.INSTANCE);
-        DOUBLE = createTypeLookupElement("double", AddSpaceInsertHandler.INSTANCE);
-        BOOL = createTypeLookupElement("bool", AddSpaceInsertHandler.INSTANCE);
+        STRING = createDataTypeLookupElement("string", AddSpaceInsertHandler.INSTANCE);
+        INT = createDataTypeLookupElement("int", AddSpaceInsertHandler.INSTANCE);
+        LONG = createDataTypeLookupElement("long", AddSpaceInsertHandler.INSTANCE);
+        FLOAT = createDataTypeLookupElement("float", AddSpaceInsertHandler.INSTANCE);
+        DOUBLE = createDataTypeLookupElement("double", AddSpaceInsertHandler.INSTANCE);
+        BOOL = createDataTypeLookupElement("bool", AddSpaceInsertHandler.INSTANCE);
+        OBJECT= createDataTypeLookupElement("object", AddSpaceInsertHandler.INSTANCE);
+
+        LENGTH= createWindowProcessorTypeLookupElement("length(window.length)",AddSpaceInsertHandler.INSTANCE).withPresentableText("length");
+        LENGTHBATCH= createWindowProcessorTypeLookupElement("lengthBatch(window.length)",AddSpaceInsertHandler.INSTANCE).withPresentableText("lengthBatch");
+        SORT= createWindowProcessorTypeLookupElement("sort(window.length, attribute, order)",AddSpaceInsertHandler.INSTANCE).withPresentableText("sort");
+        EXTERNALTIMEBATCH= createWindowProcessorTypeLookupElement("externalTimeBatch(timestamp, window.time, start.time, timeout)",AddSpaceInsertHandler.INSTANCE).withPresentableText("externalTimeBatch");
+        TIME= createWindowProcessorTypeLookupElement("time(window.time)",AddSpaceInsertHandler.INSTANCE).withPresentableText("time");
+        FREQUENT= createWindowProcessorTypeLookupElement("frequent(event.count, attribute)",AddSpaceInsertHandler.INSTANCE).withPresentableText("frequent");
+        LOSSYFREQUENT= createWindowProcessorTypeLookupElement("lossyFrequent(support.threshold, error.bound, attribute)",AddSpaceInsertHandler.INSTANCE).withPresentableText("lossyFrequent");
+        TIMEBATCH= createWindowProcessorTypeLookupElement("timeBatch(window.time, start.time)",AddSpaceInsertHandler.INSTANCE).withPresentableText("timeBatch");
+        CRON= createWindowProcessorTypeLookupElement("cron(cron.expression)",AddSpaceInsertHandler.INSTANCE).withPresentableText("cron");
+        TIMELENGTH= createWindowProcessorTypeLookupElement("timeLength(window.time, window.length)",AddSpaceInsertHandler.INSTANCE).withPresentableText("timeLength");
+        EXTERNALTIME= createWindowProcessorTypeLookupElement("externalTime(window.time)",AddSpaceInsertHandler.INSTANCE).withPresentableText("externalTime");
+
     }
 
     private SiddhiCompletionUtils() {
@@ -245,16 +291,28 @@ public class SiddhiCompletionUtils {
     /**
      * Creates a <b>Type</b> lookup element.
      *
-     * @param name          name of the lookup
+     * @param name of the lookup
      * @param insertHandler insert handler of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
     @NotNull
-    private static LookupElementBuilder createTypeLookupElement(@NotNull String name,
+    private static LookupElementBuilder createDataTypeLookupElement(@NotNull String name,
                                                                 @Nullable InsertHandler<LookupElement> insertHandler) {
-        return createLookupElement(name, insertHandler).withTypeText("Type");
+        return createLookupElement(name, insertHandler).withTypeText("Data Type");
     }
 
+    /**
+     * Creates a <b>Type</b> lookup element.
+     *
+     * @param name of the lookup
+     * @param insertHandler insert handler of the lookup
+     * @return {@link LookupElementBuilder} which will be used to create the lookup element.
+     */
+    @NotNull
+    private static LookupElementBuilder createWindowProcessorTypeLookupElement(@NotNull String name,
+                                                                    @Nullable InsertHandler<LookupElement> insertHandler) {
+        return createLookupElement(name, insertHandler).withTypeText("Window Processor");
+    }
 
     /**
      * Adds value types as lookups.
@@ -268,6 +326,7 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(STRING, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(BOOL, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(DOUBLE, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(OBJECT, VALUE_TYPES_PRIORITY));
     }
 
     /**
@@ -279,7 +338,7 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(PARTITION, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(FROM, VALUE_TYPES_PRIORITY));
-        //resultSet.addElement(PrioritizedLookupElement.withPriority(@, VALUE_TYPES_PRIORITY)); TODO: @ symbol
+        //resultSet.addElement(PrioritizedLookupElement.withPriority('@', VALUE_TYPES_PRIORITY)); TODO: @ symbol
     }
 
     /**
@@ -310,6 +369,34 @@ public class SiddhiCompletionUtils {
         return PrioritizedLookupElement.withPriority(lookupElement, KEYWORDS_PRIORITY);
     }
 
+    static void addAtKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, AT);
+    }
+
+    static void addEveryKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, AT);
+    }
+
+    /**
+     * Adds value types as lookups.
+     *
+     * @param resultSet result list which is used to add lookups
+     */
+    static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+        resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTH, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTHBATCH, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(SORT, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIMEBATCH, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(TIME, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(FREQUENT, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(LOSSYFREQUENT, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(TIMEBATCH, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(CRON, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(TIMELENGTH, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIME, VALUE_TYPES_PRIORITY));
+    }
+
+
     /**
      * Adds common keywords like if, else as lookup elements.
      *
@@ -317,11 +404,8 @@ public class SiddhiCompletionUtils {
      */
     static void addCommonKeywords(@NotNull CompletionResultSet resultSet) {
 
-        //addKeywordAsLookup(resultSet, STREAM);
-        //addKeywordAsLookup(resultSet, DEFINE);
+
         addKeywordAsLookup(resultSet, TABLE);
-        //addKeywordAsLookup(resultSet, FROM);
-        //addKeywordAsLookup(resultSet, PARTITION);
         addKeywordAsLookup(resultSet, WINDOW);
         addKeywordAsLookup(resultSet, SELECT);
         addKeywordAsLookup(resultSet, GROUP);
@@ -352,7 +436,7 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, BEGIN);
         addKeywordAsLookup(resultSet, END);
         addKeywordAsLookup(resultSet, NULL);
-        addKeywordAsLookup(resultSet, EVERY);
+
         addKeywordAsLookup(resultSet, LAST);
         addKeywordAsLookup(resultSet, ALL);
         addKeywordAsLookup(resultSet, FIRST);
@@ -371,7 +455,7 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, MINUTES);
         addKeywordAsLookup(resultSet,SECONDS);
         addKeywordAsLookup(resultSet, MILLISECONDS);
-        addKeywordAsLookup(resultSet, OBJECT);
+
         addKeywordAsLookup(resultSet, AGGREGATION);
         addKeywordAsLookup(resultSet, AGGREGATE);
         addKeywordAsLookup(resultSet, PER);
@@ -382,11 +466,8 @@ public class SiddhiCompletionUtils {
     public static List<LookupElement> createCommonKeywords() {
         List<LookupElement> lookupElements = new LinkedList<>();
 
-        //lookupElements.add(createKeywordAsLookup (STREAM));
-        //lookupElements.add(createKeywordAsLookup (DEFINE));
+
         lookupElements.add(createKeywordAsLookup (TABLE));
-        lookupElements.add(createKeywordAsLookup (FROM));
-        lookupElements.add(createKeywordAsLookup (PARTITION));
         lookupElements.add(createKeywordAsLookup (WINDOW));
         lookupElements.add(createKeywordAsLookup (SELECT));
         lookupElements.add(createKeywordAsLookup (GROUP));
@@ -417,7 +498,7 @@ public class SiddhiCompletionUtils {
         lookupElements.add(createKeywordAsLookup (BEGIN));
         lookupElements.add(createKeywordAsLookup (END));
         lookupElements.add(createKeywordAsLookup (NULL));
-        lookupElements.add(createKeywordAsLookup (EVERY));
+
         lookupElements.add(createKeywordAsLookup (LAST));
         lookupElements.add(createKeywordAsLookup (ALL));
         lookupElements.add(createKeywordAsLookup (FIRST));
@@ -436,7 +517,7 @@ public class SiddhiCompletionUtils {
         lookupElements.add(createKeywordAsLookup (MINUTES));
         lookupElements.add(createKeywordAsLookup (SECONDS));
         lookupElements.add(createKeywordAsLookup (MILLISECONDS));
-        lookupElements.add(createKeywordAsLookup (OBJECT));
+
         lookupElements.add(createKeywordAsLookup (AGGREGATION));
         lookupElements.add(createKeywordAsLookup (AGGREGATE));
         lookupElements.add(createKeywordAsLookup (PER));
