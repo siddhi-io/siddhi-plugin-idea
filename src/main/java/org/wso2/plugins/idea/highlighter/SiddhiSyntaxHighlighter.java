@@ -24,6 +24,8 @@ public class SiddhiSyntaxHighlighter extends SyntaxHighlighterBase {
         fillMap(ATTRIBUTES, SiddhiParserDefinition.KEYWORDS, SiddhiSyntaxHighlightingColors.KEYWORD);
         fillMap(ATTRIBUTES, SiddhiParserDefinition.STRING_LITERALS, SiddhiSyntaxHighlightingColors.STRING);
         fillMap(ATTRIBUTES, SiddhiParserDefinition.BAD_CHARACTER, SiddhiSyntaxHighlightingColors.BAD_CHARACTER);
+        fillMap(ATTRIBUTES, SiddhiParserDefinition.SEMICOLON, SiddhiSyntaxHighlightingColors.SEMICOLON);
+        fillMap(ATTRIBUTES, SiddhiParserDefinition.DOT, SiddhiSyntaxHighlightingColors.DOT);
     }
 
     @NotNull

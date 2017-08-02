@@ -19,6 +19,10 @@ public class SiddhiSyntaxHighlightingColors {
             HighlighterColors.BAD_CHARACTER);
     public static final TextAttributesKey STREAM_ID = createTextAttributesKey("SIDDHI_STREAM_TOKEN",
             DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
+    public static final TextAttributesKey SEMICOLON = createTextAttributesKey("SIDDHI_COMMA_TOKEN",
+            DefaultLanguageHighlighterColors.SEMICOLON);
+    public static final TextAttributesKey DOT = createTextAttributesKey("SIDDHI_STREAM_TOKEN",
+            DefaultLanguageHighlighterColors.DOT);
 
 
     private SiddhiSyntaxHighlightingColors() {

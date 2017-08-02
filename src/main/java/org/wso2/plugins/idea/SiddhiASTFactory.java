@@ -24,9 +24,9 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.impl.source.tree.PsiCoreCommentImpl;
 import com.intellij.psi.tree.IElementType;
 import org.antlr.jetbrains.adaptor.lexer.TokenIElementType;
-import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.plugins.idea.psi.IdentifierPSINode;
+import org.jetbrains.annotations.NotNull;
 
 public class SiddhiASTFactory extends CoreASTFactory {
     /**

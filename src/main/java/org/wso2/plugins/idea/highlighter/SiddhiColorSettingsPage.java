@@ -5,11 +5,12 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
+import org.wso2.plugins.idea.SiddhiIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.wso2.plugins.idea.SiddhiIcons;
 
-import javax.swing.*;
+import javax.swing.Icon;
+
 import java.util.Map;
 
 public class SiddhiColorSettingsPage implements ColorSettingsPage {
@@ -22,6 +23,8 @@ public class SiddhiColorSettingsPage implements ColorSettingsPage {
             //new AttributesDescriptor("Identifiers", SiddhiSyntaxHighlightingColors.IDENTIFIER),
             new AttributesDescriptor("Comments", SiddhiSyntaxHighlightingColors.LINE_COMMENT),
             new AttributesDescriptor("streamId", SiddhiSyntaxHighlightingColors.STREAM_ID),
+            new AttributesDescriptor("dot", SiddhiSyntaxHighlightingColors.DOT),
+            new AttributesDescriptor("semicolan", SiddhiSyntaxHighlightingColors.SEMICOLON),
     };
 
     @Nullable

@@ -23,22 +23,28 @@ import org.wso2.plugins.idea.grammar.SiddhiQLLexer;
 
 import java.util.List;
 
+import static org.wso2.plugins.idea.grammar.SiddhiQLParser.*;
+
 public class SiddhiTypes {
+
+    private SiddhiTypes() {
+
+    }
 
     private static final List<RuleIElementType> ruleIElementTypes =
             PSIElementTypeFactory.getRuleIElementTypes(SiddhiLanguage.INSTANCE);
+
     private static final List<TokenIElementType> tokenIElementTypes =
             PSIElementTypeFactory.getTokenIElementTypes(SiddhiLanguage.INSTANCE);
+
     public static final TokenIElementType IDENTIFIER = tokenIElementTypes.get(SiddhiQLLexer.ID);
+
     // Other tokens
     public static final TokenIElementType DEFINE = tokenIElementTypes.get(SiddhiQLLexer.DEFINE);
     public static final TokenIElementType TABLE = tokenIElementTypes.get(SiddhiQLLexer.TABLE);
     public static final TokenIElementType AT = tokenIElementTypes.get(SiddhiQLLexer.AT);
     public static final TokenIElementType CLOSE_PAR = tokenIElementTypes.get(SiddhiQLLexer.CLOSE_PAR);
     public static final TokenIElementType WHITE_SPACE = tokenIElementTypes.get(SiddhiQLLexer.SPACES);
-    private SiddhiTypes() {
-
-    }
 
     //public static final RuleIElementType ATTRIBUTE_TYPE = ruleIElementTypes.get(RULE_attribute_type);
 }

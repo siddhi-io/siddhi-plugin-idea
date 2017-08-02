@@ -132,10 +132,8 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder LEFT;
     private static final LookupElementBuilder FULL;
     private static final LookupElementBuilder UNIDIRECTIONAL;
-
     private static final LookupElementBuilder FALSE;
     private static final LookupElementBuilder TRUE;
-
     private static final LookupElementBuilder AGGREGATION;
     private static final LookupElementBuilder AGGREGATE;
     private static final LookupElementBuilder PER;
@@ -225,17 +223,28 @@ public class SiddhiCompletionUtils {
         BOOL = createDataTypeLookupElement("bool", AddSpaceInsertHandler.INSTANCE);
         OBJECT = createDataTypeLookupElement("object", AddSpaceInsertHandler.INSTANCE);
 
-        LENGTH = createWindowProcessorTypeLookupElement("length(window.length)", AddSpaceInsertHandler.INSTANCE).withPresentableText("length");
-        LENGTHBATCH = createWindowProcessorTypeLookupElement("lengthBatch(window.length)", AddSpaceInsertHandler.INSTANCE).withPresentableText("lengthBatch");
-        SORT = createWindowProcessorTypeLookupElement("sort(window.length, attribute, order)", AddSpaceInsertHandler.INSTANCE).withPresentableText("sort");
-        EXTERNALTIMEBATCH = createWindowProcessorTypeLookupElement("externalTimeBatch(timestamp, window.time, start.time, timeout)", AddSpaceInsertHandler.INSTANCE).withPresentableText("externalTimeBatch");
-        TIME = createWindowProcessorTypeLookupElement("time(window.time)", AddSpaceInsertHandler.INSTANCE).withPresentableText("time");
-        FREQUENT = createWindowProcessorTypeLookupElement("frequent(event.count, attribute)", AddSpaceInsertHandler.INSTANCE).withPresentableText("frequent");
-        LOSSYFREQUENT = createWindowProcessorTypeLookupElement("lossyFrequent(support.threshold, error.bound, attribute)", AddSpaceInsertHandler.INSTANCE).withPresentableText("lossyFrequent");
-        TIMEBATCH = createWindowProcessorTypeLookupElement("timeBatch(window.time, start.time)", AddSpaceInsertHandler.INSTANCE).withPresentableText("timeBatch");
-        CRON = createWindowProcessorTypeLookupElement("cron(cron.expression)", AddSpaceInsertHandler.INSTANCE).withPresentableText("cron");
-        TIMELENGTH = createWindowProcessorTypeLookupElement("timeLength(window.time, window.length)", AddSpaceInsertHandler.INSTANCE).withPresentableText("timeLength");
-        EXTERNALTIME = createWindowProcessorTypeLookupElement("externalTime(window.time)", AddSpaceInsertHandler.INSTANCE).withPresentableText("externalTime");
+        LENGTH = createWindowProcessorTypeLookupElement("length(window.length)", AddSpaceInsertHandler.INSTANCE)
+                .withPresentableText("length");
+        LENGTHBATCH = createWindowProcessorTypeLookupElement("lengthBatch(window.length)", AddSpaceInsertHandler
+                .INSTANCE).withPresentableText("lengthBatch");
+        SORT = createWindowProcessorTypeLookupElement("sort(window.length, attribute, order)", AddSpaceInsertHandler
+                .INSTANCE).withPresentableText("sort");
+        EXTERNALTIMEBATCH = createWindowProcessorTypeLookupElement("externalTimeBatch(timestamp, window.time, start" +
+                ".time, timeout)", AddSpaceInsertHandler.INSTANCE).withPresentableText("externalTimeBatch");
+        TIME = createWindowProcessorTypeLookupElement("time(window.time)", AddSpaceInsertHandler.INSTANCE)
+                .withPresentableText("time");
+        FREQUENT = createWindowProcessorTypeLookupElement("frequent(event.count, attribute)", AddSpaceInsertHandler
+                .INSTANCE).withPresentableText("frequent");
+        LOSSYFREQUENT = createWindowProcessorTypeLookupElement("lossyFrequent(support.threshold, error.bound, " +
+                "attribute)", AddSpaceInsertHandler.INSTANCE).withPresentableText("lossyFrequent");
+        TIMEBATCH = createWindowProcessorTypeLookupElement("timeBatch(window.time, start.time)",
+                AddSpaceInsertHandler.INSTANCE).withPresentableText("timeBatch");
+        CRON = createWindowProcessorTypeLookupElement("cron(cron.expression)", AddSpaceInsertHandler.INSTANCE)
+                .withPresentableText("cron");
+        TIMELENGTH = createWindowProcessorTypeLookupElement("timeLength(window.time, window.length)",
+                AddSpaceInsertHandler.INSTANCE).withPresentableText("timeLength");
+        EXTERNALTIME = createWindowProcessorTypeLookupElement("externalTime(window.time)", AddSpaceInsertHandler
+                .INSTANCE).withPresentableText("externalTime");
 
     }
 
@@ -297,7 +306,8 @@ public class SiddhiCompletionUtils {
      */
     @NotNull
     private static LookupElementBuilder createDataTypeLookupElement(@NotNull String name,
-                                                                    @Nullable InsertHandler<LookupElement> insertHandler) {
+                                                                    @Nullable InsertHandler<LookupElement>
+                                                                            insertHandler) {
         return createLookupElement(name, insertHandler).withTypeText("Data Type");
     }
 
@@ -310,7 +320,8 @@ public class SiddhiCompletionUtils {
      */
     @NotNull
     private static LookupElementBuilder createWindowProcessorTypeLookupElement(@NotNull String name,
-                                                                               @Nullable InsertHandler<LookupElement> insertHandler) {
+                                                                               @Nullable InsertHandler<LookupElement>
+                                                                                       insertHandler) {
         return createLookupElement(name, insertHandler).withTypeText("Window Processor");
     }
 
@@ -374,7 +385,7 @@ public class SiddhiCompletionUtils {
     }
 
     static void addEveryKeyword(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, AT);
+        addKeywordAsLookup(resultSet, EVERY);
     }
 
     /**
@@ -382,10 +393,14 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet, boolean withWhitespace, InsertHandler<LookupElement> insertHandler) {
+    static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet) {
 
-        LookupElementBuilder elementBuilder = LENGTH.withInsertHandler(insertHandler);
-        resultSet.addElement(PrioritizedLookupElement.withPriority(elementBuilder, VALUE_TYPES_PRIORITY));
+//        static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet, boolean withWhitespace,
+//        InsertHandler<LookupElement> insertHandler) {
+//
+//            LookupElementBuilder elementBuilder = LENGTH.withInsertHandler(insertHandler);
+//            resultSet.addElement(PrioritizedLookupElement.withPriority(elementBuilder, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTHBATCH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(SORT, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIMEBATCH, VALUE_TYPES_PRIORITY));
@@ -396,8 +411,6 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(CRON, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(TIMELENGTH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIME, VALUE_TYPES_PRIORITY));
-
-
     }
 
 
@@ -407,10 +420,6 @@ public class SiddhiCompletionUtils {
      * @param resultSet result list which is used to add lookups
      */
     static void addCommonKeywords(@NotNull CompletionResultSet resultSet) {
-
-
-        addKeywordAsLookup(resultSet, TABLE);
-        addKeywordAsLookup(resultSet, WINDOW);
         addKeywordAsLookup(resultSet, SELECT);
         addKeywordAsLookup(resultSet, GROUP);
         addKeywordAsLookup(resultSet, BY);
@@ -440,7 +449,6 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, BEGIN);
         addKeywordAsLookup(resultSet, END);
         addKeywordAsLookup(resultSet, NULL);
-
         addKeywordAsLookup(resultSet, LAST);
         addKeywordAsLookup(resultSet, ALL);
         addKeywordAsLookup(resultSet, FIRST);
@@ -459,7 +467,6 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, MINUTES);
         addKeywordAsLookup(resultSet, SECONDS);
         addKeywordAsLookup(resultSet, MILLISECONDS);
-
         addKeywordAsLookup(resultSet, AGGREGATION);
         addKeywordAsLookup(resultSet, AGGREGATE);
         addKeywordAsLookup(resultSet, PER);
@@ -470,9 +477,6 @@ public class SiddhiCompletionUtils {
     public static List<LookupElement> createCommonKeywords() {
         List<LookupElement> lookupElements = new LinkedList<>();
 
-
-        lookupElements.add(createKeywordAsLookup(TABLE));
-        lookupElements.add(createKeywordAsLookup(WINDOW));
         lookupElements.add(createKeywordAsLookup(SELECT));
         lookupElements.add(createKeywordAsLookup(GROUP));
         lookupElements.add(createKeywordAsLookup(BY));
@@ -502,7 +506,6 @@ public class SiddhiCompletionUtils {
         lookupElements.add(createKeywordAsLookup(BEGIN));
         lookupElements.add(createKeywordAsLookup(END));
         lookupElements.add(createKeywordAsLookup(NULL));
-
         lookupElements.add(createKeywordAsLookup(LAST));
         lookupElements.add(createKeywordAsLookup(ALL));
         lookupElements.add(createKeywordAsLookup(FIRST));
@@ -521,7 +524,6 @@ public class SiddhiCompletionUtils {
         lookupElements.add(createKeywordAsLookup(MINUTES));
         lookupElements.add(createKeywordAsLookup(SECONDS));
         lookupElements.add(createKeywordAsLookup(MILLISECONDS));
-
         lookupElements.add(createKeywordAsLookup(AGGREGATION));
         lookupElements.add(createKeywordAsLookup(AGGREGATE));
         lookupElements.add(createKeywordAsLookup(PER));

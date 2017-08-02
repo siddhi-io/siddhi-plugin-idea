@@ -25,6 +25,7 @@ import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
 import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.SiddhiTypes;
 import org.wso2.plugins.idea.psi.*;
@@ -39,7 +40,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         PsiElement parent = element.getParent();
 
         if (element instanceof LeafPsiElement) {
-            IElementType elementType = ((LeafPsiElement) element).getElementType();
+            IElementType elementType = ((LeafPsiElement) element).getElementType();//TODO: Handle null exception.
             if (elementType == SiddhiTypes.IDENTIFIER) {
                 if (PsiTreeUtil.prevVisibleLeaf(element) != null) { //gives null in first line first character
                     PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
@@ -48,9 +49,11 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                         addDefineTypesAsLookups(result);
                         return;
                     }
-                    TriggerDefinitionNode triggerDefinitionNode = PsiTreeUtil.getParentOfType(element, TriggerDefinitionNode.class);
+                    TriggerDefinitionNode triggerDefinitionNode = PsiTreeUtil.getParentOfType(element,
+                            TriggerDefinitionNode.class);
                     if (triggerDefinitionNode != null) {
-                        TriggerNameNode triggerNameNode = PsiTreeUtil.getParentOfType(prevVisibleSibling, TriggerNameNode.class);
+                        TriggerNameNode triggerNameNode = PsiTreeUtil.getParentOfType(prevVisibleSibling,
+                                TriggerNameNode.class);
                         if (triggerNameNode != null) {
                             addAtKeyword(result);
                             return;
@@ -60,24 +63,22 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                             return;
                         }
                     }
-                    WindowDefinitionNode windowDefinitionNode = PsiTreeUtil.getParentOfType(element, WindowDefinitionNode.class);
+
+                    WindowDefinitionNode windowDefinitionNode = PsiTreeUtil.getParentOfType(element,
+                            WindowDefinitionNode.class);
                     if (windowDefinitionNode != null) {
-                        FunctionOperationNode functionOperationNode = PsiTreeUtil.getParentOfType(element, FunctionOperationNode.class);
-                        //TODO: Handle the space characterS
-                        //if(prevVisibleSiblingElementType.toString().equals("')'") && functionOperationNode!=null){
-//                        PsiElement prevSibling=PsiTreeUtil.prevLeaf(element);
-//                        IElementType prevSiblingElementType = ((LeafPsiElement) prevSibling).getElementType();
-                        if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && functionOperationNode != null) { //&& prevSiblingElementType==SiddhiTypes.WHITE_SPACE ){
-
-                            PsiElement prevSibling = element.getPrevSibling();
-                            boolean withWhitespace = false;
-                            if (prevSibling == null || !(prevSibling instanceof PsiWhiteSpace)) {
-                                withWhitespace = true;
-                            }
-
-                            addWindowProcessorTypesAsLookups(result, withWhitespace);
+                        FunctionOperationNode functionOperationNode = PsiTreeUtil.getParentOfType(element,
+                                FunctionOperationNode.class);
+                        if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && functionOperationNode != null) {
+                            addWindowProcessorTypesAsLookups(result);
                             return;
                         }
+//                        PsiElement prevSibling = element.getPrevSibling();
+//                        boolean withWhitespace=false;
+//                        if(prevSibling==null || !(prevSibling instanceof PsiWhiteSpace)) {
+//                            //addWindowProcessorTypesAsLookups(result);
+//                            return;
+//                        }
                     }
                 }
             }
