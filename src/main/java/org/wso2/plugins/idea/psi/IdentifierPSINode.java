@@ -32,9 +32,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.SiddhiLanguage;
 import org.wso2.plugins.idea.SiddhiTypes;
-//import org.wso2.plugins.idea.psi.references.AttributeTypeReference;
 
-import static org.wso2.plugins.idea.grammar.SiddhiQLParser.*;
+//import org.wso2.plugins.idea.psi.references.AttributeTypeReference;
 
 public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedElement, PsiNameIdentifierOwner {
 

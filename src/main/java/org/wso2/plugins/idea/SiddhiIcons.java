@@ -5,7 +5,7 @@ import com.intellij.openapi.util.IconLoader;
 import com.intellij.ui.LayeredIcon;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 public class SiddhiIcons {
     public static final Icon ICON = IconLoader.findIcon("/icons/siddhi.png");

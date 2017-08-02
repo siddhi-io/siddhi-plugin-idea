@@ -28,32 +28,26 @@ import static org.wso2.plugins.idea.grammar.SiddhiQLParser.*;
 
 public class SiddhiParserDefinition implements ParserDefinition {
 
-    private static final IFileElementType FILE = new IFileElementType(SiddhiLanguage.INSTANCE);
-
-    static {
-        PSIElementTypeFactory.defineLanguageIElementTypes(SiddhiLanguage.INSTANCE, SiddhiQLParser.tokenNames,
-                SiddhiQLParser.ruleNames);
-    }
-
     public static final TokenSet KEYWORDS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, STREAM,
             DEFINE, FUNCTION, TRIGGER, TABLE, APP, FROM, PARTITION, WINDOW, SELECT, GROUP, BY, HAVING, INSERT,
             DELETE, UPDATE, RETURN, EVENTS, INTO, OUTPUT, EXPIRED, CURRENT, SNAPSHOT, FOR, RAW, OF, AS, AT, OR, AND,
             ON, IN, IS, NOT, WITHIN, WITH, BEGIN, END, NULL, EVERY, LAST, ALL, FIRST, JOIN, INNER, OUTER, RIGHT, LEFT,
             FULL, UNIDIRECTIONAL, YEARS, MONTHS, WEEKS, DAYS, HOURS, MINUTES, SECONDS, MILLISECONDS, FALSE, TRUE,
             STRING, INT, LONG, FLOAT, DOUBLE, BOOL, OBJECT, AGGREGATION, AGGREGATE, PER);
-
-
     public static final TokenSet COMMENTS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             SINGLE_LINE_COMMENT, MULTILINE_COMMENT);
-
     public static final TokenSet WHITESPACE = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             SPACES);
-
     public static final TokenSet STRING_LITERALS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             STRING_LITERAL);
-
     public static final TokenSet BAD_CHARACTER = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             UNEXPECTED_CHAR);
+    private static final IFileElementType FILE = new IFileElementType(SiddhiLanguage.INSTANCE);
+
+    static {
+        PSIElementTypeFactory.defineLanguageIElementTypes(SiddhiLanguage.INSTANCE, SiddhiQLParser.tokenNames,
+                SiddhiQLParser.ruleNames);
+    }
 
     @NotNull
     @Override
@@ -127,7 +121,7 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new WindowDefinitionNode(node);
             case RULE_function_operation:
                 return new FunctionOperationNode(node);
-//            case RULE_definition_function:
+            case RULE_definition_function:
 //                return new AttributeTypeNode(node);
 //            case RULE_function_name:
 //                return new AttributeTypeNode(node);

@@ -13,6 +13,7 @@ public class WindowDefinitionNode extends IdentifierDefSubtree implements ScopeN
     public WindowDefinitionNode(@NotNull ASTNode node) {
         super(node, SiddhiTypes.IDENTIFIER);
     }
+
     @Nullable
     @Override
     public PsiElement resolve(PsiNamedElement element) {

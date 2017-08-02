@@ -29,6 +29,7 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -100,7 +101,6 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder EXTERNALTIME;
 
     //Other Keywords
-
     private static final LookupElementBuilder SELECT;
     private static final LookupElementBuilder GROUP;
     private static final LookupElementBuilder BY;
@@ -142,79 +142,79 @@ public class SiddhiCompletionUtils {
 
 
     static {
-        DEFINE= createKeywordLookupElement("define");
-        PARTITION= createKeywordLookupElement("partition");
-        FROM= createKeywordLookupElement("from");
+        DEFINE = createKeywordLookupElement("define");
+        PARTITION = createKeywordLookupElement("partition");
+        FROM = createKeywordLookupElement("from");
 
 
-        STREAM= createKeywordLookupElement("stream");
-        TABLE= createKeywordLookupElement("table");
-        TRIGGER= createKeywordLookupElement("trigger");
-        FUNCTION= createKeywordLookupElement("function");
-        WINDOW= createKeywordLookupElement("window");
+        STREAM = createKeywordLookupElement("stream");
+        TABLE = createKeywordLookupElement("table");
+        TRIGGER = createKeywordLookupElement("trigger");
+        FUNCTION = createKeywordLookupElement("function");
+        WINDOW = createKeywordLookupElement("window");
 
-        OR= createKeywordLookupElement("or");
-        AND= createKeywordLookupElement("and");
-        NOT= createKeywordLookupElement("not");
-        IN= createKeywordLookupElement("in");
-        IS= createKeywordLookupElement("is");
+        OR = createKeywordLookupElement("or");
+        AND = createKeywordLookupElement("and");
+        NOT = createKeywordLookupElement("not");
+        IN = createKeywordLookupElement("in");
+        IS = createKeywordLookupElement("is");
 
-        EXPIRED= createKeywordLookupElement("expired");
-        CURRENT= createKeywordLookupElement("current");
-        ALL= createKeywordLookupElement("all");
+        EXPIRED = createKeywordLookupElement("expired");
+        CURRENT = createKeywordLookupElement("current");
+        ALL = createKeywordLookupElement("all");
 
 
-        YEARS= createKeywordLookupElement("years");
-        MONTHS= createKeywordLookupElement("months");
-        WEEKS= createKeywordLookupElement("weeks");
-        DAYS= createKeywordLookupElement("days");
-        HOURS= createKeywordLookupElement("hours");
-        MINUTES= createKeywordLookupElement("minutes");
-        SECONDS= createKeywordLookupElement("seconds");
-        MILLISECONDS= createKeywordLookupElement("milliseconds");
+        YEARS = createKeywordLookupElement("years");
+        MONTHS = createKeywordLookupElement("months");
+        WEEKS = createKeywordLookupElement("weeks");
+        DAYS = createKeywordLookupElement("days");
+        HOURS = createKeywordLookupElement("hours");
+        MINUTES = createKeywordLookupElement("minutes");
+        SECONDS = createKeywordLookupElement("seconds");
+        MILLISECONDS = createKeywordLookupElement("milliseconds");
 
-        AT= createKeywordLookupElement("at");
-        EVERY= createKeywordLookupElement("every");
+        AT = createKeywordLookupElement("at");
+        EVERY = createKeywordLookupElement("every");
 
-        SELECT= createKeywordLookupElement("select");
-        GROUP= createKeywordLookupElement("group");
-        BY= createKeywordLookupElement("by");
-        HAVING= createKeywordLookupElement("having");
-        INSERT= createKeywordLookupElement("insert");
-        DELETE= createKeywordLookupElement("delete");
-        UPDATE= createKeywordLookupElement("update");
-        RETURN= createKeywordLookupElement("return");
-        EVENTS= createKeywordLookupElement("events");
-        INTO= createKeywordLookupElement("into");
-        OUTPUT= createKeywordLookupElement("output");
-        SNAPSHOT= createKeywordLookupElement("snapshot");
-        FOR= createKeywordLookupElement("for");
-        RAW= createKeywordLookupElement("raw");
-        OF= createKeywordLookupElement("of");
-        AS= createKeywordLookupElement("as");
-        ON= createKeywordLookupElement("on");
-        WITHIN= createKeywordLookupElement("within");
-        WITH= createKeywordLookupElement("with");
-        BEGIN= createKeywordLookupElement("begin");
-        END= createKeywordLookupElement("end");
-        NULL= createKeywordLookupElement("null");
+        SELECT = createKeywordLookupElement("select");
+        GROUP = createKeywordLookupElement("group");
+        BY = createKeywordLookupElement("by");
+        HAVING = createKeywordLookupElement("having");
+        INSERT = createKeywordLookupElement("insert");
+        DELETE = createKeywordLookupElement("delete");
+        UPDATE = createKeywordLookupElement("update");
+        RETURN = createKeywordLookupElement("return");
+        EVENTS = createKeywordLookupElement("events");
+        INTO = createKeywordLookupElement("into");
+        OUTPUT = createKeywordLookupElement("output");
+        SNAPSHOT = createKeywordLookupElement("snapshot");
+        FOR = createKeywordLookupElement("for");
+        RAW = createKeywordLookupElement("raw");
+        OF = createKeywordLookupElement("of");
+        AS = createKeywordLookupElement("as");
+        ON = createKeywordLookupElement("on");
+        WITHIN = createKeywordLookupElement("within");
+        WITH = createKeywordLookupElement("with");
+        BEGIN = createKeywordLookupElement("begin");
+        END = createKeywordLookupElement("end");
+        NULL = createKeywordLookupElement("null");
 
-        LAST= createKeywordLookupElement("last");
-        FIRST= createKeywordLookupElement("first");
-        JOIN= createKeywordLookupElement("join");
-        INNER= createKeywordLookupElement("inner");
-        OUTER= createKeywordLookupElement("outer");
-        RIGHT= createKeywordLookupElement("right");
-        LEFT= createKeywordLookupElement("left");
-        FULL= createKeywordLookupElement("full");
-        UNIDIRECTIONAL= createKeywordLookupElement("unidirectional");
+        LAST = createKeywordLookupElement("last");
+        FIRST = createKeywordLookupElement("first");
+        JOIN = createKeywordLookupElement("join");
+        INNER = createKeywordLookupElement("inner");
+        OUTER = createKeywordLookupElement("outer");
+        RIGHT = createKeywordLookupElement("right");
+        LEFT = createKeywordLookupElement("left");
+        FULL = createKeywordLookupElement("full");
+        UNIDIRECTIONAL = createKeywordLookupElement("unidirectional");
 
-        FALSE= createKeywordLookupElement("false");
-        TRUE= createKeywordLookupElement("true");
+        FALSE = createKeywordLookupElement("false");
+        TRUE = createKeywordLookupElement("true");
 
-        AGGREGATION= createKeywordLookupElement("aggregation");
-        AGGREGATE= createKeywordLookupElement("aggregate");
-        PER= createKeywordLookupElement("per");
+        AGGREGATION = createKeywordLookupElement("aggregation");
+        AGGREGATE = createKeywordLookupElement("aggregate");
+        PER = createKeywordLookupElement("per");
 
 
         STRING = createDataTypeLookupElement("string", AddSpaceInsertHandler.INSTANCE);
@@ -223,19 +223,19 @@ public class SiddhiCompletionUtils {
         FLOAT = createDataTypeLookupElement("float", AddSpaceInsertHandler.INSTANCE);
         DOUBLE = createDataTypeLookupElement("double", AddSpaceInsertHandler.INSTANCE);
         BOOL = createDataTypeLookupElement("bool", AddSpaceInsertHandler.INSTANCE);
-        OBJECT= createDataTypeLookupElement("object", AddSpaceInsertHandler.INSTANCE);
+        OBJECT = createDataTypeLookupElement("object", AddSpaceInsertHandler.INSTANCE);
 
-        LENGTH= createWindowProcessorTypeLookupElement("length(window.length)",AddSpaceInsertHandler.INSTANCE).withPresentableText("length");
-        LENGTHBATCH= createWindowProcessorTypeLookupElement("lengthBatch(window.length)",AddSpaceInsertHandler.INSTANCE).withPresentableText("lengthBatch");
-        SORT= createWindowProcessorTypeLookupElement("sort(window.length, attribute, order)",AddSpaceInsertHandler.INSTANCE).withPresentableText("sort");
-        EXTERNALTIMEBATCH= createWindowProcessorTypeLookupElement("externalTimeBatch(timestamp, window.time, start.time, timeout)",AddSpaceInsertHandler.INSTANCE).withPresentableText("externalTimeBatch");
-        TIME= createWindowProcessorTypeLookupElement("time(window.time)",AddSpaceInsertHandler.INSTANCE).withPresentableText("time");
-        FREQUENT= createWindowProcessorTypeLookupElement("frequent(event.count, attribute)",AddSpaceInsertHandler.INSTANCE).withPresentableText("frequent");
-        LOSSYFREQUENT= createWindowProcessorTypeLookupElement("lossyFrequent(support.threshold, error.bound, attribute)",AddSpaceInsertHandler.INSTANCE).withPresentableText("lossyFrequent");
-        TIMEBATCH= createWindowProcessorTypeLookupElement("timeBatch(window.time, start.time)",AddSpaceInsertHandler.INSTANCE).withPresentableText("timeBatch");
-        CRON= createWindowProcessorTypeLookupElement("cron(cron.expression)",AddSpaceInsertHandler.INSTANCE).withPresentableText("cron");
-        TIMELENGTH= createWindowProcessorTypeLookupElement("timeLength(window.time, window.length)",AddSpaceInsertHandler.INSTANCE).withPresentableText("timeLength");
-        EXTERNALTIME= createWindowProcessorTypeLookupElement("externalTime(window.time)",AddSpaceInsertHandler.INSTANCE).withPresentableText("externalTime");
+        LENGTH = createWindowProcessorTypeLookupElement("length(window.length)", AddSpaceInsertHandler.INSTANCE).withPresentableText("length");
+        LENGTHBATCH = createWindowProcessorTypeLookupElement("lengthBatch(window.length)", AddSpaceInsertHandler.INSTANCE).withPresentableText("lengthBatch");
+        SORT = createWindowProcessorTypeLookupElement("sort(window.length, attribute, order)", AddSpaceInsertHandler.INSTANCE).withPresentableText("sort");
+        EXTERNALTIMEBATCH = createWindowProcessorTypeLookupElement("externalTimeBatch(timestamp, window.time, start.time, timeout)", AddSpaceInsertHandler.INSTANCE).withPresentableText("externalTimeBatch");
+        TIME = createWindowProcessorTypeLookupElement("time(window.time)", AddSpaceInsertHandler.INSTANCE).withPresentableText("time");
+        FREQUENT = createWindowProcessorTypeLookupElement("frequent(event.count, attribute)", AddSpaceInsertHandler.INSTANCE).withPresentableText("frequent");
+        LOSSYFREQUENT = createWindowProcessorTypeLookupElement("lossyFrequent(support.threshold, error.bound, attribute)", AddSpaceInsertHandler.INSTANCE).withPresentableText("lossyFrequent");
+        TIMEBATCH = createWindowProcessorTypeLookupElement("timeBatch(window.time, start.time)", AddSpaceInsertHandler.INSTANCE).withPresentableText("timeBatch");
+        CRON = createWindowProcessorTypeLookupElement("cron(cron.expression)", AddSpaceInsertHandler.INSTANCE).withPresentableText("cron");
+        TIMELENGTH = createWindowProcessorTypeLookupElement("timeLength(window.time, window.length)", AddSpaceInsertHandler.INSTANCE).withPresentableText("timeLength");
+        EXTERNALTIME = createWindowProcessorTypeLookupElement("externalTime(window.time)", AddSpaceInsertHandler.INSTANCE).withPresentableText("externalTime");
 
     }
 
@@ -291,26 +291,26 @@ public class SiddhiCompletionUtils {
     /**
      * Creates a <b>Type</b> lookup element.
      *
-     * @param name of the lookup
+     * @param name          of the lookup
      * @param insertHandler insert handler of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
     @NotNull
     private static LookupElementBuilder createDataTypeLookupElement(@NotNull String name,
-                                                                @Nullable InsertHandler<LookupElement> insertHandler) {
+                                                                    @Nullable InsertHandler<LookupElement> insertHandler) {
         return createLookupElement(name, insertHandler).withTypeText("Data Type");
     }
 
     /**
      * Creates a <b>Type</b> lookup element.
      *
-     * @param name of the lookup
+     * @param name          of the lookup
      * @param insertHandler insert handler of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
     @NotNull
     private static LookupElementBuilder createWindowProcessorTypeLookupElement(@NotNull String name,
-                                                                    @Nullable InsertHandler<LookupElement> insertHandler) {
+                                                                               @Nullable InsertHandler<LookupElement> insertHandler) {
         return createLookupElement(name, insertHandler).withTypeText("Window Processor");
     }
 
@@ -382,8 +382,10 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet) {
-        resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTH, VALUE_TYPES_PRIORITY));
+    static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet, boolean withWhitespace, InsertHandler<LookupElement> insertHandler) {
+
+        LookupElementBuilder elementBuilder = LENGTH.withInsertHandler(insertHandler);
+        resultSet.addElement(PrioritizedLookupElement.withPriority(elementBuilder, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTHBATCH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(SORT, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIMEBATCH, VALUE_TYPES_PRIORITY));
@@ -394,6 +396,8 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(CRON, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(TIMELENGTH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIME, VALUE_TYPES_PRIORITY));
+
+
     }
 
 
@@ -411,7 +415,7 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, GROUP);
         addKeywordAsLookup(resultSet, BY);
         addKeywordAsLookup(resultSet, HAVING);
-        addKeywordAsLookup(resultSet,INSERT);
+        addKeywordAsLookup(resultSet, INSERT);
         addKeywordAsLookup(resultSet, DELETE);
         addKeywordAsLookup(resultSet, UPDATE);
         addKeywordAsLookup(resultSet, RETURN);
@@ -453,7 +457,7 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, DAYS);
         addKeywordAsLookup(resultSet, HOURS);
         addKeywordAsLookup(resultSet, MINUTES);
-        addKeywordAsLookup(resultSet,SECONDS);
+        addKeywordAsLookup(resultSet, SECONDS);
         addKeywordAsLookup(resultSet, MILLISECONDS);
 
         addKeywordAsLookup(resultSet, AGGREGATION);
@@ -467,60 +471,60 @@ public class SiddhiCompletionUtils {
         List<LookupElement> lookupElements = new LinkedList<>();
 
 
-        lookupElements.add(createKeywordAsLookup (TABLE));
-        lookupElements.add(createKeywordAsLookup (WINDOW));
-        lookupElements.add(createKeywordAsLookup (SELECT));
-        lookupElements.add(createKeywordAsLookup (GROUP));
-        lookupElements.add(createKeywordAsLookup (BY));
-        lookupElements.add(createKeywordAsLookup (HAVING));
-        lookupElements.add(createKeywordAsLookup (INSERT));
-        lookupElements.add(createKeywordAsLookup (DELETE));
-        lookupElements.add(createKeywordAsLookup (UPDATE));
-        lookupElements.add(createKeywordAsLookup (RETURN));
-        lookupElements.add(createKeywordAsLookup (EVENTS));
-        lookupElements.add(createKeywordAsLookup (INTO));
-        lookupElements.add(createKeywordAsLookup (OUTPUT));
-        lookupElements.add(createKeywordAsLookup (EXPIRED));
-        lookupElements.add(createKeywordAsLookup (CURRENT));
-        lookupElements.add(createKeywordAsLookup (SNAPSHOT));
-        lookupElements.add(createKeywordAsLookup (FOR));
-        lookupElements.add(createKeywordAsLookup (RAW));
-        lookupElements.add(createKeywordAsLookup (OF));
-        lookupElements.add(createKeywordAsLookup (AS));
-        lookupElements.add(createKeywordAsLookup (OR));
-        lookupElements.add(createKeywordAsLookup (AND));
-        lookupElements.add(createKeywordAsLookup (ON));
-        lookupElements.add(createKeywordAsLookup (IN));
-        lookupElements.add(createKeywordAsLookup (IS));
-        lookupElements.add(createKeywordAsLookup (NOT));
-        lookupElements.add(createKeywordAsLookup (WITHIN));
-        lookupElements.add(createKeywordAsLookup (WITH));
-        lookupElements.add(createKeywordAsLookup (BEGIN));
-        lookupElements.add(createKeywordAsLookup (END));
-        lookupElements.add(createKeywordAsLookup (NULL));
+        lookupElements.add(createKeywordAsLookup(TABLE));
+        lookupElements.add(createKeywordAsLookup(WINDOW));
+        lookupElements.add(createKeywordAsLookup(SELECT));
+        lookupElements.add(createKeywordAsLookup(GROUP));
+        lookupElements.add(createKeywordAsLookup(BY));
+        lookupElements.add(createKeywordAsLookup(HAVING));
+        lookupElements.add(createKeywordAsLookup(INSERT));
+        lookupElements.add(createKeywordAsLookup(DELETE));
+        lookupElements.add(createKeywordAsLookup(UPDATE));
+        lookupElements.add(createKeywordAsLookup(RETURN));
+        lookupElements.add(createKeywordAsLookup(EVENTS));
+        lookupElements.add(createKeywordAsLookup(INTO));
+        lookupElements.add(createKeywordAsLookup(OUTPUT));
+        lookupElements.add(createKeywordAsLookup(EXPIRED));
+        lookupElements.add(createKeywordAsLookup(CURRENT));
+        lookupElements.add(createKeywordAsLookup(SNAPSHOT));
+        lookupElements.add(createKeywordAsLookup(FOR));
+        lookupElements.add(createKeywordAsLookup(RAW));
+        lookupElements.add(createKeywordAsLookup(OF));
+        lookupElements.add(createKeywordAsLookup(AS));
+        lookupElements.add(createKeywordAsLookup(OR));
+        lookupElements.add(createKeywordAsLookup(AND));
+        lookupElements.add(createKeywordAsLookup(ON));
+        lookupElements.add(createKeywordAsLookup(IN));
+        lookupElements.add(createKeywordAsLookup(IS));
+        lookupElements.add(createKeywordAsLookup(NOT));
+        lookupElements.add(createKeywordAsLookup(WITHIN));
+        lookupElements.add(createKeywordAsLookup(WITH));
+        lookupElements.add(createKeywordAsLookup(BEGIN));
+        lookupElements.add(createKeywordAsLookup(END));
+        lookupElements.add(createKeywordAsLookup(NULL));
 
-        lookupElements.add(createKeywordAsLookup (LAST));
-        lookupElements.add(createKeywordAsLookup (ALL));
-        lookupElements.add(createKeywordAsLookup (FIRST));
-        lookupElements.add(createKeywordAsLookup (JOIN));
-        lookupElements.add(createKeywordAsLookup (INNER));
-        lookupElements.add(createKeywordAsLookup (OUTER));
-        lookupElements.add(createKeywordAsLookup (RIGHT));
-        lookupElements.add(createKeywordAsLookup (LEFT));
-        lookupElements.add(createKeywordAsLookup (FULL));
-        lookupElements.add(createKeywordAsLookup (UNIDIRECTIONAL));
-        lookupElements.add(createKeywordAsLookup (YEARS));
-        lookupElements.add(createKeywordAsLookup (MONTHS));
-        lookupElements.add(createKeywordAsLookup (WEEKS));
-        lookupElements.add(createKeywordAsLookup (DAYS));
-        lookupElements.add(createKeywordAsLookup (HOURS));
-        lookupElements.add(createKeywordAsLookup (MINUTES));
-        lookupElements.add(createKeywordAsLookup (SECONDS));
-        lookupElements.add(createKeywordAsLookup (MILLISECONDS));
+        lookupElements.add(createKeywordAsLookup(LAST));
+        lookupElements.add(createKeywordAsLookup(ALL));
+        lookupElements.add(createKeywordAsLookup(FIRST));
+        lookupElements.add(createKeywordAsLookup(JOIN));
+        lookupElements.add(createKeywordAsLookup(INNER));
+        lookupElements.add(createKeywordAsLookup(OUTER));
+        lookupElements.add(createKeywordAsLookup(RIGHT));
+        lookupElements.add(createKeywordAsLookup(LEFT));
+        lookupElements.add(createKeywordAsLookup(FULL));
+        lookupElements.add(createKeywordAsLookup(UNIDIRECTIONAL));
+        lookupElements.add(createKeywordAsLookup(YEARS));
+        lookupElements.add(createKeywordAsLookup(MONTHS));
+        lookupElements.add(createKeywordAsLookup(WEEKS));
+        lookupElements.add(createKeywordAsLookup(DAYS));
+        lookupElements.add(createKeywordAsLookup(HOURS));
+        lookupElements.add(createKeywordAsLookup(MINUTES));
+        lookupElements.add(createKeywordAsLookup(SECONDS));
+        lookupElements.add(createKeywordAsLookup(MILLISECONDS));
 
-        lookupElements.add(createKeywordAsLookup (AGGREGATION));
-        lookupElements.add(createKeywordAsLookup (AGGREGATE));
-        lookupElements.add(createKeywordAsLookup (PER));
+        lookupElements.add(createKeywordAsLookup(AGGREGATION));
+        lookupElements.add(createKeywordAsLookup(AGGREGATE));
+        lookupElements.add(createKeywordAsLookup(PER));
 
         return lookupElements;
     }

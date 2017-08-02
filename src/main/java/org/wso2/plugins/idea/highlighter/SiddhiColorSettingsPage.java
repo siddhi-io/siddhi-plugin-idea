@@ -5,12 +5,11 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
-import org.wso2.plugins.idea.SiddhiIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.SiddhiIcons;
 
-import javax.swing.Icon;
-
+import javax.swing.*;
 import java.util.Map;
 
 public class SiddhiColorSettingsPage implements ColorSettingsPage {

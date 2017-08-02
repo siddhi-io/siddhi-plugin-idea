@@ -13,6 +13,7 @@ public class TriggerDefinitionNode extends IdentifierDefSubtree implements Scope
     public TriggerDefinitionNode(@NotNull ASTNode node) {
         super(node, SiddhiTypes.IDENTIFIER);
     }
+
     @Nullable
     @Override
     public PsiElement resolve(PsiNamedElement element) {

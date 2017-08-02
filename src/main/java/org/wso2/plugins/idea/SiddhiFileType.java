@@ -4,7 +4,7 @@ import com.intellij.openapi.fileTypes.LanguageFileType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 public class SiddhiFileType extends LanguageFileType {
 

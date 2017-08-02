@@ -1,3 +1,45 @@
+//
+//grammar SiddhiQL;
+//
+//@header {
+//	package org.wso2.plugins.idea.grammar;
+//	//import org.wso2.siddhi.query.compiler.exception.SiddhiParserException;
+//}
+//
+//parse
+//    : siddhi_app EOF
+//    ;
+//
+//error
+//    : UNEXPECTED_CHAR
+//  //      {throw new SiddhiParserException("You have an error in your SiddhiQL at line " + $UNEXPECTED_CHAR.line + ", unexpected charecter '"+ $UNEXPECTED_CHAR.text +"'");}
+//    ;
+//
+////siddhi_app
+////    : (app_annotation|error)*
+////      ( tempQuery (';' tempQuery)* ';'?
+////      || tempStream (';' tempStream)* (';' tempQuery)* ';'? )
+////    ;
+////
+////tempStream
+////    :   (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error)
+////    ;
+////
+////tempQuery
+////    :   (execution_element|error)
+////    ;
+////siddhi_app //--Original
+////    : (app_annotation|error)*
+////      ( (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* ';'?
+////      || (execution_element|error) (';' (execution_element|error))* ';'?
+////      || (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* (';' (execution_element|error))* ';'? )
+////    ;
+//
+//siddhi_app
+//    : (app_annotation|error)*
+//      ( (execution_element|error) (';' (execution_element|error))* ';'?
+//      || (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* (';' (execution_element|error))* ';'? )
+//    ;
 /*
  * Copyright (c) 2005-2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
  *
@@ -19,7 +61,7 @@
 grammar SiddhiQL;
 
 @header {
-	package org.wso2.plugins.idea.grammar;
+    package org.wso2.plugins.idea.grammar;
 	//import org.wso2.siddhi.query.compiler.exception.SiddhiParserException;
 }
 
@@ -28,33 +70,13 @@ parse
     ;
 
 error
-    : UNEXPECTED_CHAR 
+    : UNEXPECTED_CHAR
   //      {throw new SiddhiParserException("You have an error in your SiddhiQL at line " + $UNEXPECTED_CHAR.line + ", unexpected charecter '"+ $UNEXPECTED_CHAR.text +"'");}
     ;
 
-//siddhi_app
-//    : (app_annotation|error)*
-//      ( tempQuery (';' tempQuery)* ';'?
-//      || tempStream (';' tempStream)* (';' tempQuery)* ';'? )
-//    ;
-//
-//tempStream
-//    :   (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error)
-//    ;
-//
-//tempQuery
-//    :   (execution_element|error)
-//    ;
-//siddhi_app //--Original
-//    : (app_annotation|error)*
-//      ( (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* ';'?
-//      || (execution_element|error) (';' (execution_element|error))* ';'?
-//      || (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* (';' (execution_element|error))* ';'? )
-//    ;
-
 siddhi_app
     : (app_annotation|error)*
-      ( (execution_element|error) (';' (execution_element|error))* ';'?
+      ((execution_element|error) (';' (execution_element|error))* ';'?
       || (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* (';' (execution_element|error))* ';'? )
     ;
 
@@ -84,6 +106,18 @@ definition_window_final
 
 definition_window
     : annotation* DEFINE WINDOW source '(' attribute_name attribute_type (',' attribute_name attribute_type )* ')' function_operation ( OUTPUT output_event_type )?
+    ;
+
+store_query_final
+    : store_query ';'? EOF
+    ;
+
+store_query
+    : FROM store_input query_section?
+    ;
+
+store_input
+    : source_id (AS alias)? (ON expression)? (within_time_range per)?
     ;
 
 definition_function_final
@@ -169,7 +203,7 @@ partition_final
 
 partition_with_stream
     :attribute OF stream_id
-    |condition_ranges OF stream_id 
+    |condition_ranges OF stream_id
     ;
 
 condition_ranges
@@ -203,7 +237,7 @@ join_stream
     ;
 
 join_source
-    :source basic_source_stream_handlers? window? (AS stream_alias)?
+    :source basic_source_stream_handlers? window? (AS alias)?
     ;
 
 pattern_stream
@@ -211,17 +245,17 @@ pattern_stream
     ;
 
 every_pattern_source_chain
-    : '('every_pattern_source_chain')' within_time? 
-    | EVERY '('pattern_source_chain ')' within_time?   
+    : '('every_pattern_source_chain')' within_time?
+    | EVERY '('pattern_source_chain ')' within_time?
     | every_pattern_source_chain  '->' every_pattern_source_chain
     | pattern_source_chain
-    | EVERY pattern_source within_time? 
+    | EVERY pattern_source within_time?
     ;
 
 pattern_source_chain
-    : '('pattern_source_chain')' within_time? 
+    : '('pattern_source_chain')' within_time?
     | pattern_source_chain  '->' pattern_source_chain
-    | pattern_source within_time? 
+    | pattern_source within_time?
     ;
 
 pattern_source
@@ -247,7 +281,7 @@ basic_source
     ;
 
 basic_source_stream_handlers
-    :(basic_source_stream_handler)+ 
+    :(basic_source_stream_handler)+
     ;
 
 basic_source_stream_handler
@@ -259,9 +293,9 @@ sequence_stream
     ;
 
 sequence_source_chain
-    :'('sequence_source_chain ')' within_time? 
+    :'('sequence_source_chain ')' within_time?
     | sequence_source_chain ',' sequence_source_chain
-    | sequence_source  within_time? 
+    | sequence_source  within_time?
     ;
 
 sequence_source
@@ -269,7 +303,7 @@ sequence_source
     ;
 
 sequence_collection_stateful_source
-    :standard_stateful_source ('<' collect '>'|zero_or_more='*'|zero_or_one='?'|one_or_more='+') 
+    :standard_stateful_source ('<' collect '>'|zero_or_more='*'|zero_or_one='?'|one_or_more='+')
     ;
 
 anonymous_stream
@@ -314,7 +348,7 @@ query_output
     ;
 
 output_event_type
-    : ALL EVENTS | ALL RAW EVENTS | EXPIRED EVENTS | EXPIRED RAW EVENTS | CURRENT? EVENTS   
+    : ALL EVENTS | ALL RAW EVENTS | EXPIRED EVENTS | EXPIRED RAW EVENTS | CURRENT? EVENTS
     ;
 
 output_rate
@@ -406,7 +440,11 @@ stream_id
     :name
     ;
 
-stream_alias
+source_id
+    :name
+    ;
+
+alias
     :name
     ;
 
@@ -454,13 +492,13 @@ collect
     ;
 
 attribute_type
-    :STRING     
-    |INT        
-    |LONG       
-    |FLOAT      
-    |DOUBLE     
-    |BOOL      
-    |OBJECT     
+    :STRING
+    |INT
+    |LONG
+    |FLOAT
+    |DOUBLE
+    |BOOL
+    |OBJECT
     ;
 
 join
@@ -512,7 +550,6 @@ keyword
     | OR
     | AND
     | ON
-    | IN
     | IS
     | NOT
     | WITHIN
@@ -548,9 +585,6 @@ keyword
     | DOUBLE
     | BOOL
     | OBJECT
-    | AGGREGATION
-    | AGGREGATE
-    | PER
     ;
 
 time_value
@@ -558,13 +592,13 @@ time_value
     |  month_value ( week_value)? ( day_value)? ( hour_value)? ( minute_value)? ( second_value)?  ( millisecond_value)?
     |  week_value ( day_value)? ( hour_value)? ( minute_value)? ( second_value)?  ( millisecond_value)?
     |  day_value ( hour_value)? ( minute_value)? ( second_value)?  ( millisecond_value)?
-    |  hour_value ( minute_value)? ( second_value)?  ( millisecond_value)?       
+    |  hour_value ( minute_value)? ( second_value)?  ( millisecond_value)?
     |  minute_value ( second_value)?  ( millisecond_value)?
     |  second_value ( millisecond_value)?
     |  millisecond_value
     ;
 
-year_value 
+year_value
     : INT_LITERAL YEARS
     ;
 
@@ -603,24 +637,24 @@ signed_int_value: ('-' |'+')? INT_LITERAL;
 bool_value: TRUE|FALSE;
 string_value: STRING_LITERAL;
 
-INT_LITERAL 
+INT_LITERAL
     :  DIGIT+
     ;
 
 LONG_LITERAL
     : DIGIT+ L
-    ; 
+    ;
 
 FLOAT_LITERAL
     : DIGIT+ ( '.' DIGIT* )? ( E [-+]? DIGIT+ )? F
     | (DIGIT+)? '.' DIGIT+ ( E [-+]? DIGIT+ )? F
-    ; 
+    ;
 
 DOUBLE_LITERAL
     : DIGIT+ ( '.' DIGIT* )? ( E [-+]? DIGIT+ )? D
     | DIGIT+ ( '.' DIGIT* )?  E [-+]? DIGIT+  D?
     | (DIGIT+)? '.' DIGIT+ ( E [-+]? DIGIT+ )? D?
-    ; 
+    ;
 
 /*
 ID_QUOTES : '`'('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*'`' {setText(getText().substring(1, getText().length()-1));};
@@ -629,7 +663,7 @@ ID_NO_QUOTES : ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')* ;
 
 
 STRING_VAL
-    :('\'' ( ~('\u0000'..'\u001f' | '\\' | '\''| '\"' ) )* '\'' 
+    :('\'' ( ~('\u0000'..'\u001f' | '\\' | '\''| '\"' ) )* '\''
     |'"' ( ~('\u0000'..'\u001f' | '\\'  |'\"') )* '"' )         {setText(getText().substring(1, getText().length()-1));}
     ;
 
@@ -668,7 +702,7 @@ TRIGGER:  T R I G G E R;
 TABLE:    T A B L E;
 APP:      A P P;
 FROM:     F R O M;
-PARTITION:    P A R T I T I O N; 
+PARTITION:    P A R T I T I O N;
 WINDOW:   W I N D O W;
 SELECT:   S E L E C T;
 GROUP:    G R O U P;
@@ -696,7 +730,7 @@ ON:       O N;
 IS:       I S;
 NOT:      N O T;
 WITHIN:   W I T H I N;
-WITH:     W I T H; 
+WITH:     W I T H;
 BEGIN:    B E G I N;
 END:      E N D;
 NULL:     N U L L;
@@ -800,4 +834,3 @@ fragment W : [wW];
 fragment X : [xX];
 fragment Y : [yY];
 fragment Z : [zZ];
-
