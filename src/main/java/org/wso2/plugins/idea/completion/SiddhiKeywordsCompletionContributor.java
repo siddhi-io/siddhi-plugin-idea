@@ -63,20 +63,24 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                             return;
                         }
                     }
-
+                    //TODO: Include these statements in different methods
                     WindowDefinitionNode windowDefinitionNode = PsiTreeUtil.getParentOfType(element,
                             WindowDefinitionNode.class);
                     if (windowDefinitionNode != null) {
-                        FunctionOperationNode functionOperationNode = PsiTreeUtil.getParentOfType(element,
-                                FunctionOperationNode.class);
-                        if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && functionOperationNode != null) {
+//                        FunctionOperationNode functionOperationNode = PsiTreeUtil.getParentOfType(element,
+//                                FunctionOperationNode.class);
+                        if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR ){//TODO: if not a error element
+                            // don't sufggest //Update the logic //event after sufggesion para it suggests
+                            // &&
+                            // functionOperationNode !=
+                            // null) {
                             addWindowProcessorTypesAsLookups(result);
                             return;
-                        }
+                        }//TODO: handle the whitespace
 //                        PsiElement prevSibling = element.getPrevSibling();
 //                        boolean withWhitespace=false;
 //                        if(prevSibling==null || !(prevSibling instanceof PsiWhiteSpace)) {
-//                            //addWindowProcessorTypesAsLookups(result);
+//                            addWindowProcessorTypesAsLookups(result);
 //                            return;
 //                        }
                     }
@@ -85,14 +89,17 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         }
 
         if (parent instanceof PsiErrorElement) {
-            PsiElement parentOfParent = parent.getParent();
-            PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(parent);
-
-            if (parentOfParent instanceof AttributeTypeNode) {
-                addValueTypesAsLookups(result);
+            //PsiElement parentOfParent = parent.getParent();
+            //PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(parent);
+            PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
+            AttributeNameNode attributeNameNode = PsiTreeUtil.getParentOfType(prevVisibleSibling,
+                    AttributeNameNode.class);//TODO: check null
+            if(attributeNameNode!=null){
+            //if (parentOfParent instanceof AttributeTypeNode) {
+                addValueTypesAsLookups(result);//TODO: Value Types doesn't show up
 
             } else {
-                addInitialTypesAsLookups(result);
+                addInitialTypesAsLookups(result);//TODO: Adjust the suggestion place
             }
         }
 

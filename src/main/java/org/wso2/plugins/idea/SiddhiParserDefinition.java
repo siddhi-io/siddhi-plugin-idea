@@ -141,8 +141,8 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new WindowDefinitionNode(node);
             case RULE_function_operation:
                 return new FunctionOperationNode(node);
-//            case RULE_definition_function:
-//                return new AttributeTypeNode(node);
+            case RULE_attribute_name:
+                return new AttributeNameNode(node);
 //            case RULE_function_name:
 //                return new AttributeTypeNode(node);
 //            case RULE_function_body:
