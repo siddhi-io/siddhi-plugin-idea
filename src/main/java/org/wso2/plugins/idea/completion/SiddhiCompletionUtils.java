@@ -150,7 +150,6 @@ public class SiddhiCompletionUtils {
         FROM = createKeywordLookupElement("from");
         AT_SYMBOL=createKeywordLookupElement("@");
 
-
         STREAM = createKeywordLookupElement("stream");
         TABLE = createKeywordLookupElement("table");
         TRIGGER = createKeywordLookupElement("trigger");
@@ -167,7 +166,6 @@ public class SiddhiCompletionUtils {
         CURRENT = createKeywordLookupElement("current");
         ALL = createKeywordLookupElement("all");
 
-
         YEARS = createKeywordLookupElement("years");
         MONTHS = createKeywordLookupElement("months");
         WEEKS = createKeywordLookupElement("weeks");
@@ -179,8 +177,7 @@ public class SiddhiCompletionUtils {
 
         AT = createKeywordLookupElement("at");
         EVERY = createKeywordLookupElement("every");
-        RETURN = createKeywordLookupElement(" return");
-
+        RETURN = createKeywordLookupElement("return");
 
         JAVASCRIPT= createKeywordWithoutEndWhitespaceLookupElement("JavaScript");
         SCALA= createKeywordWithoutEndWhitespaceLookupElement("Scala");
@@ -235,29 +232,28 @@ public class SiddhiCompletionUtils {
         BOOL = createDataTypeLookupElement("bool", null);
         OBJECT = createDataTypeLookupElement("object", null);
 
-        LENGTH = createWindowProcessorTypeLookupElement(" length(window.length)", null)
+        LENGTH = createWindowProcessorTypeLookupElement("length(window.length)", null)
                 .withPresentableText("length");
-        LENGTHBATCH = createWindowProcessorTypeLookupElement(" lengthBatch(window.length)", null)
+        LENGTHBATCH = createWindowProcessorTypeLookupElement("lengthBatch(window.length)", null)
                 .withPresentableText("lengthBatch");
-        SORT = createWindowProcessorTypeLookupElement(" sort(window.length, attribute, order)", null)
+        SORT = createWindowProcessorTypeLookupElement("sort(window.length, attribute, order)", null)
                 .withPresentableText("sort");
-        EXTERNALTIMEBATCH = createWindowProcessorTypeLookupElement(" externalTimeBatch(timestamp, window.time, start" +
+        EXTERNALTIMEBATCH = createWindowProcessorTypeLookupElement("externalTimeBatch(timestamp, window.time, start" +
                 ".time, timeout)", null).withPresentableText("externalTimeBatch");
-        TIME = createWindowProcessorTypeLookupElement(" time(window.time)", null)
+        TIME = createWindowProcessorTypeLookupElement("time(window.time)", null)
                 .withPresentableText("time");
-        FREQUENT = createWindowProcessorTypeLookupElement(" frequent(event.count, attribute)", null)
+        FREQUENT = createWindowProcessorTypeLookupElement("frequent(event.count, attribute)", null)
                 .withPresentableText("frequent");
-        LOSSYFREQUENT = createWindowProcessorTypeLookupElement(" lossyFrequent(support.threshold, error.bound, " +
+        LOSSYFREQUENT = createWindowProcessorTypeLookupElement("lossyFrequent(support.threshold, error.bound, " +
                 "attribute)", null).withPresentableText("lossyFrequent");
-        TIMEBATCH = createWindowProcessorTypeLookupElement(" timeBatch(window.time, start.time)",
+        TIMEBATCH = createWindowProcessorTypeLookupElement("timeBatch(window.time, start.time)",
                 null).withPresentableText("timeBatch");
-        CRON = createWindowProcessorTypeLookupElement(" cron(cron.expression)", null)
+        CRON = createWindowProcessorTypeLookupElement("cron(cron.expression)", null)
                 .withPresentableText("cron");
-        TIMELENGTH = createWindowProcessorTypeLookupElement(" timeLength(window.time, window.length)",
+        TIMELENGTH = createWindowProcessorTypeLookupElement("timeLength(window.time, window.length)",
                 null).withPresentableText("timeLength");
-        EXTERNALTIME = createWindowProcessorTypeLookupElement(" externalTime(window.time)", null)
+        EXTERNALTIME = createWindowProcessorTypeLookupElement("externalTime(window.time)", null)
                 .withPresentableText("externalTime");
-
     }
 
     private SiddhiCompletionUtils() {

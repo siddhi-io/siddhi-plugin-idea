@@ -48,6 +48,8 @@ public class SiddhiTypes {
             .OPEN_SQUARE_BRACKETS);
     public static final TokenIElementType CLOSE_SQUARE_BRACKETS=tokenIElementTypes.get(SiddhiQLLexer
             .CLOSE_SQUARE_BRACKETS);
+    public static final TokenIElementType SEMI_COLON=tokenIElementTypes.get(SiddhiQLLexer
+            .SCOL);
     public static final TokenIElementType RETURN = tokenIElementTypes.get(SiddhiQLLexer.RETURN);
     public static final TokenIElementType WHITE_SPACE = tokenIElementTypes.get(SiddhiQLLexer.SPACES);
 

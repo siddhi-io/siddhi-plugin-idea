@@ -20,6 +20,7 @@ import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -44,6 +45,9 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                         IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling)
                                 .getElementType();
 
+                        if(prevVisibleSiblingElementType==SiddhiTypes.SEMI_COLON){
+                            addInitialTypesAsLookups(result);
+                        }
                         //after define suggestions
                         if (prevVisibleSiblingElementType == SiddhiTypes.DEFINE) {
                             addDefineTypesAsLookups(result);
@@ -81,10 +85,13 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                                 addLanguageTypesKeywords(result);
                                 return;
                             }
-                            if (prevVisibleSiblingElementType==SiddhiTypes.CLOSE_SQUARE_BRACKETS && PsiTreeUtil
-                                    .getParentOfType(prevPreVisibleSibling, LanguageNameNode.class) != null) {
-                                addReturnKeyword(result);
-                                return;
+                            if(element.getParent().getPrevSibling()!=null){
+                                if (prevVisibleSiblingElementType==SiddhiTypes.CLOSE_SQUARE_BRACKETS && PsiTreeUtil
+                                        .getParentOfType(prevPreVisibleSibling, LanguageNameNode.class) != null &&
+                                        element.getParent().getPrevSibling() instanceof PsiWhiteSpace) {
+                                    addReturnKeyword(result);
+                                    return;
+                                }
                             }
                             if (((LeafPsiElement) prevVisibleSibling).getElementType() != null) {
                                 IElementType prevPrevVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling)
@@ -99,8 +106,11 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                             }
 
                             //TODO: add aggregation definition
-                            addInitialTypesAsLookups(result);//TODO: Adjust the define suggestions
+                            //addInitialTypesAsLookups(result);//TODO: Adjust the define suggestions
                         }
+                    }else{
+                        addInitialTypesAsLookups(result);
+                        return;
                     }
                 }
             }
@@ -113,10 +123,14 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         if(PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling)!=null) {
             PsiElement prevPrevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling);
 
-            if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && PsiTreeUtil.getParentOfType
-                    (prevPrevVisibleSibling, AttributeTypeNode.class) != null) {
-                addWindowProcessorTypesAsLookups(result);
-            }//TODO: handle the whitespace
+            if(element.getParent().getParent().getPrevSibling()!=null){
+                if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && PsiTreeUtil.getParentOfType
+                        (prevPrevVisibleSibling, AttributeTypeNode.class) != null && element.getParent()
+                        .getParent().getPrevSibling() instanceof PsiWhiteSpace) {
+                    addWindowProcessorTypesAsLookups(result);
+                }
+            }
+
         }
     }
 }
