@@ -44,6 +44,11 @@ public class SiddhiTypes {
     public static final TokenIElementType TABLE = tokenIElementTypes.get(SiddhiQLLexer.TABLE);
     public static final TokenIElementType AT = tokenIElementTypes.get(SiddhiQLLexer.AT);
     public static final TokenIElementType CLOSE_PAR = tokenIElementTypes.get(SiddhiQLLexer.CLOSE_PAR);
+    public static final TokenIElementType OPEN_SQUARE_BRACKETS=tokenIElementTypes.get(SiddhiQLLexer
+            .OPEN_SQUARE_BRACKETS);
+    public static final TokenIElementType CLOSE_SQUARE_BRACKETS=tokenIElementTypes.get(SiddhiQLLexer
+            .CLOSE_SQUARE_BRACKETS);
+    public static final TokenIElementType RETURN = tokenIElementTypes.get(SiddhiQLLexer.RETURN);
     public static final TokenIElementType WHITE_SPACE = tokenIElementTypes.get(SiddhiQLLexer.SPACES);
 
     public static final RuleIElementType ATTRIBUTE_TYPE = ruleIElementTypes.get(RULE_attribute_type);

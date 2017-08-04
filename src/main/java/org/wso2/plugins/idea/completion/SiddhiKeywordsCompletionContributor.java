@@ -75,10 +75,29 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                                 return;
                             }
                             //suggestions related to function definition
-                            if (PsiTreeUtil.getParentOfType(element, LanguageNameNode.class) != null) {
+                            if (PsiTreeUtil.getParentOfType(element, LanguageNameNode.class) != null && PsiTreeUtil
+                                    .getParentOfType(prevPreVisibleSibling, FunctionNameNode.class) != null
+                                && prevVisibleSiblingElementType==SiddhiTypes.OPEN_SQUARE_BRACKETS) {
                                 addLanguageTypesKeywords(result);
                                 return;
                             }
+                            if (prevVisibleSiblingElementType==SiddhiTypes.CLOSE_SQUARE_BRACKETS && PsiTreeUtil
+                                    .getParentOfType(prevPreVisibleSibling, LanguageNameNode.class) != null) {
+                                addReturnKeyword(result);
+                                return;
+                            }
+                            if (((LeafPsiElement) prevVisibleSibling).getElementType() != null) {
+                                IElementType prevPrevVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling)
+                                        .getElementType();
+                                if (PsiTreeUtil.getParentOfType(element, FunctionDefinitionNode.class) != null &&
+                                        prevVisibleSiblingElementType==SiddhiTypes.RETURN &&
+                                        prevPrevVisibleSiblingElementType==SiddhiTypes.CLOSE_SQUARE_BRACKETS) {
+                                    addValueTypesAsLookups(result);
+                                    return;
+                                }
+                                return;
+                            }
+
                             //TODO: add aggregation definition
                             addInitialTypesAsLookups(result);//TODO: Adjust the define suggestions
                         }

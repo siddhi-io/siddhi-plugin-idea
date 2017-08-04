@@ -179,10 +179,12 @@ public class SiddhiCompletionUtils {
 
         AT = createKeywordLookupElement("at");
         EVERY = createKeywordLookupElement("every");
+        RETURN = createKeywordLookupElement(" return");
 
-        JAVASCRIPT= createKeywordLookupElement("JavaScript");
-        SCALA= createKeywordLookupElement("Scala");
-        R       = createKeywordLookupElement("R");
+
+        JAVASCRIPT= createKeywordWithoutEndWhitespaceLookupElement("JavaScript");
+        SCALA= createKeywordWithoutEndWhitespaceLookupElement("Scala");
+        R       = createKeywordWithoutEndWhitespaceLookupElement("R");
 
         SELECT = createKeywordLookupElement("select");
         GROUP = createKeywordLookupElement("group");
@@ -191,7 +193,7 @@ public class SiddhiCompletionUtils {
         INSERT = createKeywordLookupElement("insert");
         DELETE = createKeywordLookupElement("delete");
         UPDATE = createKeywordLookupElement("update");
-        RETURN = createKeywordLookupElement("return");
+
         EVENTS = createKeywordLookupElement("events");
         INTO = createKeywordLookupElement("into");
         OUTPUT = createKeywordLookupElement("output");
@@ -286,6 +288,16 @@ public class SiddhiCompletionUtils {
         return createLookupElement(name, createTemplateBasedInsertHandler("siddhi_lang_" + name));
     }
 
+    /**
+     * Creates a keyword lookup element and doesn't add a space after the word suggested.
+     *
+     * @param name name of the lookup
+     * @return {@link LookupElementBuilder} which will be used to create the lookup element.
+     */
+    @NotNull
+    private static LookupElementBuilder createKeywordWithoutEndWhitespaceLookupElement(@NotNull String name) {
+        return createLookupElement(name,null);
+    }
 
     @NotNull
     private static InsertHandler<LookupElement> createTemplateBasedInsertHandler(@NotNull String templateId) {
@@ -398,6 +410,10 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, EVERY);
     }
 
+    static void addReturnKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, RETURN);
+    }
+
     static void addLanguageTypesKeywords(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, JAVASCRIPT);
         addKeywordAsLookup(resultSet, R);
@@ -443,7 +459,6 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, INSERT);
         addKeywordAsLookup(resultSet, DELETE);
         addKeywordAsLookup(resultSet, UPDATE);
-        addKeywordAsLookup(resultSet, RETURN);
         addKeywordAsLookup(resultSet, EVENTS);
         addKeywordAsLookup(resultSet, INTO);
         addKeywordAsLookup(resultSet, OUTPUT);
@@ -500,7 +515,6 @@ public class SiddhiCompletionUtils {
         lookupElements.add(createKeywordAsLookup(INSERT));
         lookupElements.add(createKeywordAsLookup(DELETE));
         lookupElements.add(createKeywordAsLookup(UPDATE));
-        lookupElements.add(createKeywordAsLookup(RETURN));
         lookupElements.add(createKeywordAsLookup(EVENTS));
         lookupElements.add(createKeywordAsLookup(INTO));
         lookupElements.add(createKeywordAsLookup(OUTPUT));

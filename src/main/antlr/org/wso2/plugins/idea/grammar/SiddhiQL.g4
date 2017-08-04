@@ -633,8 +633,8 @@ DOT : '.';
 TRIPLE_DOT : '...';
 OPEN_PAR : '(';
 CLOSE_PAR : ')';
-OPEN_SQARE_BRACKETS : '[';
-CLOASE_SQARE_BRACKETS : ']';
+OPEN_SQUARE_BRACKETS : '[';
+CLOSE_SQUARE_BRACKETS : ']'; //TODO: update the original file
 COMMA : ',';
 ASSIGN : '=';
 STAR : '*';
