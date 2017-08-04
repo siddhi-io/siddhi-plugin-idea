@@ -44,7 +44,7 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder DEFINE;
     private static final LookupElementBuilder PARTITION;
     private static final LookupElementBuilder FROM;
-    //private static final LookupElementBuilder ;// TODO: Add the @ Symbol
+    private static final LookupElementBuilder AT_SYMBOL;
 
     //Define Types
     private static final LookupElementBuilder STREAM;
@@ -100,6 +100,11 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder TIMELENGTH;
     private static final LookupElementBuilder EXTERNALTIME;
 
+    //Language type keywords
+    private static final LookupElementBuilder JAVASCRIPT;
+    private static final LookupElementBuilder SCALA;
+    private static final LookupElementBuilder R;
+
     //Other Keywords
     private static final LookupElementBuilder SELECT;
     private static final LookupElementBuilder GROUP;
@@ -143,6 +148,7 @@ public class SiddhiCompletionUtils {
         DEFINE = createKeywordLookupElement("define");
         PARTITION = createKeywordLookupElement("partition");
         FROM = createKeywordLookupElement("from");
+        AT_SYMBOL=createKeywordLookupElement("@");
 
 
         STREAM = createKeywordLookupElement("stream");
@@ -173,6 +179,10 @@ public class SiddhiCompletionUtils {
 
         AT = createKeywordLookupElement("at");
         EVERY = createKeywordLookupElement("every");
+
+        JAVASCRIPT= createKeywordLookupElement("JavaScript");
+        SCALA= createKeywordLookupElement("Scala");
+        R       = createKeywordLookupElement("R");
 
         SELECT = createKeywordLookupElement("select");
         GROUP = createKeywordLookupElement("group");
@@ -215,36 +225,36 @@ public class SiddhiCompletionUtils {
         PER = createKeywordLookupElement("per");
 
 
-        STRING = createDataTypeLookupElement("string", AddSpaceInsertHandler.INSTANCE);
-        INT = createDataTypeLookupElement("int", AddSpaceInsertHandler.INSTANCE);
-        LONG = createDataTypeLookupElement("long", AddSpaceInsertHandler.INSTANCE);
-        FLOAT = createDataTypeLookupElement("float", AddSpaceInsertHandler.INSTANCE);
-        DOUBLE = createDataTypeLookupElement("double", AddSpaceInsertHandler.INSTANCE);
-        BOOL = createDataTypeLookupElement("bool", AddSpaceInsertHandler.INSTANCE);
-        OBJECT = createDataTypeLookupElement("object", AddSpaceInsertHandler.INSTANCE);
+        STRING = createDataTypeLookupElement("string",null);
+        INT = createDataTypeLookupElement("int", null);
+        LONG = createDataTypeLookupElement("long", null);
+        FLOAT = createDataTypeLookupElement("float", null);
+        DOUBLE = createDataTypeLookupElement("double", null);
+        BOOL = createDataTypeLookupElement("bool", null);
+        OBJECT = createDataTypeLookupElement("object", null);
 
-        LENGTH = createWindowProcessorTypeLookupElement("length(window.length)", AddSpaceInsertHandler.INSTANCE)
+        LENGTH = createWindowProcessorTypeLookupElement(" length(window.length)", null)
                 .withPresentableText("length");
-        LENGTHBATCH = createWindowProcessorTypeLookupElement("lengthBatch(window.length)", AddSpaceInsertHandler
-                .INSTANCE).withPresentableText("lengthBatch");
-        SORT = createWindowProcessorTypeLookupElement("sort(window.length, attribute, order)", AddSpaceInsertHandler
-                .INSTANCE).withPresentableText("sort");
-        EXTERNALTIMEBATCH = createWindowProcessorTypeLookupElement("externalTimeBatch(timestamp, window.time, start" +
-                ".time, timeout)", AddSpaceInsertHandler.INSTANCE).withPresentableText("externalTimeBatch");
-        TIME = createWindowProcessorTypeLookupElement("time(window.time)", AddSpaceInsertHandler.INSTANCE)
+        LENGTHBATCH = createWindowProcessorTypeLookupElement(" lengthBatch(window.length)", null)
+                .withPresentableText("lengthBatch");
+        SORT = createWindowProcessorTypeLookupElement(" sort(window.length, attribute, order)", null)
+                .withPresentableText("sort");
+        EXTERNALTIMEBATCH = createWindowProcessorTypeLookupElement(" externalTimeBatch(timestamp, window.time, start" +
+                ".time, timeout)", null).withPresentableText("externalTimeBatch");
+        TIME = createWindowProcessorTypeLookupElement(" time(window.time)", null)
                 .withPresentableText("time");
-        FREQUENT = createWindowProcessorTypeLookupElement("frequent(event.count, attribute)", AddSpaceInsertHandler
-                .INSTANCE).withPresentableText("frequent");
-        LOSSYFREQUENT = createWindowProcessorTypeLookupElement("lossyFrequent(support.threshold, error.bound, " +
-                "attribute)", AddSpaceInsertHandler.INSTANCE).withPresentableText("lossyFrequent");
-        TIMEBATCH = createWindowProcessorTypeLookupElement("timeBatch(window.time, start.time)",
-                AddSpaceInsertHandler.INSTANCE).withPresentableText("timeBatch");
-        CRON = createWindowProcessorTypeLookupElement("cron(cron.expression)", AddSpaceInsertHandler.INSTANCE)
+        FREQUENT = createWindowProcessorTypeLookupElement(" frequent(event.count, attribute)", null)
+                .withPresentableText("frequent");
+        LOSSYFREQUENT = createWindowProcessorTypeLookupElement(" lossyFrequent(support.threshold, error.bound, " +
+                "attribute)", null).withPresentableText("lossyFrequent");
+        TIMEBATCH = createWindowProcessorTypeLookupElement(" timeBatch(window.time, start.time)",
+                null).withPresentableText("timeBatch");
+        CRON = createWindowProcessorTypeLookupElement(" cron(cron.expression)", null)
                 .withPresentableText("cron");
-        TIMELENGTH = createWindowProcessorTypeLookupElement("timeLength(window.time, window.length)",
-                AddSpaceInsertHandler.INSTANCE).withPresentableText("timeLength");
-        EXTERNALTIME = createWindowProcessorTypeLookupElement("externalTime(window.time)", AddSpaceInsertHandler
-                .INSTANCE).withPresentableText("externalTime");
+        TIMELENGTH = createWindowProcessorTypeLookupElement(" timeLength(window.time, window.length)",
+                null).withPresentableText("timeLength");
+        EXTERNALTIME = createWindowProcessorTypeLookupElement(" externalTime(window.time)", null)
+                .withPresentableText("externalTime");
 
     }
 
@@ -349,7 +359,7 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(PARTITION, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(FROM, VALUE_TYPES_PRIORITY));
-        //resultSet.addElement(PrioritizedLookupElement.withPriority('@', VALUE_TYPES_PRIORITY)); TODO: @ symbol
+        resultSet.addElement(PrioritizedLookupElement.withPriority(AT_SYMBOL, VALUE_TYPES_PRIORITY));
     }
 
     /**
@@ -386,6 +396,12 @@ public class SiddhiCompletionUtils {
 
     static void addEveryKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, EVERY);
+    }
+
+    static void addLanguageTypesKeywords(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, JAVASCRIPT);
+        addKeywordAsLookup(resultSet, R);
+        addKeywordAsLookup(resultSet, SCALA);
     }
 
     /**

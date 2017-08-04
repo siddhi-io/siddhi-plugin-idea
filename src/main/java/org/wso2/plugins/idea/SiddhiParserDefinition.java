@@ -143,14 +143,14 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new FunctionOperationNode(node);
             case RULE_attribute_name:
                 return new AttributeNameNode(node);
-//            case RULE_function_name:
-//                return new AttributeTypeNode(node);
-//            case RULE_function_body:
-//                return new AttributeTypeNode(node);
-//            case RULE_definition_trigger:
-//                return new AttributeTypeNode(node);
-//            case RULE_trigger_name:
-//                return new AttributeTypeNode(node);
+            case RULE_language_name:
+                return new LanguageNameNode(node);
+            case RULE_function_body:
+                return new FunctionBodyNode(node);
+            case RULE_definition_function:
+                return new FunctionDefinitionNode(node);
+            case RULE_function_name:
+                return new FunctionNameNode(node);
 //            case RULE_language_name:
 //                return new AttributeTypeNode(node);
 //            case RULE_definition_aggregation:

@@ -46,5 +46,6 @@ public class SiddhiTypes {
     public static final TokenIElementType CLOSE_PAR = tokenIElementTypes.get(SiddhiQLLexer.CLOSE_PAR);
     public static final TokenIElementType WHITE_SPACE = tokenIElementTypes.get(SiddhiQLLexer.SPACES);
 
-    //public static final RuleIElementType ATTRIBUTE_TYPE = ruleIElementTypes.get(RULE_attribute_type);
+    public static final RuleIElementType ATTRIBUTE_TYPE = ruleIElementTypes.get(RULE_attribute_type);
+    public static final RuleIElementType ATTRIBUTE_NAME = ruleIElementTypes.get(RULE_attribute_name);
 }
