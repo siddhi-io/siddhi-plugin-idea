@@ -16,15 +16,19 @@ import java.util.Map;
 public class SiddhiColorSettingsPage implements ColorSettingsPage {
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
-            //todo: add more attributes
+            //TODO: add more attributes--Other types like <,> ...
             new AttributesDescriptor("Keywords", SiddhiSyntaxHighlightingColors.KEYWORD),
             new AttributesDescriptor("Strings", SiddhiSyntaxHighlightingColors.STRING),
-            //new AttributesDescriptor("Numbers", SiddhiSyntaxHighlightingColors.NUMBER),
-            //new AttributesDescriptor("Identifiers", SiddhiSyntaxHighlightingColors.IDENTIFIER),
             new AttributesDescriptor("Comments", SiddhiSyntaxHighlightingColors.LINE_COMMENT),
-            new AttributesDescriptor("streamId", SiddhiSyntaxHighlightingColors.STREAM_ID),
-            new AttributesDescriptor("dot", SiddhiSyntaxHighlightingColors.DOT),
-            new AttributesDescriptor("semicolan", SiddhiSyntaxHighlightingColors.SEMICOLON),
+            new AttributesDescriptor("StreamId", SiddhiSyntaxHighlightingColors.STREAM_ID),
+            new AttributesDescriptor("Dot", SiddhiSyntaxHighlightingColors.DOT),
+            new AttributesDescriptor("Semicolan", SiddhiSyntaxHighlightingColors.SEMICOLON),
+            new AttributesDescriptor("TripleDot", SiddhiSyntaxHighlightingColors.TRIPLE_DOT),
+            new AttributesDescriptor("Colan", SiddhiSyntaxHighlightingColors.COL),
+            new AttributesDescriptor("Parenthesis", SiddhiSyntaxHighlightingColors.PARENTHESIS),
+            new AttributesDescriptor("SquareBrackets", SiddhiSyntaxHighlightingColors.SQUARE_BRACKETS),
+            new AttributesDescriptor("Comma", SiddhiSyntaxHighlightingColors.COMMA),
+            new AttributesDescriptor("Symbols", SiddhiSyntaxHighlightingColors.SYMBOLS),
     };
 
     @Nullable

@@ -45,6 +45,32 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder PARTITION;
     private static final LookupElementBuilder FROM;
     private static final LookupElementBuilder AT_SYMBOL;
+    private static final LookupElementBuilder QUERY_SNIIP;
+    private static final LookupElementBuilder QUERY_PATTERN_SNIP;
+    private static final LookupElementBuilder QUERY_JOIN_SNIIP;
+    private static final LookupElementBuilder QUERY_WINDOW_FILTER_SNIIP;
+    private static final LookupElementBuilder QUERY_FILTER_SNIIP;
+    private static final LookupElementBuilder QUERY_WINDOW_SNIIP;
+    private static final LookupElementBuilder ANNOTATION_SINK;
+    private static final LookupElementBuilder ANNOTATION_SOURCE;
+    private static final LookupElementBuilder PARTITION_SNIIP;
+    private static final LookupElementBuilder ANNOTATION_CONFIG_SNIIP;
+    private static final LookupElementBuilder DEFINITION_STREAM;
+    private static final LookupElementBuilder ANNOTATION_EXPORTSTREAM;
+    private static final LookupElementBuilder ANNOTATION_IMPORTSTREAM;
+    private static final LookupElementBuilder ANNOTATION_PLANTRACE;
+    private static final LookupElementBuilder ANNOTATION_PLANSTATS;
+    private static final LookupElementBuilder ANNOTATION_PLANDESC;
+    private static final LookupElementBuilder ANNOTATION_PLANNAME;
+    private static final LookupElementBuilder ANNOTATION_PRIMARYKEY;
+    private static final LookupElementBuilder ANNOTATION_INDEX;
+    private static final LookupElementBuilder DEFINE_FUNCTION;
+    private static final LookupElementBuilder DEFINE_TRIGGER;
+    private static final LookupElementBuilder DEFINE_WINDOW;
+    private static final LookupElementBuilder DEFINE_TABLE;
+    private static final LookupElementBuilder ANNOTATION_INFO;
+
+
 
     //Define Types
     private static final LookupElementBuilder STREAM;
@@ -149,6 +175,88 @@ public class SiddhiCompletionUtils {
         PARTITION = createKeywordLookupElement("partition");
         FROM = createKeywordLookupElement("from");
         AT_SYMBOL=createKeywordLookupElement("@");
+        QUERY_SNIIP=createDefineSnippetTypeLookupElement("from stream_name\n" +
+                "select attribute1 , attribute2\n" +
+                "insert into output_stream",null).withPresentableText("query");
+        QUERY_PATTERN_SNIP=createDefineSnippetTypeLookupElement("from every stream_reference=stream_name" +
+                "[filter_condition] -> \n" +
+                "    every stream_reference2=stream_name2[filter_condition2]\n" +
+                "    within  time_gap\n" +
+                "select stream_reference.attribute1, stream_reference.attribute1\n" +
+                "insert into output_stream",null).withPresentableText("query-Pattern");
+        QUERY_JOIN_SNIIP=createDefineSnippetTypeLookupElement("from stream_name[filter_condition]#window.window_name" +
+                "(args) as reference\n" +
+                "    join stream_name[filter_condition]#window.window_name(args) as reference\n" +
+                "    on join_condition\n" +
+                "    within  time_gap\n" +
+                "select attribute1, attribute2\n" +
+                "insert into output_stream",null).withPresentableText("query-Join");
+        QUERY_WINDOW_FILTER_SNIIP=createDefineSnippetTypeLookupElement("from stream_name[filter_condition]#window" +
+                ".namespace:window_name(args)\n" +
+                "select attribute1 , attribute2\n" +
+                "insert into output_stream",null).withPresentableText("query-windowFilter");
+        QUERY_WINDOW_SNIIP=createDefineSnippetTypeLookupElement("from stream_name#window.namespace:window_name(args)" +
+                "\n" +
+                "select attribute1, attribute2\n" +
+                "insert into output_stream",null).withPresentableText("query-Window");
+        QUERY_FILTER_SNIIP=createDefineSnippetTypeLookupElement("from stream_name[filter_condition]\n" +
+                "select attribute1, attribute2\n" +
+                "insert into output_stream",null).withPresentableText("query-Filter");
+        ANNOTATION_SINK=createDefineSnippetTypeLookupElement("@sink(type='sink_type', " +
+                "static_option_key='static_option_value', dynamic_option_key='{{dynamic_option_value}}',\n" +
+                "    @map(type='map_type', static_option_key='static_option_value', " +
+                "dynamic_option_key='{{dynamic_option_value}}',\n" +
+                "        @payload( 'payload_mapping')\n" +
+                "    )\n" +
+                ")\n" +
+                "define stream stream_name (attribute1 Type1, attributeN TypeN);",null).withPresentableText
+                ("annotation-Sink");
+        ANNOTATION_SOURCE=createDefineSnippetTypeLookupElement("@source(type='source_type', " +
+                "static_option_key='static_option_value', dynamic_option_key='{{dynamic_option_value}}',\n" +
+                "    @map(type='map_type', static_option_key='static_option_value', " +
+                "dynamic_option_key='{{dynamic_option_value}}',\n" +
+                "        @attributes( 'attribute_mapping_1', 'attribute_mapping_N')\n" +
+                "    )\n" +
+                ")\n" +
+                "define stream stream_name (attribute1 Type1, attributeN TypeN);",null).withPresentableText
+                ("annotation-Source");
+        PARTITION_SNIIP=createDefineSnippetTypeLookupElement("partition with (attribute_name of stream_name, " +
+                "attribute2_name of stream2_name)\n" +
+                "begin\n" +
+                "    queries\n" +
+                "end;",null).withPresentableText("partition");
+        ANNOTATION_CONFIG_SNIIP=createDefineSnippetTypeLookupElement("@config(async = 'true')",null)
+                .withPresentableText("annotation-Config");
+        DEFINITION_STREAM=createDefineSnippetTypeLookupElement("define stream stream_name (attr1 Type1, attN TypeN);" +
+                "",null).withPresentableText("define-Stream");
+        ANNOTATION_EXPORTSTREAM=createDefineSnippetTypeLookupElement("@Export(\"Stream_ID\")",null)
+                .withPresentableText("annotation-ExportStream");
+        ANNOTATION_IMPORTSTREAM=createDefineSnippetTypeLookupElement("@Import(\"Stream_ID\")",null)
+                .withPresentableText("annotaion-ImportStream");
+        ANNOTATION_PLANTRACE=createDefineSnippetTypeLookupElement("@App:Trace(\"Plan_Trace\")",null)
+                .withPresentableText("annotation-PlanTrace");
+        ANNOTATION_PLANSTATS=createDefineSnippetTypeLookupElement("@App:Statistics(\"Plan_Statistics\")",null)
+                .withPresentableText("annotation-PlanStatistics");
+        ANNOTATION_PLANDESC=createDefineSnippetTypeLookupElement("@App:Description(\"Plan_Description\")",null)
+                .withPresentableText("annotation-PlanDesc");
+        ANNOTATION_PLANNAME=createDefineSnippetTypeLookupElement("@App:name(\"Plan_Name\")",null)
+                .withPresentableText("annotation-PlanName");
+        ANNOTATION_PRIMARYKEY=createDefineSnippetTypeLookupElement("@PrimaryKey('attribute_name')",null)
+                .withPresentableText("annotation-PrimaryKey");
+        ANNOTATION_INDEX=createDefineSnippetTypeLookupElement("@Index('attribute_name')",null).withPresentableText
+                ("annotation-Index");
+        DEFINE_FUNCTION=createDefineSnippetTypeLookupElement("define function function_name[lang_name] return " +
+                "return_type { \n" +
+                "    function_body \n" +
+                "};",null).withPresentableText("define-Function");
+        DEFINE_TRIGGER=createDefineSnippetTypeLookupElement("define trigger trigger_name at time;",null)
+                .withPresentableText("define-Trigger");
+        DEFINE_WINDOW=createDefineSnippetTypeLookupElement("define window window_name (attr1 Type1, attN TypeN) " +
+                "window_type output event_type events;",null).withPresentableText("define-Window");
+        DEFINE_TABLE=createDefineSnippetTypeLookupElement("define table table_name (attr1 Type1, attN TypeN);",
+                null).withPresentableText("define-Table");
+        ANNOTATION_INFO=createDefineSnippetTypeLookupElement("@info(name = \"Stream_ID\")",null)
+                .withPresentableText("annotation-Info");
 
         STREAM = createKeywordLookupElement("stream");
         TABLE = createKeywordLookupElement("table");
@@ -344,6 +452,20 @@ public class SiddhiCompletionUtils {
     }
 
     /**
+     * Creates a <b>Type</b> lookup element.
+     *
+     * @param name          of the lookup
+     * @param insertHandler insert handler of the lookup
+     * @return {@link LookupElementBuilder} which will be used to create the lookup element.
+     */
+    @NotNull
+    private static LookupElementBuilder createDefineSnippetTypeLookupElement(@NotNull String name,
+                                                                               @Nullable InsertHandler<LookupElement>
+                                                                                       insertHandler) {
+        return createLookupElement(name, insertHandler).withTypeText("Snippet");
+    }
+
+    /**
      * Adds value types as lookups.
      *
      * @param resultSet result list which is used to add lookups
@@ -368,6 +490,30 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(PARTITION, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(FROM, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(AT_SYMBOL, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(QUERY_SNIIP, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(QUERY_PATTERN_SNIP, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(QUERY_JOIN_SNIIP, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(QUERY_WINDOW_FILTER_SNIIP, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(QUERY_FILTER_SNIIP, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(QUERY_WINDOW_SNIIP, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SINK, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SOURCE, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(PARTITION_SNIIP, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_CONFIG_SNIIP, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINITION_STREAM, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_EXPORTSTREAM, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_IMPORTSTREAM, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANTRACE, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANSTATS, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANDESC, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANNAME, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PRIMARYKEY, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INDEX, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_FUNCTION, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_TRIGGER, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_TABLE, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INFO, VALUE_TYPES_PRIORITY));
     }
 
     /**

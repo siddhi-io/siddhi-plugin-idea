@@ -42,23 +42,63 @@ public class SiddhiParserDefinition implements ParserDefinition {
             FULL, UNIDIRECTIONAL, YEARS, MONTHS, WEEKS, DAYS, HOURS, MINUTES, SECONDS, MILLISECONDS, FALSE, TRUE,
             STRING, INT, LONG, FLOAT, DOUBLE, BOOL, OBJECT, AGGREGATION, AGGREGATE, PER);
 
-
     public static final TokenSet COMMENTS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             SINGLE_LINE_COMMENT, MULTILINE_COMMENT);
-
     public static final TokenSet WHITESPACE = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             SPACES);
-
     public static final TokenSet STRING_LITERALS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             STRING_LITERAL);
-
     public static final TokenSet BAD_CHARACTER = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             UNEXPECTED_CHAR);
-
     public static final TokenSet SEMICOLON = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             SCOL);
     public static final TokenSet DOT = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             SiddhiQLParser.DOT);
+    public static final TokenSet COLON = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.COL);
+    public static final TokenSet TRIPLE_DOT = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.TRIPLE_DOT);
+    public static final TokenSet PARENTHESIS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.OPEN_PAR,CLOSE_PAR);
+    public static final TokenSet SQUARE_BRACKETS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.OPEN_SQUARE_BRACKETS,CLOSE_SQUARE_BRACKETS);
+    public static final TokenSet COMMA = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.COMMA);
+    public static final TokenSet SYMBOLS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            ASSIGN,STAR,PLUS,QUESTION,MINUS,DIV,MOD,LT,LT_EQ,GT,GT_EQ,EQ,NOT_EQ,AT_SYMBOL,FOLLOWED_BY,HASH);
+    /*
+    public static final TokenSet ASSIGN = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.ASSIGN);
+    public static final TokenSet STAR = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.STAR);
+    public static final TokenSet PLUS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.PLUS);
+    public static final TokenSet QUESTION = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.QUESTION);
+    public static final TokenSet MINUS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.MINUS);
+    public static final TokenSet DIV = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.DIV);
+    public static final TokenSet MOD = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.MOD);
+    public static final TokenSet LT = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.LT);
+    public static final TokenSet LT_EQ = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.LT_EQ);
+    public static final TokenSet GT = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.GT);
+    public static final TokenSet GT_EQ = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.GT_EQ);
+    public static final TokenSet EQ = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.EQ);
+    public static final TokenSet NOT_EQ = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.NOT_EQ);
+    public static final TokenSet AT_SYMBOL = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.AT_SYMBOL);
+    public static final TokenSet FOLLOWED_BY = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.FOLLOWED_BY);
+    public static final TokenSet HASH = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
+            SiddhiQLParser.HASH); */
 
     @NotNull
     @Override
@@ -90,15 +130,6 @@ public class SiddhiParserDefinition implements ParserDefinition {
         return COMMENTS;
     }
 
-    @NotNull
-    public TokenSet getDotElements() {
-        return DOT;
-    }
-
-    @NotNull
-    public TokenSet getSemiColonElements() {
-        return SEMICOLON;
-    }
     @NotNull
     public TokenSet getStringLiteralElements() {
         return STRING_LITERALS;

@@ -31,8 +31,8 @@ public class SiddhiTypes {
 
     }
 
-    private static final List<RuleIElementType> ruleIElementTypes =
-            PSIElementTypeFactory.getRuleIElementTypes(SiddhiLanguage.INSTANCE);
+//    private static final List<RuleIElementType> ruleIElementTypes =
+//            PSIElementTypeFactory.getRuleIElementTypes(SiddhiLanguage.INSTANCE);
 
     private static final List<TokenIElementType> tokenIElementTypes =
             PSIElementTypeFactory.getTokenIElementTypes(SiddhiLanguage.INSTANCE);
@@ -41,7 +41,6 @@ public class SiddhiTypes {
 
     // Other tokens
     public static final TokenIElementType DEFINE = tokenIElementTypes.get(SiddhiQLLexer.DEFINE);
-    public static final TokenIElementType TABLE = tokenIElementTypes.get(SiddhiQLLexer.TABLE);
     public static final TokenIElementType AT = tokenIElementTypes.get(SiddhiQLLexer.AT);
     public static final TokenIElementType CLOSE_PAR = tokenIElementTypes.get(SiddhiQLLexer.CLOSE_PAR);
     public static final TokenIElementType OPEN_SQUARE_BRACKETS=tokenIElementTypes.get(SiddhiQLLexer
@@ -51,8 +50,4 @@ public class SiddhiTypes {
     public static final TokenIElementType SEMI_COLON=tokenIElementTypes.get(SiddhiQLLexer
             .SCOL);
     public static final TokenIElementType RETURN = tokenIElementTypes.get(SiddhiQLLexer.RETURN);
-    public static final TokenIElementType WHITE_SPACE = tokenIElementTypes.get(SiddhiQLLexer.SPACES);
-
-    public static final RuleIElementType ATTRIBUTE_TYPE = ruleIElementTypes.get(RULE_attribute_type);
-    public static final RuleIElementType ATTRIBUTE_NAME = ruleIElementTypes.get(RULE_attribute_name);
 }
