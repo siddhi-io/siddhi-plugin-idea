@@ -182,12 +182,12 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new FunctionDefinitionNode(node);
             case RULE_function_name:
                 return new FunctionNameNode(node);
-//            case RULE_language_name:
-//                return new AttributeTypeNode(node);
-//            case RULE_definition_aggregation:
-//                return new AttributeTypeNode(node);
-//            case RULE_aggregation_name:
-//                return new AttributeTypeNode(node);
+            case RULE_siddhi_app:
+                return new SiddhiAppNode(node);
+            case RULE_output_event_type:
+                return new OutputEventTypeNode(node);
+            case RULE_parse:
+                return new ParseNode(node);
 //            case RULE_aggregation_time_duration:
 //                return new AttributeTypeNode(node);
 //            case RULE_aggregation_time:

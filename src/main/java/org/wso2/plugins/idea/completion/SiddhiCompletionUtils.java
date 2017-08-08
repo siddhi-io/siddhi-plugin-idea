@@ -70,8 +70,6 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder DEFINE_TABLE;
     private static final LookupElementBuilder ANNOTATION_INFO;
 
-
-
     //Define Types
     private static final LookupElementBuilder STREAM;
     private static final LookupElementBuilder TABLE;
@@ -87,9 +85,11 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder IS;//TODO: is null
 
     //Output Event Types
-    private static final LookupElementBuilder CURRENT;
-    private static final LookupElementBuilder ALL;
-    private static final LookupElementBuilder EXPIRED;
+    private static final LookupElementBuilder CURRENT_EVENTS;
+    private static final LookupElementBuilder ALL_EVENTS;
+    private static final LookupElementBuilder ALL_RAW_EVENTS;
+    private static final LookupElementBuilder EXPIRED_EVENTS;
+    private static final LookupElementBuilder EXPIRED_RAW_EVENTS;
 
     //Time Value Types
     private static final LookupElementBuilder YEARS;
@@ -270,9 +270,11 @@ public class SiddhiCompletionUtils {
         IN = createKeywordLookupElement("in");
         IS = createKeywordLookupElement("is");
 
-        EXPIRED = createKeywordLookupElement("expired");
-        CURRENT = createKeywordLookupElement("current");
-        ALL = createKeywordLookupElement("all");
+        ALL_EVENTS = createKeywordLookupElement("all events");
+        ALL_RAW_EVENTS = createKeywordLookupElement("all raw events");
+        EXPIRED_EVENTS = createKeywordLookupElement("expired events");
+        EXPIRED_RAW_EVENTS= createKeywordLookupElement("expired raw events");
+        CURRENT_EVENTS = createKeywordLookupElement("current events");
 
         YEARS = createKeywordLookupElement("years");
         MONTHS = createKeywordLookupElement("months");
@@ -556,6 +558,14 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, RETURN);
     }
 
+    static void addOutputEventTypeKeywords(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, (ALL_EVENTS));
+        addKeywordAsLookup(resultSet, (ALL_RAW_EVENTS));
+        addKeywordAsLookup(resultSet, (EXPIRED_EVENTS));
+        addKeywordAsLookup(resultSet, (EXPIRED_RAW_EVENTS));
+        addKeywordAsLookup(resultSet, (CURRENT_EVENTS));
+    }
+
     static void addLanguageTypesKeywords(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, JAVASCRIPT);
         addKeywordAsLookup(resultSet, R);
@@ -604,8 +614,6 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, EVENTS);
         addKeywordAsLookup(resultSet, INTO);
         addKeywordAsLookup(resultSet, OUTPUT);
-        addKeywordAsLookup(resultSet, EXPIRED);
-        addKeywordAsLookup(resultSet, CURRENT);
         addKeywordAsLookup(resultSet, SNAPSHOT);
         addKeywordAsLookup(resultSet, FOR);
         addKeywordAsLookup(resultSet, RAW);
@@ -623,7 +631,6 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, END);
         addKeywordAsLookup(resultSet, NULL);
         addKeywordAsLookup(resultSet, LAST);
-        addKeywordAsLookup(resultSet, ALL);
         addKeywordAsLookup(resultSet, FIRST);
         addKeywordAsLookup(resultSet, JOIN);
         addKeywordAsLookup(resultSet, INNER);
@@ -660,8 +667,6 @@ public class SiddhiCompletionUtils {
         lookupElements.add(createKeywordAsLookup(EVENTS));
         lookupElements.add(createKeywordAsLookup(INTO));
         lookupElements.add(createKeywordAsLookup(OUTPUT));
-        lookupElements.add(createKeywordAsLookup(EXPIRED));
-        lookupElements.add(createKeywordAsLookup(CURRENT));
         lookupElements.add(createKeywordAsLookup(SNAPSHOT));
         lookupElements.add(createKeywordAsLookup(FOR));
         lookupElements.add(createKeywordAsLookup(RAW));
@@ -679,7 +684,6 @@ public class SiddhiCompletionUtils {
         lookupElements.add(createKeywordAsLookup(END));
         lookupElements.add(createKeywordAsLookup(NULL));
         lookupElements.add(createKeywordAsLookup(LAST));
-        lookupElements.add(createKeywordAsLookup(ALL));
         lookupElements.add(createKeywordAsLookup(FIRST));
         lookupElements.add(createKeywordAsLookup(JOIN));
         lookupElements.add(createKeywordAsLookup(INNER));

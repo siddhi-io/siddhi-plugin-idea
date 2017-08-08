@@ -19,6 +19,7 @@ package org.wso2.plugins.idea.completion;
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
+import com.intellij.psi.PsiComment;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
@@ -47,6 +48,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 
                         if(prevVisibleSiblingElementType==SiddhiTypes.SEMI_COLON){
                             addInitialTypesAsLookups(result);
+                            return;
                         }
                         //after define suggestions
                         if (prevVisibleSiblingElementType == SiddhiTypes.DEFINE) {
@@ -104,13 +106,24 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                                 }
                                 return;
                             }
-
                             //TODO: add aggregation definition
-                            //addInitialTypesAsLookups(result);//TODO: Adjust the define suggestions
                         }
-                    }else{
-                        addInitialTypesAsLookups(result);
-                        return;
+                    }
+                    //Initial suggestions
+                    if(element.getParent().getParent()!=null){
+                        PsiElement parentOfParent=element.getParent().getParent();
+                        if(parentOfParent instanceof SiddhiAppNode) {
+                            addInitialTypesAsLookups(result);
+                            return;
+                        }
+                    }
+                    //TODO:Logic needed to be updated
+                    if(PsiTreeUtil.prevVisibleLeaf(element)!=null){
+                        PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
+                        if(prevVisibleSibling instanceof PsiComment){
+                            addInitialTypesAsLookups(result);
+                            return;
+                        }
                     }
                 }
             }
@@ -122,15 +135,19 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 
         if(PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling)!=null) {
             PsiElement prevPrevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling);
-
             if(element.getParent().getParent().getPrevSibling()!=null){
                 if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && PsiTreeUtil.getParentOfType
                         (prevPrevVisibleSibling, AttributeTypeNode.class) != null && element.getParent()
                         .getParent().getPrevSibling() instanceof PsiWhiteSpace) {
                     addWindowProcessorTypesAsLookups(result);
+                    return;
                 }
             }
+        }
 
+        if(PsiTreeUtil.getParentOfType(element, OutputEventTypeNode.class) != null){
+            addOutputEventTypeKeywords(result);
+            return;
         }
     }
 }
