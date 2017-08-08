@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.SiddhiLanguage;
 import org.wso2.plugins.idea.SiddhiTypes;
-//import org.wso2.plugins.idea.psi.references.AttributeTypeReference;
+import org.wso2.plugins.idea.psi.references.StreamIdReference;
 
 import static org.wso2.plugins.idea.grammar.SiddhiQLParser.*;
 
@@ -85,12 +85,11 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
         PsiElement parent = getParent();
         IElementType elType = parent.getNode().getElementType();
 
-
         // do not return a reference for the ID nodes in a definition
         if (elType instanceof RuleIElementType) {
             switch (((RuleIElementType) elType).getRuleIndex()) {
-//                case RULE_attribute_type:
-//                    return new AttributeTypeReference(this);
+                case RULE_stream_id:
+                    return new StreamIdReference(this);
                 default:
                     return null;
             }
