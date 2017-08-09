@@ -38,6 +38,9 @@
         <!-- Anootator -->
         <annotator language="Siddhi"
                    implementationClass="org.wso2.plugins.idea.codeInsight.SiddhiAnnotator"/>
+        <!--structure view-->
+        <lang.ast.factory language="Siddhi"
+                          implementationClass="org.wso2.plugins.idea.SiddhiASTFactory"/>
         <!--completion-->
         <completion.contributor language="Siddhi"
                                 implementationClass="org.wso2.plugins.idea.completion.SiddhiCompletionContributor"/>

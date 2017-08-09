@@ -24,7 +24,8 @@ public class StreamIdReference extends SiddhiElementReference {
     @NotNull
     @Override
     public Object[] getVariants() {
-        List<LookupElement> results = new LinkedList<>();
+        List<String> results = new LinkedList<>();
+        results.add("Test");
 //        results.addAll(BallerinaCompletionUtils.createLambdaFunctionLookupElements(ParenthesisInsertHandler.INSTANCE));
         return results.toArray(new LookupElement[results.size()]);
     }
