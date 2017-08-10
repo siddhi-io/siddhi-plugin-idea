@@ -50,4 +50,7 @@ public class SiddhiTypes {
     public static final TokenIElementType SEMI_COLON=tokenIElementTypes.get(SiddhiQLLexer
             .SCOL);
     public static final TokenIElementType RETURN = tokenIElementTypes.get(SiddhiQLLexer.RETURN);
+    public static final TokenIElementType SINGLE_LINE_COMMENT = tokenIElementTypes.get(SiddhiQLLexer.SINGLE_LINE_COMMENT);
+    public static final TokenIElementType MULTILINE_COMMENT = tokenIElementTypes.get(
+            SiddhiQLLexer.MULTILINE_COMMENT);
 }
