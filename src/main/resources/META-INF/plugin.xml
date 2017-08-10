@@ -6,6 +6,7 @@
     <description><![CDATA[
       Enter short description for your plugin here.<br>
       <em>most HTML tags may be used</em>
+
     ]]></description>
 
     <change-notes><![CDATA[
@@ -46,11 +47,53 @@
                                 implementationClass="org.wso2.plugins.idea.completion.SiddhiCompletionContributor"/>
         <completion.contributor language="Siddhi"
                                 implementationClass="org.wso2.plugins.idea.completion.SiddhiKeywordsCompletionContributor"/>
+        <!--spell checking-->
+        <spellchecker.support language="Siddhi"
+                              implementationClass="org.wso2.plugins.idea.spellchecker.SiddhiSpellcheckingStrategy"/>
 
+
+        <!-- sdk
+        <sdkType implementation="org.ballerinalang.plugins.idea.sdk.BallerinaSdkType"/>
+        <projectSdkSetupValidator id="BallerinaSdk"
+                                  implementation="org.ballerinalang.plugins.idea.codeInsight.daemon.impl.BallerinaProjectSdkSetupValidator"/>
+        <library.presentationProvider implementation="org.ballerinalang.plugins.idea.sdk.BallerinaSdkLibraryPresentationProvider"/>
+        <applicationService serviceImplementation="org.ballerinalang.plugins.idea.sdk.BallerinaPathModificationTracker"/>
+
+        <projectService serviceInterface="org.ballerinalang.plugins.idea.sdk.BallerinaSdkService"
+                        serviceImplementation="org.ballerinalang.plugins.idea.sdk.BallerinaSdkService"
+                        overrides="false"/>
+        -->
+        <!-- module
+        <moduleType id="BALLERINA_MODULE" implementationClass="org.ballerinalang.plugins.idea.BallerinaModuleType"/>
+        <moduleConfigurationEditorProvider implementation="org.ballerinalang.plugins.idea.configuration.BallerinaModuleEditorsProvider" order="first"/>
+        <editorNotificationProvider
+                implementation="org.ballerinalang.plugins.idea.inspections.WrongModuleTypeNotificationProvider"/>
+
+        --><!-- run application
+        <programRunner id="ballerinaRunner" implementation="org.ballerinalang.plugins.idea.runconfig.BallerinaRunner"/>
+
+        <configurationType implementation="org.ballerinalang.plugins.idea.runconfig.application.BallerinaApplicationRunConfigurationType"/>
+        <runConfigurationProducer implementation="org.ballerinalang.plugins.idea.runconfig.application.BallerinaApplicationRunConfigurationProducer"/>
+
+        <runLineMarkerContributor language="Ballerina" implementationClass="org.ballerinalang.plugins.idea.runconfig.BallerinaRunLineMarkerProvider"/>
+        <console.folding implementation="org.ballerinalang.plugins.idea.runconfig.BallerinaConsoleFolding"/>
+        -->
+        <!--project
+        <applicationService serviceImplementation="org.ballerinalang.plugins.idea.project.BallerinaApplicationLibrariesService"/>
+        <projectService serviceImplementation="org.ballerinalang.plugins.idea.project.BallerinaProjectLibrariesService"/>
+        <projectConfigurable id="Ballerina" groupId="language" provider="org.ballerinalang.plugins.idea.configuration.BallerinaConfigurableProvider"
+                             dynamic="true"/>
+        <projectExtension implementation="org.ballerinalang.plugins.idea.project.BallerinaProjectExtension"/>
+        <applicationService serviceImplementation="org.ballerinalang.plugins.idea.codeInsight.imports.BallerinaCodeInsightSettings"/>
+        -->
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
+        <action id="Siddhi.NewSiddhiFile" class="org.wso2.plugins.idea.actions.SiddhiCreateFileAction"
+                text="Siddhi File" description="Create new Siddhi file">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
+        </action>
     </actions>
 
 </idea-plugin>
