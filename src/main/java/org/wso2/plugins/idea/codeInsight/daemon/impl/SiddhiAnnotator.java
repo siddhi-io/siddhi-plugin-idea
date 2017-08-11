@@ -1,4 +1,4 @@
-package org.wso2.plugins.idea.codeInsight;
+package org.wso2.plugins.idea.codeInsight.daemon.impl;
 
 import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.AnnotationHolder;

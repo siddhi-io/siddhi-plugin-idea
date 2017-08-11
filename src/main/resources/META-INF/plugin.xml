@@ -38,7 +38,7 @@
         <colorSettingsPage implementation="org.wso2.plugins.idea.highlighter.SiddhiColorSettingsPage"/>
         <!-- Anootator -->
         <annotator language="Siddhi"
-                   implementationClass="org.wso2.plugins.idea.codeInsight.SiddhiAnnotator"/>
+                   implementationClass="org.wso2.plugins.idea.codeInsight.daemon.impl.SiddhiAnnotator"/>
         <!--structure view-->
         <lang.ast.factory language="Siddhi"
                           implementationClass="org.wso2.plugins.idea.SiddhiASTFactory"/>
@@ -52,40 +52,41 @@
                               implementationClass="org.wso2.plugins.idea.spellchecker.SiddhiSpellcheckingStrategy"/>
 
 
-        <!-- sdk
-        <sdkType implementation="org.ballerinalang.plugins.idea.sdk.BallerinaSdkType"/>
-        <projectSdkSetupValidator id="BallerinaSdk"
-                                  implementation="org.ballerinalang.plugins.idea.codeInsight.daemon.impl.BallerinaProjectSdkSetupValidator"/>
-        <library.presentationProvider implementation="org.ballerinalang.plugins.idea.sdk.BallerinaSdkLibraryPresentationProvider"/>
-        <applicationService serviceImplementation="org.ballerinalang.plugins.idea.sdk.BallerinaPathModificationTracker"/>
+        <!-- sdk -->
+        <sdkType implementation="org.wso2.plugins.idea.sdk.SiddhiSdkType"/>
+        <projectSdkSetupValidator id="SiddhiSdk"
+                                  implementation="org.wso2.plugins.idea.codeInsight.daemon.impl.SiddhiProjectSdkSetupValidator"/>
+        <library.presentationProvider
+                implementation="org.wso2.plugins.idea.sdk.SiddhiSdkLibraryPresentationProvider"/>
+        <applicationService serviceImplementation="org.wso2.plugins.idea.sdk.SiddhiPathModificationTracker"/>
 
-        <projectService serviceInterface="org.ballerinalang.plugins.idea.sdk.BallerinaSdkService"
-                        serviceImplementation="org.ballerinalang.plugins.idea.sdk.BallerinaSdkService"
+        <projectService serviceInterface="org.wso2.plugins.idea.sdk.SiddhiSdkService"
+                        serviceImplementation="org.wso2.plugins.idea.sdk.SiddhiSdkService"
                         overrides="false"/>
-        -->
-        <!-- module
-        <moduleType id="BALLERINA_MODULE" implementationClass="org.ballerinalang.plugins.idea.BallerinaModuleType"/>
-        <moduleConfigurationEditorProvider implementation="org.ballerinalang.plugins.idea.configuration.BallerinaModuleEditorsProvider" order="first"/>
+
+        <!-- module -->
+        <moduleType id="SIDDHI_MODULE" implementationClass="org.wso2.plugins.idea.SiddhiModuleType"/>
+        <moduleConfigurationEditorProvider implementation="org.wso2.plugins.idea.configuration.SiddhiModuleEditorsProvider" order="first"/>
         <editorNotificationProvider
-                implementation="org.ballerinalang.plugins.idea.inspections.WrongModuleTypeNotificationProvider"/>
+                implementation="org.wso2.plugins.idea.inspections.WrongModuleTypeNotificationProvider"/>
 
-        --><!-- run application
-        <programRunner id="ballerinaRunner" implementation="org.ballerinalang.plugins.idea.runconfig.BallerinaRunner"/>
+        <!-- run application
+        <programRunner id="siddhiRunner" implementation="org.wso2.plugins.idea.runconfig.SiddhiRunner"/>
 
-        <configurationType implementation="org.ballerinalang.plugins.idea.runconfig.application.BallerinaApplicationRunConfigurationType"/>
-        <runConfigurationProducer implementation="org.ballerinalang.plugins.idea.runconfig.application.BallerinaApplicationRunConfigurationProducer"/>
+        <configurationType implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationType"/>
+        <runConfigurationProducer implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationProducer"/>
 
-        <runLineMarkerContributor language="Ballerina" implementationClass="org.ballerinalang.plugins.idea.runconfig.BallerinaRunLineMarkerProvider"/>
-        <console.folding implementation="org.ballerinalang.plugins.idea.runconfig.BallerinaConsoleFolding"/>
+        <runLineMarkerContributor language="Siddhi" implementationClass="org.wso2.plugins.idea.runconfig.SiddhiRunLineMarkerProvider"/>
+        <console.folding implementation="org.wso2.plugins.idea.runconfig.SiddhiConsoleFolding"/>
         -->
-        <!--project
-        <applicationService serviceImplementation="org.ballerinalang.plugins.idea.project.BallerinaApplicationLibrariesService"/>
-        <projectService serviceImplementation="org.ballerinalang.plugins.idea.project.BallerinaProjectLibrariesService"/>
-        <projectConfigurable id="Ballerina" groupId="language" provider="org.ballerinalang.plugins.idea.configuration.BallerinaConfigurableProvider"
+        <!--project -->
+        <applicationService serviceImplementation="org.wso2.plugins.idea.project.SiddhiApplicationLibrariesService"/>
+        <projectService serviceImplementation="org.wso2.plugins.idea.project.SiddhiProjectLibrariesService"/>
+        <projectConfigurable id="Siddhi" groupId="language" provider="org.wso2.plugins.idea.configuration.SiddhiConfigurableProvider"
                              dynamic="true"/>
-        <projectExtension implementation="org.ballerinalang.plugins.idea.project.BallerinaProjectExtension"/>
-        <applicationService serviceImplementation="org.ballerinalang.plugins.idea.codeInsight.imports.BallerinaCodeInsightSettings"/>
-        -->
+        <projectExtension implementation="org.wso2.plugins.idea.project.SiddhiProjectExtension"/>
+        <applicationService serviceImplementation="org.wso2.plugins.idea.codeInsight.imports.SiddhiCodeInsightSettings"/>
+
     </extensions>
 
     <actions>
