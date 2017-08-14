@@ -87,6 +87,12 @@
         <projectExtension implementation="org.wso2.plugins.idea.project.SiddhiProjectExtension"/>
         <applicationService serviceImplementation="org.wso2.plugins.idea.codeInsight.imports.SiddhiCodeInsightSettings"/>
 
+        <!-- templates -->
+        <internalFileTemplate name="Siddhi Main"/>
+
+        <defaultTemplatePropertiesProvider
+                implementation="org.wso2.plugins.idea.actions.SiddhiTemplatePropertiesProvider"/>
+
     </extensions>
 
     <actions>

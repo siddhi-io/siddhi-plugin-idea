@@ -34,10 +34,11 @@ import org.wso2.plugins.idea.psi.SiddhiFile;
 import java.util.Map;
 
 public class SiddhiCreateFileAction extends CreateFileFromTemplateAction implements DumbAware {
-    private static final String FILE_TEMPLATE_NAME = "Ballerina File";
+    private static final String FILE_TEMPLATE_NAME = "Siddhi File";
+    private static final String MAIN_TEMPLATE_NAME = "Siddhi Main";
 
     private static final String NEW_SIDDHI_FILE = "New Siddhi File";
-    private static final String DEFAULT_SIDDHI_TEMPLATE_PROPERTY = "Empty file";
+    private static final String DEFAULT_SIDDHI_TEMPLATE_PROPERTY = "Siddhi Main";
 
     public SiddhiCreateFileAction() {
         super(NEW_SIDDHI_FILE, "", SiddhiIcons.ICON);
@@ -46,7 +47,7 @@ public class SiddhiCreateFileAction extends CreateFileFromTemplateAction impleme
     @Override
     protected void buildDialog(Project project, PsiDirectory directory,
                                @NotNull CreateFileFromTemplateDialog.Builder builder) {
-        builder.setTitle(NEW_SIDDHI_FILE).addKind("Empty File", SiddhiIcons.ICON, FILE_TEMPLATE_NAME);
+        builder.setTitle(NEW_SIDDHI_FILE).addKind("Siddhi Main", SiddhiIcons.ICON, MAIN_TEMPLATE_NAME);
     }
 
     @Nullable

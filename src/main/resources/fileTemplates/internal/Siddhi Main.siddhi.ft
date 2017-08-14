@@ -1,0 +1,7 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")
+package ${PACKAGE_NAME};
+#end
+
+@App:name("SiddhiApp")
+
+-- Please refer to https://docs.wso2.com/display/DAS400/Quick+Start+Guide
