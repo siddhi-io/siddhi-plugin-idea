@@ -51,7 +51,6 @@
         <spellchecker.support language="Siddhi"
                               implementationClass="org.wso2.plugins.idea.spellchecker.SiddhiSpellcheckingStrategy"/>
 
-
         <!-- sdk -->
         <sdkType implementation="org.wso2.plugins.idea.sdk.SiddhiSdkType"/>
         <projectSdkSetupValidator id="SiddhiSdk"
