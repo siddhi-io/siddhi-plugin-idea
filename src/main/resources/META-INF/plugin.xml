@@ -70,7 +70,7 @@
         <editorNotificationProvider
                 implementation="org.wso2.plugins.idea.inspections.WrongModuleTypeNotificationProvider"/>
 
-        <!-- run application
+        <!-- run application -->
         <programRunner id="siddhiRunner" implementation="org.wso2.plugins.idea.runconfig.SiddhiRunner"/>
 
         <configurationType implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationType"/>
@@ -78,7 +78,11 @@
 
         <runLineMarkerContributor language="Siddhi" implementationClass="org.wso2.plugins.idea.runconfig.SiddhiRunLineMarkerProvider"/>
         <console.folding implementation="org.wso2.plugins.idea.runconfig.SiddhiConsoleFolding"/>
-        -->
+
+        <!--remote-->
+        <configurationType implementation="org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteRunConfigurationType"/>
+        <runConfigurationProducer                implementation="org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteRunConfigurationProducer"/>
+
         <!--project -->
         <applicationService serviceImplementation="org.wso2.plugins.idea.project.SiddhiApplicationLibrariesService"/>
         <projectService serviceImplementation="org.wso2.plugins.idea.project.SiddhiProjectLibrariesService"/>
