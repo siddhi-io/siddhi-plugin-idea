@@ -88,8 +88,8 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
         // do not return a reference for the ID nodes in a definition
         if (elType instanceof RuleIElementType) {
             switch (((RuleIElementType) elType).getRuleIndex()) {
-                case RULE_stream_id:
-                    return new StreamIdReference(this);
+//                case RULE_stream_id:
+//                    return new StreamIdReference(this);//TODO:check on StreamIdNode and StreamIdReference
                 default:
                     return null;
             }
