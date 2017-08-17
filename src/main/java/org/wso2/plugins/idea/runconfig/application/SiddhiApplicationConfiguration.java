@@ -35,7 +35,6 @@ import org.jetbrains.annotations.NotNull;
 public class SiddhiApplicationConfiguration
         extends SiddhiRunConfigurationWithMain<SiddhiApplicationRunningState> {
 
-    private static final String PACKAGE_ATTRIBUTE_NAME = "package";
     private static final String KIND_ATTRIBUTE_NAME = "kind";
 
     @NotNull
@@ -49,8 +48,6 @@ public class SiddhiApplicationConfiguration
     @Override
     public void readExternal(@NotNull Element element) throws InvalidDataException {
         super.readExternal(element);
-        myPackage = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
-                PACKAGE_ATTRIBUTE_NAME));
         try {
             String kindName = JDOMExternalizerUtil.getFirstChildValueAttribute(element, KIND_ATTRIBUTE_NAME);
             myRunKind = kindName != null ? RunConfigurationKind.valueOf(kindName) : RunConfigurationKind.MAIN;
@@ -63,9 +60,6 @@ public class SiddhiApplicationConfiguration
     public void writeExternal(Element element) throws WriteExternalException {
         super.writeExternal(element);
         JDOMExternalizerUtil.addElementWithValueAttribute(element, KIND_ATTRIBUTE_NAME, myRunKind.name());
-        if (!myPackage.isEmpty()) {
-            JDOMExternalizerUtil.addElementWithValueAttribute(element, PACKAGE_ATTRIBUTE_NAME, myPackage);
-        }
     }
 
     @NotNull

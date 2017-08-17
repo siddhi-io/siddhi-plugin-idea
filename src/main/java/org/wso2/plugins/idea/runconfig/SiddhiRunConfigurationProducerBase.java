@@ -46,29 +46,6 @@ public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConf
         if (file == null) {
             return false;
         }
-        /*
-        // Get the element. This will be an identifier element.
-        PsiElement element = sourceElement.get();
-        // Get the FunctionDefinitionNode parent from element (if exists).
-        FunctionDefinitionNode functionNode = PsiTreeUtil.getParentOfType(element, FunctionDefinitionNode.class);
-        // Get the ServiceDefinitionNode parent from element (if exists).
-        ServiceDefinitionNode serviceDefinitionNode = PsiTreeUtil.getParentOfType(element, ServiceDefinitionNode.class);
-
-        // Get the declared package in the file if available.
-        String packageInFile = "";
-        boolean isPackageDeclared = false;
-        // Get the PackageDeclarationNode if available.
-        PackageDeclarationNode packageDeclarationNode = PsiTreeUtil.findChildOfType(file, PackageDeclarationNode.class);
-        if (packageDeclarationNode != null) {
-            isPackageDeclared = true;
-        }
-        // Get the package path node. We need this to get the package path of the file.
-        FullyQualifiedPackageNameNode fullyQualifiedPackageNameNode = PsiTreeUtil.findChildOfType(packageDeclarationNode, FullyQualifiedPackageNameNode.class);
-        if (fullyQualifiedPackageNameNode != null) {
-            // Regardless of the OS, separator character will be "/".
-            packageInFile = fullyQualifiedPackageNameNode.getText().replaceAll("\\.", "/");
-        }
-
         // Get existing configuration if available.
         RunnerAndConfigurationSettings existingConfigurations = context.findExisting();
         if (existingConfigurations != null) {
@@ -77,8 +54,7 @@ public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConf
             // Run configuration might be an application configuration. So we need to check the type.
             if (existingConfiguration instanceof SiddhiApplicationConfiguration) {
                 // Set other configurations.
-                setConfigurations((SiddhiApplicationConfiguration) existingConfiguration, file, functionNode,
-                        serviceDefinitionNode, packageInFile, isPackageDeclared);
+                setConfigurations((SiddhiApplicationConfiguration) existingConfiguration);
                 return true;
             }
         } else if (configuration instanceof SiddhiApplicationConfiguration) {
@@ -94,33 +70,16 @@ public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConf
                 configuration.setModule(module);
             }
             // Set other configurations.
-            setConfigurations((SiddhiApplicationConfiguration) configuration, file, functionNode,
-                    serviceDefinitionNode, packageInFile, isPackageDeclared);
+            setConfigurations((SiddhiApplicationConfiguration) configuration);
             return true;
-        }*/
+        }
         // Return false if the provided configuration type cannot be applied.
         return false;
     }
 
-    private void setConfigurations(@NotNull SiddhiApplicationConfiguration configuration, @NotNull PsiFile file,
-                                   @Nullable FunctionDefinitionNode functionNode,
-                                   //@Nullable ServiceDefinitionNode serviceDefinitionNode,
-                                   @NotNull String packageInFile, boolean isPackageDeclared) {
-        // Set the run kind.
-        if (SiddhiRunUtil.hasMainFunction(file) && functionNode != null) {
+    private void setConfigurations(@NotNull SiddhiApplicationConfiguration configuration) {
             // Set the kind to MAIN.
             configuration.setRunKind(RunConfigurationKind.MAIN);
-        } else if (SiddhiRunUtil.hasServices(file) ){//&& serviceDefinitionNode != null) {
-            // Set the kind to SERVICE.
-            configuration.setRunKind(RunConfigurationKind.SERVICE);
-        }
-
-        // Set the package.
-        if (isPackageDeclared) {
-            configuration.setPackage(packageInFile);
-        } else {
-            configuration.setPackage("");
-        }
     }
 
     @NotNull

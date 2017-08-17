@@ -81,7 +81,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
 
     private final AtomicBoolean breakpointsInitiated = new AtomicBoolean();
 
-    public SiddhiDebugProcess(@NotNull XDebugSession session,//@NotNull SiddhiaWebSocketConnector connector,
+    public SiddhiDebugProcess(@NotNull XDebugSession session,@NotNull SiddhiWebSocketConnector connector,
                                  @Nullable ExecutionResult executionResult) {
         super(session);
         myConnector = null;//connector

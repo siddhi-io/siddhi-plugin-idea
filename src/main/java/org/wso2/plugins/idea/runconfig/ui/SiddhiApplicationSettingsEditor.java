@@ -77,11 +77,9 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
         configuration.setModule(myModulesComboBox.getComponent().getSelectedModule());
         configuration.setParams(myParamsField.getComponent().getText());
         configuration.setWorkingDirectory(myWorkingDirectoryField.getComponent().getText());
-        if (runKind == RunConfigurationKind.SERVICE) {
-            myParamsField.setVisible(false);
-        } else {
-            myParamsField.setVisible(true);
-        }
+
+        myParamsField.setVisible(true);
+
     }
 
     @NotNull

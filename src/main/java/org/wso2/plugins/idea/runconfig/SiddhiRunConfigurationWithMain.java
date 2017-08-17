@@ -35,17 +35,11 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
 
     private static final String FILE_PATH_ATTRIBUTE_NAME = "filePath";
     private static final String KIND_ATTRIBUTE_NAME = "myRunKind";
-    private static final String REMOTE_DEBUGGING_HOST_ATTRIBUTE_NAME = "remoteDebuggingHost";
-    private static final String REMOTE_DEBUGGING_PORT_ATTRIBUTE_NAME = "remoteDebuggingPort";
 
     @NotNull
     private String myFilePath = "";
     @NotNull
     protected RunConfigurationKind myRunKind = RunConfigurationKind.MAIN;
-    @NotNull
-    private String remoteDebugHost = "";
-    @NotNull
-    private String remoteDebugPort = "";
 
     public SiddhiRunConfigurationWithMain(String name, SiddhiModuleBasedConfiguration configurationModule,
                                           ConfigurationFactory factory) {
@@ -60,10 +54,6 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
                 FILE_PATH_ATTRIBUTE_NAME));
         myRunKind = RunConfigurationKind.valueOf(StringUtil.notNullize(
                 JDOMExternalizerUtil.getFirstChildValueAttribute(element, KIND_ATTRIBUTE_NAME)));
-        remoteDebugHost = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
-                REMOTE_DEBUGGING_HOST_ATTRIBUTE_NAME));
-        remoteDebugPort = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
-                REMOTE_DEBUGGING_PORT_ATTRIBUTE_NAME));
     }
 
     @Override
@@ -71,28 +61,16 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
         super.writeExternal(element);
         addNonEmptyElement(element, FILE_PATH_ATTRIBUTE_NAME, myFilePath);
         addNonEmptyElement(element, KIND_ATTRIBUTE_NAME, myRunKind.toString());
-        addNonEmptyElement(element, REMOTE_DEBUGGING_HOST_ATTRIBUTE_NAME, remoteDebugHost);
-        addNonEmptyElement(element, REMOTE_DEBUGGING_PORT_ATTRIBUTE_NAME, remoteDebugPort);
     }
 
     protected void checkFileConfiguration() throws RuntimeConfigurationError {
         VirtualFile file = findFile(getFilePath());
         if (file == null) {
-            throw new RuntimeConfigurationError("Cannot find the specified main file.");
+            throw new RuntimeConfigurationError("Cannot find the specified file.");
         }
         PsiFile psiFile = PsiManager.getInstance(getProject()).findFile(file);
         if (!(psiFile instanceof SiddhiFile)) {
-            throw new RuntimeConfigurationError("Main file is not a valid Siddhi file.");
-        }
-
-        if (myRunKind == RunConfigurationKind.MAIN &&
-                !SiddhiRunUtil.hasMainFunction(psiFile)) {
-            throw new RuntimeConfigurationError("Main run kind is selected, but the file does not contain a main " +
-                    "function.");
-        }
-        if (myRunKind == RunConfigurationKind.SERVICE && !SiddhiRunUtil.hasServices(psiFile)) {
-            throw new RuntimeConfigurationError("Service run kind is selected, but the file does not contain any " +
-                    "services.");
+            throw new RuntimeConfigurationError("File is not a valid Siddhi file.");
         }
     }
 
@@ -115,23 +93,5 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
 
     public void setRunKind(RunConfigurationKind runKind) {
         this.myRunKind = runKind;
-    }
-
-    @NotNull
-    public String getRemoteDebugHost() {
-        return remoteDebugHost;
-    }
-
-    public void setRemoteDebugHost(@NotNull String remoteDebugHost) {
-        this.remoteDebugHost = remoteDebugHost;
-    }
-
-    @NotNull
-    public String getRemoteDebugPort() {
-        return remoteDebugPort;
-    }
-
-    public void setRemoteDebugPort(@NotNull String remoteDebugPort) {
-        this.remoteDebugPort = remoteDebugPort;
     }
 }

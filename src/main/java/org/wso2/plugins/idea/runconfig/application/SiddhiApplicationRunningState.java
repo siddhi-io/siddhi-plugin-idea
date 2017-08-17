@@ -65,9 +65,9 @@ public class SiddhiApplicationRunningState extends SiddhiRunningState<SiddhiAppl
         }
         SiddhiExecutor siddhiExecutor = executor.withParameters("run")
                 .withParameterString(myConfiguration.getSiddhiToolParams()).withParameters(parameters);
-        if (kind == RunConfigurationKind.SERVICE) {
-            siddhiExecutor.withParameters("-s");
-        }
+//        if (kind == RunConfigurationKind.SERVICE) {
+//            siddhiExecutor.withParameters("-s");
+//        }
 
         // If debugging mode is running, we need to add the debugging flag.
         if (isDebug()) {

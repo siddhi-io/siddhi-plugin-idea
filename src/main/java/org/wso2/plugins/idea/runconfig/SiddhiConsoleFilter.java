@@ -45,7 +45,7 @@ public class SiddhiConsoleFilter implements Filter {
 
     private static final Pattern MESSAGE_PATTERN = Pattern.compile("(?:^|\\s)(\\S+\\.\\w+):(\\d+)(:(\\d+))?" +
             "(?=[:\\s]|$).*");
-    private static final Pattern SIDDHI_FILE_PATTERN = Pattern.compile("\\((\\w+\\.bal)\\)");
+    private static final Pattern SIDDHI_FILE_PATTERN = Pattern.compile("\\((\\w+\\.siddhi)\\)");
 
     @NotNull
     private final Project myProject;

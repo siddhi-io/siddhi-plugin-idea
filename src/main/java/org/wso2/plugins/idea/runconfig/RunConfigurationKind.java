@@ -17,5 +17,5 @@
 package org.wso2.plugins.idea.runconfig;
 
 public enum RunConfigurationKind {
-    MAIN, SERVICE
+    MAIN
 }
