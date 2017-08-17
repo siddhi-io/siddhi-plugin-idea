@@ -26,7 +26,6 @@ import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiTreeUtil;
 import org.wso2.plugins.idea.psi.*;
 import org.wso2.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
 import org.jetbrains.annotations.NotNull;

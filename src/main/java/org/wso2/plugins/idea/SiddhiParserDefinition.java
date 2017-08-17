@@ -188,14 +188,14 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new OutputEventTypeNode(node);
             case RULE_parse:
                 return new ParseNode(node);
-//            case RULE_aggregation_time_duration:
-//                return new AttributeTypeNode(node);
-//            case RULE_aggregation_time:
-//                return new AttributeTypeNode(node);
-//            case RULE_aggregation_time_range:
-//                return new AttributeTypeNode(node);
-//            case RULE_annotation:
-//                return new AttributeTypeNode(node);
+            case RULE_execution_element:
+                return new ExecutionElementNode(node);
+            case RULE_annotation_element:
+                return new AnnotationElementNode(node);
+            case RULE_annotation:
+                return new AnnotationNode(node);
+            case RULE_app_annotation:
+                return new AppAnnotationNode(node);
 //            case RULE_app_annotation:
 //                return new AttributeTypeNode(node);
 //            case RULE_annotation_element:

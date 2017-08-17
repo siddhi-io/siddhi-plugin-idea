@@ -53,34 +53,6 @@ public class SiddhiRunUtil {
     }
 
     @Nullable
-    public static PsiFile findMainFileInDirectory(@NotNull VirtualFile packageDirectory, @NotNull Project project) {
-        for (VirtualFile file : packageDirectory.getChildren()) {
-            if (file == null) {
-                continue;
-            }
-            PsiFile psiFile = PsiManager.getInstance(project).findFile(file);
-            if (isMainSiddhiFile(psiFile)) {
-                return psiFile;
-            }
-        }
-        return null;
-    }
-
-    @Nullable
-    public static PsiFile findServiceFileInDirectory(@NotNull VirtualFile packageDirectory, @NotNull Project project) {
-        for (VirtualFile file : packageDirectory.getChildren()) {
-            if (file == null) {
-                continue;
-            }
-            PsiFile psiFile = PsiManager.getInstance(project).findFile(file);
-            if (hasServices(psiFile)) {
-                return psiFile;
-            }
-        }
-        return null;
-    }
-
-    @Nullable
     static PsiElement getContextElement(@Nullable ConfigurationContext context) {
         if (context == null) {
             return null;
@@ -104,91 +76,46 @@ public class SiddhiRunUtil {
     public static void installSiddhiWithMainFileChooser(Project project,
                                                            @NotNull TextFieldWithBrowseButton fileField) {
         installFileChooser(project, fileField, file ->
-                isMainSiddhiFile(PsiManager.getInstance(project).findFile(file)));
+                isRunnableSiddhiFile(PsiManager.getInstance(project).findFile(file)));
     }
 
     @Contract("null -> false")
-    private static boolean isMainSiddhiFile(@Nullable PsiFile psiFile) {
-        return hasMainFunction(psiFile);
+    private static boolean isRunnableSiddhiFile(@Nullable PsiFile psiFile) {
+        return hasExecutionElements(psiFile);
     }
 
     @Contract("null -> false")
-    static boolean hasMainFunction(PsiFile file) {
-        Collection<FunctionDefinitionNode> functionNodes = PsiTreeUtil.findChildrenOfType(file,
-                FunctionDefinitionNode.class);
-        for (FunctionDefinitionNode functionNode : functionNodes) {
-            if (isMainFunction(functionNode)) {
-                return true;
-            }
+    static boolean hasExecutionElements(PsiFile file) {
+        Collection<ExecutionElementNode> executionElementNodes = PsiTreeUtil.findChildrenOfType(file,
+                ExecutionElementNode.class);
+//        for (ExecutionElementNode executionElementNode : executionElementNodes) {
+//            if (isExecutableElement(executionElementNode)) {
+//                return true;
+//            }
+//        }
+        if(executionElementNodes!=null){
+            return true;
         }
         return false;
     }
-/*
+
     /**
-     * Checks whether the given functionDefinitionNode is a main function node.
+     * Checks whether the given executionElementNode is a main function node.
      *
-     * @param functionDefinitionNode FunctionDefinitionNode which needs to be checked
-     * @return {@code true} if the provided node is a main function, {@code false} otherwise.
-        */
+     * @param executionElementNode FunctionDefinitionNode which needs to be checked
+     * @return {@code true} if the provided node is a has execution Elements, {@code false} otherwise.
+    */
     @Contract("null -> false")
-    static boolean isMainFunction(FunctionDefinitionNode functionDefinitionNode) {
+    static boolean isExecutableElement(ExecutionElementNode executionElementNode) {
         // Get the function name.
-        PsiElement functionName = functionDefinitionNode.getNameIdentifier();
-        if (functionName == null) {
-            return false;
-        }
-        // Check whether the function name is "main".
-        if (!SiddhiConstants.MAIN.equals(functionName.getText())) {
-            return false;
-        }
-        // Get the ParameterListNode which contains all the parameters in the function.
-//        ParameterListNode parameterListNode = PsiTreeUtil.getChildOfType(functionDefinitionNode, ParameterListNode
-//                .class);
-//        if (parameterListNode == null) {
+//        PsiElement elementName = functionDefinitionNode.getNameIdentifier();
+//        if (functionName == null) {
 //            return false;
+//        }else{
+//            return true;
 //        }
-        // Get the child nodes. These are objects of ParameterNode.
-//        PsiElement[] parameterNodes = parameterListNode.getChildren();
-//        // There should be only one parameter for main function.
-//        if (parameterNodes.length != 1) {
-//            return false;
-//        }
-        // Get the TypeNameNode which contains the type of the parameter. In this case, it will be "string[]".
-//        TypeNameNode arrayTypeNameNode = PsiTreeUtil.findChildOfType(parameterNodes[0], TypeNameNode.class);
-//        if (arrayTypeNameNode == null) {
-//            return false;
-//        }
-//        // "string", "[", "]" will be in 3 different child nodes.
-//        PsiElement[] children = arrayTypeNameNode.getChildren();
-//        if (children.length != 3) {
-//            return false;
-//        }
-//        // First child node will also be a TypeNameNode which contains the type (string).
-//        if (!(children[0] instanceof TypeNameNode)) {
-//            return false;
-//        }
-//        if (!"[".equals(children[1].getText())) {
-//            return false;
-//        }
-//        if (!"]".equals(children[2].getText())) {
-//            return false;
-//        }
-//        // ValueTypeNameNode will contain the actual value of the type (string).
-//        ValueTypeNameNode valueTypeNameNode = PsiTreeUtil.findChildOfType(children[0], ValueTypeNameNode.class);
-//        if (valueTypeNameNode == null) {
-//            return false;
-//        }
-//        // Get the text (string) and check and return the result.
-//        return valueTypeNameNode.getText() != null && "string".equals(valueTypeNameNode.getText());
-        return false; //TODO: edit this
-    }
-
-    @Contract("null -> false")
-    static boolean hasServices(PsiFile file) {
-//        Collection<ServiceDefinitionNode> serviceDefinitionNodes =
-//                PsiTreeUtil.findChildrenOfType(file, ServiceDefinitionNode.class);
-//        return !serviceDefinitionNodes.isEmpty();
-        return false;
+        //TODO:UPDATE LOGIC
+        return true;
     }
 
     private static void installFileChooser(@NotNull Project project, @NotNull ComponentWithBrowseButton field,

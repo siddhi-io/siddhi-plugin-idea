@@ -55,17 +55,24 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                             addAfterATSymbolLookups(result);
                             return;
                         }
-                        //after define suggestions
+                        //suggestions after define
                         if (prevVisibleSiblingElementType == SiddhiTypes.DEFINE) {
                             addDefineTypesAsLookups(result);
                             return;
                         }
-                        //after an attribute type suggestions
+                        //suggestions after an annotation //TODO: After annotation suggestions needed to be fixed
+                        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationElementNode.class) != null ||
+                                PsiTreeUtil.getParentOfType(prevVisibleSibling, AppAnnotationNode.class) != null ||
+                                PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationNode.class) != null) {
+                            addInitialTypesAsLookups(result);
+                            return;
+                        }
+                        //suggestions after an attribute type
                         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeNameNode.class) != null) {
                             addValueTypesAsLookups(result);
                             return;
                         }
-                        //after a trigger name node AT keyword suggestion
+                        //suggestions after a trigger name node AT keyword
                         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TriggerNameNode.class) != null) {
                             addAtKeyword(result);
                             return;
