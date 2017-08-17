@@ -70,6 +70,23 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder DEFINE_TABLE;
     private static final LookupElementBuilder ANNOTATION_INFO;
 
+    //annotations without @ sign(used to display suggestions after @)
+    private static final LookupElementBuilder ANNOTATION_SINK2;
+    private static final LookupElementBuilder ANNOTATION_SOURCE2;
+    private static final LookupElementBuilder ANNOTATION_CONFIG_SNIIP2;
+    private static final LookupElementBuilder ANNOTATION_EXPORTSTREAM2;
+    private static final LookupElementBuilder ANNOTATION_IMPORTSTREAM2;
+    private static final LookupElementBuilder ANNOTATION_PLANTRACE2;
+    private static final LookupElementBuilder ANNOTATION_PLANSTATS2;
+    private static final LookupElementBuilder ANNOTATION_PLANDESC2;
+    private static final LookupElementBuilder ANNOTATION_PLANNAME2;
+    private static final LookupElementBuilder ANNOTATION_PRIMARYKEY2;
+    private static final LookupElementBuilder ANNOTATION_INDEX2;
+    private static final LookupElementBuilder ANNOTATION_INFO2;
+    private static final LookupElementBuilder ANNOTATION_MAP;
+    private static final LookupElementBuilder ANNOTATION_ATTRIBUTES;
+    private static final LookupElementBuilder ANNOTATION_PAYLOARD;
+
     //Define Types
     private static final LookupElementBuilder STREAM;
     private static final LookupElementBuilder TABLE;
@@ -257,6 +274,23 @@ public class SiddhiCompletionUtils {
                 null).withPresentableText("define-Table");
         ANNOTATION_INFO=createDefineSnippetTypeLookupElement("@info(name = \"Stream_ID\")",null)
                 .withPresentableText("annotation-Info");
+
+        ANNOTATION_SINK2=createLookupElement("sink(type='sink_type', option_key='option_value', ...)",null);
+        ANNOTATION_SOURCE2=createLookupElement("source(type='source_type', option_key='option_value', ...) ",null);
+        ANNOTATION_CONFIG_SNIIP2=createLookupElement("config(async = 'true')",null);
+        ANNOTATION_EXPORTSTREAM2=createLookupElement("Export(\"Stream_ID\")",null);
+        ANNOTATION_IMPORTSTREAM2=createLookupElement("Import(\"Stream_ID\")",null);
+        ANNOTATION_PLANTRACE2=createLookupElement("App:Trace(\"Plan_Trace\")",null);
+        ANNOTATION_PLANSTATS2=createLookupElement("App:Statistics(\"Plan_Statistics\")",null);
+        ANNOTATION_PLANDESC2=createLookupElement("App:Description(\"Plan_Description\")",null);
+        ANNOTATION_PLANNAME2=createLookupElement("App:name(\"Plan_Name\")",null);
+        ANNOTATION_PRIMARYKEY2=createLookupElement("PrimaryKey('attribute_name')",null);
+        ANNOTATION_INDEX2=createLookupElement("Index('attribute_name')",null);
+        ANNOTATION_INFO2=createLookupElement("info(name = \"Stream_ID\")",null);
+        ANNOTATION_MAP=createLookupElement("map(type='map_type', option_key='option_value', ...)",null);
+        ANNOTATION_ATTRIBUTES=createLookupElement("attributes('attribute_mapping_a', " +
+                "'attribute_mapping_b') ",null);
+        ANNOTATION_PAYLOARD=createLookupElement("payload(type='payload_string')",null);
 
         STREAM = createKeywordLookupElement("stream");
         TABLE = createKeywordLookupElement("table");
@@ -467,6 +501,7 @@ public class SiddhiCompletionUtils {
         return createLookupElement(name, insertHandler).withTypeText("Snippet");
     }
 
+
     /**
      * Adds value types as lookups.
      *
@@ -483,7 +518,7 @@ public class SiddhiCompletionUtils {
     }
 
     /**
-     * Adds value types as lookups.
+     * Adds Initial declaration types as lookups.
      *
      * @param resultSet result list which is used to add lookups
      */
@@ -516,6 +551,29 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_WINDOW, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_TABLE, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INFO, VALUE_TYPES_PRIORITY));
+    }
+
+    /**
+     * Adds suggestions after @ symbol as lookups.
+     *
+     * @param resultSet result list which is used to add lookups
+     */
+    static void addAfterATSymbolLookups(@NotNull CompletionResultSet resultSet) {
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SINK2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SOURCE2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_CONFIG_SNIIP2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_EXPORTSTREAM2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_IMPORTSTREAM2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANTRACE2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANSTATS2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANDESC2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANNAME2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PRIMARYKEY2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INDEX2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INFO2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_MAP, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_ATTRIBUTES, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PAYLOARD, VALUE_TYPES_PRIORITY));
     }
 
     /**

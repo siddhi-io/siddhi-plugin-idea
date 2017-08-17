@@ -50,6 +50,11 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                             addInitialTypesAsLookups(result);
                             return;
                         }
+                        //After @ symbol suggestions
+                        if (prevVisibleSiblingElementType == SiddhiTypes.AT_SYMBOL) {
+                            addAfterATSymbolLookups(result);
+                            return;
+                        }
                         //after define suggestions
                         if (prevVisibleSiblingElementType == SiddhiTypes.DEFINE) {
                             addDefineTypesAsLookups(result);

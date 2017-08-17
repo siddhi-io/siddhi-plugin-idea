@@ -53,4 +53,5 @@ public class SiddhiTypes {
     public static final TokenIElementType SINGLE_LINE_COMMENT = tokenIElementTypes.get(SiddhiQLLexer.SINGLE_LINE_COMMENT);
     public static final TokenIElementType MULTILINE_COMMENT = tokenIElementTypes.get(
             SiddhiQLLexer.MULTILINE_COMMENT);
+    public static final TokenIElementType AT_SYMBOL = tokenIElementTypes.get(SiddhiQLLexer.AT_SYMBOL);
 }
