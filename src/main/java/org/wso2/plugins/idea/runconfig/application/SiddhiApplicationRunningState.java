@@ -24,7 +24,6 @@ import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
 import org.wso2.plugins.idea.runconfig.SiddhiRunningState;
-import org.wso2.plugins.idea.runconfig.RunConfigurationKind;
 import org.wso2.plugins.idea.util.SiddhiExecutor;
 import org.wso2.plugins.idea.util.SiddhiHistoryProcessListener;
 import org.jetbrains.annotations.NotNull;
@@ -58,16 +57,9 @@ public class SiddhiApplicationRunningState extends SiddhiRunningState<SiddhiAppl
 
     @Override
     protected SiddhiExecutor patchExecutor(@NotNull SiddhiExecutor executor) throws ExecutionException {
-        RunConfigurationKind kind = getConfiguration().getRunKind();
-        String parameters = myConfiguration.getPackage();
-        if (parameters.isEmpty()) {
-            parameters = myConfiguration.getFilePath();
-        }
+        String parameters = myConfiguration.getFilePath();
         SiddhiExecutor siddhiExecutor = executor.withParameters("run")
                 .withParameterString(myConfiguration.getSiddhiToolParams()).withParameters(parameters);
-//        if (kind == RunConfigurationKind.SERVICE) {
-//            siddhiExecutor.withParameters("-s");
-//        }
 
         // If debugging mode is running, we need to add the debugging flag.
         if (isDebug()) {

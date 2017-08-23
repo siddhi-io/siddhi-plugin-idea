@@ -57,6 +57,7 @@ public class SiddhiSdkService extends SimpleModificationTracker {
         return ServiceManager.getService(project, SiddhiSdkService.class);
     }
 
+    @Contract("null -> null")
     public static String getSiddhiExecutablePath(@Nullable String sdkHomePath) {
         if (sdkHomePath != null) {
             File binDirectory = new File(sdkHomePath, "bin");

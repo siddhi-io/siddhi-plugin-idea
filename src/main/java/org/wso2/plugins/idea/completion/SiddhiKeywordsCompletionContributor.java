@@ -60,7 +60,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                             addDefineTypesAsLookups(result);
                             return;
                         }
-                        //suggestions after an annotation //TODO: After annotation suggestions needed to be fixed
+                        //suggestions after an annotation //TODO: After annotation suggestions needed to be fixed. CHECK
                         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationElementNode.class) != null ||
                                 PsiTreeUtil.getParentOfType(prevVisibleSibling, AppAnnotationNode.class) != null ||
                                 PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationNode.class) != null) {
@@ -129,7 +129,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                             return;
                         }
                     }
-                    //TODO:Logic needed to be updated
+                    //TODO:Logic needed to be updated. Still after a comment initial types doesn't suggest
                     if(PsiTreeUtil.prevVisibleLeaf(element)!=null){
                         PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
                         if(prevVisibleSibling instanceof PsiComment){

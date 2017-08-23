@@ -23,7 +23,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.ui.EditorTextField;
 import com.intellij.ui.ListCellRendererWrapper;
 import com.intellij.ui.RawCommandLineEditor;
 import org.wso2.plugins.idea.runconfig.SiddhiRunUtil;
@@ -40,10 +39,10 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     private JPanel myPanel;
     private LabeledComponent<JComboBox<RunConfigurationKind>> myRunKindComboBox;
     private LabeledComponent<TextFieldWithBrowseButton> myFileField;
-    private LabeledComponent<EditorTextField> myPackageField;
     private LabeledComponent<RawCommandLineEditor> myParamsField;
     private LabeledComponent<TextFieldWithBrowseButton> myWorkingDirectoryField;
     private LabeledComponent<ModulesComboBox> myModulesComboBox;
+    private LabeledComponent <TextFieldWithBrowseButton> myExtensionField;
     private Project myProject;
 
     public SiddhiApplicationSettingsEditor(Project project) {
@@ -56,7 +55,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     protected void resetEditorFrom(@NotNull SiddhiApplicationConfiguration configuration) {
         myFileField.getComponent().setText(configuration.getFilePath());
 
-        myPackageField.getComponent().setText(configuration.getPackage());
+        myExtensionField.getComponent().setText(configuration.getExtension());
 
         myRunKindComboBox.getComponent().setSelectedItem(configuration.getRunKind());
 
@@ -70,7 +69,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     @Override
     protected void applyEditorTo(@NotNull SiddhiApplicationConfiguration configuration)
             throws ConfigurationException {
-        configuration.setPackage(myPackageField.getComponent().getText());
+        configuration.setExtension(myExtensionField.getComponent().getText());
         RunConfigurationKind runKind = (RunConfigurationKind) myRunKindComboBox.getComponent().getSelectedItem();
         configuration.setRunKind(runKind);
         configuration.setFilePath(myFileField.getComponent().getText());
@@ -95,9 +94,8 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
         myFileField = new LabeledComponent<>();
         myFileField.setComponent(new TextFieldWithBrowseButton());
 
-        myPackageField = new LabeledComponent<>();
-        myPackageField.setComponent(new SiddhiPackageFieldCompletionProvider(
-                () -> myModulesComboBox.getComponent().getSelectedModule()).createEditor(myProject));
+        myExtensionField = new LabeledComponent<>();
+        myExtensionField.setComponent(new TextFieldWithBrowseButton());
 
         myWorkingDirectoryField = new LabeledComponent<>();
         myWorkingDirectoryField.setComponent(new TextFieldWithBrowseButton());

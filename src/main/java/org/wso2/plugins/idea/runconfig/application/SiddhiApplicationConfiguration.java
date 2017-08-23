@@ -38,7 +38,7 @@ public class SiddhiApplicationConfiguration
     private static final String KIND_ATTRIBUTE_NAME = "kind";
 
     @NotNull
-    private String myPackage = "";
+    private String myExtension = "";
 
     public SiddhiApplicationConfiguration(Project project, String name,
                                           @NotNull ConfigurationType configurationType) {
@@ -89,18 +89,17 @@ public class SiddhiApplicationConfiguration
         Module module = getConfigurationModule().getModule();
         assert module != null;
 
-        if (StringUtil.isEmptyOrSpaces(myPackage) && StringUtil.isEmptyOrSpaces(getFilePath())) {
-            throw new RuntimeConfigurationError("Both file path and package are not specified. Need to specify at " +
-                    "least one.");
+        if (StringUtil.isEmptyOrSpaces(getFilePath())) {
+            throw new RuntimeConfigurationError("File path is not specified.");
         }
     }
 
     @NotNull
-    public String getPackage() {
-        return myPackage;
+    public String getExtension() {
+        return myExtension;
     }
 
-    public void setPackage(@NotNull String aPackage) {
-        myPackage = aPackage;
+    public void setExtension(@NotNull String aExtension) {
+        myExtension= aExtension;
     }
 }
