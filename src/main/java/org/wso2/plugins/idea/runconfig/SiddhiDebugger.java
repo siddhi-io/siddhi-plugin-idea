@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package org.siddhilang.plugins.idea.runconfig;
+package org.wso2.plugins.idea.runconfig;
 
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
