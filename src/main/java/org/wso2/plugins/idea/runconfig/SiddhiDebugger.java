@@ -14,10 +14,12 @@
  *  limitations under the License.
  */
 
-package org.wso2.plugins.idea.runconfig;
+package org.siddhilang.plugins.idea.runconfig;
 
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
+import com.intellij.execution.RunnerAndConfigurationSettings;
+import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.configurations.RunProfile;
 import com.intellij.execution.configurations.RunProfileState;
 import com.intellij.execution.executors.DefaultDebugExecutor;
@@ -32,7 +34,10 @@ import com.intellij.xdebugger.XDebugSession;
 import com.intellij.xdebugger.XDebuggerManager;
 import org.wso2.plugins.idea.debugger.SiddhiDebugProcess;
 import org.wso2.plugins.idea.debugger.SiddhiWebSocketConnector;
+import org.wso2.plugins.idea.runconfig.SiddhiRunConfigurationBase;
 import org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunningState;
+import org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteConfiguration;
+import org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteRunningState;
 import org.wso2.plugins.idea.util.SiddhiHistoryProcessListener;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -80,6 +85,23 @@ public class SiddhiDebugger extends GenericProgramRunner {
                     return new SiddhiDebugProcess(session, siddhiDebugSession, getExecutionResults(state, env));
                 }
             }).getRunContentDescriptor();
+        } else if (state instanceof SiddhiRemoteRunningState) {
+            FileDocumentManager.getInstance().saveAllDocuments();
+            return XDebuggerManager.getInstance(env.getProject()).startSession(env, new XDebugProcessStarter() {
+
+                @NotNull
+                @Override
+                public XDebugProcess start(@NotNull XDebugSession session) throws ExecutionException {
+                    // Get the remote host address.
+                    String address = getRemoteAddress(env);
+                    if (address == null || address.isEmpty()) {
+                        throw new ExecutionException("Invalid remote address.");
+                    }
+                    // Create a new connector. This will be used to communicate with the debugger.
+                    SiddhiWebSocketConnector siddhiDebugSession = new SiddhiWebSocketConnector(address);
+                    return new SiddhiDebugProcess(session, siddhiDebugSession, null);
+                }
+            }).getRunContentDescriptor();
         }
         return null;
     }
@@ -94,7 +116,28 @@ public class SiddhiDebugger extends GenericProgramRunner {
         return executionResult;
     }
 
-
+    @Nullable
+    private String getRemoteAddress(@NotNull ExecutionEnvironment env) {
+        RunnerAndConfigurationSettings runnerAndConfigurationSettings = env.getRunnerAndConfigurationSettings();
+        if (runnerAndConfigurationSettings == null) {
+            return null;
+        }
+        RunConfiguration configurationSettings = runnerAndConfigurationSettings.getConfiguration();
+        if (configurationSettings instanceof SiddhiRemoteConfiguration) {
+            SiddhiRemoteConfiguration applicationConfiguration =
+                    (SiddhiRemoteConfiguration) configurationSettings;
+            String remoteDebugHost = applicationConfiguration.getRemoteDebugHost();
+            if (remoteDebugHost.isEmpty()) {
+                return null;
+            }
+            String remoteDebugPort = applicationConfiguration.getRemoteDebugPort();
+            if (remoteDebugPort.isEmpty()) {
+                return null;
+            }
+            return remoteDebugHost + ":" + remoteDebugPort;
+        }
+        return null;
+    }
 
     private static int findFreePort() {
         try (ServerSocket socket = new ServerSocket(0)) {
