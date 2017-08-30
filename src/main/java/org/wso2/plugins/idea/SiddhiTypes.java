@@ -38,7 +38,6 @@ public class SiddhiTypes {
             PSIElementTypeFactory.getTokenIElementTypes(SiddhiLanguage.INSTANCE);
 
     public static final TokenIElementType IDENTIFIER = tokenIElementTypes.get(SiddhiQLLexer.ID);
-
     // Other tokens
     public static final TokenIElementType DEFINE = tokenIElementTypes.get(SiddhiQLLexer.DEFINE);
     public static final TokenIElementType AT = tokenIElementTypes.get(SiddhiQLLexer.AT);
