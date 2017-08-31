@@ -53,4 +53,7 @@ public class SiddhiTypes {
     public static final TokenIElementType MULTILINE_COMMENT = tokenIElementTypes.get(
             SiddhiQLLexer.MULTILINE_COMMENT);
     public static final TokenIElementType AT_SYMBOL = tokenIElementTypes.get(SiddhiQLLexer.AT_SYMBOL);
+    public static final TokenIElementType FROM = tokenIElementTypes.get(SiddhiQLLexer.FROM);
+    public static final TokenIElementType INSERT = tokenIElementTypes.get(SiddhiQLLexer.INSERT);
+
 }

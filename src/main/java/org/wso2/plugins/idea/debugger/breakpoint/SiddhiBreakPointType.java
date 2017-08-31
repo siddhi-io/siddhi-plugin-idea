@@ -22,6 +22,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Processor;
 import com.intellij.xdebugger.XDebuggerUtil;
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType;
@@ -29,6 +30,10 @@ import org.wso2.plugins.idea.SiddhiFileType;
 import org.wso2.plugins.idea.SiddhiTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.psi.AppAnnotationNode;
+import org.wso2.plugins.idea.psi.ExecutionElementNode;
+import org.wso2.plugins.idea.psi.QueryInputNode;
+import org.wso2.plugins.idea.psi.QueryOutputNode;
 
 public class SiddhiBreakPointType extends XLineBreakpointType<SiddhiBreakpointProperties> {
 
@@ -66,15 +71,32 @@ public class SiddhiBreakPointType extends XLineBreakpointType<SiddhiBreakpointPr
     private static final class Checker implements Processor<PsiElement> {
 
         private boolean myIsLineBreakpointAvailable;
+        private int counter=0;
 
         @Override
         public boolean process(@NotNull PsiElement element) {
-            IElementType type = element.getNode().getElementType();
-            if (type == SiddhiTypes.MULTILINE_COMMENT || type== SiddhiTypes.SINGLE_LINE_COMMENT
-                    || type instanceof PsiWhiteSpace || element.getNode().getText().isEmpty()) {
-                myIsLineBreakpointAvailable = false;
-            } else {
-                myIsLineBreakpointAvailable = true;
+            if (PsiTreeUtil.nextVisibleLeaf(element) != null) {
+                PsiElement nextVisibleSibling = PsiTreeUtil.nextVisibleLeaf(element);
+                PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
+                IElementType elementType = element.getNode().getElementType();
+                IElementType nextVisibleSiblingElementType = nextVisibleSibling.getNode().getElementType();
+
+
+                if(elementType==SiddhiTypes.FROM && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryInputNode
+                        .class)!= null){
+                    counter=1;
+                    myIsLineBreakpointAvailable = true;
+                }
+                else if (elementType==SiddhiTypes.INSERT && PsiTreeUtil.getParentOfType(nextVisibleSibling,
+                        QueryOutputNode.class) != null) {
+                    counter=1;
+                    myIsLineBreakpointAvailable = true;
+                } else if(counter==1){
+                    myIsLineBreakpointAvailable = true;
+                }else {
+                    myIsLineBreakpointAvailable = false;
+                }
+
             }
             return true;
         }

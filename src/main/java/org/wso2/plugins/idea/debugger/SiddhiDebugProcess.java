@@ -58,7 +58,6 @@ import org.wso2.plugins.idea.debugger.protocol.Response;
 //import org.wso2.plugins.idea.util.SiddhiUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -81,10 +80,10 @@ public class SiddhiDebugProcess extends XDebugProcess {
 
     private final AtomicBoolean breakpointsInitiated = new AtomicBoolean();
 
-    public SiddhiDebugProcess(@NotNull XDebugSession session,@NotNull SiddhiWebSocketConnector connector,
+    public SiddhiDebugProcess(@NotNull XDebugSession session, @NotNull SiddhiWebSocketConnector connector,
                                  @Nullable ExecutionResult executionResult) {
         super(session);
-        myConnector = null;//connector
+        myConnector = connector;
         myProcessHandler = executionResult == null ? super.getProcessHandler() : executionResult.getProcessHandler();
         myExecutionConsole = executionResult == null ? super.createConsole() : executionResult.getExecutionConsole();
         myEditorsProvider = new SiddhiDebuggerEditorsProvider();
@@ -333,11 +332,10 @@ public class SiddhiDebugProcess extends XDebugProcess {
 
             Project project = getSession().getProject();
             String filePath = file.getName();
-            String packageName = "test";//SiddhiUtil.suggestPackageNameForFile(project, file);
-            if (!packageName.isEmpty()) {
-                filePath = packageName.replaceAll("\\.", Matcher.quoteReplacement(File.separator));
-                filePath += (Matcher.quoteReplacement(File.separator) + file.getName());
-            }
+//            String packageName = SiddhiUtil.suggestPackageNameForFile(project, file);
+//            if (!packageName.isEmpty()) {
+//                filePath = packageName.replaceAll("\\.", Matcher.quoteReplacement(File.separator));
+//                filePath += (Matcher.quoteReplacement(File.separator) + file.getName());
 
             if (filePath.equals(fileName) && line == lineNumber) {
                 return breakpoint;
@@ -422,21 +420,9 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         Project project = getSession().getProject();
 
                         String name = file.getName();
-                        String packagePath = ".";
+
                         // Only get relative path if a package declaration is present in the file.
                         PsiFile psiFile = PsiManager.getInstance(project).findFile(file);
-//                       PackageDeclarationNode packageDeclarationNode = PsiTreeUtil.findChildOfType(psiFile,
-//                                PackageDeclarationNode.class);
-//                        if (packageDeclarationNode != null) {
-//                            FullyQualifiedPackageNameNode packagePathNode =
-//                                    PsiTreeUtil.getChildOfType(packageDeclarationNode,
-//                                            FullyQualifiedPackageNameNode.class);
-//                            if (packagePathNode != null && !packagePathNode.getText().isEmpty()) {
-//                                packagePath = packagePathNode.getText();
-//                            }
-//                        }
-
-                        stringBuilder.append("{\"packagePath\":\"").append(packagePath).append("\", ");
                         stringBuilder.append("\"fileName\":\"").append(name).append("\", ");
                         stringBuilder.append("\"lineNumber\":").append(line + 1).append("}");
                         if (i < size - 1) {

@@ -32,21 +32,26 @@
         <!--parser-->
         <lang.parserDefinition language="Siddhi"
                                implementationClass="org.wso2.plugins.idea.SiddhiParserDefinition"/>
+
         <!-- highlighting -->
         <lang.syntaxHighlighterFactory language="Siddhi"
                                        implementationClass="org.wso2.plugins.idea.highlighter.SiddhiSyntaxHighlighterFactory"/>
         <colorSettingsPage implementation="org.wso2.plugins.idea.highlighter.SiddhiColorSettingsPage"/>
+
         <!-- Anootator -->
         <annotator language="Siddhi"
                    implementationClass="org.wso2.plugins.idea.codeInsight.daemon.impl.SiddhiAnnotator"/>
+
         <!--structure view-->
         <lang.ast.factory language="Siddhi"
                           implementationClass="org.wso2.plugins.idea.SiddhiASTFactory"/>
+
         <!--completion-->
         <completion.contributor language="Siddhi"
                                 implementationClass="org.wso2.plugins.idea.completion.SiddhiCompletionContributor"/>
         <completion.contributor language="Siddhi"
                                 implementationClass="org.wso2.plugins.idea.completion.SiddhiKeywordsCompletionContributor"/>
+
         <!--spell checking-->
         <spellchecker.support language="Siddhi"
                               implementationClass="org.wso2.plugins.idea.spellchecker.SiddhiSpellcheckingStrategy"/>
@@ -71,13 +76,8 @@
 
         <!-- run application -->
         <programRunner id="siddhiRunner" implementation="org.wso2.plugins.idea.runconfig.SiddhiRunner"/>
-
         <configurationType implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationType"/>
         <runConfigurationProducer implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationProducer"/>
-
-        <!--<runLineMarkerContributor language="Siddhi" implementationClass="org.wso2.plugins.idea.runconfig
-        .SiddhiRunLineMarkerProvider"/>
-        <console.folding implementation="org.wso2.plugins.idea.runconfig.SiddhiConsoleFolding"/> -->
 
         <!-- debugger -->
         <programRunner id="ballerinaDebugger" implementation="org.wso2.plugins.idea.runconfig.SiddhiDebugger"/>

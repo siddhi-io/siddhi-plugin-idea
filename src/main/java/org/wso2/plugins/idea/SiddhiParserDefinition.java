@@ -212,10 +212,10 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new AnnotationNode(node);
             case RULE_app_annotation:
                 return new AppAnnotationNode(node);
-//            case RULE_app_annotation:
-//                return new AttributeTypeNode(node);
-//            case RULE_annotation_element:
-//                return new AttributeTypeNode(node);
+            case RULE_query_input:
+                return new QueryInputNode(node);
+            case RULE_query_output:
+                return new QueryOutputNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }
