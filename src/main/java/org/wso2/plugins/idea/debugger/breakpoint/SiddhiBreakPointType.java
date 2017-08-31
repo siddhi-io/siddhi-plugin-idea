@@ -77,10 +77,7 @@ public class SiddhiBreakPointType extends XLineBreakpointType<SiddhiBreakpointPr
         public boolean process(@NotNull PsiElement element) {
             if (PsiTreeUtil.nextVisibleLeaf(element) != null) {
                 PsiElement nextVisibleSibling = PsiTreeUtil.nextVisibleLeaf(element);
-                PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
                 IElementType elementType = element.getNode().getElementType();
-                IElementType nextVisibleSiblingElementType = nextVisibleSibling.getNode().getElementType();
-
 
                 if(elementType==SiddhiTypes.FROM && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryInputNode
                         .class)!= null){
@@ -96,7 +93,6 @@ public class SiddhiBreakPointType extends XLineBreakpointType<SiddhiBreakpointPr
                 }else {
                     myIsLineBreakpointAvailable = false;
                 }
-
             }
             return true;
         }
