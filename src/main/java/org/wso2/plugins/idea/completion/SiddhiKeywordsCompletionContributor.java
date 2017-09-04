@@ -59,7 +59,8 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                         if (prevVisibleSiblingElementType == SiddhiTypes.DEFINE) {
                             addDefineTypesAsLookups(result);
                             return;
-                        }
+                        }//TODO: "-" mark inside an annotation marked as minus sign. When a string is defined its ok
+                        //Annotation highlighter exception
                         //suggestions after an annotation //TODO: After annotation suggestions needed to be fixed. CHECK
                         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationElementNode.class) != null ||
                                 PsiTreeUtil.getParentOfType(prevVisibleSibling, AppAnnotationNode.class) != null ||
