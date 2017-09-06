@@ -63,6 +63,8 @@ public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConf
             configuration.setName(configName);
             // Set the file path.
             configuration.setFilePath(file.getVirtualFile().getPath());
+            //set the input file path
+            configuration.setInputFilePath(file.getVirtualFile().getPath());
             // Set the module.
             Module module = context.getModule();
             if (module != null) {

@@ -34,12 +34,14 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
         SiddhiRunConfigurationBase<T> {
 
     private static final String FILE_PATH_ATTRIBUTE_NAME = "filePath";
+    private static final String INPUT_FILE_PATH_ATTRIBUTE_NAME = "Input filePath";
     private static final String KIND_ATTRIBUTE_NAME = "myRunKind";
     private static final String REMOTE_DEBUGGING_HOST_ATTRIBUTE_NAME = "remoteDebuggingHost";
     private static final String REMOTE_DEBUGGING_PORT_ATTRIBUTE_NAME = "remoteDebuggingPort";
 
     @NotNull
     private String myFilePath = "";
+    private String myInputFilePath = "";
     @NotNull
     protected RunConfigurationKind myRunKind = RunConfigurationKind.MAIN;
     @NotNull
@@ -58,6 +60,8 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
         super.readExternal(element);
         myFilePath = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
                 FILE_PATH_ATTRIBUTE_NAME));
+        myInputFilePath = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
+                INPUT_FILE_PATH_ATTRIBUTE_NAME));
         myRunKind = RunConfigurationKind.valueOf(StringUtil.notNullize(
                 JDOMExternalizerUtil.getFirstChildValueAttribute(element, KIND_ATTRIBUTE_NAME)));
         remoteDebugHost = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
@@ -70,6 +74,7 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
     public void writeExternal(Element element) throws WriteExternalException {
         super.writeExternal(element);
         addNonEmptyElement(element, FILE_PATH_ATTRIBUTE_NAME, myFilePath);
+        addNonEmptyElement(element, INPUT_FILE_PATH_ATTRIBUTE_NAME, myInputFilePath);
         addNonEmptyElement(element, KIND_ATTRIBUTE_NAME, myRunKind.toString());
         addNonEmptyElement(element, REMOTE_DEBUGGING_HOST_ATTRIBUTE_NAME, remoteDebugHost);
         addNonEmptyElement(element, REMOTE_DEBUGGING_PORT_ATTRIBUTE_NAME, remoteDebugPort);
@@ -97,6 +102,14 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
 
     public void setFilePath(@NotNull String filePath) {
         myFilePath = filePath;
+    }
+
+    public String getInputFilePath() {
+        return myInputFilePath;
+    }
+
+    public void setInputFilePath(@NotNull String inputFilePath) {
+        myInputFilePath = inputFilePath;
     }
 
     public RunConfigurationKind getRunKind() {

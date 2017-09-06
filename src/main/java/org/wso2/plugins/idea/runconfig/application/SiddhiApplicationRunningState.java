@@ -58,12 +58,13 @@ public class SiddhiApplicationRunningState extends SiddhiRunningState<SiddhiAppl
     @Override
     protected SiddhiExecutor patchExecutor(@NotNull SiddhiExecutor executor) throws ExecutionException {
         String parameters = myConfiguration.getFilePath();
+        String inputFile=myConfiguration.getInputFilePath();
         SiddhiExecutor siddhiExecutor = executor.withParameters("run")
                 .withParameterString(myConfiguration.getSiddhiToolParams()).withParameters(parameters);
 
         // If debugging mode is running, we need to add the debugging flag.
         if (isDebug()) {
-            siddhiExecutor.withParameters("--siddhi.debug", String.valueOf(myDebugPort));
+            siddhiExecutor.withParameters("--siddhi.debug", String.valueOf(myDebugPort)).withParameters(inputFile);
         }
         return siddhiExecutor;
     }

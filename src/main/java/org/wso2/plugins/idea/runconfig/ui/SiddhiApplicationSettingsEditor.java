@@ -43,6 +43,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     private LabeledComponent<TextFieldWithBrowseButton> myWorkingDirectoryField;
     private LabeledComponent<ModulesComboBox> myModulesComboBox;
     private LabeledComponent <TextFieldWithBrowseButton> myExtensionField;
+    private LabeledComponent<TextFieldWithBrowseButton> myEventInputFile;
     private Project myProject;
 
     public SiddhiApplicationSettingsEditor(Project project) {
@@ -55,6 +56,8 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     protected void resetEditorFrom(@NotNull SiddhiApplicationConfiguration configuration) {
         myFileField.getComponent().setText(configuration.getFilePath());
 
+        myEventInputFile.getComponent().setText(configuration.getInputFilePath());
+//TODO:remove extension field
         myExtensionField.getComponent().setText(configuration.getExtension());
 
         myRunKindComboBox.getComponent().setSelectedItem(configuration.getRunKind());
@@ -73,6 +76,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
         RunConfigurationKind runKind = (RunConfigurationKind) myRunKindComboBox.getComponent().getSelectedItem();
         configuration.setRunKind(runKind);
         configuration.setFilePath(myFileField.getComponent().getText());
+        configuration.setInputFilePath(myEventInputFile.getComponent().getText());
         configuration.setModule(myModulesComboBox.getComponent().getSelectedModule());
         configuration.setParams(myParamsField.getComponent().getText());
         configuration.setWorkingDirectory(myWorkingDirectoryField.getComponent().getText());
