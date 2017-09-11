@@ -98,6 +98,9 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
         myFileField = new LabeledComponent<>();
         myFileField.setComponent(new TextFieldWithBrowseButton());
 
+        myEventInputFile = new LabeledComponent<>();
+        myEventInputFile.setComponent(new TextFieldWithBrowseButton());
+
         myExtensionField = new LabeledComponent<>();
         myExtensionField.setComponent(new TextFieldWithBrowseButton());
 
