@@ -37,9 +37,6 @@ public class SiddhiApplicationConfiguration
 
     private static final String KIND_ATTRIBUTE_NAME = "kind";
 
-    @NotNull
-    private String myExtension = "";
-
     public SiddhiApplicationConfiguration(Project project, String name,
                                           @NotNull ConfigurationType configurationType) {
         super(name, new SiddhiModuleBasedConfiguration(project), configurationType.getConfigurationFactories()[0]);
@@ -92,14 +89,5 @@ public class SiddhiApplicationConfiguration
         if (StringUtil.isEmptyOrSpaces(getFilePath())) {
             throw new RuntimeConfigurationError("File path is not specified.");
         }
-    }
-
-    @NotNull
-    public String getExtension() {
-        return myExtension;
-    }
-
-    public void setExtension(@NotNull String aExtension) {
-        myExtension= aExtension;
     }
 }

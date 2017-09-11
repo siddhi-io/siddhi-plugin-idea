@@ -34,7 +34,7 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
         SiddhiRunConfigurationBase<T> {
 
     private static final String FILE_PATH_ATTRIBUTE_NAME = "filePath";
-    private static final String INPUT_FILE_PATH_ATTRIBUTE_NAME = "Input filePath";
+    private static final String INPUT_FILE_PATH_ATTRIBUTE_NAME = "inputFilePath";
     private static final String KIND_ATTRIBUTE_NAME = "myRunKind";
     private static final String REMOTE_DEBUGGING_HOST_ATTRIBUTE_NAME = "remoteDebuggingHost";
     private static final String REMOTE_DEBUGGING_PORT_ATTRIBUTE_NAME = "remoteDebuggingPort";
