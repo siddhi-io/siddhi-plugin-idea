@@ -418,12 +418,10 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         VirtualFile file = breakpointPosition.getFile();
                         int line = breakpointPosition.getLine();
                         Project project = getSession().getProject();
-
                         String name = file.getName();
-
                         // Only get relative path if a package declaration is present in the file.
                         PsiFile psiFile = PsiManager.getInstance(project).findFile(file);
-                        stringBuilder.append("\"fileName\":\"").append(name).append("\", ");
+                        stringBuilder.append("{\"fileName\":\"").append(name).append("\", ");
                         stringBuilder.append("\"lineNumber\":").append(line + 1).append("}");
                         if (i < size - 1) {
                             stringBuilder.append(",");
