@@ -16,16 +16,17 @@
 
 package org.wso2.plugins.idea.debugger.dto;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class Message {
 
     private String code;
+
     private String message;
-    private String threadId;
+
+    private Map<String, Object> queryState;
+
     private BreakPoint location;
-    private List<Frame> frames = new ArrayList<>();
 
     public String getCode() {
         return code;
@@ -43,12 +44,12 @@ public class Message {
         this.message = message;
     }
 
-    public String getThreadId() {
-        return threadId;
+    public Map<String, Object> getQueryState() {
+        return queryState;
     }
 
-    public void setThreadId(String threadId) {
-        this.threadId = threadId;
+    public void setQueryState(Map<String, Object> queryState) {
+        this.queryState = queryState;
     }
 
     public BreakPoint getLocation() {
@@ -59,7 +60,4 @@ public class Message {
         this.location = location;
     }
 
-    public List<Frame> getFrames() {
-        return frames;
-    }
 }

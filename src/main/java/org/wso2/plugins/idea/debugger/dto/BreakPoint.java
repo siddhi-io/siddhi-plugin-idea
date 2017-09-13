@@ -18,31 +18,33 @@ package org.wso2.plugins.idea.debugger.dto;
 
 public class BreakPoint {
 
-    private String packagePath;
-    private String fileName;
-    private int lineNumber = -1;
+    private int queryIndex;
 
-    public String getPackagePath() {
-        return packagePath;
+    private String queryTerminal;
+
+    public BreakPoint(){
+
     }
 
-    public void setPackagePath(String packagePath) {
-        this.packagePath = packagePath;
+    public Integer getQueryIndex() {
+        return queryIndex;
     }
 
-    public String getFileName() {
-        return fileName;
+    public void setQueryIndex(Integer queryIndex) {
+        this.queryIndex = queryIndex;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public String getQueryTerminal() {
+        return queryTerminal;
     }
 
-    public int getLineNumber() {
-        return lineNumber;
+    public void setQueryTerminal(String queryTerminal) {
+        this.queryTerminal = queryTerminal;
     }
 
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
+    public BreakPoint(int queryIndex, String queryTerminal) {
+        this.queryIndex = queryIndex;
+        this.queryTerminal = queryTerminal;
     }
+
 }
