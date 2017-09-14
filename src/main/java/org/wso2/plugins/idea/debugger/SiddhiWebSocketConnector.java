@@ -67,19 +67,19 @@ public class SiddhiWebSocketConnector {
         }
     }
 
-    void sendCommand(Command command, String threadId) {
-        if (isConnected()) {
-            client.sendText(generateRequest(command, threadId));
-        }
-    }
+//    void sendCommand(Command command, String threadId) {
+//        if (isConnected()) {
+//            client.sendText(generateRequest(command, threadId));
+//        }
+//    }
 
     private String generateRequest(Command command) {
         return "{\"command\":\"" + command + "\"}";
     }
 
-    private String generateRequest(Command command, String threadId) {
-        return "{\"command\":\"" + command + "\", \"threadId\":\"" + threadId + "\"}";
-    }
+//    private String generateRequest(Command command, String threadId) {
+//        return "{\"command\":\"" + command + "\", \"threadId\":\"" + threadId + "\"}";
+//    }
 
     void send(String json) {
         if (isConnected()) {

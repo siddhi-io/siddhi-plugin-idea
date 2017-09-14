@@ -169,7 +169,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     public void startStepOver(@Nullable XSuspendContext context) {
         String threadId = getThreadId(context);
         if (threadId != null) {
-            myConnector.sendCommand(Command.STEP_OVER, threadId);
+            myConnector.sendCommand(Command.STEP_OVER);
         }
     }
 
@@ -177,7 +177,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     public void startStepInto(@Nullable XSuspendContext context) {
         String threadId = getThreadId(context);
         if (threadId != null) {
-            myConnector.sendCommand(Command.STEP_IN, threadId);
+            myConnector.sendCommand(Command.STEP_IN);
         }
     }
 
@@ -185,7 +185,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     public void startStepOut(@Nullable XSuspendContext context) {
         String threadId = getThreadId(context);
         if (threadId != null) {
-            myConnector.sendCommand(Command.STEP_OUT, threadId);
+            myConnector.sendCommand(Command.STEP_OUT);
         }
     }
 
@@ -202,7 +202,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         String threadId = ((SiddhiSuspendContext.SiddhiExecutionStack) activeExecutionStack)
                                 .getThreadId();
                         if (threadId != null) {
-                            myConnector.sendCommand(Command.STOP, threadId);
+                            myConnector.sendCommand(Command.STOP);
                         }
                     }
                 } else {
@@ -225,7 +225,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     public void resume(@Nullable XSuspendContext context) {
         String threadId = getThreadId(context);
         if (threadId != null) {
-            myConnector.sendCommand(Command.RESUME, threadId);
+            myConnector.sendCommand(Command.RESUME);
         }
     }
 
@@ -321,6 +321,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
 
     private XBreakpoint<SiddhiBreakpointProperties> findBreakPoint(@NotNull BreakPoint breakPoint) {
         String fileName = breakPoint.getFileName();
+
         int lineNumber = breakPoint.getLineNumber();
         for (XBreakpoint<SiddhiBreakpointProperties> breakpoint : breakpoints) {
             XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
@@ -329,13 +330,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             }
             VirtualFile file = breakpointPosition.getFile();
             int line = breakpointPosition.getLine() + 1;
-
-            Project project = getSession().getProject();
             String filePath = file.getName();
-//            String packageName = SiddhiUtil.suggestPackageNameForFile(project, file);
-//            if (!packageName.isEmpty()) {
-//                filePath = packageName.replaceAll("\\.", Matcher.quoteReplacement(File.separator));
-//                filePath += (Matcher.quoteReplacement(File.separator) + file.getName());
 
             if (filePath.equals(fileName) && line == lineNumber) {
                 return breakpoint;
@@ -417,10 +412,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         }
                         VirtualFile file = breakpointPosition.getFile();
                         int line = breakpointPosition.getLine();
-                        Project project = getSession().getProject();
                         String name = file.getName();
-                        // Only get relative path if a package declaration is present in the file.
-                        PsiFile psiFile = PsiManager.getInstance(project).findFile(file);
                         stringBuilder.append("{\"fileName\":\"").append(name).append("\", ");
                         stringBuilder.append("\"lineNumber\":").append(line + 1).append("}");
                         if (i < size - 1) {

@@ -22,6 +22,10 @@ public class BreakPoint {
 
     private String queryTerminal;
 
+    private String fileName;
+
+    private int lineNumber;
+
     public BreakPoint(){
 
     }
@@ -42,7 +46,25 @@ public class BreakPoint {
         this.queryTerminal = queryTerminal;
     }
 
-    public BreakPoint(int queryIndex, String queryTerminal) {
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
+    public void setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
+    }
+
+    public BreakPoint(String fileName, int lineNumber, int queryIndex, String queryTerminal) {
+        this.fileName=fileName;
+        this.lineNumber=lineNumber;
         this.queryIndex = queryIndex;
         this.queryTerminal = queryTerminal;
     }

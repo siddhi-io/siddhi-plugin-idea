@@ -29,11 +29,12 @@ import java.util.List;
 
 public class SiddhiSuspendContext extends XSuspendContext {
 
+    private static final String DEFAULT_THREAD_ID= "default";
     @NotNull
     private final SiddhiExecutionStack myStack;
 
     public SiddhiSuspendContext(@NotNull SiddhiDebugProcess process, @NotNull Message message) {
-        myStack = new SiddhiExecutionStack(process, message.getThreadId(), message.getFrames());
+        myStack = new SiddhiExecutionStack(process, message.getFrames());
     }
 
     @Nullable
@@ -56,9 +57,9 @@ public class SiddhiSuspendContext extends XSuspendContext {
         @NotNull
         private final List<SiddhiStackFrame> myStack;
 
-        public SiddhiExecutionStack(@NotNull SiddhiDebugProcess process, String threadId, List<Frame> frames) {
-            super("Thread #" + threadId);
-            this.threadId = threadId;
+        public SiddhiExecutionStack(@NotNull SiddhiDebugProcess process, List<Frame> frames) {
+            super("Thread #" + DEFAULT_THREAD_ID);
+            this.threadId = DEFAULT_THREAD_ID;
             this.myProcess = process;
             this.myStack = ContainerUtil.newArrayListWithCapacity(frames.size());
             for (Frame frame : frames) {
