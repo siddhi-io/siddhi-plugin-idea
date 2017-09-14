@@ -34,7 +34,7 @@ public class BreakPoint {
         return queryIndex;
     }
 
-    public void setQueryIndex(Integer queryIndex) {
+    public void setQueryIndex(int queryIndex) {
         this.queryIndex = queryIndex;
     }
 

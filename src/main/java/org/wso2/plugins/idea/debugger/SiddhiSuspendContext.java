@@ -25,6 +25,7 @@ import org.wso2.plugins.idea.debugger.dto.Message;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SiddhiSuspendContext extends XSuspendContext {
@@ -34,7 +35,14 @@ public class SiddhiSuspendContext extends XSuspendContext {
     private final SiddhiExecutionStack myStack;
 
     public SiddhiSuspendContext(@NotNull SiddhiDebugProcess process, @NotNull Message message) {
-        myStack = new SiddhiExecutionStack(process, message.getFrames());
+
+        String fileName=message.getLocation().getFileName();
+        String frameName= "myFrame";
+        Frame myFrame=new Frame(frameName,fileName);
+        List<Frame> framesList = new ArrayList<>();
+        framesList.add(myFrame);
+
+        myStack = new SiddhiExecutionStack(process, framesList);
     }
 
     @Nullable

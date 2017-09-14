@@ -65,7 +65,8 @@ public class SiddhiStackFrame extends XStackFrame {
     @Override
     public XSourcePosition getSourcePosition() {
         VirtualFile file = findFile();
-        return file == null ? null : XDebuggerUtil.getInstance().createPosition(file, myFrame.getLineID() - 1);
+        return file == null ? null : XDebuggerUtil.getInstance().createPosition(file, myFrame.getLocation()
+                .getLineNumber() - 1);//TODO:edited by me :)
     }
 
     @Nullable

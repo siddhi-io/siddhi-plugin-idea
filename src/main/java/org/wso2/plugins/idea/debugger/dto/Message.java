@@ -18,7 +18,7 @@ package org.wso2.plugins.idea.debugger.dto;
 
 import java.util.Map;
 
-public class Message {
+public class  Message {
 
     private String code;
 

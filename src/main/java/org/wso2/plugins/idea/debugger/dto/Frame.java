@@ -16,48 +16,45 @@
 
 package org.wso2.plugins.idea.debugger.dto;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class Frame {
 
-    private String packageName, frameName, fileName;
-    private int lineID;
-    private List<Variable> variables = new ArrayList<>();
+    private String frameName, fileName;
 
-    public String getPackageName() {
-        return packageName;
-    }
+    private Map<String, Object> queryState;
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    private BreakPoint location;
+
+    public Frame(String frameName, String fileName){
+        this.frameName=frameName;
+        this.fileName=fileName;
     }
 
     public String getFrameName() {
         return frameName;
     }
 
-    public void setFrameName(String frameName) {
-        this.frameName = frameName;
-    }
-
     public String getFileName() {
         return fileName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public Map<String, Object> getQueryState() {
+        return queryState;
     }
 
-    public int getLineID() {
-        return lineID;
+    public void setQueryState(Map<String, Object> queryState) {
+        this.queryState = queryState;
     }
 
-    public void setLineID(int lineID) {
-        this.lineID = lineID;
+
+    public BreakPoint getLocation() {
+        return location;
     }
 
-    public List<Variable> getVariables() {
-        return variables;
+    public void setLocation(BreakPoint location) {
+        this.location = location;
     }
+
+
 }
