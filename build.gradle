@@ -19,6 +19,12 @@ buildscript {
     }
 }
 
+dependencies {
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20170516'
+}
+
+
 plugins {
     id "org.jetbrains.intellij" version "0.2.5"
     id "de.undercouch.download" version "3.2.0"

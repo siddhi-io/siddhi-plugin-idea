@@ -42,7 +42,7 @@ import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XStringValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XValuePresentation;
-import org.wso2.plugins.idea.debugger.dto.Variable;
+import org.wso2.plugins.idea.debugger.dto.QueryStateVariable;
 import org.wso2.plugins.idea.highlighter.SiddhiSyntaxHighlightingColors;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -57,14 +57,14 @@ public class SiddhiXValue extends XNamedValue {
     @NotNull
     private final SiddhiDebugProcess myProcess;
     @NotNull
-    private final Variable myVariable;
+    private final QueryStateVariable myVariable;
     @NotNull
     private final String myFrameName;
     @Nullable
     private final Icon myIcon;
 
     SiddhiXValue(@NotNull SiddhiDebugProcess process, @NotNull String frameName,
-                    @NotNull Variable variable, @Nullable Icon icon) {
+                    @NotNull QueryStateVariable variable, @Nullable Icon icon) {
         super(variable.getName());
         myProcess = process;
         myFrameName = frameName;
@@ -84,12 +84,12 @@ public class SiddhiXValue extends XNamedValue {
 
     @Override
     public void computeChildren(@NotNull XCompositeNode node) {
-        List<Variable> children = myVariable.getChildren();
+        List<QueryStateVariable> children = myVariable.getChildren();
         if (children == null) {
             super.computeChildren(node);
         } else {
             XValueChildrenList list = new XValueChildrenList();
-            for (Variable child : children) {
+            for (QueryStateVariable child : children) {
                 list.add(child.getName(), new SiddhiXValue(myProcess, myFrameName, child, AllIcons.Nodes.Field));
             }
             node.addChildren(list, true);
@@ -108,23 +108,23 @@ public class SiddhiXValue extends XNamedValue {
         if (value == null) {
             return new XRegularValuePresentation(myFrameName, "Scope");
         }
-        if (myVariable.isNumber()) {
-            return new XNumericValuePresentation(value);
-        }
-        if (myVariable.isString()) {
-            return new XStringValuePresentation(value);
-        }
-        if (myVariable.isBoolean()) {
-            return new XValuePresentation() {
-                @Override
-                public void renderValue(@NotNull XValueTextRenderer renderer) {
-                    renderer.renderValue(value, SiddhiSyntaxHighlightingColors.KEYWORD);
-                }
-            };
-        }
+//        if (myVariable instanceof Integer) {
+//            return new XNumericValuePresentation(value);
+//        }
+//        if (myVariable.isString()) {
+//            return new XStringValuePresentation(value);
+//        }
+//        if (myVariable.isBoolean()) {
+//            return new XValuePresentation() {
+//                @Override
+//                public void renderValue(@NotNull XValueTextRenderer renderer) {
+//                    renderer.renderValue(value, SiddhiSyntaxHighlightingColors.KEYWORD);
+//                }
+//            };
+//        }
 
-        String type = myVariable.getType();
-        String prefix = myVariable.getType() + " ";
+        String type = "Type not applicable";//myVariable.getType();
+        String prefix = "Type not applicable"+" ";//myVariable.getType() + " ";
         return new XRegularValuePresentation(StringUtil.startsWith(value, prefix) ? value.replaceFirst(Pattern.quote
                 (prefix), "") : value, type);
     }

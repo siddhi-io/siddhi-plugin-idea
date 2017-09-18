@@ -13,24 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package org.wso2.plugins.idea.debugger.dto;
 
 import java.util.List;
 
-public class Variable {
+public class QueryStateVariable {
 
-    private String scope, name;
-    private String type, value;
-    private List<Variable> children;
+    private String name;
 
-    public String getScope() {
-        return scope;
-    }
+    private String value;
 
-    public void setScope(String scope) {
-        this.scope = scope;
-    }
+    private List<QueryStateVariable> children;
 
     public String getName() {
         return name;
@@ -38,14 +31,6 @@ public class Variable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getValue() {
@@ -56,23 +41,13 @@ public class Variable {
         this.value = value;
     }
 
-    public List<Variable> getChildren() {
+    public List<QueryStateVariable> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Variable> children) {
+    public void setChildren(List<QueryStateVariable> children) {
         this.children = children;
     }
 
-    public boolean isNumber() {
-        return type != null && "BInteger".equals(type);
-    }
 
-    public boolean isString() {
-        return type != null && "BString".equals(type);
-    }
-
-    public boolean isBoolean() {
-        return type != null && "BBoolean".equals(type);
-    }
 }

@@ -135,7 +135,6 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                         PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
                         if(prevVisibleSibling instanceof PsiComment){
                             addInitialTypesAsLookups(result);
-                            return;
                         }
                     }
                 }
@@ -143,7 +142,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         }
     }
 
-    public void windowDefinitionKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element, PsiElement
+    private void windowDefinitionKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element, PsiElement
             prevVisibleSibling, IElementType prevVisibleSiblingElementType) {
 
         if(PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling)!=null) {

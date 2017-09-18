@@ -16,6 +16,8 @@
 
 package org.wso2.plugins.idea.debugger;
 
+import org.json.JSONObject;
+import com.google.gson.Gson;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectRootManager;
@@ -30,15 +32,12 @@ import com.intellij.xdebugger.frame.XCompositeNode;
 import com.intellij.xdebugger.frame.XStackFrame;
 import com.intellij.xdebugger.frame.XValueChildrenList;
 import org.wso2.plugins.idea.debugger.dto.Frame;
-import org.wso2.plugins.idea.debugger.dto.Variable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.debugger.dto.QueryStateVariable;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 
 public class SiddhiStackFrame extends XStackFrame {
@@ -154,6 +153,61 @@ public class SiddhiStackFrame extends XStackFrame {
      */
     @Override
     public void computeChildren(@NotNull XCompositeNode node) {
+
+        Map<String,Object> queryStateMap=myFrame.getQueryState();
+
+        Gson gson = new Gson();
+        String queryStateJsonObject = gson.toJson(queryStateMap);
+        JSONObject jsonObject = new JSONObject(queryStateJsonObject);
+
+
+        Map<String, List<QueryStateVariable>> scopeMap = new HashMap<>();
+
+        Iterator<?> keys = jsonObject.keys();
+        while(keys.hasNext() ) {
+            String key = (String)keys.next();
+
+            List
+            if ( jsonObject.get(key) instanceof JSONObject ) {
+
+            }else{
+                QueryStateVariable scopeVariable = new QueryStateVariable();
+
+            }
+        }
+
+
+        scopeMap.forEach((scopeName, variableList) -> {
+            // Create a new XValueChildrenList to hold the XValues.
+            XValueChildrenList xValueChildrenList = new XValueChildrenList(variableList.size());
+            // Create a new variable to represent the scope.
+            QueryStateVariable scopeVariable = new QueryStateVariable();
+            // Set the variable name.
+            scopeVariable.setName(scopeName);
+            // Set the children.
+            scopeVariable.setChildren(variableList);
+            // Create a new XValue.
+            SiddhiXValue siddhiXValue = new SiddhiXValue(myProcess, myFrame.getFrameName(), scopeVariable,
+                    AllIcons.Debugger.Value);
+            // Add the XValue to the list.
+            xValueChildrenList.add(scopeName, siddhiXValue);
+            // Add the list to the node as children.
+            node.addChildren(xValueChildrenList, true);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
         // We categorize variables according to the scope. But we get all the variables in the stack. So we need to
         // distinguish values in each scope. In this Map, key will be the scope name. Value will be the list of
         // variables in that scope.
@@ -193,6 +247,6 @@ public class SiddhiStackFrame extends XStackFrame {
             xValueChildrenList.add(scopeName, siddhiXValue);
             // Add the list to the node as children.
             node.addChildren(xValueChildrenList, true);
-        });
+        });*/
     }
 }

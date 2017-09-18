@@ -29,6 +29,7 @@ import com.intellij.openapi.application.ReadAction;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -383,6 +384,18 @@ public class SiddhiDebugProcess extends XDebugProcess {
             if (breakpointPosition == null) {
                 return;
             }
+
+            int offset = breakpointPosition.getOffset();
+
+
+            VirtualFile file = breakpointPosition.getFile();
+            PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
+
+
+            PsiElement element = psiFile.findElementAt(offset);
+
+
+
             breakpoints.add(breakpoint);
             sendBreakpoints();
             getSession().updateBreakpointPresentation(breakpoint, AllIcons.Debugger.Db_verified_breakpoint, null);

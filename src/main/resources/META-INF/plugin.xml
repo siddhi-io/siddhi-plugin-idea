@@ -81,7 +81,8 @@
 
         <!-- debugger -->
         <programRunner id="ballerinaDebugger" implementation="org.wso2.plugins.idea.runconfig.SiddhiDebugger"/>
-        <xdebugger.breakpointType implementation="org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointType"/>
+        <xdebugger.breakpointType implementation="org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeIN"/>
+        <xdebugger.breakpointType implementation="org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeOUT"/>
 
         <!--project -->
         <applicationService serviceImplementation="org.wso2.plugins.idea.project.SiddhiApplicationLibrariesService"/>

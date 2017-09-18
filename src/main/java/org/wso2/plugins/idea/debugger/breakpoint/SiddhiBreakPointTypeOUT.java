@@ -20,7 +20,6 @@ import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Processor;
@@ -30,17 +29,15 @@ import org.wso2.plugins.idea.SiddhiFileType;
 import org.wso2.plugins.idea.SiddhiTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.wso2.plugins.idea.psi.AppAnnotationNode;
-import org.wso2.plugins.idea.psi.ExecutionElementNode;
 import org.wso2.plugins.idea.psi.QueryInputNode;
 import org.wso2.plugins.idea.psi.QueryOutputNode;
 
-public class SiddhiBreakPointType extends XLineBreakpointType<SiddhiBreakpointProperties> {
+public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpointProperties> {
 
-    public static final String ID = "SiddhiLineBreakpoint";
-    public static final String NAME = "Siddhi breakpoint";
+    public static final String ID = "SiddhiLineBreakpointOUT";
+    public static final String NAME = "Siddhi breakpoint out";
 
-    protected SiddhiBreakPointType() {
+    protected SiddhiBreakPointTypeOUT() {
         super(ID, NAME);
     }
 
@@ -84,11 +81,7 @@ public class SiddhiBreakPointType extends XLineBreakpointType<SiddhiBreakpointPr
                     counter=1;
                     myIsLineBreakpointAvailable = true;
                 }
-                else if (elementType==SiddhiTypes.INSERT && PsiTreeUtil.getParentOfType(nextVisibleSibling,
-                        QueryOutputNode.class) != null) {
-                    counter=1;
-                    myIsLineBreakpointAvailable = true;
-                } else if(counter==1){
+                else if(counter==1){
                     myIsLineBreakpointAvailable = true;
                 }else {
                     myIsLineBreakpointAvailable = false;
