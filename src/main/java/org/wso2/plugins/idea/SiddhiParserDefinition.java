@@ -216,6 +216,8 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new QueryInputNode(node);
             case RULE_query_output:
                 return new QueryOutputNode(node);
+            case RULE_query:
+                return new QueryNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

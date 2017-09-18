@@ -383,10 +383,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
 
             int offset = breakpointPosition.getOffset();
 
-
             VirtualFile file = breakpointPosition.getFile();
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
-
 
             PsiElement element = psiFile.findElementAt(offset);
 
@@ -422,8 +420,11 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         VirtualFile file = breakpointPosition.getFile();
                         int line = breakpointPosition.getLine();
                         String name = file.getName();
+                        String terminal="IN";
                         stringBuilder.append("{\"fileName\":\"").append(name).append("\", ");
-                        stringBuilder.append("\"lineNumber\":").append(line + 1).append("}");
+                        stringBuilder.append("\"lineNumber\":").append(line + 1).append("\", ");
+                        stringBuilder.append("\"queryIndex\":").append(line + 1).append("\", ");//TODO:edit this
+                        stringBuilder.append("\"queryTerminal\":").append(terminal).append("}");
                         if (i < size - 1) {
                             stringBuilder.append(",");
                         }
@@ -455,10 +456,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
             VirtualFile file = breakpointPosition.getFile();
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
 
-
+            psiFile.getViewProvider()
             PsiElement element = psiFile.findElementAt(offset);
-
-
 
             breakpoints.add(breakpoint);
             sendBreakpoints();
@@ -490,8 +489,11 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         VirtualFile file = breakpointPosition.getFile();
                         int line = breakpointPosition.getLine();
                         String name = file.getName();
+                        String terminal="OUT";
                         stringBuilder.append("{\"fileName\":\"").append(name).append("\", ");
-                        stringBuilder.append("\"lineNumber\":").append(line + 1).append("}");
+                        stringBuilder.append("\"lineNumber\":").append(line + 1).append("\", ");
+                        stringBuilder.append("\"queryIndex\":").append(line + 1).append("\", ");//TODO:edit this
+                        stringBuilder.append("\"queryTerminal\":").append(terminal).append("}");
                         if (i < size - 1) {
                             stringBuilder.append(",");
                         }
