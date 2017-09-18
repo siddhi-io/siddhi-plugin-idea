@@ -30,7 +30,6 @@ import org.wso2.plugins.idea.SiddhiTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.psi.QueryInputNode;
-import org.wso2.plugins.idea.psi.QueryOutputNode;
 
 public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpointProperties> {
 
