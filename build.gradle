@@ -17,13 +17,8 @@ buildscript {
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
     }
-}
 
-dependencies {
-    // https://mvnrepository.com/artifact/org.json/json
-    compile group: 'org.json', name: 'json', version: '20170516'
 }
-
 
 plugins {
     id "org.jetbrains.intellij" version "0.2.5"
@@ -34,7 +29,14 @@ repositories {
     mavenCentral()
 }
 
+
+
 apply plugin: 'java'
+dependencies{
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20170516'
+
+}
 sourceSets {
     main {
         java {

@@ -25,16 +25,17 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Processor;
 import com.intellij.xdebugger.XDebuggerUtil;
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType;
-import org.wso2.plugins.idea.SiddhiFileType;
-import org.wso2.plugins.idea.SiddhiTypes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.SiddhiFileType;
+import org.wso2.plugins.idea.SiddhiTypes;
 import org.wso2.plugins.idea.psi.QueryInputNode;
+import org.wso2.plugins.idea.psi.QueryOutputNode;
 
 public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpointProperties> {
 
     public static final String ID = "SiddhiLineBreakpointOUT";
-    public static final String NAME = "Siddhi breakpoint out";
+    public static final String NAME = "Siddhi breakpoint OUT";
 
     protected SiddhiBreakPointTypeOUT() {
         super(ID, NAME);
@@ -74,13 +75,11 @@ public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpoin
             if (PsiTreeUtil.nextVisibleLeaf(element) != null) {
                 PsiElement nextVisibleSibling = PsiTreeUtil.nextVisibleLeaf(element);
                 IElementType elementType = element.getNode().getElementType();
-
-                if(elementType==SiddhiTypes.FROM && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryInputNode
-                        .class)!= null){
+                if (elementType==SiddhiTypes.INSERT && PsiTreeUtil.getParentOfType(nextVisibleSibling,
+                        QueryOutputNode.class) != null) {
                     counter=1;
                     myIsLineBreakpointAvailable = true;
-                }
-                else if(counter==1){
+                } else if(counter==1){
                     myIsLineBreakpointAvailable = true;
                 }else {
                     myIsLineBreakpointAvailable = false;

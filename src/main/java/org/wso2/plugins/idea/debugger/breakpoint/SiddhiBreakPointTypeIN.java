@@ -29,12 +29,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.SiddhiFileType;
 import org.wso2.plugins.idea.SiddhiTypes;
-import org.wso2.plugins.idea.psi.QueryOutputNode;
+import org.wso2.plugins.idea.psi.QueryInputNode;
 
 public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpointProperties> {
 
-    public static final String ID = "SiddhiLineBreakpointIN";
-    public static final String NAME = "Siddhi breakpoint in";
+    public static final String ID = "SiddhiLineBreakpoint";
+    public static final String NAME = "Siddhi breakpoint";
 
     protected SiddhiBreakPointTypeIN() {
         super(ID, NAME);
@@ -74,11 +74,11 @@ public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpoint
             if (PsiTreeUtil.nextVisibleLeaf(element) != null) {
                 PsiElement nextVisibleSibling = PsiTreeUtil.nextVisibleLeaf(element);
                 IElementType elementType = element.getNode().getElementType();
-                if (elementType==SiddhiTypes.INSERT && PsiTreeUtil.getParentOfType(nextVisibleSibling,
-                        QueryOutputNode.class) != null) {
+                if(elementType==SiddhiTypes.FROM && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryInputNode
+                        .class)!= null){
                     counter=1;
                     myIsLineBreakpointAvailable = true;
-                } else if(counter==1){
+                }else if(counter==1){
                     myIsLineBreakpointAvailable = true;
                 }else {
                     myIsLineBreakpointAvailable = false;

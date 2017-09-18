@@ -167,7 +167,7 @@ public class SiddhiStackFrame extends XStackFrame {
         while(keys.hasNext() ) {
             String key = (String)keys.next();
 
-            List
+
             if ( jsonObject.get(key) instanceof JSONObject ) {
 
             }else{

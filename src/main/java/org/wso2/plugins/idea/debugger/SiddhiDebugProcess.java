@@ -27,12 +27,10 @@ import com.intellij.openapi.application.AccessToken;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ReadAction;
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
-import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.xdebugger.XDebugProcess;
 import com.intellij.xdebugger.XDebugSession;
@@ -47,22 +45,17 @@ import com.intellij.xdebugger.frame.XSuspendContext;
 import com.intellij.xdebugger.frame.XValueMarkerProvider;
 import com.intellij.xdebugger.stepping.XSmartStepIntoHandler;
 import com.intellij.xdebugger.ui.XDebugTabLayouter;
-import org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointType;
+import org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeIN;
+import org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeOUT;
 import org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakpointProperties;
-
 import org.wso2.plugins.idea.debugger.dto.BreakPoint;
 import org.wso2.plugins.idea.debugger.dto.Message;
 import org.wso2.plugins.idea.debugger.protocol.Command;
 import org.wso2.plugins.idea.debugger.protocol.Response;
-//import org.wso2.plugins.idea.psi.FullyQualifiedPackageNameNode;
-//import org.wso2.plugins.idea.psi.PackageDeclarationNode;
-//import org.wso2.plugins.idea.util.SiddhiUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import java.io.File;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.regex.Matcher;
 
 import javax.swing.event.HyperlinkListener;
 
@@ -74,7 +67,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
     private final ProcessHandler myProcessHandler;
     private final ExecutionConsole myExecutionConsole;
     private final SiddhiDebuggerEditorsProvider myEditorsProvider;
-    private final SiddhiBreakpointHandler myBreakPointHandler;
+    private final SiddhiInBreakpointHandler myInBreakPointHandler;
+    private final SiddhiOutBreakpointHandler myOutBreakPointHandler;
     private final SiddhiWebSocketConnector myConnector;
     private boolean isDisconnected = false;
     private boolean isRemoteDebugMode = false;
@@ -88,7 +82,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
         myProcessHandler = executionResult == null ? super.getProcessHandler() : executionResult.getProcessHandler();
         myExecutionConsole = executionResult == null ? super.createConsole() : executionResult.getExecutionConsole();
         myEditorsProvider = new SiddhiDebuggerEditorsProvider();
-        myBreakPointHandler = new SiddhiBreakpointHandler();
+        myInBreakPointHandler = new SiddhiInBreakpointHandler();
+        myOutBreakPointHandler = new SiddhiOutBreakpointHandler();
         if (executionResult == null) {
             isRemoteDebugMode = true;
         }
@@ -109,7 +104,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     @NotNull
     @Override
     public XBreakpointHandler<?>[] getBreakpointHandlers() {
-        return new XBreakpointHandler[]{myBreakPointHandler};
+        return new XBreakpointHandler[]{myInBreakPointHandler,myOutBreakPointHandler};
     }
 
     @NotNull
@@ -161,7 +156,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
     private void startDebugSession() {
         initBreakpointHandlersAndSetBreakpoints();
         LOGGER.debug("Sending breakpoints.");
-        myBreakPointHandler.sendBreakpoints();
+        myInBreakPointHandler.sendBreakpoints();
+        myOutBreakPointHandler.sendBreakpoints();
         LOGGER.debug("Sending start command.");
         myConnector.sendCommand(Command.START);
     }
@@ -371,11 +367,79 @@ public class SiddhiDebugProcess extends XDebugProcess {
 
     private final List<XBreakpoint<SiddhiBreakpointProperties>> breakpoints = ContainerUtil.createConcurrentList();
 
-    private class SiddhiBreakpointHandler extends
+    private class SiddhiInBreakpointHandler extends
             XBreakpointHandler<XLineBreakpoint<SiddhiBreakpointProperties>> {
 
-        SiddhiBreakpointHandler() {
-            super(SiddhiBreakPointType.class);
+        SiddhiInBreakpointHandler() {
+            super(SiddhiBreakPointTypeIN.class);
+        }
+
+        @Override
+        public void registerBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
+            XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
+            if (breakpointPosition == null) {
+                return;
+            }
+
+            int offset = breakpointPosition.getOffset();
+
+
+            VirtualFile file = breakpointPosition.getFile();
+            PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
+
+
+            PsiElement element = psiFile.findElementAt(offset);
+
+
+
+            breakpoints.add(breakpoint);
+            sendBreakpoints();
+            getSession().updateBreakpointPresentation(breakpoint, AllIcons.Debugger.Db_verified_breakpoint, null);
+        }
+
+        @Override
+        public void unregisterBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint,
+                                         boolean temporary) {
+            XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
+            if (breakpointPosition == null) {
+                return;
+            }
+            breakpoints.remove(breakpoint);
+            sendBreakpoints();
+        }
+
+        void sendBreakpoints() {
+            StringBuilder stringBuilder = new StringBuilder("{\"command\":\"").append(Command.SET_POINTS)
+                    .append("\", \"points\": [");
+            if (!getSession().areBreakpointsMuted()) {
+                ApplicationManager.getApplication().runReadAction(() -> {
+                    int size = breakpoints.size();
+                    for (int i = 0; i < size; i++) {
+                        XSourcePosition breakpointPosition = breakpoints.get(i).getSourcePosition();
+                        if (breakpointPosition == null) {
+                            return;
+                        }
+                        VirtualFile file = breakpointPosition.getFile();
+                        int line = breakpointPosition.getLine();
+                        String name = file.getName();
+                        stringBuilder.append("{\"fileName\":\"").append(name).append("\", ");
+                        stringBuilder.append("\"lineNumber\":").append(line + 1).append("}");
+                        if (i < size - 1) {
+                            stringBuilder.append(",");
+                        }
+                    }
+                });
+            }
+            stringBuilder.append("]}");
+            myConnector.send(stringBuilder.toString());
+        }
+    }
+
+    private class SiddhiOutBreakpointHandler extends
+            XBreakpointHandler<XLineBreakpoint<SiddhiBreakpointProperties>> {
+
+        SiddhiOutBreakpointHandler() {
+            super(SiddhiBreakPointTypeOUT.class);
         }
 
         @Override

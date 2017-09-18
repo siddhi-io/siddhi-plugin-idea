@@ -84,6 +84,7 @@
         <xdebugger.breakpointType implementation="org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeIN"/>
         <xdebugger.breakpointType implementation="org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeOUT"/>
 
+
         <!--project -->
         <applicationService serviceImplementation="org.wso2.plugins.idea.project.SiddhiApplicationLibrariesService"/>
         <projectService serviceImplementation="org.wso2.plugins.idea.project.SiddhiProjectLibrariesService"/>
