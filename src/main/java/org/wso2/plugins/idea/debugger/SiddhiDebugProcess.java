@@ -31,6 +31,8 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
+import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.xdebugger.XDebugProcess;
 import com.intellij.xdebugger.XDebugSession;
@@ -45,6 +47,7 @@ import com.intellij.xdebugger.frame.XSuspendContext;
 import com.intellij.xdebugger.frame.XValueMarkerProvider;
 import com.intellij.xdebugger.stepping.XSmartStepIntoHandler;
 import com.intellij.xdebugger.ui.XDebugTabLayouter;
+import org.wso2.plugins.idea.SiddhiTypes;
 import org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeIN;
 import org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeOUT;
 import org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakpointProperties;
@@ -54,6 +57,11 @@ import org.wso2.plugins.idea.debugger.protocol.Command;
 import org.wso2.plugins.idea.debugger.protocol.Response;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.psi.QueryInputNode;
+import org.wso2.plugins.idea.psi.QueryOutputNode;
+
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -156,8 +164,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
     private void startDebugSession() {
         initBreakpointHandlersAndSetBreakpoints();
         LOGGER.debug("Sending breakpoints.");
-        myInBreakPointHandler.sendBreakpoints();
-        myOutBreakPointHandler.sendBreakpoints();
+        //myInBreakPointHandler.sendBreakpoints();
+        //myOutBreakPointHandler.sendBreakpoints();
         LOGGER.debug("Sending start command.");
         myConnector.sendCommand(Command.START);
     }
@@ -320,6 +328,10 @@ public class SiddhiDebugProcess extends XDebugProcess {
         String fileName = breakPoint.getFileName();
 
         int lineNumber = breakPoint.getLineNumber();
+
+        List<XBreakpoint<SiddhiBreakpointProperties>> breakpoints = ContainerUtil.createConcurrentList();
+        breakpoints.addAll(inBreakpoints);
+        breakpoints.addAll(outBreakpoints);
         for (XBreakpoint<SiddhiBreakpointProperties> breakpoint : breakpoints) {
             XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
             if (breakpointPosition == null) {
@@ -365,7 +377,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
         return super.getEvaluator();
     }
 
-    private final List<XBreakpoint<SiddhiBreakpointProperties>> breakpoints = ContainerUtil.createConcurrentList();
+    private final List<XBreakpoint<SiddhiBreakpointProperties>> inBreakpoints = ContainerUtil.createConcurrentList();
+    private final List<XBreakpoint<SiddhiBreakpointProperties>> outBreakpoints = ContainerUtil.createConcurrentList();
 
     private class SiddhiInBreakpointHandler extends
             XBreakpointHandler<XLineBreakpoint<SiddhiBreakpointProperties>> {
@@ -381,16 +394,15 @@ public class SiddhiDebugProcess extends XDebugProcess {
                 return;
             }
 
-            int offset = breakpointPosition.getOffset();
-
             VirtualFile file = breakpointPosition.getFile();
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
+            int offset=breakpointPosition.getOffset();
+            PsiElement element=psiFile.findElementAt(offset);
+            if(!(((LeafPsiElement) element).getElementType().equals(SiddhiTypes.FROM))){
+                return;
+            }
 
-            PsiElement element = psiFile.findElementAt(offset);
-
-
-
-            breakpoints.add(breakpoint);
+            inBreakpoints.add(breakpoint);
             sendBreakpoints();
             getSession().updateBreakpointPresentation(breakpoint, AllIcons.Debugger.Db_verified_breakpoint, null);
         }
@@ -402,7 +414,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             if (breakpointPosition == null) {
                 return;
             }
-            breakpoints.remove(breakpoint);
+            inBreakpoints.remove(breakpoint);
             sendBreakpoints();
         }
 
@@ -411,9 +423,9 @@ public class SiddhiDebugProcess extends XDebugProcess {
                     .append("\", \"points\": [");
             if (!getSession().areBreakpointsMuted()) {
                 ApplicationManager.getApplication().runReadAction(() -> {
-                    int size = breakpoints.size();
-                    for (int i = 0; i < size; i++) {
-                        XSourcePosition breakpointPosition = breakpoints.get(i).getSourcePosition();
+                    int size = inBreakpoints.size();
+                    A:for (int i = 0; i < size; i++) {
+                        XSourcePosition breakpointPosition = inBreakpoints.get(i).getSourcePosition();
                         if (breakpointPosition == null) {
                             return;
                         }
@@ -421,9 +433,30 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         int line = breakpointPosition.getLine();
                         String name = file.getName();
                         String terminal="IN";
+
+                        PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
+                        int offset=breakpointPosition.getOffset();
+
+                        List queryList = Arrays.asList(PsiTreeUtil.findChildrenOfType(psiFile,QueryInputNode.class)
+                                .toArray());
+                        PsiElement element=psiFile.findElementAt(offset);//TODO:code duplication
+                        if(!(((LeafPsiElement) element).getElementType().equals(SiddhiTypes.FROM))){
+                            continue A;
+                        }
+                        int prevVisSiblingOffset;
+                        int queryIndex=0;
+                        B:for(int j=0;j<queryList.size();j++){
+                            PsiElement psiElement=(PsiElement)queryList.get(j);
+                            prevVisSiblingOffset=PsiTreeUtil.prevVisibleLeaf(psiElement).getTextOffset();
+                            if(prevVisSiblingOffset==offset){
+                                queryIndex=j;
+                                break B;
+                            }
+                        }
+
                         stringBuilder.append("{\"fileName\":\"").append(name).append("\", ");
                         stringBuilder.append("\"lineNumber\":").append(line + 1).append("\", ");
-                        stringBuilder.append("\"queryIndex\":").append(line + 1).append("\", ");//TODO:edit this
+                        stringBuilder.append("\"queryIndex\":").append(queryIndex).append("\", ");
                         stringBuilder.append("\"queryTerminal\":").append(terminal).append("}");
                         if (i < size - 1) {
                             stringBuilder.append(",");
@@ -450,16 +483,16 @@ public class SiddhiDebugProcess extends XDebugProcess {
                 return;
             }
 
-            int offset = breakpointPosition.getOffset();
-
-
             VirtualFile file = breakpointPosition.getFile();
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
 
-            psiFile.getViewProvider()
-            PsiElement element = psiFile.findElementAt(offset);
+            int offset=breakpointPosition.getOffset();
+            PsiElement element=psiFile.findElementAt(offset);
+            if(!(((LeafPsiElement) element).getElementType().equals(SiddhiTypes.INSERT))){
+                return;
+            }
 
-            breakpoints.add(breakpoint);
+            outBreakpoints.add(breakpoint);
             sendBreakpoints();
             getSession().updateBreakpointPresentation(breakpoint, AllIcons.Debugger.Db_verified_breakpoint, null);
         }
@@ -471,7 +504,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             if (breakpointPosition == null) {
                 return;
             }
-            breakpoints.remove(breakpoint);
+            outBreakpoints.remove(breakpoint);
             sendBreakpoints();
         }
 
@@ -480,19 +513,42 @@ public class SiddhiDebugProcess extends XDebugProcess {
                     .append("\", \"points\": [");
             if (!getSession().areBreakpointsMuted()) {
                 ApplicationManager.getApplication().runReadAction(() -> {
-                    int size = breakpoints.size();
-                    for (int i = 0; i < size; i++) {
-                        XSourcePosition breakpointPosition = breakpoints.get(i).getSourcePosition();
+                    int size = outBreakpoints.size();
+                    A:for (int i = 0; i < size; i++) {
+                        XSourcePosition breakpointPosition = outBreakpoints.get(i).getSourcePosition();
                         if (breakpointPosition == null) {
                             return;
                         }
+
                         VirtualFile file = breakpointPosition.getFile();
                         int line = breakpointPosition.getLine();
                         String name = file.getName();
                         String terminal="OUT";
+
+                        PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
+                        int offset=breakpointPosition.getOffset();
+
+                        PsiElement element=psiFile.findElementAt(offset);
+                        if(!(((LeafPsiElement) element).getElementType().equals(SiddhiTypes.INSERT))){
+                            continue A;
+                        }
+
+                        List queryList = Arrays.asList(PsiTreeUtil.findChildrenOfType(psiFile, QueryOutputNode.class)
+                                .toArray());
+                        int psiElementOffset;
+                        int queryIndex=0;
+                        B:for(int j=0;j<queryList.size();j++){
+                            PsiElement psiElement=(PsiElement)queryList.get(j);
+                            psiElementOffset=psiElement.getTextOffset();
+                            if(psiElementOffset==offset){
+                                queryIndex=j;
+                                break B;
+                            }
+                        }
+
                         stringBuilder.append("{\"fileName\":\"").append(name).append("\", ");
                         stringBuilder.append("\"lineNumber\":").append(line + 1).append("\", ");
-                        stringBuilder.append("\"queryIndex\":").append(line + 1).append("\", ");//TODO:edit this
+                        stringBuilder.append("\"queryIndex\":").append(queryIndex).append("\", ");
                         stringBuilder.append("\"queryTerminal\":").append(terminal).append("}");
                         if (i < size - 1) {
                             stringBuilder.append(",");
