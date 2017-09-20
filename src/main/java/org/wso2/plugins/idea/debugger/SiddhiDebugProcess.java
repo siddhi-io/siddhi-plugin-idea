@@ -162,12 +162,13 @@ public class SiddhiDebugProcess extends XDebugProcess {
     }
 
     private void startDebugSession() {
+        myConnector.sendCommand(Command.START);
+        LOGGER.debug("Sending start command.");
         initBreakpointHandlersAndSetBreakpoints();
         LOGGER.debug("Sending breakpoints.");
         //myInBreakPointHandler.sendBreakpoints();
         //myOutBreakPointHandler.sendBreakpoints();
-        LOGGER.debug("Sending start command.");
-        myConnector.sendCommand(Command.START);
+
     }
 
     @Override
@@ -455,9 +456,9 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         }
 
                         stringBuilder.append("{\"fileName\":\"").append(name).append("\", ");
-                        stringBuilder.append("\"lineNumber\":").append(line + 1).append("\", ");
-                        stringBuilder.append("\"queryIndex\":").append(queryIndex).append("\", ");
-                        stringBuilder.append("\"queryTerminal\":").append(terminal).append("}");
+                        stringBuilder.append("\"lineNumber\":").append(line + 1).append(", ");
+                        stringBuilder.append("\"queryIndex\":").append(queryIndex).append(", ");
+                        stringBuilder.append("\"queryTerminal\":\"").append(terminal).append("\"}");
                         if (i < size - 1) {
                             stringBuilder.append(",");
                         }
@@ -547,9 +548,9 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         }
 
                         stringBuilder.append("{\"fileName\":\"").append(name).append("\", ");
-                        stringBuilder.append("\"lineNumber\":").append(line + 1).append("\", ");
-                        stringBuilder.append("\"queryIndex\":").append(queryIndex).append("\", ");
-                        stringBuilder.append("\"queryTerminal\":").append(terminal).append("}");
+                        stringBuilder.append("\"lineNumber\":").append(line + 1).append(", ");
+                        stringBuilder.append("\"queryIndex\":").append(queryIndex).append(", ");
+                        stringBuilder.append("\"queryTerminal\":\"").append(terminal).append("\"}");
                         if (i < size - 1) {
                             stringBuilder.append(",");
                         }
