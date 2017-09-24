@@ -19,7 +19,7 @@ package org.wso2.plugins.idea.debugger.protocol;
 public enum Command {
 
     START("START"), STOP("STOP"), SET_POINTS("SET_POINTS"), STEP_OVER("STEP_OVER"), RESUME("RESUME"),
-    STEP_IN("STEP_IN"), STEP_OUT("STEP_OUT");
+    STEP_IN("STEP_IN"), STEP_OUT("STEP_OUT"),CMD_SEND_EVENT ("SEND_EVENT");
 
     private String myCommand;
 
