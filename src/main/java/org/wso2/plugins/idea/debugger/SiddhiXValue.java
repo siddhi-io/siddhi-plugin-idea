@@ -22,7 +22,6 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.impl.FileEditorManagerImpl;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.ThreeState;
@@ -42,13 +41,9 @@ import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XStringValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XValuePresentation;
-import org.wso2.plugins.idea.debugger.dto.QueryStateVariable;
-import org.wso2.plugins.idea.highlighter.SiddhiSyntaxHighlightingColors;
+import org.json.JSONObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-import java.util.regex.Pattern;
 
 import javax.swing.Icon;
 
@@ -57,41 +52,46 @@ public class SiddhiXValue extends XNamedValue {
     @NotNull
     private final SiddhiDebugProcess myProcess;
     @NotNull
-    private final QueryStateVariable myVariable;
+    private final Object myValue;
     @NotNull
     private final String myFrameName;
     @Nullable
     private final Icon myIcon;
 
-    SiddhiXValue(@NotNull SiddhiDebugProcess process, @NotNull String frameName,
-                    @NotNull QueryStateVariable variable, @Nullable Icon icon) {
-        super(variable.getName());
+    SiddhiXValue(@NotNull SiddhiDebugProcess process, @NotNull String frameName, String key, Object value
+            , @Nullable Icon icon) {
+        super(key);
         myProcess = process;
         myFrameName = frameName;
-        myVariable = variable;
+        myValue = value;
         myIcon = icon;
     }
 
     @Override
     public void computePresentation(@NotNull XValueNode node, @NotNull XValuePlace place) {
-        XValuePresentation presentation = getPresentation();
-        boolean hasChildren = false;
-        if (myVariable.getValue() == null && myVariable.getChildren() != null) {
-            hasChildren = true;
+        if (myValue instanceof JSONObject) {
+            node.setPresentation(myIcon, getName(),"", true);
+        } else if(myValue instanceof String){
+            node.setPresentation(myIcon, new XStringValuePresentation(myValue.toString()), false);
+        } else if(myValue instanceof Double){
+            node.setPresentation(myIcon, new XNumericValuePresentation(myValue.toString()), false);
+        }else {
+            node.setPresentation(myIcon, "Type",myValue.toString(), false);
         }
-        node.setPresentation(myIcon, presentation, hasChildren);
     }
 
     @Override
     public void computeChildren(@NotNull XCompositeNode node) {
-        List<QueryStateVariable> children = myVariable.getChildren();
-        if (children == null) {
-            super.computeChildren(node);
-        } else {
+
+        if (myValue instanceof JSONObject) {
+            JSONObject jsonObject = (JSONObject) this.myValue;
             XValueChildrenList list = new XValueChildrenList();
-            for (QueryStateVariable child : children) {
-                list.add(child.getName(), new SiddhiXValue(myProcess, myFrameName, child, AllIcons.Nodes.Field));
-            }
+            jsonObject.keys().forEachRemaining(key ->
+                    {
+                        Object value = jsonObject.get(key);
+                        list.add(key, new SiddhiXValue(myProcess, myFrameName, key, value, AllIcons.Nodes.Field));
+                    }
+            );
             node.addChildren(list, true);
         }
     }
@@ -104,29 +104,32 @@ public class SiddhiXValue extends XNamedValue {
 
     @NotNull
     private XValuePresentation getPresentation() {
-        String value = myVariable.getValue();
-        if (value == null) {
-            return new XRegularValuePresentation(myFrameName, "Scope");
-        }
-//        if (myVariable instanceof Integer) {
-//            return new XNumericValuePresentation(value);
-//        }
-//        if (myVariable.isString()) {
-//            return new XStringValuePresentation(value);
-//        }
-//        if (myVariable.isBoolean()) {
-//            return new XValuePresentation() {
-//                @Override
-//                public void renderValue(@NotNull XValueTextRenderer renderer) {
-//                    renderer.renderValue(value, SiddhiSyntaxHighlightingColors.KEYWORD);
-//                }
-//            };
-//        }
 
-        String type = "Type not applicable";//myVariable.getType();
-        String prefix = "Type not applicable"+" ";//myVariable.getType() + " ";
-        return new XRegularValuePresentation(StringUtil.startsWith(value, prefix) ? value.replaceFirst(Pattern.quote
-                (prefix), "") : value, type);
+        return new XRegularValuePresentation(myValue.toString(),null);
+
+//        String value = myValue.getValue();
+//        if (value == null) {
+//            return new XRegularValuePresentation(myFrameName, "Scope");
+//        }
+////        if (myValue instanceof Integer) {
+////            return new XNumericValuePresentation(value);
+////        }
+////        if (myValue.isString()) {
+////            return new XStringValuePresentation(value);
+////        }
+////        if (myValue.isBoolean()) {
+////            return new XValuePresentation() {
+////                @Override
+////                public void renderValue(@NotNull XValueTextRenderer renderer) {
+////                    renderer.renderValue(value, SiddhiSyntaxHighlightingColors.KEYWORD);
+////                }
+////            };
+////        }
+//
+//        String type = "Type not applicable";//myValue.getType();
+//        String prefix = "Type not applicable" + " ";//myValue.getType() + " ";
+//        return new XRegularValuePresentation(StringUtil.startsWith(value, prefix) ? value.replaceFirst(Pattern.quote
+//                (prefix), "") : value, type);
     }
 
     @Nullable

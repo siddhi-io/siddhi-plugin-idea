@@ -22,7 +22,11 @@ public class Frame {
 
     private String frameName, fileName;
 
+    private String queryName;
+
     private Map<String, Object> queryState;
+
+    private Object eventInfo;
 
     private BreakPoint location;
 
@@ -37,6 +41,14 @@ public class Frame {
 
     public String getFileName() {
         return fileName;
+    }
+
+    public String getQueryName() {
+        return queryName;
+    }
+
+    public void setQueryName(String queryName) {
+        this.queryName = queryName;
     }
 
     public Map<String, Object> getQueryState() {
@@ -56,5 +68,12 @@ public class Frame {
         this.location = location;
     }
 
+    public Object getEventInfo() {
+        return eventInfo;
+    }
+
+    public void setEventInfo(Object eventInfo) {
+        this.eventInfo = eventInfo;
+    }
 
 }

@@ -37,8 +37,12 @@ public class SiddhiSuspendContext extends XSuspendContext {
     public SiddhiSuspendContext(@NotNull SiddhiDebugProcess process, @NotNull Message message) {
 
         String fileName=message.getLocation().getFileName();
-        String frameName= "myFrame";
+        String frameName= message.getQueryName();
         Frame myFrame=new Frame(frameName,fileName);
+        myFrame.setQueryName(message.getQueryName());
+        myFrame.setEventInfo(message.getEventInfo());
+        myFrame.setLocation(message.getLocation());
+        myFrame.setQueryState(message.getQueryState());
         List<Frame> framesList = new ArrayList<>();
         framesList.add(myFrame);
 

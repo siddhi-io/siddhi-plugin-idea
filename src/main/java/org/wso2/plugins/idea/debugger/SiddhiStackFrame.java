@@ -34,7 +34,6 @@ import com.intellij.xdebugger.frame.XValueChildrenList;
 import org.wso2.plugins.idea.debugger.dto.Frame;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.wso2.plugins.idea.debugger.dto.QueryStateVariable;
 
 import java.io.File;
 import java.util.*;
@@ -65,7 +64,7 @@ public class SiddhiStackFrame extends XStackFrame {
     public XSourcePosition getSourcePosition() {
         VirtualFile file = findFile();
         return file == null ? null : XDebuggerUtil.getInstance().createPosition(file, myFrame.getLocation()
-                .getLineNumber() - 1);//TODO:edited by me :)
+                .getLineNumber() - 1);
     }
 
     @Nullable
@@ -81,61 +80,8 @@ public class SiddhiStackFrame extends XStackFrame {
                 break;
             }
         }
-
-        // Todo - Temp fix. Might show the wrong file if more than one file have the same name.
-        //        if (file == null) {
-        // If a file is not found, that can mean the file did not had any package declaration, so it was ran as a
-        // file, not a package.
-        //            GlobalSearchScope scope = GlobalSearchScope.projectScope(project);
-        //            file = getVirtualFile(relativePath, myFrame.getPackageName(), scope);
-        //        }
-        // Todo - Check files in the SDK sources
         return file;
     }
-
-    //    private VirtualFile getVirtualFile(String relativePath, String packageName, GlobalSearchScope scope) {
-    //        List<VirtualFile> matchingFiles = new LinkedList<>();
-    //        ApplicationManager.getApplication().executeOnPooledThread(
-    //                () -> ApplicationManager.getApplication().runReadAction(
-    //                        () -> {
-    //                            for (VirtualFile virtualFile : FileTypeIndex.getFiles(SiddhiFileType.INSTANCE,
-    // scope)) {
-    //                                if (virtualFile.getName().equals(relativePath)) {
-    //                                    matchingFiles.add(virtualFile);
-    //                                }
-    //                            }
-    //
-    //
-    //                        }
-    //                )
-    //        );
-    //        if (matchingFiles.isEmpty()) {
-    //            return null;
-    //        }
-    //        if (matchingFiles.size() == 1) {
-    //            return matchingFiles.get(0);
-    //        }
-    //        for (VirtualFile matchingFile : matchingFiles) {
-    //
-    //            PsiFile psiFile = PsiManager.getInstance(myProcess.getSession().getProject()).findFile(matchingFile);
-    //            PackageDeclarationNode packageDeclarationNode = PsiTreeUtil.findChildOfType(psiFile,
-    //                    PackageDeclarationNode.class);
-    //            if (packageDeclarationNode != null) {
-    //                if (".".equals(packageName)) {
-    //                    continue;
-    //                }
-    //
-    //                FullyQualifiedPackageNameNode packagePathNode = PsiTreeUtil.getChildOfType(packageDeclarationNode,
-    //                        FullyQualifiedPackageNameNode.class);
-    //                if (packagePathNode != null) {
-    //                    if (packageName.equals(packagePathNode.getText())) {
-    //                        return matchingFile;
-    //                    }
-    //                }
-    //            }
-    //        }
-    //        return null;
-    //    }
 
     /**
      * Customizes the stack name in the Frames sub window in Debug window.
@@ -144,7 +90,10 @@ public class SiddhiStackFrame extends XStackFrame {
     public void customizePresentation(@NotNull ColoredTextContainer component) {
         super.customizePresentation(component);
         component.append(" at ", SimpleTextAttributes.REGULAR_ATTRIBUTES);
-        component.append(myFrame.getFrameName(), SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES);
+        component.append(myFrame.getFrameName() + " : ", SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES);
+        component.append(String.valueOf(myFrame.getLocation().getQueryIndex()) + " : ", SimpleTextAttributes
+                .REGULAR_BOLD_ATTRIBUTES);
+        component.append(myFrame.getLocation().getQueryTerminal(), SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES);
         component.setIcon(AllIcons.Debugger.StackFrame);
     }
 
@@ -154,99 +103,25 @@ public class SiddhiStackFrame extends XStackFrame {
     @Override
     public void computeChildren(@NotNull XCompositeNode node) {
 
-        Map<String,Object> queryStateMap=myFrame.getQueryState();
+        Map<String, Object> queryStateMap = myFrame.getQueryState();
+        Object eventInfo = myFrame.getEventInfo();
+        queryStateMap.put("Event State", eventInfo);
 
         Gson gson = new Gson();
         String queryStateJsonObject = gson.toJson(queryStateMap);
         JSONObject jsonObject = new JSONObject(queryStateJsonObject);
 
+        // Create a new XValueChildrenList to hold the XValues.
+        XValueChildrenList xValueChildrenList = new XValueChildrenList(1);
 
-        Map<String, List<QueryStateVariable>> scopeMap = new HashMap<>();
-
-        Iterator<?> keys = jsonObject.keys();
-        while(keys.hasNext() ) {
-            String key = (String)keys.next();
-
-
-            if ( jsonObject.get(key) instanceof JSONObject ) {
-
-            }else{
-                QueryStateVariable scopeVariable = new QueryStateVariable();
-
-            }
-        }
-
-
-        scopeMap.forEach((scopeName, variableList) -> {
-            // Create a new XValueChildrenList to hold the XValues.
-            XValueChildrenList xValueChildrenList = new XValueChildrenList(variableList.size());
-            // Create a new variable to represent the scope.
-            QueryStateVariable scopeVariable = new QueryStateVariable();
-            // Set the variable name.
-            scopeVariable.setName(scopeName);
-            // Set the children.
-            scopeVariable.setChildren(variableList);
+        jsonObject.keys().forEachRemaining(key -> {
             // Create a new XValue.
-            SiddhiXValue siddhiXValue = new SiddhiXValue(myProcess, myFrame.getFrameName(), scopeVariable,
+            SiddhiXValue siddhiXValue = new SiddhiXValue(myProcess, myFrame.getFrameName(), key, jsonObject.get(key),
                     AllIcons.Debugger.Value);
             // Add the XValue to the list.
-            xValueChildrenList.add(scopeName, siddhiXValue);
-            // Add the list to the node as children.
-            node.addChildren(xValueChildrenList, true);
+            xValueChildrenList.add(key, siddhiXValue);
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-        // We categorize variables according to the scope. But we get all the variables in the stack. So we need to
-        // distinguish values in each scope. In this Map, key will be the scope name. Value will be the list of
-        // variables in that scope.
-        Map<String, List<Variable>> scopeMap = new HashMap<>();
-        // Iterate through each variable.
-        List<Variable> variables = myFrame.getVariables();
-        for (Variable variable : variables) {
-            // Get the scope.
-            String scopeName = variable.getScope();
-            // Check whether the scope is already available in the map.
-            if (scopeMap.containsKey(scopeName)) {
-                // If it is already in the map, add the variable to the corresponding list.
-                List<Variable> list = scopeMap.get(scopeName);
-                list.add(variable);
-            } else {
-                // If it is not available in the map, add it as a new entry.
-                List<Variable> list = new LinkedList<>();
-                list.add(variable);
-                scopeMap.put(scopeName, list);
-            }
-        }
-
-        // Iterate through each scope in the map.
-        scopeMap.forEach((scopeName, variableList) -> {
-            // Create a new XValueChildrenList to hold the XValues.
-            XValueChildrenList xValueChildrenList = new XValueChildrenList(variableList.size());
-            // Create a new variable to represent the scope.
-            Variable scopeVariable = new Variable();
-            // Set the variable name.
-            scopeVariable.setName(scopeName);
-            // Set the children.
-            scopeVariable.setChildren(variableList);
-            // Create a new XValue.
-            SiddhiXValue siddhiXValue = new SiddhiXValue(myProcess, myFrame.getFrameName(), scopeVariable,
-                    AllIcons.Debugger.Value);
-            // Add the XValue to the list.
-            xValueChildrenList.add(scopeName, siddhiXValue);
-            // Add the list to the node as children.
-            node.addChildren(xValueChildrenList, true);
-        });*/
+        // Add the list to the node as children.
+        node.addChildren(xValueChildrenList, true);
     }
 }
