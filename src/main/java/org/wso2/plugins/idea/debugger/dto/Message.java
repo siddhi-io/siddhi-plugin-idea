@@ -24,6 +24,10 @@ public class  Message {
 
     private String message;
 
+    private String queryName;
+
+    private Object eventInfo;
+
     private Map<String, Object> queryState;
 
     private BreakPoint location;
@@ -58,6 +62,22 @@ public class  Message {
 
     public void setLocation(BreakPoint location) {
         this.location = location;
+    }
+
+    public String getQueryName() {
+        return queryName;
+    }
+
+    public void setQueryName(String queryName) {
+        this.queryName = queryName;
+    }
+
+    public Object getEventInfo() {
+        return eventInfo;
+    }
+
+    public void setEventInfo(Object eventInfo) {
+        this.eventInfo = eventInfo;
     }
 
 }
