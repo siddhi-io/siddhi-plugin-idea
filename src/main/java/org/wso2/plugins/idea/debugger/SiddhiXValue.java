@@ -34,16 +34,17 @@ import com.intellij.xdebugger.frame.XNamedValue;
 import com.intellij.xdebugger.frame.XNavigatable;
 import com.intellij.xdebugger.frame.XStackFrame;
 import com.intellij.xdebugger.frame.XValueChildrenList;
-import com.intellij.xdebugger.frame.XValueModifier;
 import com.intellij.xdebugger.frame.XValueNode;
 import com.intellij.xdebugger.frame.XValuePlace;
 import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation;
-import com.intellij.xdebugger.frame.presentation.XRegularValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XStringValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XValuePresentation;
+import com.intellij.xdebugger.impl.ui.tree.nodes.XValueNodeImpl;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.highlighter.SiddhiSyntaxHighlightingColors;
 
 import javax.swing.Icon;
 
@@ -58,8 +59,8 @@ public class SiddhiXValue extends XNamedValue {
     @Nullable
     private final Icon myIcon;
 
-    SiddhiXValue(@NotNull SiddhiDebugProcess process, @NotNull String frameName, String key, Object value
-            , @Nullable Icon icon) {
+    SiddhiXValue(@NotNull SiddhiDebugProcess process, @NotNull String frameName, @NotNull String key, @NotNull Object
+            value, @Nullable Icon icon) {
         super(key);
         myProcess = process;
         myFrameName = frameName;
@@ -69,14 +70,24 @@ public class SiddhiXValue extends XNamedValue {
 
     @Override
     public void computePresentation(@NotNull XValueNode node, @NotNull XValuePlace place) {
-        if (myValue instanceof JSONObject) {
+        if(myValue instanceof JSONObject || myValue instanceof JSONArray) {
             node.setPresentation(myIcon, getName(),"", true);
-        } else if(myValue instanceof String){
-            node.setPresentation(myIcon, new XStringValuePresentation(myValue.toString()), false);
-        } else if(myValue instanceof Double){
-            node.setPresentation(myIcon, new XNumericValuePresentation(myValue.toString()), false);
+        }else if(myValue instanceof String){
+            node.setPresentation(AllIcons.Nodes.Property, new XStringValuePresentation(myValue.toString()),
+                    false);
+        }else if(myValue instanceof Integer){
+            node.setPresentation(AllIcons.Nodes.Property, new XNumericValuePresentation(myValue.toString()), false);
+        }else if(myValue instanceof Double){
+            node.setPresentation(AllIcons.Nodes.Property, new XNumericValuePresentation(myValue.toString()), false);
+        }else if(myValue instanceof Boolean){
+            node.setPresentation(AllIcons.Nodes.Property, new XValuePresentation() {
+                @Override
+                public void renderValue(@NotNull XValueTextRenderer renderer) {
+                    renderer.renderValue(myValue.toString(), SiddhiSyntaxHighlightingColors.KEYWORD);
+                }
+            },false);
         }else {
-            node.setPresentation(myIcon, "Type",myValue.toString(), false);
+            node.setPresentation(AllIcons.Nodes.Property, "Type",myValue.toString(), false);
         }
     }
 
@@ -94,42 +105,18 @@ public class SiddhiXValue extends XNamedValue {
             );
             node.addChildren(list, true);
         }
-    }
-
-    @Nullable
-    @Override
-    public XValueModifier getModifier() {
-        return null;
-    }
-
-    @NotNull
-    private XValuePresentation getPresentation() {
-
-        return new XRegularValuePresentation(myValue.toString(),null);
-
-//        String value = myValue.getValue();
-//        if (value == null) {
-//            return new XRegularValuePresentation(myFrameName, "Scope");
-//        }
-////        if (myValue instanceof Integer) {
-////            return new XNumericValuePresentation(value);
-////        }
-////        if (myValue.isString()) {
-////            return new XStringValuePresentation(value);
-////        }
-////        if (myValue.isBoolean()) {
-////            return new XValuePresentation() {
-////                @Override
-////                public void renderValue(@NotNull XValueTextRenderer renderer) {
-////                    renderer.renderValue(value, SiddhiSyntaxHighlightingColors.KEYWORD);
-////                }
-////            };
-////        }
-//
-//        String type = "Type not applicable";//myValue.getType();
-//        String prefix = "Type not applicable" + " ";//myValue.getType() + " ";
-//        return new XRegularValuePresentation(StringUtil.startsWith(value, prefix) ? value.replaceFirst(Pattern.quote
-//                (prefix), "") : value, type);
+        if (myValue instanceof JSONArray) {
+            JSONArray jsonArray = (JSONArray) this.myValue;
+            XValueChildrenList list = new XValueChildrenList();
+            jsonArray.forEach(o ->
+                    {
+                        Object value = o.toString();
+                        list.add(((XValueNodeImpl) node).getName(), new SiddhiXValue(myProcess, myFrameName, (
+                                (XValueNodeImpl) node).getName(), value, AllIcons.Nodes.Parameter));
+                    }
+            );
+            node.addChildren(list, true);
+        }
     }
 
     @Nullable

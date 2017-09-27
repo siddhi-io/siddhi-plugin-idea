@@ -30,7 +30,7 @@ import java.util.List;
 
 public class SiddhiSuspendContext extends XSuspendContext {
 
-    private static final String DEFAULT_THREAD_ID= "default";
+    private static final String DEFAULT_THREAD_ID= "01";
     @NotNull
     private final SiddhiExecutionStack myStack;
 

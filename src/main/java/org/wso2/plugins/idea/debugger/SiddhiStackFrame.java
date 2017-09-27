@@ -91,7 +91,7 @@ public class SiddhiStackFrame extends XStackFrame {
         super.customizePresentation(component);
         component.append(" at ", SimpleTextAttributes.REGULAR_ATTRIBUTES);
         component.append(myFrame.getFrameName() + " : ", SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES);
-        component.append(String.valueOf(myFrame.getLocation().getQueryIndex()) + " : ", SimpleTextAttributes
+        component.append(String.valueOf("["+myFrame.getLocation().getQueryIndex()) + "] : ", SimpleTextAttributes
                 .REGULAR_BOLD_ATTRIBUTES);
         component.append(myFrame.getLocation().getQueryTerminal(), SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES);
         component.setIcon(AllIcons.Debugger.StackFrame);
@@ -105,11 +105,19 @@ public class SiddhiStackFrame extends XStackFrame {
 
         Map<String, Object> queryStateMap = myFrame.getQueryState();
         Object eventInfo = myFrame.getEventInfo();
-        queryStateMap.put("Event State", eventInfo);
+
+        Map<String, Object> debugStateMap =new HashMap<>();
+
+        queryStateMap.put("Query Name",myFrame.getQueryName());
+        queryStateMap.put("Query Index",myFrame.getLocation().getQueryIndex());
+        queryStateMap.put("Query Terminal",myFrame.getLocation().getQueryTerminal());
+
+        debugStateMap.put("Query State",queryStateMap);
+        debugStateMap.put("Event State", eventInfo);
 
         Gson gson = new Gson();
-        String queryStateJsonObject = gson.toJson(queryStateMap);
-        JSONObject jsonObject = new JSONObject(queryStateJsonObject);
+        String debugStateJsonObject = gson.toJson(debugStateMap);
+        JSONObject jsonObject = new JSONObject(debugStateJsonObject);
 
         // Create a new XValueChildrenList to hold the XValues.
         XValueChildrenList xValueChildrenList = new XValueChildrenList(1);

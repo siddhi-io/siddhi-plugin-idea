@@ -168,8 +168,6 @@ public class SiddhiDebugProcess extends XDebugProcess {
         LOGGER.debug("Sending breakpoints.");
         myConnector.sendCommand(Command.CMD_SEND_EVENT);
         LOGGER.debug("Sending event request.");
-        //myInBreakPointHandler.sendBreakpoints();
-        //myOutBreakPointHandler.sendBreakpoints();
 
     }
 
