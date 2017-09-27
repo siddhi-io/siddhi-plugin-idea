@@ -34,8 +34,7 @@ error
 
 siddhi_app
     : (app_annotation|error)*
-      ( (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* ';'?
-      || (execution_element|error) (';' (execution_element|error))* ';'?
+      ((execution_element|error) (';' (execution_element|error))* ';'?
       || (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* (';' (execution_element|error))* ';'? )
     ;
 
@@ -363,7 +362,7 @@ group_by_query_selection
     ;
 
 query_section
-    : group_by_query_selection having?
+    : (SELECT ('*'| (output_attribute (',' output_attribute)* ))) group_by? having?
     ;
 
 group_by
@@ -723,7 +722,7 @@ TRIPLE_DOT : '...';
 OPEN_PAR : '(';
 CLOSE_PAR : ')';
 OPEN_SQUARE_BRACKETS : '[';
-CLOSE_SQUARE_BRACKETS : ']'; //Spelling mistake in square, close
+CLOSE_SQUARE_BRACKETS : ']';
 COMMA : ',';
 ASSIGN : '=';
 STAR : '*';
