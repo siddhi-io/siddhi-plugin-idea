@@ -20,7 +20,6 @@ grammar SiddhiQL;
 
 @header {
     package org.wso2.plugins.idea.grammar;
-	//import org.wso2.siddhi.query.compiler.exception.SiddhiParserException;
 }
 
 parse
@@ -34,8 +33,7 @@ error
 
 siddhi_app
     : (app_annotation|error)*
-      ((execution_element|error) (';' (execution_element|error))* ';'?
-      || (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* (';' (execution_element|error))* ';'? )
+      (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* (';' (execution_element|error))* ';'?
     ;
 
 execution_element
