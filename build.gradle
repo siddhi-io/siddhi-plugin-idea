@@ -48,7 +48,7 @@ sourceSets {
 apply plugin: 'org.jetbrains.intellij'
 intellij {
     //For a full list of IntelliJ IDEA releases, please see https://www.jetbrains.com/intellij-repository/releases.
-    version 'IC-2017.1.4'
+    version 'IC-2017.2.5'
     pluginName 'Siddhi-IntelliJ-Plugin'
     updateSinceUntilBuild false
     plugins 'coverage' //Bundled plugin dependencies

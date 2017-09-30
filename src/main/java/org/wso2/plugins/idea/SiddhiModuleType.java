@@ -58,7 +58,6 @@ public class SiddhiModuleType extends ModuleType<SiddhiModuleBuilder> {
     }
 
     @Nullable
-    @Override
     public Icon getBigIcon() {
         return SiddhiIcons.ICON;
     }
