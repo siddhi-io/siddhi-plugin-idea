@@ -40,7 +40,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     private ChannelPromise handshakeFuture;
     private boolean isConnected;
 
-    WebSocketClientHandler(WebSocketClientHandshaker handshaker, Callback callback) {
+    WebSocketClientHandler(final WebSocketClientHandshaker handshaker, Callback callback) {
         this.handshaker = handshaker;
         this.callback = callback;
     }
@@ -50,25 +50,25 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     @Override
-    public void handlerAdded(ChannelHandlerContext ctx) {
+    public void handlerAdded(final ChannelHandlerContext ctx) throws Exception {
         handshakeFuture = ctx.newPromise();
     }
 
     @Override
-    public void channelActive(ChannelHandlerContext ctx) {
+    public void channelActive(final ChannelHandlerContext ctx) throws Exception{
         handshaker.handshake(ctx.channel());
         isConnected = true;
     }
 
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) {
+    public void channelInactive(final ChannelHandlerContext ctx) throws Exception{
         LOGGER.debug("WebSocket Client disconnected!");
         isConnected = false;
     }
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-        Channel ch = ctx.channel();
+        final Channel ch = ctx.channel();
         if (!handshaker.isHandshakeComplete()) {
             handshaker.finishHandshake(ch, (FullHttpResponse) msg);
             LOGGER.debug("WebSocket Client connected!");
@@ -77,14 +77,14 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
         }
 
         if (msg instanceof FullHttpResponse) {
-            FullHttpResponse response = (FullHttpResponse) msg;
+            final FullHttpResponse response = (FullHttpResponse) msg;
             throw new IllegalStateException("Unexpected FullHttpResponse (getStatus=" + response.status() +
                     ", content=" + response.content().toString(CharsetUtil.UTF_8) + ')');
         }
 
-        WebSocketFrame frame = (WebSocketFrame) msg;
+        final WebSocketFrame frame = (WebSocketFrame) msg;
         if (frame instanceof TextWebSocketFrame) {
-            TextWebSocketFrame textFrame = (TextWebSocketFrame) frame;
+            final TextWebSocketFrame textFrame = (TextWebSocketFrame) frame;
             LOGGER.debug("WebSocket Client received text message: " + textFrame.text());
             String textReceived = textFrame.text();
             callback.call(textReceived);
@@ -100,7 +100,8 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+    public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception{
+        cause.printStackTrace();
         if (!handshakeFuture.isDone()) {
             LOGGER.debug("Handshake failed : " + cause.getMessage(), cause);
             handshakeFuture.setFailure(cause);

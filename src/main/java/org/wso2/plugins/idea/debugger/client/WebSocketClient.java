@@ -118,13 +118,12 @@ public class WebSocketClient {
                             }
                             p.addLast(
                                     new HttpClientCodec(),
-                                    new HttpObjectAggregator(8192),
+                                    new HttpObjectAggregator(65536),
                                     WebSocketClientCompressionHandler.INSTANCE,
                                     handler
                             );
                         }
                     });
-
             channel = b.connect(uri.getHost(), port).sync().channel();
             isDone = handler.handshakeFuture().sync().isSuccess();
         } catch (Exception e) {
