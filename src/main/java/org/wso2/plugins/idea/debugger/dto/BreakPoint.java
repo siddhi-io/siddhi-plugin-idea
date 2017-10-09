@@ -26,10 +26,6 @@ public class BreakPoint {
 
     private int lineNumber;
 
-    public BreakPoint(){
-
-    }
-
     public Integer getQueryIndex() {
         return queryIndex;
     }
@@ -62,9 +58,8 @@ public class BreakPoint {
         this.lineNumber = lineNumber;
     }
 
-    public BreakPoint(String fileName, int lineNumber, int queryIndex, String queryTerminal) {
+    public BreakPoint(String fileName, int queryIndex, String queryTerminal) {
         this.fileName=fileName;
-        this.lineNumber=lineNumber;
         this.queryIndex = queryIndex;
         this.queryTerminal = queryTerminal;
     }

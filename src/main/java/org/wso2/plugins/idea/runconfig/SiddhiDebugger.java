@@ -34,7 +34,6 @@ import com.intellij.xdebugger.XDebugSession;
 import com.intellij.xdebugger.XDebuggerManager;
 import org.wso2.plugins.idea.debugger.SiddhiDebugProcess;
 import org.wso2.plugins.idea.debugger.SiddhiWebSocketConnector;
-import org.wso2.plugins.idea.runconfig.SiddhiRunConfigurationBase;
 import org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunningState;
 import org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteConfiguration;
 import org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteRunningState;
@@ -47,7 +46,6 @@ import java.net.ServerSocket;
 public class SiddhiDebugger extends GenericProgramRunner {
 
     private static final String ID = "SiddhiDebugger";
-
     @NotNull
     @Override
     public String getRunnerId() {
@@ -66,7 +64,7 @@ public class SiddhiDebugger extends GenericProgramRunner {
         if (state instanceof SiddhiApplicationRunningState) {
             FileDocumentManager.getInstance().saveAllDocuments();
             SiddhiHistoryProcessListener historyProcessListener = new SiddhiHistoryProcessListener();
-
+            String debugFilePath=((SiddhiApplicationRunningState) state).myConfiguration.getFilePath();
             int port = findFreePort();
 
             FileDocumentManager.getInstance().saveAllDocuments();
@@ -82,10 +80,12 @@ public class SiddhiDebugger extends GenericProgramRunner {
                     String address = NetUtils.getLocalHostString() + ":" + port;
                     // Create a new connector. This will be used to communicate with the debugger.
                     SiddhiWebSocketConnector siddhiDebugSession = new SiddhiWebSocketConnector(address);
-                    return new SiddhiDebugProcess(session, siddhiDebugSession, getExecutionResults(state, env));
+                    return new SiddhiDebugProcess(session,debugFilePath, siddhiDebugSession, getExecutionResults
+                            (state, env));
                 }
             }).getRunContentDescriptor();
         } else if (state instanceof SiddhiRemoteRunningState) {
+            String debugFilePath=((SiddhiRemoteRunningState) state).myConfiguration.getFilePath();
             FileDocumentManager.getInstance().saveAllDocuments();
             return XDebuggerManager.getInstance(env.getProject()).startSession(env, new XDebugProcessStarter() {
 
@@ -99,7 +99,7 @@ public class SiddhiDebugger extends GenericProgramRunner {
                     }
                     // Create a new connector. This will be used to communicate with the debugger.
                     SiddhiWebSocketConnector siddhiDebugSession = new SiddhiWebSocketConnector(address);
-                    return new SiddhiDebugProcess(session, siddhiDebugSession, null);
+                    return new SiddhiDebugProcess(session,debugFilePath, siddhiDebugSession, null);
                 }
             }).getRunContentDescriptor();
         }
