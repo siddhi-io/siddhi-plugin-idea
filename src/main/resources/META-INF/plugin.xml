@@ -79,11 +79,14 @@
         <configurationType implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationType"/>
         <runConfigurationProducer implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationProducer"/>
 
+        <!--remote-->
+        <configurationType implementation="org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteRunConfigurationType"/>
+        <runConfigurationProducer implementation="org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteRunConfigurationProducer"/>
+
         <!-- debugger -->
         <programRunner id="siddhiDebugger" implementation="org.wso2.plugins.idea.runconfig.SiddhiDebugger"/>
         <xdebugger.breakpointType implementation="org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeIN"/>
         <xdebugger.breakpointType implementation="org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeOUT"/>
-
 
         <!--project -->
         <applicationService serviceImplementation="org.wso2.plugins.idea.project.SiddhiApplicationLibrariesService"/>
