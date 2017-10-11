@@ -64,8 +64,9 @@ public class SiddhiApplicationRunningState extends SiddhiRunningState<SiddhiAppl
 
         // If debugging mode is running, we need to add the debugging flag.
         if (isDebug()) {
-            siddhiExecutor.withParameters("--siddhi.debug", String.valueOf(myDebugPort)).withParameters(inputFile);
+            siddhiExecutor.withParameters("--siddhi.debug", String.valueOf(myDebugPort));
         }
+        siddhiExecutor.withParameters(inputFile);
         return siddhiExecutor;
     }
 
