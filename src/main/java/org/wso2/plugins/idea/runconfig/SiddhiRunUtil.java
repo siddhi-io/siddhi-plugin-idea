@@ -19,6 +19,7 @@ package org.wso2.plugins.idea.runconfig;
 import com.intellij.execution.actions.ConfigurationContext;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.process.ProcessHandler;
+import com.intellij.execution.process.ProcessOutputTypes;
 import com.intellij.ide.scratch.ScratchFileType;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
@@ -30,6 +31,7 @@ import com.intellij.openapi.ui.TextComponentAccessor;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.io.FileUtil;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -79,51 +81,31 @@ public class SiddhiRunUtil {
                 isRunnableSiddhiFile(PsiManager.getInstance(project).findFile(file)));
     }
 
+    public static void installSiddhiWithFileChooser(Project project,
+                                                        @NotNull TextFieldWithBrowseButton fileField) {
+        installFileChooser(project, fileField,null);
+    }
+
     @Contract("null -> false")
     private static boolean isRunnableSiddhiFile(@Nullable PsiFile psiFile) {
         return hasExecutionElements(psiFile);
     }
 
     @Contract("null -> false")
-    static boolean hasExecutionElements(PsiFile file) {
+    private static boolean hasExecutionElements(PsiFile file) {
         Collection<ExecutionElementNode> executionElementNodes = PsiTreeUtil.findChildrenOfType(file,
                 ExecutionElementNode.class);
-//        for (ExecutionElementNode executionElementNode : executionElementNodes) {
-//            if (isExecutableElement(executionElementNode)) {
-//                return true;
-//            }
-//        }
-        if(executionElementNodes!=null){
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Checks whether the given executionElementNode is a main function node.
-     *
-     * @param executionElementNode FunctionDefinitionNode which needs to be checked
-     * @return {@code true} if the provided node is a has execution Elements, {@code false} otherwise.
-    */
-    @Contract("null -> false")
-    static boolean isExecutableElement(ExecutionElementNode executionElementNode) {
-        // Get the function name.
-//        PsiElement elementName = functionDefinitionNode.getNameIdentifier();
-//        if (functionName == null) {
-//            return false;
-//        }else{
-//            return true;
-//        }
-        //TODO:UPDATE LOGIC
-        return true;
+        return executionElementNodes.toArray().length > 0;
     }
 
     private static void installFileChooser(@NotNull Project project, @NotNull ComponentWithBrowseButton field,
                                            @Nullable Condition<VirtualFile> fileFilter) {
         FileChooserDescriptor chooseDirectoryDescriptor =
                 FileChooserDescriptorFactory.createSingleFileDescriptor(SiddhiFileType.INSTANCE);
+        chooseDirectoryDescriptor.withTreeRootVisible(true);
+        chooseDirectoryDescriptor.setShowFileSystemRoots(true);
         chooseDirectoryDescriptor.setRoots(project.getBaseDir());
-        chooseDirectoryDescriptor.setShowFileSystemRoots(false);
+        chooseDirectoryDescriptor.setShowFileSystemRoots(true);
         chooseDirectoryDescriptor.withShowHiddenFiles(false);
         chooseDirectoryDescriptor.withFileFilter(fileFilter);
         if (field instanceof TextFieldWithBrowseButton) {
@@ -141,8 +123,8 @@ public class SiddhiRunUtil {
                                                   @NotNull ProcessHandler handler) {
         Map<String, String> environment = commandLine.getEnvironment();
         // Todo - Add SIDDHI_REPOSITORY
-        //        handler.notifyTextAvailable("SIDDHI_REPOSITORY=" + StringUtil.nullize(environment.get
-        //                (SiddhiConstants.SIDDHI_REPOSITORY)) + '\n', ProcessOutputTypes.SYSTEM);
+                handler.notifyTextAvailable("SIDDHI_REPOSITORY=" + StringUtil.nullize(environment.get
+                        (SiddhiConstants.SIDDHI_REPOSITORY)) + '\n', ProcessOutputTypes.SYSTEM);
     }
 
     @Nullable

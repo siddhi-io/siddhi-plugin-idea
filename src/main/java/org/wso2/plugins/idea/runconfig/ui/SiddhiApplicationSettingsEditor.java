@@ -51,7 +51,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
         installRunKindComboBox();
         SiddhiRunUtil.installSiddhiWithMainFileChooser(project, myFileField.getComponent());
         SiddhiRunUtil.installSiddhiWithMainFileChooser(project, myWorkingDirectoryField.getComponent());
-        SiddhiRunUtil.installSiddhiWithMainFileChooser(project, myEventInputFile.getComponent());
+        SiddhiRunUtil.installSiddhiWithFileChooser(project, myEventInputFile.getComponent());
     }
 
     @Override
