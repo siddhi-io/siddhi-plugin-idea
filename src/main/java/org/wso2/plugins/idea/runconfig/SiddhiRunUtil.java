@@ -75,7 +75,29 @@ public class SiddhiRunUtil {
         return psiElement;
     }
 
-    public static void installSiddhiWithMainFileChooser(Project project,
+    public static void installSiddhiWithWorkingDirectoryChooser(Project project, @NotNull TextFieldWithBrowseButton
+            fileField) {
+        installWorkingDirectoryChooser(project, fileField);
+    }
+
+    private static void installWorkingDirectoryChooser(@NotNull Project project, @NotNull ComponentWithBrowseButton
+            field) {
+        FileChooserDescriptor chooseDirectoryDescriptor =
+                FileChooserDescriptorFactory.createSingleFolderDescriptor();
+        chooseDirectoryDescriptor.setShowFileSystemRoots(true);
+        chooseDirectoryDescriptor.withShowHiddenFiles(false);
+        if (field instanceof TextFieldWithBrowseButton) {
+            ((TextFieldWithBrowseButton) field).addBrowseFolderListener(
+                    new TextBrowseFolderListener(chooseDirectoryDescriptor, project));
+        } else {
+            //noinspection unchecked
+            field.addBrowseFolderListener(project, new ComponentWithBrowseButton.BrowseFolderActionListener(null,
+                    null, field, project, chooseDirectoryDescriptor,
+                    TextComponentAccessor.TEXT_FIELD_WITH_HISTORY_WHOLE_TEXT));
+        }
+    }
+
+    public static void installSiddhiWithSiddhiFileChooser(Project project,
                                                            @NotNull TextFieldWithBrowseButton fileField) {
         installFileChooser(project, fileField, file ->
                 isRunnableSiddhiFile(PsiManager.getInstance(project).findFile(file)));
@@ -102,9 +124,6 @@ public class SiddhiRunUtil {
                                            @Nullable Condition<VirtualFile> fileFilter) {
         FileChooserDescriptor chooseDirectoryDescriptor =
                 FileChooserDescriptorFactory.createSingleFileDescriptor(SiddhiFileType.INSTANCE);
-        chooseDirectoryDescriptor.withTreeRootVisible(true);
-        chooseDirectoryDescriptor.setShowFileSystemRoots(true);
-        chooseDirectoryDescriptor.setRoots(project.getBaseDir());
         chooseDirectoryDescriptor.setShowFileSystemRoots(true);
         chooseDirectoryDescriptor.withShowHiddenFiles(false);
         chooseDirectoryDescriptor.withFileFilter(fileFilter);
