@@ -18,11 +18,17 @@ package org.wso2.plugins.idea.debugger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.intellij.debugger.DebuggerBundle;
+import com.intellij.debugger.actions.AutoRendererAction;
+import com.intellij.debugger.actions.DebuggerActions;
+import com.intellij.debugger.engine.JavaDebugProcess;
+import com.intellij.debugger.settings.DebuggerSettings;
 import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.execution.ui.ExecutionConsole;
 import com.intellij.icons.AllIcons;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.application.AccessToken;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ReadAction;
@@ -48,6 +54,9 @@ import com.intellij.xdebugger.evaluation.XDebuggerEvaluator;
 import com.intellij.xdebugger.frame.XExecutionStack;
 import com.intellij.xdebugger.frame.XSuspendContext;
 import com.intellij.xdebugger.frame.XValueMarkerProvider;
+import com.intellij.xdebugger.impl.XDebuggerUtilImpl;
+import com.intellij.xdebugger.impl.actions.StepOutAction;
+import com.intellij.xdebugger.impl.actions.XDebuggerActions;
 import com.intellij.xdebugger.stepping.XSmartStepIntoHandler;
 import com.intellij.xdebugger.ui.XDebugTabLayouter;
 import org.wso2.plugins.idea.SiddhiTypes;
@@ -69,6 +78,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.event.HyperlinkListener;
+
+import static com.intellij.xdebugger.impl.ui.DebuggerSessionTabBase.getCustomizedActionGroup;
 
 public class SiddhiDebugProcess extends XDebugProcess {
 
@@ -190,7 +201,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     public void startStepInto(@Nullable XSuspendContext context) {
         String threadId = getThreadId(context);
         if (threadId != null) {
-            myConnector.sendCommand(Command.STEP_IN);
+            //myConnector.sendCommand(Command.STEP_IN);
         }
     }
 
@@ -198,7 +209,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     public void startStepOut(@Nullable XSuspendContext context) {
         String threadId = getThreadId(context);
         if (threadId != null) {
-            myConnector.sendCommand(Command.STEP_OUT);
+            //myConnector.sendCommand(Command.STEP_OUT);
         }
     }
 
@@ -242,6 +253,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     }
 
     @Nullable
+
     private String getThreadId(@Nullable XSuspendContext context) {
         if (context != null) {
             XExecutionStack activeExecutionStack = context.getActiveExecutionStack();
@@ -389,6 +401,16 @@ public class SiddhiDebugProcess extends XDebugProcess {
     @Override
     public XDebuggerEvaluator getEvaluator() {
         return super.getEvaluator();
+    }
+
+    @Override
+    public void registerAdditionalActions(@NotNull DefaultActionGroup leftToolbar,
+                                          @NotNull DefaultActionGroup topToolbar,
+                                          @NotNull DefaultActionGroup settings) {
+        topToolbar.removeAll();
+        topToolbar.add(ActionManager.getInstance().getAction(XDebuggerActions.SHOW_EXECUTION_POINT));
+        topToolbar.add(ActionManager.getInstance().getAction(XDebuggerActions.STEP_OVER));
+        leftToolbar.remove(ActionManager.getInstance().getAction(XDebuggerActions.PAUSE));
     }
 
     private final List<Integer> queryInLinePositions=new ArrayList<>();//arrayList Index=>queryIndex value=>Line number
