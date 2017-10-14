@@ -27,77 +27,77 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <!-- file type -->
-        <fileTypeFactory implementation="org.wso2.plugins.idea.SiddhiFileTypeFactory"/>
+        <fileTypeFactory implementation="org.wso2.siddhi.plugins.idea.SiddhiFileTypeFactory"/>
 
         <!--parser-->
         <lang.parserDefinition language="Siddhi"
-                               implementationClass="org.wso2.plugins.idea.SiddhiParserDefinition"/>
+                               implementationClass="org.wso2.siddhi.plugins.idea.SiddhiParserDefinition"/>
 
         <!-- commenter -->
-        <lang.commenter language="Siddhi" implementationClass="org.wso2.plugins.idea.SiddhiCommenter"/>
+        <lang.commenter language="Siddhi" implementationClass="org.wso2.siddhi.plugins.idea.SiddhiCommenter"/>
 
         <!-- highlighting -->
         <lang.syntaxHighlighterFactory language="Siddhi"
-                                       implementationClass="org.wso2.plugins.idea.highlighter.SiddhiSyntaxHighlighterFactory"/>
-        <colorSettingsPage implementation="org.wso2.plugins.idea.highlighter.SiddhiColorSettingsPage"/>
+                                       implementationClass="org.wso2.siddhi.plugins.idea.highlighter.SiddhiSyntaxHighlighterFactory"/>
+        <colorSettingsPage implementation="org.wso2.siddhi.plugins.idea.highlighter.SiddhiColorSettingsPage"/>
 
         <!-- Anootator -->
         <annotator language="Siddhi"
-                   implementationClass="org.wso2.plugins.idea.codeInsight.daemon.impl.SiddhiAnnotator"/>
+                   implementationClass="org.wso2.siddhi.plugins.idea.codeInsight.daemon.impl.SiddhiAnnotator"/>
 
         <!--structure view-->
         <lang.ast.factory language="Siddhi"
-                          implementationClass="org.wso2.plugins.idea.SiddhiASTFactory"/>
+                          implementationClass="org.wso2.siddhi.plugins.idea.SiddhiASTFactory"/>
 
         <!--completion-->
         <completion.contributor language="Siddhi"
-                                implementationClass="org.wso2.plugins.idea.completion.SiddhiCompletionContributor"/>
+                                implementationClass="org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionContributor"/>
         <completion.contributor language="Siddhi"
-                                implementationClass="org.wso2.plugins.idea.completion.SiddhiKeywordsCompletionContributor"/>
+                                implementationClass="org.wso2.siddhi.plugins.idea.completion.SiddhiKeywordsCompletionContributor"/>
 
         <!--spell checking-->
         <spellchecker.support language="Siddhi"
-                              implementationClass="org.wso2.plugins.idea.spellchecker.SiddhiSpellcheckingStrategy"/>
+                              implementationClass="org.wso2.siddhi.plugins.idea.spellchecker.SiddhiSpellcheckingStrategy"/>
 
         <!-- sdk -->
-        <sdkType implementation="org.wso2.plugins.idea.sdk.SiddhiSdkType"/>
+        <sdkType implementation="org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType"/>
         <projectSdkSetupValidator id="SiddhiSdk"
-                                  implementation="org.wso2.plugins.idea.codeInsight.daemon.impl.SiddhiProjectSdkSetupValidator"/>
+                                  implementation="org.wso2.siddhi.plugins.idea.codeInsight.daemon.impl.SiddhiProjectSdkSetupValidator"/>
         <library.presentationProvider
-                implementation="org.wso2.plugins.idea.sdk.SiddhiSdkLibraryPresentationProvider"/>
-        <applicationService serviceImplementation="org.wso2.plugins.idea.sdk.SiddhiPathModificationTracker"/>
+                implementation="org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkLibraryPresentationProvider"/>
+        <applicationService serviceImplementation="org.wso2.siddhi.plugins.idea.sdk.SiddhiPathModificationTracker"/>
 
-        <projectService serviceInterface="org.wso2.plugins.idea.sdk.SiddhiSdkService"
-                        serviceImplementation="org.wso2.plugins.idea.sdk.SiddhiSdkService"
+        <projectService serviceInterface="org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkService"
+                        serviceImplementation="org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkService"
                         overrides="false"/>
 
         <!-- module -->
-        <moduleType id="SIDDHI_MODULE" implementationClass="org.wso2.plugins.idea.SiddhiModuleType"/>
-        <moduleConfigurationEditorProvider implementation="org.wso2.plugins.idea.configuration.SiddhiModuleEditorsProvider" order="first"/>
+        <moduleType id="SIDDHI_MODULE" implementationClass="org.wso2.siddhi.plugins.idea.SiddhiModuleType"/>
+        <moduleConfigurationEditorProvider implementation="org.wso2.siddhi.plugins.idea.configuration.SiddhiModuleEditorsProvider" order="first"/>
         <editorNotificationProvider
-                implementation="org.wso2.plugins.idea.inspections.WrongModuleTypeNotificationProvider"/>
+                implementation="org.wso2.siddhi.plugins.idea.inspections.WrongModuleTypeNotificationProvider"/>
 
         <!-- run application -->
-        <programRunner id="siddhiRunner" implementation="org.wso2.plugins.idea.runconfig.SiddhiRunner"/>
-        <configurationType implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationType"/>
-        <runConfigurationProducer implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationProducer"/>
+        <programRunner id="siddhiRunner" implementation="org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunner"/>
+        <configurationType implementation="org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationType"/>
+        <runConfigurationProducer implementation="org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationProducer"/>
 
         <!--remote-->
-        <configurationType implementation="org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteRunConfigurationType"/>
-        <runConfigurationProducer implementation="org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteRunConfigurationProducer"/>
+        <configurationType implementation="org.wso2.siddhi.plugins.idea.runconfig.remote.SiddhiRemoteRunConfigurationType"/>
+        <runConfigurationProducer implementation="org.wso2.siddhi.plugins.idea.runconfig.remote.SiddhiRemoteRunConfigurationProducer"/>
 
         <!-- debugger -->
-        <programRunner id="siddhiDebugger" implementation="org.wso2.plugins.idea.runconfig.SiddhiDebugger"/>
-        <xdebugger.breakpointType implementation="org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeIN"/>
-        <xdebugger.breakpointType implementation="org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeOUT"/>
+        <programRunner id="siddhiDebugger" implementation="org.wso2.siddhi.plugins.idea.runconfig.SiddhiDebugger"/>
+        <xdebugger.breakpointType implementation="org.wso2.siddhi.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeIN"/>
+        <xdebugger.breakpointType implementation="org.wso2.siddhi.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeOUT"/>
 
         <!--project -->
-        <applicationService serviceImplementation="org.wso2.plugins.idea.project.SiddhiApplicationLibrariesService"/>
-        <projectService serviceImplementation="org.wso2.plugins.idea.project.SiddhiProjectLibrariesService"/>
-        <projectConfigurable id="Siddhi" groupId="language" provider="org.wso2.plugins.idea.configuration.SiddhiConfigurableProvider"
+        <applicationService serviceImplementation="org.wso2.siddhi.plugins.idea.project.SiddhiApplicationLibrariesService"/>
+        <projectService serviceImplementation="org.wso2.siddhi.plugins.idea.project.SiddhiProjectLibrariesService"/>
+        <projectConfigurable id="Siddhi" groupId="language" provider="org.wso2.siddhi.plugins.idea.configuration.SiddhiConfigurableProvider"
                              dynamic="true"/>
-        <projectExtension implementation="org.wso2.plugins.idea.project.SiddhiProjectExtension"/>
-        <applicationService serviceImplementation="org.wso2.plugins.idea.codeInsight.imports.SiddhiCodeInsightSettings"/>
+        <projectExtension implementation="org.wso2.siddhi.plugins.idea.project.SiddhiProjectExtension"/>
+        <applicationService serviceImplementation="org.wso2.siddhi.plugins.idea.codeInsight.imports.SiddhiCodeInsightSettings"/>
 
         <!-- templates -->
         <internalFileTemplate name="Siddhi Main"/>
@@ -106,7 +106,7 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="Siddhi.NewSiddhiFile" class="org.wso2.plugins.idea.actions.SiddhiCreateFileAction"
+        <action id="Siddhi.NewSiddhiFile" class="org.wso2.siddhi.plugins.idea.actions.SiddhiCreateFileAction"
                 text="Siddhi File" description="Create new Siddhi file">
             <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
         </action>
