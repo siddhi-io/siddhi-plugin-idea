@@ -34,16 +34,15 @@ import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketCl
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
-import org.wso2.plugins.idea.debugger.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wso2.plugins.idea.debugger.Callback;
 
+import javax.net.ssl.SSLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.net.ssl.SSLException;
 
 public class WebSocketClient {
 

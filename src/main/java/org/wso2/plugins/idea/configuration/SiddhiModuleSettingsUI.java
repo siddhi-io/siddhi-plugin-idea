@@ -21,8 +21,8 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.ConfigurableUi;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.util.ui.UIUtil;
-import org.wso2.plugins.idea.project.SiddhiModuleSettings;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.project.SiddhiModuleSettings;
 
 import javax.swing.*;
 import java.awt.*;

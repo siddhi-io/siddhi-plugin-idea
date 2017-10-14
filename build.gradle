@@ -29,14 +29,13 @@ repositories {
     mavenCentral()
 }
 
-
-
 apply plugin: 'java'
 dependencies{
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20170516'
 
 }
+
 sourceSets {
     main {
         java {

@@ -25,12 +25,12 @@ import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.JDOMExternalizerUtil;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.util.text.StringUtil;
-import org.wso2.plugins.idea.runconfig.SiddhiModuleBasedConfiguration;
-import org.wso2.plugins.idea.runconfig.SiddhiRunConfigurationWithMain;
-import org.wso2.plugins.idea.runconfig.RunConfigurationKind;
-import org.wso2.plugins.idea.runconfig.ui.SiddhiApplicationSettingsEditor;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.runconfig.RunConfigurationKind;
+import org.wso2.plugins.idea.runconfig.SiddhiModuleBasedConfiguration;
+import org.wso2.plugins.idea.runconfig.SiddhiRunConfigurationWithMain;
+import org.wso2.plugins.idea.runconfig.ui.SiddhiApplicationSettingsEditor;
 
 public class SiddhiApplicationConfiguration
         extends SiddhiRunConfigurationWithMain<SiddhiApplicationRunningState> {

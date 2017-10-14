@@ -50,38 +50,6 @@ public class SiddhiSyntaxHighlightingColors {
             DefaultLanguageHighlighterColors.COMMA);
     public static final TextAttributesKey SYMBOLS = createTextAttributesKey("SIDDHI_COLON_TOKEN",
             DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
-    /*
-    public static final TextAttributesKey ASSIGN = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey STAR = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey PLUS = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey QUESTION = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey MINUS = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey DIV = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey MOD = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey LT = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey LT_EQ = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey GT = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey GT_EQ = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey NOT_EQ = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey AT_SYMBOL = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey FOLLOWED_BY = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey HASH = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    */
 
     private SiddhiSyntaxHighlightingColors() {
 

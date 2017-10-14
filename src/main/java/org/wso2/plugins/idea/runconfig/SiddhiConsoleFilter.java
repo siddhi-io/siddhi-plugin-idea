@@ -156,7 +156,6 @@ public class SiddhiConsoleFilter implements Filter {
 
     @Nullable
     private VirtualFile findInSiddhiPath(@NotNull String fileName) {
-        //Todo - Implement search logic
         return null;
     }
 
@@ -177,7 +176,6 @@ public class SiddhiConsoleFilter implements Filter {
 
         @Override
         public void navigate(Project project) {
-            //Todo
         }
     }
 }

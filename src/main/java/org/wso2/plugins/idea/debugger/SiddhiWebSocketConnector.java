@@ -17,13 +17,12 @@
 package org.wso2.plugins.idea.debugger;
 
 import com.intellij.openapi.diagnostic.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.debugger.client.WebSocketClient;
 import org.wso2.plugins.idea.debugger.protocol.Command;
-import org.jetbrains.annotations.NotNull;
-
-import java.net.URISyntaxException;
 
 import javax.net.ssl.SSLException;
+import java.net.URISyntaxException;
 
 public class SiddhiWebSocketConnector {
 

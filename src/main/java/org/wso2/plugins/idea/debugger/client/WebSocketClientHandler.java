@@ -16,20 +16,16 @@
 
 package org.wso2.plugins.idea.debugger.client;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPromise;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.*;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketClientHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.util.CharsetUtil;
-import org.wso2.plugins.idea.debugger.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wso2.plugins.idea.debugger.Callback;
 
 public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> {
 

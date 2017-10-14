@@ -24,10 +24,10 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.runconfig.SiddhiModuleBasedConfiguration;
 import org.wso2.plugins.idea.runconfig.SiddhiRunConfigurationWithMain;
 import org.wso2.plugins.idea.runconfig.ui.SiddhiRemoteSettingsEditor;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

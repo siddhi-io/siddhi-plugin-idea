@@ -41,12 +41,12 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.Alarm;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.messages.MessageBusConnection;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.TestOnly;
 import org.wso2.plugins.idea.SiddhiConstants;
 import org.wso2.plugins.idea.configuration.SiddhiLibrariesConfigurableProvider;
 import org.wso2.plugins.idea.sdk.SiddhiSdkService;
 import org.wso2.plugins.idea.sdk.SiddhiSdkUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.TestOnly;
 
 import javax.swing.event.HyperlinkEvent;
 import java.util.Collection;
@@ -147,7 +147,7 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
         }
     }
 
-    public String getLibraryName() {
+    private String getLibraryName() {
         return SIDDHI_LIB_NAME + " <" + myModule.getName() + ">";
     }
 
@@ -268,7 +268,8 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
         @Override
         public void run() {
             Project project = myModule.getProject();
-            if (SiddhiSdkService.getInstance(project).isSiddhiModule(myModule)) {
+            SiddhiSdkService.getInstance(project);
+            if (SiddhiSdkService.isSiddhiModule(myModule)) {
                 synchronized (myLastHandledSiddhiPathSourcesRoots) {
                     Collection<VirtualFile> siddhiPathSourcesRoots = SiddhiSdkUtil.getSiddhiPathRoots(project,
                             myModule);
@@ -278,7 +279,8 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
 
                     Collection<VirtualFile> includeRoots = gatherIncludeRoots(siddhiPathSourcesRoots, excludeRoots);
                     ApplicationManager.getApplication().invokeLater(() -> {
-                        if (!myModule.isDisposed() && SiddhiSdkService.getInstance(project)
+                        SiddhiSdkService.getInstance(project);
+                        if (!myModule.isDisposed() && SiddhiSdkService
                                 .isSiddhiModule(myModule)) {
                             attachLibraries(includeRoots, excludeRoots);
                         }
@@ -300,7 +302,8 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
                     myLastHandledSiddhiPathSourcesRoots.clear();
                     myLastHandledExclusions.clear();
                     ApplicationManager.getApplication().invokeLater(() -> {
-                        if (!myModule.isDisposed() && SiddhiSdkService.getInstance(project).
+                        SiddhiSdkService.getInstance(project);
+                        if (!myModule.isDisposed() && SiddhiSdkService.
                                 isSiddhiModule(myModule)) {
                             removeLibraryIfNeeded();
                         }

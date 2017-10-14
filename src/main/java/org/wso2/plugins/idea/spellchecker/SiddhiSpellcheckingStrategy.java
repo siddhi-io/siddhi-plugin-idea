@@ -19,9 +19,9 @@ package org.wso2.plugins.idea.spellchecker;
 import com.intellij.psi.PsiElement;
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy;
 import com.intellij.spellchecker.tokenizer.Tokenizer;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.SiddhiTypes;
 import org.wso2.plugins.idea.psi.IdentifierPSINode;
-import org.jetbrains.annotations.NotNull;
 
 public class SiddhiSpellcheckingStrategy extends SpellcheckingStrategy {
 

@@ -29,12 +29,12 @@ import com.intellij.openapi.roots.ui.configuration.ProjectSettingsService;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.SiddhiFileType;
 import org.wso2.plugins.idea.SiddhiLanguage;
 import org.wso2.plugins.idea.sdk.SiddhiSdkService;
 import org.wso2.plugins.idea.sdk.SiddhiSdkType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class SiddhiProjectSdkSetupValidator implements ProjectSdkSetupValidator {
 
@@ -46,10 +46,7 @@ public class SiddhiProjectSdkSetupValidator implements ProjectSdkSetupValidator 
             return true;
         }
         PsiFile psiFile = PsiManager.getInstance(project).findFile(file);
-        if (psiFile != null) {
-            return psiFile.getLanguage().isKindOf(SiddhiLanguage.INSTANCE);
-        }
-        return false;
+        return psiFile != null && psiFile.getLanguage().isKindOf(SiddhiLanguage.INSTANCE);
     }
 
     @Nullable
@@ -65,8 +62,9 @@ public class SiddhiProjectSdkSetupValidator implements ProjectSdkSetupValidator 
                     return ProjectBundle.message("module.sdk.not.defined");
                 }
             } else {
+                SiddhiSdkService.getInstance(project);
                 if (sdk.getSdkType() != SiddhiSdkType.getInstance()
-                        && SiddhiSdkService.getInstance(project).isSiddhiModule(module)) {
+                        && SiddhiSdkService.isSiddhiModule(module)) {
                     return "Siddhi SDK is not defined for Siddhi Module '" + module.getName() + "'";
                 }
             }

@@ -28,8 +28,7 @@ public class SiddhiAnnotator implements Annotator {
 
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if ( element instanceof StreamIdNode) { //PsiTreeUtil.getParentOfType(element.getParent(), AttributeNameNode
-            // .class).
+        if (element instanceof StreamIdNode) {
             annotateStreamIdNodes(element, holder);
         }
     }

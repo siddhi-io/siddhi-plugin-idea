@@ -16,18 +16,11 @@
 
 package org.wso2.plugins.idea.util;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiManager;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class SiddhiUtil {
 
@@ -87,98 +80,4 @@ public class SiddhiUtil {
         }
         return false;
     }
-
-    /**
-     * Suggest the package name for a directory.
-     *
-     * @param directory directory which needs to be processed
-     * @return suggested package name or empty string if package name cannot be determined.
-     *
-    @NotNull
-    public static String suggestPackageNameForDirectory(@Nullable PsiDirectory directory) {
-        // If the directory is not null, get the package name
-        if (directory != null) {
-            VirtualFile currentDirectory = directory.getVirtualFile();
-            Module module = ModuleUtilCore.findModuleForPsiElement(directory);
-            // Check directories in module content roots.
-            if (module != null) {
-                VirtualFile[] contentRoots = ModuleRootManager.getInstance(module).getContentRoots();
-                for (VirtualFile contentRoot : contentRoots) {
-                    if (!directory.getVirtualFile().getPath().startsWith(contentRoot.getPath())) {
-                        continue;
-                    }
-                    return getImportPath(currentDirectory, contentRoot);
-                }
-            }
-
-            Project project = directory.getProject();
-            // Check directories in project content roots.
-            VirtualFile[] contentRoots = ProjectRootManager.getInstance(project).getContentRoots();
-            for (VirtualFile contentRoot : contentRoots) {
-                if (!directory.getVirtualFile().getPath().startsWith(contentRoot.getPath())) {
-                    continue;
-                }
-                return getImportPath(currentDirectory, contentRoot);
-            }
-
-            // Then we check the sources of module sdk.
-            if (module != null) {
-                Sdk moduleSdk = ModuleRootManager.getInstance(module).getSdk();
-                String root = getImportPath(directory, currentDirectory, moduleSdk);
-                if (root != null) {
-                    return root;
-                }
-            }
-
-            // Then we check the sources of project sdk.
-            Sdk projectSdk = ProjectRootManager.getInstance(project).getProjectSdk();
-            String root = getImportPath(directory, currentDirectory, projectSdk);
-            if (root != null) {
-                return root;
-            }
-
-            // If the package name cannot be constructed, return empty string
-            return "";
-        }
-        // If the directory is null, return empty string
-        return "";
-    }
-
-    @Nullable
-    private static String getImportPath(@NotNull PsiDirectory directory, VirtualFile virtualFile, Sdk sdk) {
-        if (sdk != null) {
-            VirtualFile[] roots = sdk.getSdkModificator().getRoots(OrderRootType.SOURCES);
-            for (VirtualFile root : roots) {
-                if (!directory.getVirtualFile().getPath().startsWith(root.getPath())) {
-                    continue;
-                }
-                return getImportPath(virtualFile, root);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Returns the import path.
-     *
-     * @param virtualFile file which we are checking
-     * @param root        root directory which contains the file
-     * @return import path of the file
-     *
-    private static String getImportPath(VirtualFile virtualFile, VirtualFile root) {
-        // Get the relative path of the file in the project
-        String trimmedPath = virtualFile.getPath().replace(root.getPath(), "");
-        // Node: In virtual file paths, separators will always be "/" regardless of the OS.
-        // Remove the separator at the beginning of the string
-        trimmedPath = trimmedPath.replaceFirst("/", "");
-        // Replace all other separators with . to get the package path
-        trimmedPath = trimmedPath.replaceAll("/", ".");
-        return trimmedPath;
-    }
-
-    public static String suggestPackageNameForFile(@NotNull Project project, @NotNull VirtualFile virtualFile) {
-        VirtualFile parent = virtualFile.getParent();
-        PsiDirectory psiDirectory = PsiManager.getInstance(project).findDirectory(parent);
-        return suggestPackageNameForDirectory(psiDirectory);
-    }*/
 }

@@ -33,11 +33,11 @@ import com.intellij.psi.util.CachedValueProvider;
 import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.containers.ContainerUtil;
-import org.wso2.plugins.idea.SiddhiConstants;
-import org.wso2.plugins.idea.SiddhiModuleType;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.SiddhiConstants;
+import org.wso2.plugins.idea.SiddhiModuleType;
 
 import java.io.File;
 import java.util.Set;

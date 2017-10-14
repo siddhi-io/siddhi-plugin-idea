@@ -24,8 +24,8 @@ import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.ui.EditorTextField;
 import com.intellij.ui.RawCommandLineEditor;
-import org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteConfiguration;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteConfiguration;
 
 import javax.swing.*;
 
@@ -39,8 +39,6 @@ public class SiddhiRemoteSettingsEditor extends SettingsEditor<SiddhiRemoteConfi
     private LabeledComponent<EditorTextField> myHost;
     private LabeledComponent<EditorTextField> myPort;
     private Project myProject;
-    private EditorTextField myHostField;
-    private EditorTextField myPortField;
 
     public SiddhiRemoteSettingsEditor(Project project) {
         myProject = project;
@@ -86,12 +84,12 @@ public class SiddhiRemoteSettingsEditor extends SettingsEditor<SiddhiRemoteConfi
         myModulesComboBox.setComponent(new ModulesComboBox());
 
         myHost = new LabeledComponent<>();
-        myHostField = new EditorTextField();
+        EditorTextField myHostField = new EditorTextField();
         myHostField.setPreferredWidth(300);
         myHost.setComponent(myHostField);
 
         myPort = new LabeledComponent<>();
-        myPortField = new EditorTextField();
+        EditorTextField myPortField = new EditorTextField();
         myPortField.setPreferredWidth(100);
         myPort.setComponent(myPortField);
     }

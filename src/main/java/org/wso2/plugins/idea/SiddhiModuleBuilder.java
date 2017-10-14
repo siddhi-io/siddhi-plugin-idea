@@ -26,9 +26,9 @@ import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.projectRoots.SdkTypeId;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.util.Pair;
-import org.wso2.plugins.idea.sdk.SiddhiSdkType;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.sdk.SiddhiSdkType;
 
 import java.util.ArrayList;
 import java.util.List;

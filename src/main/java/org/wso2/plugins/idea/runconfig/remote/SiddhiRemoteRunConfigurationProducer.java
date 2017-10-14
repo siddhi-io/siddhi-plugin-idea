@@ -17,8 +17,8 @@
 package org.wso2.plugins.idea.runconfig.remote;
 
 import com.intellij.psi.PsiFile;
-import org.wso2.plugins.idea.runconfig.SiddhiRunConfigurationProducerBase;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.runconfig.SiddhiRunConfigurationProducerBase;
 
 public class SiddhiRemoteRunConfigurationProducer
         extends SiddhiRunConfigurationProducerBase<SiddhiRemoteConfiguration> implements Cloneable {

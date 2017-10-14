@@ -21,28 +21,12 @@ import com.intellij.openapi.util.IconLoader;
 import com.intellij.ui.LayeredIcon;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 public class SiddhiIcons {
     public static final Icon ICON = IconLoader.findIcon("/icons/siddhi.png");
     public static final Icon APPLICATION_RUN = createIconWithShift(ICON, AllIcons.Nodes.RunnableMark);
-    public static final Icon RUN = AllIcons.RunConfigurations.TestState.Run;
-    public static final Icon RECURSIVE = AllIcons.Gutter.RecursiveMethod;
-    public static final Icon PACKAGE = AllIcons.Nodes.Package;
-    public static final Icon FUNCTION = AllIcons.Nodes.Field;
-    public static final Icon VARIABLE = AllIcons.Nodes.Variable;
-    public static final Icon GLOBAL_VARIABLE = new LayeredIcon(AllIcons.Nodes.Variable, AllIcons.Nodes.StaticMark);
     public static final Icon PARAMETER = AllIcons.Nodes.Parameter;
-    public static final Icon CONSTANT = AllIcons.Nodes.Class; // Todo - change icon
-    public static final Icon NAMESPACE = AllIcons.Json.Array;
-    public static final Icon CONNECTOR = AllIcons.Nodes.Class;
-    public static final Icon ACTION = AllIcons.Nodes.Deploy;
-    public static final Icon SERVICE = AllIcons.Nodes.Static;
-    public static final Icon RESOURCE = AllIcons.General.HideRight;
-    public static final Icon STRUCT = AllIcons.Json.Object;
-    public static final Icon FIELD = AllIcons.Nodes.Advice;
-    public static final Icon ANNOTATION = AllIcons.Nodes.Annotationtype;
-    public static final Icon WORKER = AllIcons.Nodes.Rw_access;
 
     private SiddhiIcons() {
 

@@ -29,10 +29,10 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.impl.source.resolve.ResolveCache;
 import com.intellij.util.messages.Topic;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.SiddhiConstants;
 import org.wso2.plugins.idea.configuration.SiddhiConfigurableProvider;
 import org.wso2.plugins.idea.configuration.SiddhiModuleSettingsConfigurable;
-import org.jetbrains.annotations.NotNull;
 
 @State(
         name = SiddhiConstants.SIDDHI_MODULE_SESTTINGS_SERVICE_NAME,

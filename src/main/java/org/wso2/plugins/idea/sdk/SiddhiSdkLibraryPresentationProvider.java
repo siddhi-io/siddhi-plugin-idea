@@ -20,15 +20,16 @@ import com.intellij.openapi.roots.libraries.DummyLibraryProperties;
 import com.intellij.openapi.roots.libraries.LibraryKind;
 import com.intellij.openapi.roots.libraries.LibraryPresentationProvider;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.wso2.plugins.idea.SiddhiIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.SiddhiIcons;
+
 import javax.swing.*;
 import java.util.List;
 
 public class SiddhiSdkLibraryPresentationProvider  extends LibraryPresentationProvider<DummyLibraryProperties> {
 
-    private static final LibraryKind KIND = LibraryKind.create("Siddhi");
+    private static final LibraryKind KIND = LibraryKind.create("Siddhi-SDK");
 
     public SiddhiSdkLibraryPresentationProvider() {
         super(KIND);

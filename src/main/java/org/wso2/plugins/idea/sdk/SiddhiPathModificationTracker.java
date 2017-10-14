@@ -38,9 +38,6 @@ public class SiddhiPathModificationTracker {
             String home = SystemProperties.getUserHome();
             for (String s : StringUtil.split(siddhiRepository, File.pathSeparator)) {
                 if (s.contains("$HOME")) {
-                    if (home == null) {
-                        continue;
-                    }
                     s = s.replaceAll("\\$HOME", home);
                 }
                 pathsToTrack.add(s);

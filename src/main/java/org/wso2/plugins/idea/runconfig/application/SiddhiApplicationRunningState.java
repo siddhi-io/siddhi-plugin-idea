@@ -23,11 +23,11 @@ import com.intellij.execution.process.ProcessEvent;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.runconfig.SiddhiRunningState;
 import org.wso2.plugins.idea.util.SiddhiExecutor;
 import org.wso2.plugins.idea.util.SiddhiHistoryProcessListener;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class SiddhiApplicationRunningState extends SiddhiRunningState<SiddhiApplicationConfiguration> {
 

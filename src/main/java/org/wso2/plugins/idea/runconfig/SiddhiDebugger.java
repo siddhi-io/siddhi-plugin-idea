@@ -32,14 +32,14 @@ import com.intellij.xdebugger.XDebugProcess;
 import com.intellij.xdebugger.XDebugProcessStarter;
 import com.intellij.xdebugger.XDebugSession;
 import com.intellij.xdebugger.XDebuggerManager;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.debugger.SiddhiDebugProcess;
 import org.wso2.plugins.idea.debugger.SiddhiWebSocketConnector;
 import org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunningState;
 import org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteConfiguration;
 import org.wso2.plugins.idea.runconfig.remote.SiddhiRemoteRunningState;
 import org.wso2.plugins.idea.util.SiddhiHistoryProcessListener;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.net.ServerSocket;
 

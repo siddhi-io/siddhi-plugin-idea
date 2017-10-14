@@ -18,8 +18,8 @@ package org.wso2.plugins.idea.configuration;
 
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.ConfigurableBase;
-import org.wso2.plugins.idea.project.SiddhiModuleSettings;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.project.SiddhiModuleSettings;
 
 public class SiddhiModuleSettingsConfigurable extends
         ConfigurableBase<SiddhiModuleSettingsUI, SiddhiModuleSettings> {

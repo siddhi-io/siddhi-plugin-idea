@@ -38,12 +38,12 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileSystemItem;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.wso2.plugins.idea.SiddhiConstants;
-import org.wso2.plugins.idea.SiddhiFileType;
-import org.wso2.plugins.idea.psi.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.SiddhiConstants;
+import org.wso2.plugins.idea.SiddhiFileType;
+import org.wso2.plugins.idea.psi.ExecutionElementNode;
 
 import java.util.Collection;
 import java.util.Map;

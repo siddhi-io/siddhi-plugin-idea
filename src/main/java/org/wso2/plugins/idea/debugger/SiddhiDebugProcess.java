@@ -18,17 +18,13 @@ package org.wso2.plugins.idea.debugger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.intellij.debugger.DebuggerBundle;
-import com.intellij.debugger.actions.AutoRendererAction;
-import com.intellij.debugger.actions.DebuggerActions;
-import com.intellij.debugger.engine.JavaDebugProcess;
-import com.intellij.debugger.settings.DebuggerSettings;
 import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.execution.ui.ExecutionConsole;
 import com.intellij.icons.AllIcons;
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.application.AccessToken;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ReadAction;
@@ -54,11 +50,11 @@ import com.intellij.xdebugger.evaluation.XDebuggerEvaluator;
 import com.intellij.xdebugger.frame.XExecutionStack;
 import com.intellij.xdebugger.frame.XSuspendContext;
 import com.intellij.xdebugger.frame.XValueMarkerProvider;
-import com.intellij.xdebugger.impl.XDebuggerUtilImpl;
-import com.intellij.xdebugger.impl.actions.StepOutAction;
 import com.intellij.xdebugger.impl.actions.XDebuggerActions;
 import com.intellij.xdebugger.stepping.XSmartStepIntoHandler;
 import com.intellij.xdebugger.ui.XDebugTabLayouter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.SiddhiTypes;
 import org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeIN;
 import org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeOUT;
@@ -67,19 +63,15 @@ import org.wso2.plugins.idea.debugger.dto.BreakPoint;
 import org.wso2.plugins.idea.debugger.dto.Message;
 import org.wso2.plugins.idea.debugger.protocol.Command;
 import org.wso2.plugins.idea.debugger.protocol.Response;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.psi.QueryInputNode;
 import org.wso2.plugins.idea.psi.QueryOutputNode;
 
+import javax.swing.event.HyperlinkListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javax.swing.event.HyperlinkListener;
-
-import static com.intellij.xdebugger.impl.ui.DebuggerSessionTabBase.getCustomizedActionGroup;
 
 public class SiddhiDebugProcess extends XDebugProcess {
 
@@ -194,22 +186,6 @@ public class SiddhiDebugProcess extends XDebugProcess {
         String threadId = getThreadId(context);
         if (threadId != null) {
             myConnector.sendCommand(Command.STEP_OVER);
-        }
-    }
-
-    @Override
-    public void startStepInto(@Nullable XSuspendContext context) {
-        String threadId = getThreadId(context);
-        if (threadId != null) {
-            //myConnector.sendCommand(Command.STEP_IN);
-        }
-    }
-
-    @Override
-    public void startStepOut(@Nullable XSuspendContext context) {
-        String threadId = getThreadId(context);
-        if (threadId != null) {
-            //myConnector.sendCommand(Command.STEP_OUT);
         }
     }
 
@@ -416,7 +392,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     private final List<Integer> queryInLinePositions=new ArrayList<>();//arrayList Index=>queryIndex value=>Line number
     private final List<Integer> queryOutLinePositions=new ArrayList<>();//arrayList Index=>queryIndex value=>Line number
 
-    public void setQueryInOutPositions(){
+    private void setQueryInOutPositions(){
         File localFile =new File(myDebugFilePath);
         VirtualFile file = LocalFileSystem.getInstance().findFileByIoFile(localFile);
         ApplicationManager.getApplication().runReadAction(() -> {
@@ -472,13 +448,17 @@ public class SiddhiDebugProcess extends XDebugProcess {
             }
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
             int offset=breakpointPosition.getOffset();
-            PsiElement element=psiFile.findElementAt(offset);
-            if(!(((LeafPsiElement) element).getElementType().equals(SiddhiTypes.FROM))){
+            PsiElement element= null;
+            if (psiFile != null) {
+                element = psiFile.findElementAt(offset);
+            }
+            if ((element != null) && !(((LeafPsiElement) element).getElementType().equals
+                    (SiddhiTypes.FROM))) {
                 return;
             }
             inBreakpoints.add(breakpoint);
             sendBreakpoints();
-            getSession().updateBreakpointPresentation(breakpoint, AllIcons.Debugger.Db_verified_breakpoint, null);
+            getSession().updateBreakpointPresentation(breakpoint, AllIcons.Debugger.Db_verified_breakpoint , null);
         }
 
         @Override
@@ -577,8 +557,12 @@ public class SiddhiDebugProcess extends XDebugProcess {
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
 
             int offset=breakpointPosition.getOffset();
-            PsiElement element=psiFile.findElementAt(offset);
-            if(!(((LeafPsiElement) element).getElementType().equals(SiddhiTypes.INSERT))){
+            PsiElement element= null;
+            if (psiFile != null) {
+                element = psiFile.findElementAt(offset);
+            }
+            if (element != null && !(((LeafPsiElement) element).getElementType().equals
+                    (SiddhiTypes.INSERT))) {
                 return;
             }
             outBreakpoints.add(breakpoint);

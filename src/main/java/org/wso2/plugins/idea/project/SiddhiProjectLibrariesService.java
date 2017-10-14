@@ -18,8 +18,8 @@ package org.wso2.plugins.idea.project;
 
 import com.intellij.openapi.components.*;
 import com.intellij.openapi.project.Project;
-import org.wso2.plugins.idea.SiddhiConstants;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.SiddhiConstants;
 
 @State(
         name = SiddhiConstants.SIDDHI_LIBRARIES_SERVICE_NAME,

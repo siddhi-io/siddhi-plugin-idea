@@ -22,8 +22,8 @@ import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.roots.ui.configuration.*;
 import com.intellij.util.containers.ContainerUtil;
-import org.wso2.plugins.idea.SiddhiModuleType;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.SiddhiModuleType;
 
 import javax.swing.*;
 import java.util.List;

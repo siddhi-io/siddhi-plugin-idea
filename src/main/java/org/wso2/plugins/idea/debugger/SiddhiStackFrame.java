@@ -16,7 +16,6 @@
 
 package org.wso2.plugins.idea.debugger;
 
-import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
@@ -31,12 +30,14 @@ import com.intellij.xdebugger.evaluation.XDebuggerEvaluator;
 import com.intellij.xdebugger.frame.XCompositeNode;
 import com.intellij.xdebugger.frame.XStackFrame;
 import com.intellij.xdebugger.frame.XValueChildrenList;
-import org.wso2.plugins.idea.debugger.dto.Frame;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
+import org.wso2.plugins.idea.debugger.dto.Frame;
 
 import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 
 public class SiddhiStackFrame extends XStackFrame {

@@ -28,14 +28,14 @@ import org.wso2.plugins.idea.psi.IdentifierPSINode;
 public abstract class SiddhiElementReference extends PsiReferenceBase<IdentifierPSINode> {
 
     public SiddhiElementReference(@NotNull IdentifierPSINode element) {
-        /** WARNING: You must send up the text range or you get this error:
-         * "Cannot find manipulator for PsiElement(ID) in org.antlr.jetbrains.sample.SampleElementRef"...
-         *  when you click on an identifier.  During rename you get this
-         *  error too if you don't impl handleElementRename().
-         *
-         *  The range is relative to start of the token; I guess for
-         *  qualified references we might want to use just a part of the name.
-         *  Or we might look inside string literals for stuff.
+        /* WARNING: You must send up the text range or you get this error:
+          "Cannot find manipulator for PsiElement(ID) in org.antlr.jetbrains.sample.SampleElementRef"...
+           when you click on an identifier.  During rename you get this
+           error too if you don't impl handleElementRename().
+
+           The range is relative to start of the token; I guess for
+           qualified references we might want to use just a part of the name.
+           Or we might look inside string literals for stuff.
          */
         super(element, new TextRange(0, element.getText().length()));
     }

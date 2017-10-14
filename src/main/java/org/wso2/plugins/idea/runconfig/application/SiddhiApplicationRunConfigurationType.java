@@ -20,10 +20,10 @@ import com.intellij.execution.configurations.ConfigurationTypeBase;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.project.Project;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.SiddhiConstants;
 import org.wso2.plugins.idea.SiddhiIcons;
 import org.wso2.plugins.idea.runconfig.SiddhiConfigurationFactoryBase;
-import org.jetbrains.annotations.NotNull;
 
 public class SiddhiApplicationRunConfigurationType extends ConfigurationTypeBase {
 

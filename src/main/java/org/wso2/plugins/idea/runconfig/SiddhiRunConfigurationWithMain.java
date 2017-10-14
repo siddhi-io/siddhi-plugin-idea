@@ -26,9 +26,9 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
-import org.wso2.plugins.idea.psi.SiddhiFile;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.psi.SiddhiFile;
 
 public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningState> extends
         SiddhiRunConfigurationBase<T> {

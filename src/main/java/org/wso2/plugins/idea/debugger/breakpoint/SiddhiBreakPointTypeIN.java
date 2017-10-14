@@ -34,7 +34,7 @@ import org.wso2.plugins.idea.psi.QueryInputNode;
 public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpointProperties> {
 
     public static final String ID = "SiddhiLineBreakpoint";
-    public static final String NAME = "Siddhi breakpoint";
+    private static final String NAME = "Siddhi breakpoint";
 
     protected SiddhiBreakPointTypeIN() {
         super(ID, NAME);
@@ -48,10 +48,7 @@ public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpoint
 
     @Override
     public boolean canPutAt(@NotNull VirtualFile file, int line, @NotNull Project project) {
-        if (line < 0 || file.getFileType() != SiddhiFileType.INSTANCE) {
-            return false;
-        }
-        return isLineBreakpointAvailable(file, line, project);
+        return line >= 0 && file.getFileType() == SiddhiFileType.INSTANCE && isLineBreakpointAvailable(file, line, project);
     }
 
     private static boolean isLineBreakpointAvailable(@NotNull VirtualFile file, int line, @NotNull Project project) {
@@ -78,11 +75,7 @@ public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpoint
                         .class)!= null){
                     counter=1;
                     myIsLineBreakpointAvailable = true;
-                }else if(counter==1){
-                    myIsLineBreakpointAvailable = true;
-                }else {
-                    myIsLineBreakpointAvailable = false;
-                }
+                }else myIsLineBreakpointAvailable = counter == 1;
             }
             return true;
         }

@@ -19,11 +19,11 @@ package org.wso2.plugins.idea.sdk;
 import com.intellij.openapi.projectRoots.*;
 import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.wso2.plugins.idea.SiddhiIcons;
 import org.jdom.Element;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.SiddhiIcons;
 
 import javax.swing.*;
 import java.io.File;
@@ -89,9 +89,9 @@ public class SiddhiSdkType extends SdkType {
     public String suggestSdkName(@Nullable String currentSdkName, @NotNull String sdkHome) {
         String version = getVersionString(sdkHome);
         if (version == null) {
-            return "Unknown Siddhi version at " + sdkHome;
+            return "Unknown Siddhi-SDK version at " + sdkHome;
         }
-        return "Siddhi " + version;
+        return "Siddhi-SDK " + version;
     }
 
     @Nullable

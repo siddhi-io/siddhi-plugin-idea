@@ -25,7 +25,6 @@ import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.wso2.plugins.idea.codeInsight.imports.SiddhiAutoImportConfigurable;
 
 public class SiddhiConfigurableProvider extends ConfigurableProvider {
 
@@ -39,11 +38,9 @@ public class SiddhiConfigurableProvider extends ConfigurableProvider {
     @Nullable
     @Override
     public Configurable createConfigurable() {
-        //        Configurable projectSettingsConfigurable = new SiddhiProjectSettingsConfigurable(myProject);
+        Configurable projectSettingsConfigurable = new SiddhiProjectSettingsConfigurable(myProject);
         Configurable librariesConfigurable = new SiddhiLibrariesConfigurableProvider(myProject).createConfigurable();
-        Configurable autoImportConfigurable = new SiddhiAutoImportConfigurable(myProject, false);
-        // Todo: sdkConfigurable needed?
-        return new SiddhiCompositeConfigurable(librariesConfigurable, autoImportConfigurable);
+        return new SiddhiCompositeConfigurable(projectSettingsConfigurable,librariesConfigurable);
     }
 
     private static class SiddhiCompositeConfigurable extends SearchableConfigurable.Parent.Abstract {

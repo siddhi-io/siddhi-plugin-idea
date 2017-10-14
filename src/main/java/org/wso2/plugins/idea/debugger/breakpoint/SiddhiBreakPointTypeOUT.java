@@ -29,13 +29,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.SiddhiFileType;
 import org.wso2.plugins.idea.SiddhiTypes;
-import org.wso2.plugins.idea.psi.QueryInputNode;
 import org.wso2.plugins.idea.psi.QueryOutputNode;
 
 public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpointProperties> {
 
     public static final String ID = "SiddhiLineBreakpointOUT";
-    public static final String NAME = "Siddhi breakpoint OUT";
+    private static final String NAME = "Siddhi breakpoint OUT";
 
     protected SiddhiBreakPointTypeOUT() {
         super(ID, NAME);
@@ -49,10 +48,7 @@ public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpoin
 
     @Override
     public boolean canPutAt(@NotNull VirtualFile file, int line, @NotNull Project project) {
-        if (line < 0 || file.getFileType() != SiddhiFileType.INSTANCE) {
-            return false;
-        }
-        return isLineBreakpointAvailable(file, line, project);
+        return line >= 0 && file.getFileType() == SiddhiFileType.INSTANCE && isLineBreakpointAvailable(file, line, project);
     }
 
     private static boolean isLineBreakpointAvailable(@NotNull VirtualFile file, int line, @NotNull Project project) {
@@ -79,11 +75,7 @@ public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpoin
                         QueryOutputNode.class) != null) {
                     counter=1;
                     myIsLineBreakpointAvailable = true;
-                } else if(counter==1){
-                    myIsLineBreakpointAvailable = true;
-                }else {
-                    myIsLineBreakpointAvailable = false;
-                }
+                } else myIsLineBreakpointAvailable = counter == 1;
             }
             return true;
         }

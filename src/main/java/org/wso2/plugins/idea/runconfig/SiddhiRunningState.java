@@ -24,8 +24,8 @@ import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.process.ProcessTerminatedListener;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
-import org.wso2.plugins.idea.util.SiddhiExecutor;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.util.SiddhiExecutor;
 
 public abstract class SiddhiRunningState<T extends SiddhiRunConfigurationBase<?>> extends CommandLineState {
 
@@ -70,7 +70,7 @@ public abstract class SiddhiRunningState<T extends SiddhiRunConfigurationBase<?>
     }
 
     @NotNull
-    public SiddhiExecutor createCommonExecutor() {
+    private SiddhiExecutor createCommonExecutor() {
         return SiddhiExecutor.in(myModule).withWorkDirectory(myConfiguration.getWorkingDirectory())
                 .withExtraEnvironment(myConfiguration.getCustomEnvironment())
                 .withPassParentEnvironment(myConfiguration.isPassParentEnvironment());

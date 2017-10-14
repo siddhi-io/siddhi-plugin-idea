@@ -36,11 +36,11 @@ import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.util.Function;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.containers.ContainerUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.SiddhiConstants;
 import org.wso2.plugins.idea.project.SiddhiApplicationLibrariesService;
 import org.wso2.plugins.idea.project.SiddhiLibrariesService;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -117,22 +117,22 @@ public class SiddhiSdkUtil {
                     String text = VfsUtilCore.loadText(versionFile);
                     String version = parseSiddhiVersion(text);
                     if (version == null) {
-                        SiddhiSdkService.LOG.debug("Cannot retrieve Siddhi version from version file: " + text);
+                        SiddhiSdkService.LOG.debug("Cannot retrieve Siddhi SDK version from version file: " + text);
                     }
                     sdkRoot.putUserData(VERSION_DATA_KEY, StringUtil.notNullize(version));
                     return version;
                 } else {
-                    SiddhiSdkService.LOG.debug("Cannot find Siddhi version file in sdk path: " + sdkPath);
+                    SiddhiSdkService.LOG.debug("Cannot find Siddhi SDK version file in sdk path: " + sdkPath);
                 }
             }
         } catch (IOException e) {
-            SiddhiSdkService.LOG.debug("Cannot retrieve Siddhi version from sdk path: " + sdkPath, e);
+            SiddhiSdkService.LOG.debug("Cannot retrieve Siddhi SDK version from sdk path: " + sdkPath, e);
         }
         return null;
     }
 
     @Nullable
-    public static String parseSiddhiVersion(@NotNull String text) {
+    private static String parseSiddhiVersion(@NotNull String text) {
         Matcher matcher = SIDDHI_VERSION_PATTERN.matcher(text);
         if (matcher.find()) {
             return matcher.group(1);
@@ -157,7 +157,6 @@ public class SiddhiSdkUtil {
     public static LinkedHashSet<VirtualFile> getSourcesPathsToLookup(@NotNull Project project, @Nullable Module module) {
         LinkedHashSet<VirtualFile> sdkAndGoPath = newLinkedHashSet();
         ContainerUtil.addIfNotNull(sdkAndGoPath, getSdkSrcDir(project, module));
-        // Todo  - add Siddhi Path
 //        ContainerUtil.addAllNotNull(sdkAndGoPath, getSiddhiPathSources(project, module));
         return sdkAndGoPath;
     }
@@ -167,7 +166,7 @@ public class SiddhiSdkUtil {
         return "src";
     }
 
-    public static String getSdkHome(Project project, Module module) {
+    private static String getSdkHome(Project project, Module module) {
         // Get the module SDK.
         Sdk moduleSdk = ModuleRootManager.getInstance(module).getSdk();
         // If the SDK is Siddhi SDK, return the home path.
@@ -239,7 +238,7 @@ public class SiddhiSdkUtil {
     }
 
     @Nullable
-    public static VirtualFile getSdkSrcDir(@NotNull Project project, @Nullable Module module) {
+    private static VirtualFile getSdkSrcDir(@NotNull Project project, @Nullable Module module) {
         if (module != null) {
             return CachedValuesManager.getManager(project).getCachedValue(module, () -> {
                 SiddhiSdkService sdkService = SiddhiSdkService.getInstance(module.getProject());

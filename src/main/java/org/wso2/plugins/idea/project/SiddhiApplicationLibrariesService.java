@@ -21,9 +21,9 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.components.StoragePathMacros;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.SiddhiConstants;
 import org.wso2.plugins.idea.sdk.SiddhiSdkUtil;
-import org.jetbrains.annotations.NotNull;
 
 @State(
         name = SiddhiConstants.SIDDHI_LIBRARIES_SERVICE_NAME,

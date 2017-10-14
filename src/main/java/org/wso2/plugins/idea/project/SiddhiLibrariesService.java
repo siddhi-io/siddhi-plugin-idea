@@ -76,12 +76,13 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
     }
 
     @NotNull
-    public static Collection<? extends VirtualFile> getUserDefinedLibraries() {
+    private static Collection<? extends VirtualFile> getUserDefinedLibraries() {
         return siddhiRootsFromUrls(SiddhiApplicationLibrariesService.getInstance().getLibraryRootUrls());
     }
 
     @NotNull
     public static ModificationTracker[] getModificationTrackers(@NotNull Project project, @Nullable Module module) {
+        assert module != null;
         return new ModificationTracker[]{SiddhiProjectLibrariesService.getInstance(module.getProject()),
                 SiddhiApplicationLibrariesService.getInstance()};
     }

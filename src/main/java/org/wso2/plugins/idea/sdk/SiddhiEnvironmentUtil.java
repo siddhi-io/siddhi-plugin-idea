@@ -21,9 +21,9 @@ import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.util.EnvironmentUtil;
 import com.intellij.util.PathUtil;
-import org.wso2.plugins.idea.SiddhiConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.SiddhiConstants;
 
 public class SiddhiEnvironmentUtil {
 
@@ -42,13 +42,4 @@ public class SiddhiEnvironmentUtil {
         return path != null ? path : PathMacros.getInstance().getValue(SiddhiConstants.SIDDHI_REPOSITORY);
     }
 
-    @NotNull
-    public static String getFullBinaryFileName(@NotNull String filename, String type) {
-        if ("main".equals(type)) {
-            return filename + ".bmz";
-        } else if ("service".equals(type)) {
-            return filename + ".bsz";
-        }
-        return filename;
-    }
 }

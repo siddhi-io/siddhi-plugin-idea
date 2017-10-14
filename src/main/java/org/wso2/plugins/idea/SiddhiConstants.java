@@ -27,22 +27,16 @@ public class SiddhiConstants {
     }
 
     public static final String SIDDHI = "Siddhi";
-    public static final String MAIN = "main";
     public static final String PATH = "PATH";
     public static final String MODULE_TYPE_ID = "SIDDHI_MODULE";
-
     @NonNls
     public static final String SIDDHI_EXECUTABLE_NAME = "siddhi";
-
     @NonNls
     public static final String SIDDHI_VERSION_FILE_PATH = "bin/version.txt";
-
     public static final NotificationGroup SIDDHI_NOTIFICATION_GROUP =
             NotificationGroup.balloonGroup("Siddhi plugin notifications");
-
     public static final NotificationGroup SIDDHI_EXECUTION_NOTIFICATION_GROUP =
             NotificationGroup.toolWindowGroup("Siddhi Execution", ToolWindowId.RUN);
-
     public static final String SIDDHI_REPOSITORY = "SIDDHI_REPOSITORY";
     public static final String SIDDHI_LIBRARIES_SERVICE_NAME = "SiddhiLibraries";
     public static final String SIDDHI_LIBRARIES_CONFIG_FILE = "SiddhiLibraries.xml";

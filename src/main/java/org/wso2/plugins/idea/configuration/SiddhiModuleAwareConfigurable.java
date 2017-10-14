@@ -19,8 +19,8 @@ package org.wso2.plugins.idea.configuration;
 import com.intellij.application.options.ModuleAwareProjectConfigurable;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
-import org.wso2.plugins.idea.sdk.SiddhiSdkService;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.plugins.idea.sdk.SiddhiSdkService;
 
 public abstract class SiddhiModuleAwareConfigurable extends ModuleAwareProjectConfigurable {
 
@@ -34,6 +34,7 @@ public abstract class SiddhiModuleAwareConfigurable extends ModuleAwareProjectCo
             return false;
         }
         Project project = module.getProject();
-        return !project.isDisposed() && SiddhiSdkService.getInstance(project).isSiddhiModule(module);
+        SiddhiSdkService.getInstance(project);
+        return !project.isDisposed() && SiddhiSdkService.isSiddhiModule(module);
     }
 }

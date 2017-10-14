@@ -20,10 +20,10 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.xdebugger.frame.XExecutionStack;
 import com.intellij.xdebugger.frame.XStackFrame;
 import com.intellij.xdebugger.frame.XSuspendContext;
-import org.wso2.plugins.idea.debugger.dto.Frame;
-import org.wso2.plugins.idea.debugger.dto.Message;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.debugger.dto.Frame;
+import org.wso2.plugins.idea.debugger.dto.Message;
 
 import java.util.ArrayList;
 import java.util.List;

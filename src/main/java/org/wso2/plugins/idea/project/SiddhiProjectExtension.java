@@ -27,10 +27,10 @@ import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.ModuleRootModificationUtil;
 import com.intellij.openapi.roots.ProjectExtension;
 import com.intellij.openapi.util.AsyncResult;
-import org.wso2.plugins.idea.sdk.SiddhiSdkService;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.sdk.SiddhiSdkService;
 
 public class SiddhiProjectExtension extends ProjectExtension {
 
@@ -53,7 +53,8 @@ public class SiddhiProjectExtension extends ProjectExtension {
         // Iterate through all modules.
         for (Module module : modules) {
             // Check whether the module is a Siddhi module.
-            if (SiddhiSdkService.getInstance(project).isSiddhiModule(module)) {
+            SiddhiSdkService.getInstance(project);
+            if (SiddhiSdkService.isSiddhiModule(module)) {
                 // If it is a Siddhi module, inherit the project SDK.
                 WriteAction.run(() -> ModuleRootModificationUtil.setSdkInherited(module));
             }

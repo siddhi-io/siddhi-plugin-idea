@@ -27,12 +27,13 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.containers.ContainerUtil;
-import org.wso2.plugins.idea.project.SiddhiApplicationLibrariesService;
-import org.wso2.plugins.idea.project.SiddhiProjectLibrariesService;
-import org.wso2.plugins.idea.sdk.SiddhiSdkUtil;
+import com.intellij.util.ui.JBUI;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.project.SiddhiApplicationLibrariesService;
+import org.wso2.plugins.idea.project.SiddhiProjectLibrariesService;
+import org.wso2.plugins.idea.sdk.SiddhiSdkUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,8 +66,7 @@ public class SiddhiLibrariesConfigurableProvider extends ConfigurableProvider {
                 List<UnnamedConfigurable> configurables = getConfigurables();
                 Collection<HideableDecorator> hideableDecorators = ContainerUtil.newHashSet();
 
-                GridLayoutManager layoutManager = new GridLayoutManager(configurables.size() + 1, 1, new Insets(0, 0,
-                        0, 0), -1, -1);
+                GridLayoutManager layoutManager = new GridLayoutManager(configurables.size() + 1, 1, JBUI.emptyInsets(), -1, -1);
                 JPanel rootPanel = new JPanel(layoutManager);
                 Spacer spacer = new Spacer();
                 rootPanel.add(spacer, new GridConstraints(configurables.size(), 0, 1, 1, GridConstraints.ANCHOR_SOUTH,

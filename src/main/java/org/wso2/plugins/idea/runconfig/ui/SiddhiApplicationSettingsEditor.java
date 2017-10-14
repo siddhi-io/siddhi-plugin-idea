@@ -26,11 +26,11 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.ListCellRendererWrapper;
 import com.intellij.ui.RawCommandLineEditor;
-import org.wso2.plugins.idea.runconfig.SiddhiRunUtil;
-import org.wso2.plugins.idea.runconfig.RunConfigurationKind;
-import org.wso2.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.runconfig.RunConfigurationKind;
+import org.wso2.plugins.idea.runconfig.SiddhiRunUtil;
+import org.wso2.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
 
 import javax.swing.*;
 import java.util.Locale;

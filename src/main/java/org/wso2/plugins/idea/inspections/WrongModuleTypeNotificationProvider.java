@@ -28,9 +28,9 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.EditorNotificationPanel;
 import com.intellij.ui.EditorNotifications;
 import com.intellij.util.containers.ContainerUtil;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.plugins.idea.SiddhiFileType;
 import org.wso2.plugins.idea.sdk.SiddhiSdkService;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
@@ -56,7 +56,8 @@ public class WrongModuleTypeNotificationProvider extends EditorNotifications.Pro
     public EditorNotificationPanel createNotificationPanel(@NotNull VirtualFile file, @NotNull FileEditor fileEditor) {
         if (file.getFileType() != SiddhiFileType.INSTANCE) return null;
         Module module = ModuleUtilCore.findModuleForFile(file, myProject);
-        return module == null || SiddhiSdkService.getInstance(myProject).isSiddhiModule(module)
+        SiddhiSdkService.getInstance(myProject);
+        return module == null || SiddhiSdkService.isSiddhiModule(module)
                 || getIgnoredModules(myProject).contains(module.getName()) ? null : createPanel(myProject, module);
     }
 

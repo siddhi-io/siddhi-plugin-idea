@@ -18,7 +18,7 @@ package org.wso2.plugins.idea.debugger.protocol;
 
 public enum Response {
 
-    DEBUG_HIT("DEBUG_HIT"), INVALID("INVALID"), ACK("ACK"), COMPLETE("COMPLETE"), EXIT("EXIT");
+    DEBUG_HIT("DEBUG_HIT"), COMPLETE("COMPLETE"), EXIT("EXIT");
 
     private String myResponseCode;
 

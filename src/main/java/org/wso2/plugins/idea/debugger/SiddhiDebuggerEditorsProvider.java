@@ -21,9 +21,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProviderBase;
-import org.wso2.plugins.idea.SiddhiFileType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.SiddhiFileType;
 
 public class SiddhiDebuggerEditorsProvider extends XDebuggerEditorsProviderBase {
 

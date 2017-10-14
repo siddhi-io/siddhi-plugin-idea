@@ -42,12 +42,12 @@ import com.intellij.util.Consumer;
 import com.intellij.util.EnvironmentUtil;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.containers.ContainerUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.wso2.plugins.idea.SiddhiConstants;
 import org.wso2.plugins.idea.runconfig.SiddhiConsoleFilter;
 import org.wso2.plugins.idea.runconfig.SiddhiRunUtil;
 import org.wso2.plugins.idea.sdk.SiddhiSdkUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.Collection;
@@ -192,7 +192,7 @@ public class SiddhiExecutor {
         return this;
     }
 
-    public boolean execute() {
+    private boolean execute() {
         Logger.getInstance(getClass()).assertTrue(!ApplicationManager.getApplication().isDispatchThread(),
                 "It's bad idea to run external tool on EDT");
         Logger.getInstance(getClass()).assertTrue(myProcessHandler == null,
@@ -268,7 +268,7 @@ public class SiddhiExecutor {
         executeWithProgress(modal, Consumer.EMPTY_CONSUMER);
     }
 
-    public void executeWithProgress(boolean modal, @NotNull Consumer<Boolean> consumer) {
+    private void executeWithProgress(boolean modal, @NotNull Consumer<Boolean> consumer) {
         ProgressManager.getInstance().run(new Task.Backgroundable(myProject, getPresentableName(), true) {
 
             private boolean doNotStart;
@@ -304,7 +304,7 @@ public class SiddhiExecutor {
     }
 
     @Nullable
-    public ProcessHandler getProcessHandler() {
+    private ProcessHandler getProcessHandler() {
         return myProcessHandler;
     }
 

@@ -25,9 +25,6 @@ import org.jetbrains.annotations.Nullable;
 )
 public class SiddhiCodeInsightSettings implements PersistentStateComponent<SiddhiCodeInsightSettings> {
 
-    private boolean myShowImportPopup = true;
-    private boolean myAddUnambiguousImportsOnTheFly = false;
-
     public static SiddhiCodeInsightSettings getInstance() {
         return ServiceManager.getService(SiddhiCodeInsightSettings.class);
     }
@@ -43,19 +40,4 @@ public class SiddhiCodeInsightSettings implements PersistentStateComponent<Siddh
         XmlSerializerUtil.copyBean(state, this);
     }
 
-    public boolean isShowImportPopup() {
-        return myShowImportPopup;
-    }
-
-    public void setShowImportPopup(boolean showImportPopup) {
-        myShowImportPopup = showImportPopup;
-    }
-
-    public boolean isAddUnambiguousImportsOnTheFly() {
-        return myAddUnambiguousImportsOnTheFly;
-    }
-
-    public void setAddUnambiguousImportsOnTheFly(boolean addUnambiguousImportsOnTheFly) {
-        myAddUnambiguousImportsOnTheFly = addUnambiguousImportsOnTheFly;
-    }
 }

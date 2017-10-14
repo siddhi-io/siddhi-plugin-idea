@@ -28,25 +28,18 @@ import com.intellij.util.ThreeState;
 import com.intellij.xdebugger.XDebugSession;
 import com.intellij.xdebugger.XDebuggerUtil;
 import com.intellij.xdebugger.XSourcePosition;
-import com.intellij.xdebugger.frame.XCompositeNode;
-import com.intellij.xdebugger.frame.XInlineDebuggerDataCallback;
-import com.intellij.xdebugger.frame.XNamedValue;
-import com.intellij.xdebugger.frame.XNavigatable;
-import com.intellij.xdebugger.frame.XStackFrame;
-import com.intellij.xdebugger.frame.XValueChildrenList;
-import com.intellij.xdebugger.frame.XValueNode;
-import com.intellij.xdebugger.frame.XValuePlace;
+import com.intellij.xdebugger.frame.*;
 import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XStringValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XValuePresentation;
 import com.intellij.xdebugger.impl.ui.tree.nodes.XValueNodeImpl;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.wso2.plugins.idea.highlighter.SiddhiSyntaxHighlightingColors;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
 public class SiddhiXValue extends XNamedValue {
 
@@ -111,8 +104,12 @@ public class SiddhiXValue extends XNamedValue {
             jsonArray.forEach(o ->
                     {
                         Object value = o.toString();
-                        list.add(((XValueNodeImpl) node).getName(), new SiddhiXValue(myProcess, myFrameName, (
-                                (XValueNodeImpl) node).getName(), value, AllIcons.Nodes.Parameter));
+                        String name = ((XValueNodeImpl) node).getName();
+                        if(name==null){
+                            name="";
+                        }
+                        list.add(((XValueNodeImpl) node).getName(), new SiddhiXValue(myProcess, myFrameName, name,
+                                value, AllIcons.Nodes.Parameter));
                     }
             );
             node.addChildren(list, true);
@@ -122,7 +119,6 @@ public class SiddhiXValue extends XNamedValue {
     @Nullable
     private static PsiElement findTargetElement(@NotNull Project project, @NotNull XSourcePosition position,
                                                 @NotNull Editor editor, @NotNull String name) {
-        // Todo
         return null;
     }
 
@@ -182,12 +178,6 @@ public class SiddhiXValue extends XNamedValue {
 
     @Override
     public boolean canNavigateToTypeSource() {
-        // Todo
         return false;
-    }
-
-    @Override
-    public void computeTypeSourcePosition(@NotNull XNavigatable navigatable) {
-        // Todo
     }
 }

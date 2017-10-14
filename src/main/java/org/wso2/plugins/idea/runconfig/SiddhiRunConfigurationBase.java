@@ -34,11 +34,11 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.util.PathUtil;
 import com.intellij.util.containers.ContainerUtil;
-import org.wso2.plugins.idea.sdk.SiddhiSdkService;
-import org.wso2.plugins.idea.sdk.SiddhiSdkUtil;
 import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.plugins.idea.sdk.SiddhiSdkService;
+import org.wso2.plugins.idea.sdk.SiddhiSdkUtil;
 
 import java.util.Collection;
 import java.util.Map;
@@ -109,11 +109,8 @@ public abstract class SiddhiRunConfigurationBase<RunningState extends SiddhiRunn
             }
         } else {
             String moduleName = configurationModule.getModuleName();
-            if (moduleName != null) {
-                throw new RuntimeConfigurationError(
-                        ExecutionBundle.message("module.doesn.t.exist.in.project.error.text", moduleName));
-            }
-            throw new RuntimeConfigurationError(ExecutionBundle.message("module.not.specified.error.text"));
+            throw new RuntimeConfigurationError(
+                    ExecutionBundle.message("module.doesn.t.exist.in.project.error.text", moduleName));
         }
         if (myWorkingDirectory.isEmpty()) {
             throw new RuntimeConfigurationError("Working directory is not specified");
