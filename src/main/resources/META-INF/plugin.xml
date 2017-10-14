@@ -33,6 +33,9 @@
         <lang.parserDefinition language="Siddhi"
                                implementationClass="org.wso2.plugins.idea.SiddhiParserDefinition"/>
 
+        <!-- commenter -->
+        <lang.commenter language="Siddhi" implementationClass="org.wso2.plugins.idea.SiddhiCommenter"/>
+
         <!-- highlighting -->
         <lang.syntaxHighlighterFactory language="Siddhi"
                                        implementationClass="org.wso2.plugins.idea.highlighter.SiddhiSyntaxHighlighterFactory"/>
