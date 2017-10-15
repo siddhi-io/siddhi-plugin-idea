@@ -82,6 +82,10 @@
         <spellchecker.support language="Siddhi"
                               implementationClass="org.wso2.siddhi.plugins.idea.spellchecker.SiddhiSpellcheckingStrategy"/>
 
+        <!--find usage-->
+        <lang.findUsagesProvider language="Siddhi"
+                                 implementationClass="org.wso2.siddhi.plugins.idea.usage.SiddhiFindUsageProvider"/>
+
         <!-- sdk -->
         <sdkType implementation="org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType"/>
         <projectSdkSetupValidator id="SiddhiSdk"

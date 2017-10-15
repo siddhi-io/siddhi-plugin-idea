@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 public class SiddhiCodeStyleConfigurable extends CodeStyleAbstractConfigurable {
 
     public SiddhiCodeStyleConfigurable(@NotNull CodeStyleSettings settings, CodeStyleSettings cloneSettings) {
-        super(settings, cloneSettings, "Ballerina");
+        super(settings, cloneSettings, "Siddhi");
     }
 
     @NotNull
