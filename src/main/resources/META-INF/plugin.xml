@@ -103,6 +103,8 @@
                              dynamic="true"/>
         <projectExtension implementation="org.wso2.siddhi.plugins.idea.project.SiddhiProjectExtension"/>
         <applicationService serviceImplementation="org.wso2.siddhi.plugins.idea.codeInsight.imports.SiddhiCodeInsightSettings"/>
+        <projectStructureDetector
+                implementation="org.wso2.siddhi.plugins.idea.project.SiddhiProjectStructureDetector"/>
 
         <!-- templates -->
         <internalFileTemplate name="Siddhi Main"/>
