@@ -80,7 +80,6 @@ public class SiddhiStructureViewElement implements StructureViewTreeElement, Sor
     @NotNull
     @Override
     public TreeElement[] getChildren() {
-        // The element can be one of BallerinaFile, ConnectorDefinitionNode instance.
         if (element instanceof SiddhiFile) {
             List<TreeElement> treeElements = new ArrayList<>();
             // Add stream definitions.
@@ -131,42 +130,7 @@ public class SiddhiStructureViewElement implements StructureViewTreeElement, Sor
             }
             // Convert the list to an array and return.
             return treeElements.toArray(new TreeElement[treeElements.size()]);
-        } //else if (element instanceof ConnectorDefinitionNode) {
-//            // If the element is a ConnectorDefinitionNode instance, we get all actions.
-//            List<TreeElement> treeElements = new ArrayList<>();
-//            // Add actions.
-//            Collection<ActionDefinitionNode> actions = PsiTreeUtil.findChildrenOfType(element,
-//                    ActionDefinitionNode.class);
-//            for (PsiElement action : actions) {
-//                treeElements.add(new BallerinaStructureViewElement(action));
-//            }
-//            // Convert the list to an array and return.
-//            return treeElements.toArray(new TreeElement[treeElements.size()]);
-//        } else if (element instanceof ServiceDefinitionNode) {
-//            // If the element is a ServiceDefinitionNode instance, we get all resources.
-//            List<TreeElement> treeElements = new ArrayList<>();
-//            // Add resources.
-//            Collection<ResourceDefinitionNode> resources = PsiTreeUtil.findChildrenOfType(element,
-//                    ResourceDefinitionNode.class);
-//            for (PsiElement resource : resources) {
-//                treeElements.add(new BallerinaStructureViewElement(resource));
-//            }
-//
-//            // Convert the list to an array and return.
-//            return treeElements.toArray(new TreeElement[treeElements.size()]);
-//        } //else if (element instanceof FunctionDefinitionNode || element instanceof ResourceDefinitionNode
-//                || element instanceof ActionDefinitionNode) {
-//            // If the element is a FunctionDefinitionNode instance, we get all workers.
-//            List<TreeElement> treeElements = new ArrayList<>();
-//            // Add workers.
-//            Collection<WorkerDeclarationNode> workers = PsiTreeUtil.findChildrenOfType(element,
-//                    WorkerDeclarationNode.class);
-//            for (PsiElement worker : workers) {
-//                treeElements.add(new BallerinaStructureViewElement(worker));
-//            }
-//            // Convert the list to an array and return.
-//            return treeElements.toArray(new TreeElement[treeElements.size()]);
-//        }
+        }
         // If the element type other than what we check above, return an empty array.
         return new TreeElement[0];
     }

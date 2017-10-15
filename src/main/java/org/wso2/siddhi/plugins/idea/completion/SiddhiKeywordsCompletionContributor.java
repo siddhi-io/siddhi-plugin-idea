@@ -27,7 +27,6 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-import org.wso2.plugins.idea.psi.*;
 import org.wso2.siddhi.plugins.idea.psi.*;
 
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.*;

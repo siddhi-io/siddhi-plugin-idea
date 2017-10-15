@@ -41,11 +41,13 @@
                                        implementationClass="org.wso2.siddhi.plugins.idea.highlighter.SiddhiSyntaxHighlighterFactory"/>
         <colorSettingsPage implementation="org.wso2.siddhi.plugins.idea.highlighter.SiddhiColorSettingsPage"/>
 
-        <!-- Anootator -->
+        <!-- Annotator -->
         <annotator language="Siddhi"
                    implementationClass="org.wso2.siddhi.plugins.idea.codeInsight.daemon.impl.SiddhiAnnotator"/>
 
-        <!--structure view-->
+        <!--string manipulator-->
+        <lang.elementManipulator forClass="org.wso2.siddhi.plugins.idea.psi.QuotedLiteralString"
+                                 implementationClass="org.wso2.siddhi.plugins.idea.psi.manipulator.SiddhiStringManipulator"/>
         <!--structure view-->
         <lang.psiStructureViewFactory language="Siddhi"
                                       implementationClass="org.wso2.siddhi.plugins.idea.structureview.SiddhiStructureViewFactory"/>
