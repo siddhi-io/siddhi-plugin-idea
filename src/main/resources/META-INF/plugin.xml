@@ -107,6 +107,10 @@
         <projectStructureDetector
                 implementation="org.wso2.siddhi.plugins.idea.project.SiddhiProjectStructureDetector"/>
 
+        <!--folding builder-->
+        <lang.foldingBuilder language="Siddhi"
+                             implementationClass="org.wso2.siddhi.plugins.idea.editor.SiddhiFoldingBuilder"/>
+
         <!-- templates -->
         <internalFileTemplate name="Siddhi Main"/>
 

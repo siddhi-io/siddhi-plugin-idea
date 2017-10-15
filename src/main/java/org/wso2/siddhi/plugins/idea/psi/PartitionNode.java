@@ -13,27 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiNamedElement;
-import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
+import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-import org.wso2.siddhi.plugins.idea.psi.scopes.ParameterContainer;
-import org.wso2.siddhi.plugins.idea.psi.scopes.TopLevelDefinition;
 
-public class FunctionDefinitionNode extends IdentifierDefSubtree implements TopLevelDefinition, ParameterContainer {
-    public FunctionDefinitionNode(@NotNull ASTNode node) {
-        super(node, SiddhiTypes.IDENTIFIER);
-    }
-
-    @Nullable
-    @Override
-    public PsiElement resolve(PsiNamedElement element) {
-        return null;
+public class PartitionNode extends ANTLRPsiNode {
+    public PartitionNode(@NotNull ASTNode node) {
+        super(node);
     }
 }

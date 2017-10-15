@@ -171,6 +171,8 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new OutputEventTypeNode(node);
             case RULE_parse:
                 return new ParseNode(node);
+            case RULE_query_section:
+                return new QuerySectionNode(node);
             case RULE_execution_element:
                 return new ExecutionElementNode(node);
             case RULE_annotation_element:
@@ -185,12 +187,16 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new QueryOutputNode(node);
             case RULE_query:
                 return new QueryNode(node);
+            case RULE_partition:
+                return new PartitionNode(node);
             case RULE_definition_aggregation:
                 return new AggregationDefinitionNode(node);
             case RULE_definition_table:
                 return new TableDefinitionNode(node);
             case RULE_definition_stream:
                 return new StreamDefinitionNode(node);
+            case RULE_output_rate:
+                return new OutputRateNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

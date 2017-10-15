@@ -20,12 +20,13 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
-import org.antlr.jetbrains.adaptor.psi.ScopeNode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
+import org.wso2.siddhi.plugins.idea.psi.scopes.ParameterContainer;
+import org.wso2.siddhi.plugins.idea.psi.scopes.TopLevelDefinition;
 
-public class WindowDefinitionNode extends IdentifierDefSubtree implements ScopeNode {
+public class WindowDefinitionNode extends IdentifierDefSubtree implements TopLevelDefinition, ParameterContainer {
     public WindowDefinitionNode(@NotNull ASTNode node) {
         super(node, SiddhiTypes.IDENTIFIER);
     }
