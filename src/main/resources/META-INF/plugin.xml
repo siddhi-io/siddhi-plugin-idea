@@ -75,6 +75,9 @@
         <completion.contributor language="Siddhi"
                                 implementationClass="org.wso2.siddhi.plugins.idea.completion.SiddhiKeywordsCompletionContributor"/>
 
+        <lang.braceMatcher language="Siddhi"
+                           implementationClass="org.wso2.siddhi.plugins.idea.codeInsight.highlighting.SiddhiPairedBraceMatcher"/>
+
         <!--spell checking-->
         <spellchecker.support language="Siddhi"
                               implementationClass="org.wso2.siddhi.plugins.idea.spellchecker.SiddhiSpellcheckingStrategy"/>
