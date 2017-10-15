@@ -38,7 +38,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser;
-import org.wso2.plugins.idea.psi.*;
 import org.wso2.siddhi.plugins.idea.psi.*;
 
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.*;
@@ -186,6 +185,12 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new QueryOutputNode(node);
             case RULE_query:
                 return new QueryNode(node);
+            case RULE_definition_aggregation:
+                return new AggregationDefinitionNode(node);
+            case RULE_definition_table:
+                return new TableDefinitionNode(node);
+            case RULE_definition_stream:
+                return new StreamDefinitionNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

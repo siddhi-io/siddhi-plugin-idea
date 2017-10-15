@@ -19,7 +19,7 @@
 grammar SiddhiQL;
 
 @header {
-    package org.wso2.plugins.idea.grammar;
+    package org.wso2.siddhi.plugins.idea.grammar;
 }
 
 parse
