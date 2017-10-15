@@ -86,6 +86,7 @@
         <programRunner id="siddhiRunner" implementation="org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunner"/>
         <configurationType implementation="org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationType"/>
         <runConfigurationProducer implementation="org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationProducer"/>
+        <console.folding implementation="org.wso2.siddhi.plugins.idea.runconfig.SiddhiConsoleFolding"/>
 
         <!--remote-->
         <configurationType implementation="org.wso2.siddhi.plugins.idea.runconfig.remote.SiddhiRemoteRunConfigurationType"/>
