@@ -27,6 +27,8 @@ public class SiddhiIcons {
     public static final Icon ICON = IconLoader.findIcon("/icons/siddhi.png");
     public static final Icon APPLICATION_RUN = createIconWithShift(ICON, AllIcons.Nodes.RunnableMark);
     public static final Icon PARAMETER = AllIcons.Nodes.Parameter;
+    public static final Icon FIELD = AllIcons.Nodes.Field;
+    public static final Icon METHOD = AllIcons.Nodes.Method;
 
     private SiddhiIcons() {
 

@@ -46,6 +46,9 @@
                    implementationClass="org.wso2.siddhi.plugins.idea.codeInsight.daemon.impl.SiddhiAnnotator"/>
 
         <!--structure view-->
+        <!--structure view-->
+        <lang.psiStructureViewFactory language="Siddhi"
+                                      implementationClass="org.wso2.siddhi.plugins.idea.structureview.SiddhiStructureViewFactory"/>
         <lang.ast.factory language="Siddhi"
                           implementationClass="org.wso2.siddhi.plugins.idea.SiddhiASTFactory"/>
 
