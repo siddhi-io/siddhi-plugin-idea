@@ -46,7 +46,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                         IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling)
                                 .getElementType();
 
-                        if(prevVisibleSiblingElementType==SiddhiTypes.SEMI_COLON){
+                        if(prevVisibleSiblingElementType==SiddhiTypes.SCOL){
                             addInitialTypesAsLookups(result);
                             return;
                         }

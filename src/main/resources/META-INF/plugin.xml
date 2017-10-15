@@ -48,6 +48,21 @@
         <!--string manipulator-->
         <lang.elementManipulator forClass="org.wso2.siddhi.plugins.idea.psi.QuotedLiteralString"
                                  implementationClass="org.wso2.siddhi.plugins.idea.psi.manipulator.SiddhiStringManipulator"/>
+
+        <!--formatter-->
+        <lang.formatter language="Siddhi"
+                        implementationClass="org.wso2.siddhi.plugins.idea.formatter.SiddhiFormattingModelBuilder"/>
+        <codeStyleSettingsProvider
+                implementation="org.wso2.siddhi.plugins.idea.formatter.settings.SiddhiCodeStyleSettingsProvider"/>
+        <langCodeStyleSettingsProvider
+                implementation="org.wso2.siddhi.plugins.idea.formatter.settings.SiddhiLanguageCodeStyleSettingsProvider"/>
+
+        <quoteHandler fileType="Siddhi file"
+                      className="org.wso2.siddhi.plugins.idea.codeInsight.editoractions.SiddhiQuoteHandler"/>
+
+        <enterHandlerDelegate
+                implementation="org.wso2.siddhi.plugins.idea.formatter.SiddhiEnterBetweenBracesHandler"/>
+
         <!--structure view-->
         <lang.psiStructureViewFactory language="Siddhi"
                                       implementationClass="org.wso2.siddhi.plugins.idea.structureview.SiddhiStructureViewFactory"/>
