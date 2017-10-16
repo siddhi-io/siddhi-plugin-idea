@@ -50,6 +50,10 @@ public class SiddhiSyntaxHighlightingColors {
             DefaultLanguageHighlighterColors.COMMA);
     public static final TextAttributesKey SYMBOLS = createTextAttributesKey("SIDDHI_COLON_TOKEN",
             DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
+    public static final TextAttributesKey VALID_STRING_ESCAPE = createTextAttributesKey("SIDDHI_VALID_STRING_ESCAPE",
+            DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
+    public static final TextAttributesKey INVALID_STRING_ESCAPE = createTextAttributesKey(
+            "SIDDHI_INVALID_STRING_ESCAPE", DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE);
 
     private SiddhiSyntaxHighlightingColors() {
 

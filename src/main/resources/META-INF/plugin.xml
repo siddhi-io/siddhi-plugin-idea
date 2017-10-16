@@ -45,10 +45,6 @@
         <annotator language="Siddhi"
                    implementationClass="org.wso2.siddhi.plugins.idea.codeInsight.daemon.impl.SiddhiAnnotator"/>
 
-        <!--string manipulator-->
-        <lang.elementManipulator forClass="org.wso2.siddhi.plugins.idea.psi.QuotedLiteralString"
-                                 implementationClass="org.wso2.siddhi.plugins.idea.psi.manipulator.SiddhiStringManipulator"/>
-
         <!--formatter-->
         <lang.formatter language="Siddhi"
                         implementationClass="org.wso2.siddhi.plugins.idea.formatter.SiddhiFormattingModelBuilder"/>
