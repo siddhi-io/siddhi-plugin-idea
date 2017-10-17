@@ -75,5 +75,8 @@ public class SiddhiRemoteConfiguration extends SiddhiRunConfigurationWithMain<Si
         if (!matcher.find()) {
             throw new RuntimeConfigurationException("Entered remote port is incorrect.");
         }
+        if (getFilePath().isEmpty()) {
+            throw new RuntimeConfigurationException("Please specify the current debug file path.");
+        }
     }
 }

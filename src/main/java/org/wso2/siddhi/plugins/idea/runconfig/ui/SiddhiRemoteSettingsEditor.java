@@ -25,6 +25,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.ui.EditorTextField;
 import com.intellij.ui.RawCommandLineEditor;
 import org.jetbrains.annotations.NotNull;
+import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunUtil;
 import org.wso2.siddhi.plugins.idea.runconfig.remote.SiddhiRemoteConfiguration;
 
 import javax.swing.*;
@@ -38,14 +39,17 @@ public class SiddhiRemoteSettingsEditor extends SettingsEditor<SiddhiRemoteConfi
     private JPanel myRemoteDebuggingPanel;
     private LabeledComponent<EditorTextField> myHost;
     private LabeledComponent<EditorTextField> myPort;
+    private LabeledComponent<TextFieldWithBrowseButton> myFileField;
     private Project myProject;
 
     public SiddhiRemoteSettingsEditor(Project project) {
         myProject = project;
+        SiddhiRunUtil.installSiddhiWithSiddhiFileChooser(project, myFileField.getComponent());
     }
 
     @Override
     protected void resetEditorFrom(@NotNull SiddhiRemoteConfiguration configuration) {
+        myFileField.getComponent().setText(configuration.getFilePath());
         myModulesComboBox.getComponent().setModules(configuration.getValidModules());
         myModulesComboBox.getComponent().setSelectedModule(configuration.getConfigurationModule().getModule());
 
@@ -59,6 +63,7 @@ public class SiddhiRemoteSettingsEditor extends SettingsEditor<SiddhiRemoteConfi
     @Override
     protected void applyEditorTo(@NotNull SiddhiRemoteConfiguration configuration)
             throws ConfigurationException {
+        configuration.setFilePath(myFileField.getComponent().getText());
         configuration.setModule(myModulesComboBox.getComponent().getSelectedModule());
         configuration.setParams(myParamsField.getComponent().getText());
         configuration.setWorkingDirectory(myWorkingDirectoryField.getComponent().getText());
@@ -74,6 +79,9 @@ public class SiddhiRemoteSettingsEditor extends SettingsEditor<SiddhiRemoteConfi
     }
 
     private void createUIComponents() {
+        myFileField = new LabeledComponent<>();
+        myFileField.setComponent(new TextFieldWithBrowseButton());
+
         myWorkingDirectoryField = new LabeledComponent<>();
         myWorkingDirectoryField.setComponent(new TextFieldWithBrowseButton());
 

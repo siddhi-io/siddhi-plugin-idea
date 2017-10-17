@@ -86,6 +86,9 @@ public class SiddhiDebugger extends GenericProgramRunner {
             }).getRunContentDescriptor();
         } else if (state instanceof SiddhiRemoteRunningState) {
             String debugFilePath=((SiddhiRemoteRunningState) state).myConfiguration.getFilePath();
+            if (debugFilePath.isEmpty()) {
+                throw new ExecutionException("Please specify the current debug file path in run/debug configurations");
+            }
             FileDocumentManager.getInstance().saveAllDocuments();
             return XDebuggerManager.getInstance(env.getProject()).startSession(env, new XDebugProcessStarter() {
 

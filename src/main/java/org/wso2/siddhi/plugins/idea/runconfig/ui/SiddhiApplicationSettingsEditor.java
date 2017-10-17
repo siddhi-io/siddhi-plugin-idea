@@ -83,7 +83,6 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
         myParamsField.setVisible(true);
         myEventInputFile.setVisible(true);
         myWorkingDirectoryField.setVisible(true);
-
     }
 
     @NotNull
