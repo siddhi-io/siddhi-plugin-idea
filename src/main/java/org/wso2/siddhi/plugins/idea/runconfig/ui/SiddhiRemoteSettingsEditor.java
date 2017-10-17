@@ -40,6 +40,7 @@ public class SiddhiRemoteSettingsEditor extends SettingsEditor<SiddhiRemoteConfi
     private LabeledComponent<EditorTextField> myHost;
     private LabeledComponent<EditorTextField> myPort;
     private LabeledComponent<TextFieldWithBrowseButton> myFileField;
+    private JLabel note;
     private Project myProject;
 
     public SiddhiRemoteSettingsEditor(Project project) {
