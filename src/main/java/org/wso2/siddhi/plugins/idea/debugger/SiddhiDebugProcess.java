@@ -452,8 +452,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             if (psiFile != null) {
                 element = psiFile.findElementAt(offset);
             }
-            if ((element != null) && !(((LeafPsiElement) element).getElementType().equals
-                    (SiddhiTypes.FROM))) {
+            if (!((element != null) && (((LeafPsiElement) element).getElementType().equals(SiddhiTypes.FROM)))) {
                 return;
             }
             inBreakpoints.add(breakpoint);
@@ -561,8 +560,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             if (psiFile != null) {
                 element = psiFile.findElementAt(offset);
             }
-            if (element != null && !(((LeafPsiElement) element).getElementType().equals
-                    (SiddhiTypes.INSERT))) {
+            if (!(element != null && ((LeafPsiElement) element).getElementType().equals(SiddhiTypes.INSERT))) {
                 return;
             }
             outBreakpoints.add(breakpoint);
