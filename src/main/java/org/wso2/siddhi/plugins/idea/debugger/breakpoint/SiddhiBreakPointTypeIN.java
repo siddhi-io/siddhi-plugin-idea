@@ -29,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
+import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
 
 public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpointProperties> {
@@ -71,15 +72,14 @@ public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpoint
             if (PsiTreeUtil.nextVisibleLeaf(element) != null) {
                 PsiElement nextVisibleSibling = PsiTreeUtil.nextVisibleLeaf(element);
                 IElementType elementType = element.getNode().getElementType();
-                if(elementType== SiddhiTypes.FROM && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryInputNode
-                        .class)!= null){
+                if(elementType== SiddhiTypes.FROM && element.getParent().getParent() instanceof ExecutionElementNode
+                        && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryInputNode.class)!= null){
                     counter=1;
                     myIsLineBreakpointAvailable = true;
                 }else myIsLineBreakpointAvailable = counter == 1;
             }
             return true;
         }
-
         public boolean isLineBreakpointAvailable() {
             return myIsLineBreakpointAvailable;
         }
