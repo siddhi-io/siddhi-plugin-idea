@@ -197,6 +197,12 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new StreamDefinitionNode(node);
             case RULE_output_rate:
                 return new OutputRateNode(node);
+            case RULE_name:
+                return new NameNode(node);
+            case RULE_source:
+                return new SourceNode(node);
+            case RULE_id:
+                return new IdNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

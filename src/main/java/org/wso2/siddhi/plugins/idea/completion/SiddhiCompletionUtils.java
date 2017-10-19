@@ -706,7 +706,6 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, AGGREGATION);
         addKeywordAsLookup(resultSet, AGGREGATE);
         addKeywordAsLookup(resultSet, PER);
-
     }
 
     @NotNull
@@ -759,7 +758,6 @@ public class SiddhiCompletionUtils {
         lookupElements.add(createKeywordAsLookup(AGGREGATION));
         lookupElements.add(createKeywordAsLookup(AGGREGATE));
         lookupElements.add(createKeywordAsLookup(PER));
-
         return lookupElements;
     }
 
