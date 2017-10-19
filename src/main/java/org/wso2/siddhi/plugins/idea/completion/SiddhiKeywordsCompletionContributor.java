@@ -60,7 +60,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     public void fillCompletionVariants(@NotNull CompletionParameters parameters, @NotNull CompletionResultSet result) {
         PsiElement element = parameters.getPosition();
         PsiElement parent = element.getParent();
-
+        //TODO: Check code completion pop up when typing half way
         if (element instanceof LeafPsiElement) {
             IElementType elementType = ((LeafPsiElement) element).getElementType();
             if (elementType == SiddhiTypes.IDENTIFIER && PsiTreeUtil.prevVisibleLeaf(element) == null) { //gives
@@ -88,11 +88,10 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     addDefineTypesAsLookups(result);
                     return;
                 }
-                //Annotation highlighter exception
-                //suggestions after an annotation //TODO: After annotation suggestions needed to be fixed. CHECK
-                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationElementNode.class) != null ||
-                        PsiTreeUtil.getParentOfType(prevVisibleSibling, AppAnnotationNode.class) != null ||
-                        PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationNode.class) != null) {
+                //suggestions after an annotation
+                if (prevVisibleSiblingElementType==SiddhiTypes.CLOSE_PAR && (PsiTreeUtil.getParentOfType
+                        (prevVisibleSibling, AppAnnotationNode.class)!= null ||
+                        PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationNode.class) != null)) {
                     addInitialTypesAsLookups(result);
                     return;
                 }
