@@ -32,12 +32,26 @@ error
     ;
 
 siddhi_app
-    : (app_annotation|error)*
-      (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error) (';' (definition_stream|definition_table|definition_trigger|definition_function|definition_window|definition_aggregation|error))* (';' (execution_element|error))* ';'?
+    : (app_annotation | error)*
+      annotation? definition_element(';' definition_element_with_execution_element)?
+    ;
+
+definition_element
+    : (definition_stream | definition_table | definition_trigger | definition_function | definition_window
+    | definition_aggregation)
+    ;
+
+definition_element_with_execution_element
+    :annotation? (definition_element (';' definition_element_with_execution_element )?
+    |execution_element (';' execution_element_and_execution_element)? )
     ;
 
 execution_element
-    :query|partition
+    : (query|partition)
+    ;
+
+execution_element_and_execution_element
+    :annotation? ( execution_element(';' execution_element_and_execution_element)? )
     ;
 
 definition_stream_final
@@ -45,7 +59,7 @@ definition_stream_final
     ;
 
 definition_stream
-    : annotation* DEFINE STREAM source '(' attribute_name attribute_type (',' attribute_name attribute_type )* ')'
+    : DEFINE STREAM source '(' attribute_name attribute_type (',' attribute_name attribute_type )* ')'
     ;
 
 definition_table_final
@@ -53,7 +67,7 @@ definition_table_final
     ;
 
 definition_table
-    : annotation* DEFINE TABLE source '(' attribute_name attribute_type (',' attribute_name attribute_type )* ')'
+    : DEFINE TABLE source '(' attribute_name attribute_type (',' attribute_name attribute_type )* ')'
     ;
 
 definition_window_final
@@ -61,7 +75,7 @@ definition_window_final
     ;
 
 definition_window
-    : annotation* DEFINE WINDOW source '(' attribute_name attribute_type (',' attribute_name attribute_type )* ')' function_operation ( OUTPUT output_event_type )?
+    : DEFINE WINDOW source '(' attribute_name attribute_type (',' attribute_name attribute_type )* ')' function_operation ( OUTPUT output_event_type )?
     ;
 
 store_query_final
@@ -113,7 +127,7 @@ definition_aggregation_final
     ;
 
 definition_aggregation
-    : annotation* DEFINE AGGREGATION aggregation_name FROM standard_stream group_by_query_selection AGGREGATE (BY attribute_reference)? EVERY aggregation_time
+    : DEFINE AGGREGATION aggregation_name FROM standard_stream group_by_query_selection AGGREGATE (BY attribute_reference)? EVERY aggregation_time
     ;
 
 aggregation_name
@@ -150,7 +164,7 @@ annotation_element
     ;
 
 partition
-    : annotation* PARTITION WITH '('partition_with_stream (','partition_with_stream)* ')' BEGIN (query|error) (';' (query|error))* ';'? END
+    :  PARTITION WITH '('partition_with_stream (','partition_with_stream)* ')' BEGIN (query|error) (';' (query|error))* ';'? END
     ;
 
 partition_final
@@ -175,7 +189,7 @@ query_final
     ;
 
 query
-    : annotation* FROM query_input query_section? output_rate? query_output
+    : FROM query_input query_section? output_rate? query_output
     ;
 
 query_input

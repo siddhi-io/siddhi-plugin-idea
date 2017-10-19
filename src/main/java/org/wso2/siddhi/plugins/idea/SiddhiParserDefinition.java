@@ -173,7 +173,7 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new ParseNode(node);
             case RULE_query_section:
                 return new QuerySectionNode(node);
-            case RULE_execution_element:
+            case RULE_y:
                 return new ExecutionElementNode(node);
             case RULE_annotation_element:
                 return new AnnotationElementNode(node);
