@@ -37,6 +37,7 @@ import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionNameNode;
 import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
+import org.wso2.siddhi.plugins.idea.psi.ParseNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiAppNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.psi.TriggerNameNode;
@@ -125,8 +126,9 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 }
                 //Adding suggestions after a comment
                 if (prevVisibleSibling instanceof PsiComment && (prevVisibleSibling.getParent() instanceof SiddhiFile
-                        || ((prevVisibleSibling.getParent() instanceof PsiErrorElement) && prevVisibleSibling
-                        .getParent().getParent() instanceof SiddhiFile))) {
+                        || prevVisibleSibling.getParent() instanceof ParseNode || ((prevVisibleSibling.getParent()
+                        instanceof PsiErrorElement) && prevVisibleSibling.getParent().getParent() instanceof
+                        SiddhiFile))) {
                     addInitialTypesAsLookups(result);
                 }
             }
