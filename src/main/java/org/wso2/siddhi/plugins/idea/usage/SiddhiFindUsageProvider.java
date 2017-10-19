@@ -68,7 +68,7 @@ public class SiddhiFindUsageProvider implements FindUsagesProvider {
                 return "Trigger";
             case RULE_definition_window:
                 return "Window";
-            case RULE_y:
+            case RULE_execution_element:
                 return "Execution Element";
         }
         return "";
