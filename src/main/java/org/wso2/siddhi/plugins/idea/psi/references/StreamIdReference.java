@@ -18,12 +18,26 @@ package org.wso2.siddhi.plugins.idea.psi.references;
 
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.util.PsiTreeUtil;
+import jdk.nashorn.internal.ir.IdentNode;
+import org.antlr.jetbrains.adaptor.xpath.XPath;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
+import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
+import org.wso2.siddhi.plugins.idea.psi.IdNode;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
+import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
+import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class StreamIdReference extends SiddhiElementReference {
 
@@ -40,8 +54,10 @@ public class StreamIdReference extends SiddhiElementReference {
     @NotNull
     @Override
     public Object[] getVariants() {
-        List<String> results = new LinkedList<>();
-//        results.addAll(SiddhiCompletionUtils.createLambdaFunctionLookupElements(ParenthesisInsertHandler.INSTANCE));
+        IdentifierPSINode identifier = getElement();
+        PsiFile psiFile = identifier.getContainingFile();
+        List streamDefinitionNodes = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode.class).toArray()));
+        List<LookupElement> results = SiddhiCompletionUtils.createStreamLookupElements(streamDefinitionNodes.toArray());
         return results.toArray(new LookupElement[results.size()]);
     }
 }

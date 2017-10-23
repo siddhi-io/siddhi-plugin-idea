@@ -22,6 +22,7 @@ import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
 import org.antlr.jetbrains.adaptor.lexer.RuleIElementType;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiLeafNode;
@@ -32,6 +33,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
+import org.wso2.siddhi.plugins.idea.psi.references.StreamIdReference;
+
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_stream_id;
 
 public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedElement, PsiNameIdentifierOwner {
 
@@ -80,16 +84,12 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
     @Override
     public PsiReference getReference() {
         PsiElement parent = getParent();
-        IElementType elType = parent.getNode().getElementType();
-
-        // do not return a reference for the ID nodes in a definition
-        if (elType instanceof RuleIElementType) {
-            switch (((RuleIElementType) elType).getRuleIndex()) {
-//                case RULE_stream_id:
-//                    return new StreamIdReference(this);//TODO:check on StreamIdNode and StreamIdReference
-                default:
-                    return null;
-            }
+        if (PsiTreeUtil.getParentOfType(parent,StreamIdNode.class)!=null &&  PsiTreeUtil.getParentOfType(parent,
+                StandardStreamNode.class)!=null ){
+            return new StreamIdReference(this);
+        }else if (PsiTreeUtil.getParentOfType(parent,StreamIdNode.class)!=null &&  PsiTreeUtil.getParentOfType(parent,
+                SourceNode.class)!=null ) {
+            return new StreamIdReference(this);
         }
         return null;
     }

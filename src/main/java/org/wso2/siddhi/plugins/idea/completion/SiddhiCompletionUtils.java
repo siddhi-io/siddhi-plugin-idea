@@ -25,9 +25,15 @@ import com.intellij.codeInsight.template.TemplateManager;
 import com.intellij.codeInsight.template.impl.TemplateSettings;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.siddhi.plugins.idea.SiddhiIcons;
+import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
+import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,6 +49,7 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder PARTITION;
     private static final LookupElementBuilder FROM;
     private static final LookupElementBuilder AT_SYMBOL;
+    private static final LookupElementBuilder HASH_SYMBOL;
     private static final LookupElementBuilder QUERY_SNIIP;
     private static final LookupElementBuilder QUERY_PATTERN_SNIP;
     private static final LookupElementBuilder QUERY_JOIN_SNIIP;
@@ -97,7 +104,8 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder OR;
     private static final LookupElementBuilder NOT;
     private static final LookupElementBuilder IN;
-    private static final LookupElementBuilder IS;//TODO: is null
+    private static final LookupElementBuilder IS;
+    private static final LookupElementBuilder IS_NULL;
 
     //Output Event Types
     private static final LookupElementBuilder CURRENT_EVENTS;
@@ -146,6 +154,11 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder SCALA;
     private static final LookupElementBuilder R;
 
+    //Joints
+    private static final LookupElementBuilder LEFT_OUTER_JOIN;
+    private static final LookupElementBuilder RIGHT_OUTER_JOIN;
+    private static final LookupElementBuilder FULL_OUTER_JOIN;
+
     //Other Keywords
     private static final LookupElementBuilder SELECT;
     private static final LookupElementBuilder GROUP;
@@ -190,6 +203,7 @@ public class SiddhiCompletionUtils {
         PARTITION = createKeywordLookupElement("partition");
         FROM = createKeywordLookupElement("from");
         AT_SYMBOL=createKeywordLookupElement("@");
+        HASH_SYMBOL=createKeywordLookupElement("#");
         QUERY_SNIIP=createDefineSnippetTypeLookupElement("from stream_name\n" +
                 "select attribute1 , attribute2\n" +
                 "insert into output_stream",null).withPresentableText("query");
@@ -347,6 +361,11 @@ public class SiddhiCompletionUtils {
         BEGIN = createKeywordLookupElement("begin");
         END = createKeywordLookupElement("end");
         NULL = createKeywordLookupElement("null");
+        IS_NULL = createKeywordLookupElement("is null");
+
+        LEFT_OUTER_JOIN=createKeywordLookupElement("left outer join");
+        RIGHT_OUTER_JOIN=createKeywordLookupElement("right outer join");
+        FULL_OUTER_JOIN=createKeywordLookupElement("full outer join");
 
         LAST = createKeywordLookupElement("last");
         FIRST = createKeywordLookupElement("first");
@@ -628,18 +647,35 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, SCALA);
     }
 
+    static void addSuggestionsAfterSource(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
+        addKeywordAsLookup(resultSet, LEFT_OUTER_JOIN);
+        addKeywordAsLookup(resultSet, RIGHT_OUTER_JOIN);
+        addKeywordAsLookup(resultSet, FULL_OUTER_JOIN);
+        addKeywordAsLookup(resultSet, HASH_SYMBOL);
+        addKeywordAsLookup(resultSet, ON);
+        addKeywordAsLookup(resultSet, JOIN);
+        addKeywordAsLookup(resultSet, WITHIN);
+        addKeywordAsLookup(resultSet, SELECT);
+        addKeywordAsLookup(resultSet, OUTPUT);
+        addKeywordAsLookup(resultSet, INSERT);
+        addKeywordAsLookup(resultSet, DELETE);
+        addKeywordAsLookup(resultSet, UPDATE);
+
+    }
+
+    static void addSuggestionsAfterUnidirectional(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, JOIN);
+        addKeywordAsLookup(resultSet, ON);
+        addKeywordAsLookup(resultSet, WITHIN);
+    }
+
     /**
      * Adds value types as lookups.
      *
      * @param resultSet result list which is used to add lookups
      */
     static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet) {
-
-//        static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet, boolean withWhitespace,
-//        InsertHandler<LookupElement> insertHandler) {
-//
-//            LookupElementBuilder elementBuilder = LENGTH.withInsertHandler(insertHandler);
-//            resultSet.addElement(PrioritizedLookupElement.withPriority(elementBuilder, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTHBATCH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(SORT, VALUE_TYPES_PRIORITY));
@@ -776,4 +812,21 @@ public class SiddhiCompletionUtils {
         return lookupElements;
     }
 
+    @NotNull
+    private static LookupElement createStreamLookupElement(@NotNull PsiElement element) {
+        LookupElementBuilder builder = LookupElementBuilder.create(element.getText())
+                .withTypeText("Stream").withIcon(SiddhiIcons.METHOD);
+        return PrioritizedLookupElement.withPriority(builder, VARIABLE_PRIORITY);
+    }
+
+    @NotNull
+    public static List<LookupElement> createStreamLookupElements(@NotNull Object[] streamIdNodes) {
+        List<LookupElement> lookupElements = new LinkedList<>();
+        for (int i = 0; i < streamIdNodes.length; i++) {
+            PsiElement psiElement =(PsiElement) streamIdNodes[i];
+            LookupElement lookupElement = SiddhiCompletionUtils.createStreamLookupElement(psiElement);
+            lookupElements.add(lookupElement);
+        }
+        return lookupElements;
+    }
 }

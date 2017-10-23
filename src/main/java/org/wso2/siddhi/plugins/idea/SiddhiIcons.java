@@ -29,6 +29,7 @@ public class SiddhiIcons {
     public static final Icon PARAMETER = AllIcons.Nodes.Parameter;
     public static final Icon FIELD = AllIcons.Nodes.Field;
     public static final Icon METHOD = AllIcons.Nodes.Method;
+    public static final Icon PROPERTY = AllIcons.Nodes.Property;
 
     private SiddhiIcons() {
 

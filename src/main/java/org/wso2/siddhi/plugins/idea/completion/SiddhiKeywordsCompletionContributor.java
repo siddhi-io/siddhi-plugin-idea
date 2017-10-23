@@ -28,19 +28,23 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-import org.wso2.siddhi.plugins.idea.psi.AnnotationElementNode;
 import org.wso2.siddhi.plugins.idea.psi.AnnotationNode;
 import org.wso2.siddhi.plugins.idea.psi.AppAnnotationNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.DefinitionElementWithExecutionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionNameNode;
+import org.wso2.siddhi.plugins.idea.psi.JoinNode;
 import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.ParseNode;
-import org.wso2.siddhi.plugins.idea.psi.SiddhiAppNode;
+import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
+import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
+import org.wso2.siddhi.plugins.idea.psi.SourceNode;
+import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 import org.wso2.siddhi.plugins.idea.psi.TriggerNameNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
@@ -52,6 +56,8 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addI
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addLanguageTypesKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addReturnKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterSource;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterUnidirectional;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addValueTypesAsLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWindowProcessorTypesAsLookups;
 
@@ -64,7 +70,8 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         if (parent instanceof PsiErrorElement) {
             PsiElement parentOfParent=parent.getParent();
             if (parentOfParent instanceof DefinitionElementWithExecutionElementNode){
-                //Suggestions after an error element in outer background
+                //Suggestions after an error element in outer background-this gives suggestions after a '}' in function
+                // definition
                 addInitialTypesAsLookups(result);
                 return;
             }
@@ -112,6 +119,10 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TriggerNameNode.class) != null) {
                     addAtKeyword(result);
                     return;
+                }
+                if(PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
+                    executionElementRelatedKeywordCompletion(result,element,prevVisibleSibling,
+                            prevVisibleSiblingElementType);
                 }
                 if (PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling) != null) {
                     //after AT in a Trigger definition, suggest EVERY keyword
@@ -187,6 +198,30 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 prevVisibleSiblingElementType == SiddhiTypes.RETURN &&
                 prevPrevVisibleSiblingElementType == SiddhiTypes.CLOSE_SQUARE_BRACKETS) {
             addValueTypesAsLookups(result);
+        }
+    }
+
+    private void executionElementRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
+                                                          PsiElement prevVisibleSibling,IElementType
+                                                                  prevVisibleSiblingElementType) {
+        if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
+            if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
+                    == SiddhiTypes.FROM) {
+                addEveryKeyword(result);
+            }
+            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ) {
+                addSuggestionsAfterSource(result);
+            }
+            if (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL) {
+                addSuggestionsAfterUnidirectional(result);
+            }
+            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinNode.class) != null ) {
+                addEveryKeyword(result);
+            }
+        }else if(PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
+            if (PsiTreeUtil.getParentOfType(element, AttributeNameNode.class) != null) {
+                //TODO: Get attribute names from respective stream. set this in AttributeNameNode class.
+            }
         }
     }
 }
