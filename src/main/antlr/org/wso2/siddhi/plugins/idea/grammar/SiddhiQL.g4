@@ -33,7 +33,7 @@ error
 
 siddhi_app
     : (app_annotation | error)*
-      annotation? definition_element(';' definition_element_with_execution_element)?
+      annotation? definition_element(';' definition_element_with_execution_element)?';'?
     ;
 
 definition_element
