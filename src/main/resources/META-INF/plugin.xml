@@ -53,11 +53,11 @@
         <langCodeStyleSettingsProvider
                 implementation="org.wso2.siddhi.plugins.idea.formatter.settings.SiddhiLanguageCodeStyleSettingsProvider"/>
 
-        <quoteHandler fileType="Siddhi file"
-                      className="org.wso2.siddhi.plugins.idea.codeInsight.editoractions.SiddhiQuoteHandler"/>
+        <!--<quoteHandler fileType="Siddhi file"
+                      className="org.wso2.siddhi.plugins.idea.codeInsight.editoractions.SiddhiQuoteHandler"/>-->
 
-        <enterHandlerDelegate
-                implementation="org.wso2.siddhi.plugins.idea.formatter.SiddhiEnterBetweenBracesHandler"/>
+        <!--<enterHandlerDelegate
+                implementation="org.wso2.siddhi.plugins.idea.formatter.SiddhiEnterBetweenBracesHandler"/>-->
 
         <!--structure view-->
         <lang.psiStructureViewFactory language="Siddhi"
