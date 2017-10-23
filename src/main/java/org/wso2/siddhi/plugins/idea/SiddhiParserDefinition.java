@@ -213,6 +213,10 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new JoinSourceNode(node);
             case RULE_join:
                 return new JoinNode(node);
+            case RULE_basic_source:
+                return new BasicSourceNode(node);
+            case RULE_target:
+                return new TargetNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

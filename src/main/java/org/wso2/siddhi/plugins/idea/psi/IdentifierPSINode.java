@@ -88,7 +88,10 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
                 StandardStreamNode.class)!=null ){
             return new StreamIdReference(this);
         }else if (PsiTreeUtil.getParentOfType(parent,StreamIdNode.class)!=null &&  PsiTreeUtil.getParentOfType(parent,
-                SourceNode.class)!=null ) {
+                BasicSourceNode.class)!=null ) {
+            return new StreamIdReference(this);
+        }else if (PsiTreeUtil.getParentOfType(parent,StreamIdNode.class)!=null &&  PsiTreeUtil.getParentOfType(parent,
+                TargetNode.class)!=null ) {
             return new StreamIdReference(this);
         }
         return null;
