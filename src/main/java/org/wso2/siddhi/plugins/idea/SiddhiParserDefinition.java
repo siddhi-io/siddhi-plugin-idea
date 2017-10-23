@@ -203,6 +203,8 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new SourceNode(node);
             case RULE_id:
                 return new IdNode(node);
+            case RULE_definition_element_with_execution_element:
+                return new DefinitionElementWithExecutionElementNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

@@ -33,6 +33,7 @@ import org.wso2.siddhi.plugins.idea.psi.AnnotationNode;
 import org.wso2.siddhi.plugins.idea.psi.AppAnnotationNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeTypeNode;
+import org.wso2.siddhi.plugins.idea.psi.DefinitionElementWithExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionNameNode;
 import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
@@ -60,7 +61,14 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     public void fillCompletionVariants(@NotNull CompletionParameters parameters, @NotNull CompletionResultSet result) {
         PsiElement element = parameters.getPosition();
         PsiElement parent = element.getParent();
-        //TODO: Check code completion pop up when typing half way
+        if (parent instanceof PsiErrorElement) {
+            PsiElement parentOfParent=parent.getParent();
+            if (parentOfParent instanceof DefinitionElementWithExecutionElementNode){
+                //Suggestions after an error element in outer background
+                addInitialTypesAsLookups(result);
+                return;
+            }
+        }
         if (element instanceof LeafPsiElement) {
             IElementType elementType = ((LeafPsiElement) element).getElementType();
             if (elementType == SiddhiTypes.IDENTIFIER && PsiTreeUtil.prevVisibleLeaf(element) == null) { //gives
