@@ -42,7 +42,7 @@ definition_element
     ;
 
 definition_element_with_execution_element
-    :annotation? (definition_element (';' definition_element_with_execution_element )?
+    :annotation*? (definition_element (';' definition_element_with_execution_element )?
     |execution_element (';' execution_element_and_execution_element)? )
     ;
 
