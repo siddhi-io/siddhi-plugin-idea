@@ -822,9 +822,27 @@ public class SiddhiCompletionUtils {
     @NotNull
     public static List<LookupElement> createStreamLookupElements(@NotNull Object[] streamIdNodes) {
         List<LookupElement> lookupElements = new LinkedList<>();
-        for (int i = 0; i < streamIdNodes.length; i++) {
-            PsiElement psiElement =(PsiElement) streamIdNodes[i];
+        for (Object streamIdNode : streamIdNodes) {
+            PsiElement psiElement = (PsiElement) streamIdNode;
             LookupElement lookupElement = SiddhiCompletionUtils.createStreamLookupElement(psiElement);
+            lookupElements.add(lookupElement);
+        }
+        return lookupElements;
+    }
+
+    @NotNull
+    private static LookupElement createAttributeNameLookupElement(@NotNull PsiElement element) {
+        LookupElementBuilder builder = LookupElementBuilder.create(element.getText())
+                .withTypeText("Attribute Name").withIcon(SiddhiIcons.PROPERTY);
+        return PrioritizedLookupElement.withPriority(builder, VARIABLE_PRIORITY);
+    }
+
+    @NotNull
+    public static List<LookupElement> createAttributeNameLookupElements(@NotNull Object[] attributeNameNodes) {
+        List<LookupElement> lookupElements = new LinkedList<>();
+        for (Object attributeNameNode : attributeNameNodes) {
+            PsiElement psiElement = (PsiElement) attributeNameNode;
+            LookupElement lookupElement = SiddhiCompletionUtils.createAttributeNameLookupElement(psiElement);
             lookupElements.add(lookupElement);
         }
         return lookupElements;

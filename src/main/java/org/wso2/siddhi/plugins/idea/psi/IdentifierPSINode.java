@@ -33,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
+import org.wso2.siddhi.plugins.idea.psi.references.AttributeNameReference;
 import org.wso2.siddhi.plugins.idea.psi.references.StreamIdReference;
 
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_stream_id;
@@ -93,6 +94,9 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
         }else if (PsiTreeUtil.getParentOfType(parent,StreamIdNode.class)!=null &&  PsiTreeUtil.getParentOfType(parent,
                 TargetNode.class)!=null ) {
             return new StreamIdReference(this);
+        }else if (PsiTreeUtil.getParentOfType(parent,AttributeNameNode.class)!=null && PsiTreeUtil.getParentOfType
+                (parent,AttributeReferenceNode.class)!=null ) {
+            return new AttributeNameReference(this);
         }
         return null;
     }

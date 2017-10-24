@@ -13,36 +13,26 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package org.wso2.siddhi.plugins.idea.psi.references;
 
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
-import jdk.nashorn.internal.ir.IdentNode;
-import org.antlr.jetbrains.adaptor.xpath.XPath;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
 import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
-import org.wso2.siddhi.plugins.idea.psi.IdNode;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
-import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
-import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
+import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
+import org.wso2.siddhi.plugins.idea.psi.QueryNode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-public class StreamIdReference extends SiddhiElementReference {
+public class AttributeNameReference extends SiddhiElementReference {
 
-    public StreamIdReference(@NotNull IdentifierPSINode element) {
+    public AttributeNameReference(@NotNull IdentifierPSINode element) {
         super(element);
     }
 
@@ -56,20 +46,11 @@ public class StreamIdReference extends SiddhiElementReference {
     @Override
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
-        int caretOffSet=identifier.getTextOffset();
-
         PsiFile psiFile = identifier.getContainingFile();
-        List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
-                .class).toArray()));
-        List<StreamIdNode> streamDefinitionNodesWithoutDuplicates=new ArrayList<>();
-        for ( Object streamDefinitionNode : streamDefinitionNodesWithDuplicates) {
-            PsiElement streamDefinitionNodeIdentifier = ((StreamIdNode)streamDefinitionNode);
-            if (streamDefinitionNodeIdentifier != null && streamDefinitionNodeIdentifier.getTextOffset() < caretOffSet) {
-                streamDefinitionNodesWithoutDuplicates.add((StreamIdNode) streamDefinitionNodeIdentifier);
-            }
-        }
-
-        List<LookupElement> results = SiddhiCompletionUtils.createStreamLookupElements(streamDefinitionNodesWithoutDuplicates.toArray());
+        List attributeNameNodes = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, AttributeNameNode.class)
+                .toArray()));
+        List<LookupElement> results = SiddhiCompletionUtils.createAttributeNameLookupElements(attributeNameNodes
+                .toArray());
         return results.toArray(new LookupElement[results.size()]);
     }
 }
