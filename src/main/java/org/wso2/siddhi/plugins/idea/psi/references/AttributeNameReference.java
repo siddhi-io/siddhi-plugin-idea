@@ -18,14 +18,20 @@ package org.wso2.siddhi.plugins.idea.psi.references;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
 import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryNode;
+import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
+import org.wso2.siddhi.plugins.idea.psi.StreamDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,10 +53,48 @@ public class AttributeNameReference extends SiddhiElementReference {
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
         PsiFile psiFile = identifier.getContainingFile();
-        List attributeNameNodes = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, AttributeNameNode.class)
-                .toArray()));
-        List<LookupElement> results = SiddhiCompletionUtils.createAttributeNameLookupElements(attributeNameNodes
-                .toArray());
-        return results.toArray(new LookupElement[results.size()]);
+        List attributeNameNodes=null;
+        if(PsiTreeUtil.getParentOfType(identifier, QueryNode.class)!=null){
+            PsiElement queryNodeElement=PsiTreeUtil.getParentOfType(identifier, QueryNode.class);
+            PsiElement queryInputNodeElement=PsiTreeUtil.getChildOfType(queryNodeElement, QueryInputNode.class);
+            //suggestions for Standard stream query input
+            PsiElement standardStreamNode=PsiTreeUtil.getChildOfType(queryInputNodeElement, StandardStreamNode.class);
+            PsiElement deepestVisibleLastElement;
+            if (standardStreamNode != null) {
+                deepestVisibleLastElement = PsiTreeUtil.getDeepestVisibleLast(standardStreamNode);
+            }else{
+                return (new LookupElement[0]);
+            }
+            IElementType deepestVisibleLastElementType;
+            if (deepestVisibleLastElement != null) {
+                deepestVisibleLastElementType = ((LeafPsiElement) deepestVisibleLastElement).getElementType();
+            }else {
+                return (new LookupElement[0]);
+            }
+            String streamName="";
+            if(deepestVisibleLastElementType== SiddhiTypes.IDENTIFIER ){
+                    streamName=deepestVisibleLastElement.getText();
+            }
+            List streamNodes=Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile,StreamIdNode.class).toArray()));
+            for(int i=0;i<streamNodes.size();i++){
+                PsiElement element=(StreamIdNode)streamNodes.get(i);
+                if(!streamName.equalsIgnoreCase("") && element.getText().equalsIgnoreCase(streamName) && PsiTreeUtil
+                        .getParentOfType(element, StreamDefinitionNode.class)!=null){
+                   StreamDefinitionNode streamDefinitionNode= PsiTreeUtil.getParentOfType(element, StreamDefinitionNode.class);
+                    attributeNameNodes = Arrays.asList((PsiTreeUtil.findChildrenOfType(streamDefinitionNode,
+                            AttributeNameNode.class).toArray()));
+                    break;
+                }
+            }
+        }
+        List<LookupElement> results = null;
+        if (attributeNameNodes != null) {
+            results = SiddhiCompletionUtils.createAttributeNameLookupElements(attributeNameNodes
+                    .toArray());
+        }
+        if (results != null) {
+            return results.toArray(new LookupElement[results.size()]);
+        }
+        return (new LookupElement[0]);
     }
 }
