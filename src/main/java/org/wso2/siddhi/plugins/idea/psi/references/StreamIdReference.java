@@ -19,16 +19,20 @@ package org.wso2.siddhi.plugins.idea.psi.references;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import jdk.nashorn.internal.ir.IdentNode;
 import org.antlr.jetbrains.adaptor.xpath.XPath;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
+import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
 import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
 import org.wso2.siddhi.plugins.idea.psi.IdNode;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
+import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
@@ -57,7 +61,13 @@ public class StreamIdReference extends SiddhiElementReference {
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
         int caretOffSet=identifier.getTextOffset();
-
+        //Stopping suggestions after output event type in a query.
+        if(PsiTreeUtil.prevVisibleLeaf(identifier) != null){
+            PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(identifier);
+            if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class)!=null){
+                return new LookupElement[0];
+            }
+        }
         PsiFile psiFile = identifier.getContainingFile();
         List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
                 .class).toArray()));
@@ -68,7 +78,6 @@ public class StreamIdReference extends SiddhiElementReference {
                 streamDefinitionNodesWithoutDuplicates.add((StreamIdNode) streamDefinitionNodeIdentifier);
             }
         }
-
         List<LookupElement> results = SiddhiCompletionUtils.createStreamLookupElements(streamDefinitionNodesWithoutDuplicates.toArray());
         return results.toArray(new LookupElement[results.size()]);
     }
