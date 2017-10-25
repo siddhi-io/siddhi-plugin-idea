@@ -26,14 +26,10 @@ import com.intellij.codeInsight.template.impl.TemplateSettings;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
-import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
-import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -110,9 +106,7 @@ public class SiddhiCompletionUtils {
     //Output Event Types
     private static final LookupElementBuilder CURRENT_EVENTS;
     private static final LookupElementBuilder ALL_EVENTS;
-    private static final LookupElementBuilder ALL_RAW_EVENTS;
     private static final LookupElementBuilder EXPIRED_EVENTS;
-    private static final LookupElementBuilder EXPIRED_RAW_EVENTS;
 
     //Time Value Types
     private static final LookupElementBuilder YEARS;
@@ -317,9 +311,7 @@ public class SiddhiCompletionUtils {
         IS = createKeywordLookupElement("is");
 
         ALL_EVENTS = createKeywordLookupElement("all events");
-        ALL_RAW_EVENTS = createKeywordLookupElement("all raw events");
         EXPIRED_EVENTS = createKeywordLookupElement("expired events");
-        EXPIRED_RAW_EVENTS= createKeywordLookupElement("expired raw events");
         CURRENT_EVENTS = createKeywordLookupElement("current events");
 
         YEARS = createKeywordLookupElement("years");
@@ -594,6 +586,29 @@ public class SiddhiCompletionUtils {
     }
 
     /**
+     * Adds suggestions after INSERT keyword as lookups.
+     *
+     * @param resultSet result list which is used to add lookups
+     */
+    static void addAfterInsertKeywordLookups(@NotNull CompletionResultSet resultSet) {
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SINK2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SOURCE2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_CONFIG_SNIIP2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_EXPORTSTREAM2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_IMPORTSTREAM2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANTRACE2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANSTATS2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANDESC2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANNAME2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PRIMARYKEY2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INDEX2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INFO2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_MAP, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_ATTRIBUTES, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PAYLOARD, VALUE_TYPES_PRIORITY));
+    }
+
+    /**
      * Adds value types as lookups.
      *
      * @param resultSet result list which is used to add lookups
@@ -633,11 +648,13 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, RETURN);
     }
 
+    static void addIntoKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, INTO);
+    }
+
     static void addOutputEventTypeKeywords(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, (ALL_EVENTS));
-        addKeywordAsLookup(resultSet, (ALL_RAW_EVENTS));
         addKeywordAsLookup(resultSet, (EXPIRED_EVENTS));
-        addKeywordAsLookup(resultSet, (EXPIRED_RAW_EVENTS));
         addKeywordAsLookup(resultSet, (CURRENT_EVENTS));
     }
 
@@ -661,7 +678,6 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, INSERT);
         addKeywordAsLookup(resultSet, DELETE);
         addKeywordAsLookup(resultSet, UPDATE);
-
     }
 
     static void addSuggestionsAfterUnidirectional(@NotNull CompletionResultSet resultSet){

@@ -39,6 +39,7 @@ import org.wso2.siddhi.plugins.idea.psi.FunctionNameNode;
 import org.wso2.siddhi.plugins.idea.psi.JoinNode;
 import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
+import org.wso2.siddhi.plugins.idea.psi.OutputRateNode;
 import org.wso2.siddhi.plugins.idea.psi.ParseNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
 import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
@@ -49,10 +50,12 @@ import org.wso2.siddhi.plugins.idea.psi.TriggerNameNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAfterATSymbolLookups;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAfterInsertKeywordLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAtKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addDefineTypesAsLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addEveryKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addInitialTypesAsLookups;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addIntoKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addLanguageTypesKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addReturnKeyword;
@@ -120,13 +123,15 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     addAtKeyword(result);
                     return;
                 }
-                if(PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
-                    executionElementRelatedKeywordCompletion(result,element,prevVisibleSibling,
-                            prevVisibleSiblingElementType);
-                }
                 if (PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling) != null) {
-                    //after AT in a Trigger definition, suggest EVERY keyword
+
                     PsiElement prevPreVisibleSibling = PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling);
+                    //Handling suggestions in a query
+                    if(PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
+                        executionElementRelatedKeywordCompletion(result,element,prevVisibleSibling,
+                                prevVisibleSiblingElementType,prevPreVisibleSibling);
+                    }
+                    //after AT in a Trigger definition, suggest EVERY keyword
                     if (prevVisibleSiblingElementType == SiddhiTypes.AT && PsiTreeUtil.getParentOfType
                             (prevPreVisibleSibling, TriggerNameNode.class) != null) {
                         addEveryKeyword(result);
@@ -203,7 +208,8 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 
     private void executionElementRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
                                                           PsiElement prevVisibleSibling,IElementType
-                                                                  prevVisibleSiblingElementType) {
+                                                                  prevVisibleSiblingElementType,PsiElement
+                                                                  prevPreVisibleSibling) {
         if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
             if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
                     == SiddhiTypes.FROM) {
@@ -222,6 +228,13 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             if (PsiTreeUtil.getParentOfType(element, AttributeNameNode.class) != null) {
                 //TODO: Get attribute names from respective stream. set this in AttributeNameNode class.
             }
+        //suggestions after INSERT keyword
+        }else if (prevVisibleSiblingElementType == SiddhiTypes.INSERT && (PsiTreeUtil.getParentOfType
+                (prevPreVisibleSibling, OutputRateNode.class) != null || PsiTreeUtil.getParentOfType
+                (prevPreVisibleSibling, QuerySectionNode.class) != null || PsiTreeUtil.getParentOfType
+                (prevPreVisibleSibling, QueryInputNode.class) != null)) {
+            addOutputEventTypeKeywords(result);
+            addIntoKeyword(result);
         }
     }
 }
