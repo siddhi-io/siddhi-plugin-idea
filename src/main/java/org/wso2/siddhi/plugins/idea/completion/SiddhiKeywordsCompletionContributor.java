@@ -214,27 +214,41 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
                     == SiddhiTypes.FROM) {
                 addEveryKeyword(result);
+                return;
             }
             if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ) {
                 addSuggestionsAfterSource(result);
+                return;
             }
             if (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL) {
                 addSuggestionsAfterUnidirectional(result);
+                return;
             }
             if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinNode.class) != null ) {
                 addEveryKeyword(result);
+                return;
             }
-        }else if(PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
-            if (PsiTreeUtil.getParentOfType(element, AttributeNameNode.class) != null) {
-                //TODO: Get attribute names from respective stream. set this in AttributeNameNode class.
-            }
+        }
         //suggestions after INSERT keyword
-        }else if (prevVisibleSiblingElementType == SiddhiTypes.INSERT && (PsiTreeUtil.getParentOfType
+        if (prevVisibleSiblingElementType == SiddhiTypes.INSERT && (PsiTreeUtil.getParentOfType
                 (prevPreVisibleSibling, OutputRateNode.class) != null || PsiTreeUtil.getParentOfType
                 (prevPreVisibleSibling, QuerySectionNode.class) != null || PsiTreeUtil.getParentOfType
                 (prevPreVisibleSibling, QueryInputNode.class) != null)) {
             addOutputEventTypeKeywords(result);
             addIntoKeyword(result);
+        }
+        //suggesting INTO keyword after a output event type in a query
+        PsiElement parentOfPrevVisSibling=prevVisibleSibling.getParent();
+        if(parentOfPrevVisSibling instanceof OutputEventTypeNode){
+            PsiElement prevVisibleSiblingOfParent=PsiTreeUtil.prevVisibleLeaf(parentOfPrevVisSibling);
+            IElementType elementTypeOfPrevVisibleSiblingOfParent = null;
+            if (prevVisibleSiblingOfParent != null) {
+                elementTypeOfPrevVisibleSiblingOfParent = ((LeafPsiElement) prevVisibleSiblingOfParent)
+                        .getElementType();
+            }
+            if(elementTypeOfPrevVisibleSiblingOfParent==SiddhiTypes.INSERT){
+                addIntoKeyword(result);
+            }
         }
     }
 }
