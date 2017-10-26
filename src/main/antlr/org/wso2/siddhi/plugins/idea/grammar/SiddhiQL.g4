@@ -646,6 +646,10 @@ keyword
     ;
 
 time_value
+    :  time_value1
+    ;
+
+time_value1
     :  year_value  ( month_value)? ( week_value)? ( day_value)? ( hour_value)? ( minute_value)? ( second_value)?  ( millisecond_value)?
     |  month_value ( week_value)? ( day_value)? ( hour_value)? ( minute_value)? ( second_value)?  ( millisecond_value)?
     |  week_value ( day_value)? ( hour_value)? ( minute_value)? ( second_value)?  ( millisecond_value)?

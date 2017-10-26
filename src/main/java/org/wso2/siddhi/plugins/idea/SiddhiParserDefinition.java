@@ -235,6 +235,8 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new SignedIntValueNode(node);
             case RULE_group_by:
                 return new GroupByNode(node);
+            case RULE_time_value:
+                return new TimeValueNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

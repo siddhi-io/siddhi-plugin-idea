@@ -27,6 +27,7 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.AnnotationNode;
 import org.wso2.siddhi.plugins.idea.psi.AppAnnotationNode;
@@ -47,6 +48,7 @@ import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.psi.SourceNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
+import org.wso2.siddhi.plugins.idea.psi.TimeValueNode;
 import org.wso2.siddhi.plugins.idea.psi.TriggerNameNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
@@ -82,12 +84,14 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             }
             if (PsiTreeUtil.prevVisibleLeaf(element) != null) {
                 PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
-                //suggesting keywords in the beginning of a query_output rule
-                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null
-                        || PsiTreeUtil.getParentOfType(prevVisibleSibling, QuerySectionNode.class) != null
-                        || PsiTreeUtil.getParentOfType(prevVisibleSibling, QueryInputNode.class) != null) {
-                    addBeginingOfQueryOutputKeywords(result);
-                }
+//                //suggesting keywords in the beginning of a query_output rule
+//                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null && PsiTreeUtil
+//                        .getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
+//                        || PsiTreeUtil.getParentOfType(prevVisibleSibling, QuerySectionNode.class) != null) {
+//                    addBeginingOfQueryOutputKeywords(result);
+//                }
+//                if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
+//                        && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class)!=null){}
             }
         }
         if (element instanceof LeafPsiElement) {
@@ -248,6 +252,24 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 addByKeyword(result);
             }
         }
+        //suggesting keywords in the beginning of a query_output rule
+//        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null && PsiTreeUtil
+//                .getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
+//                || PsiTreeUtil.getParentOfType(prevVisibleSibling, QuerySectionNode.class) != null) {
+//            addBeginingOfQueryOutputKeywords(result);
+//        }
+        IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling).getElementType();
+        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
+                && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class)!=null
+                &&  prevPreVisibleSiblingElementType==SiddhiTypes.EVERY){
+            addBeginingOfQueryOutputKeywords(result);
+            return;
+        }
+        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
+                && prevVisibleSiblingElementType==SiddhiTypes.EVENTS
+                && prevPreVisibleSiblingElementType==SiddhiTypes.INT_LITERAL){
+            addBeginingOfQueryOutputKeywords(result);
+        }
         //Suggestions related to QueryOutputNode
         //suggestions after INSERT keyword
         if (prevVisibleSiblingElementType == SiddhiTypes.INSERT && (PsiTreeUtil.getParentOfType
@@ -271,4 +293,24 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             }
         }
     }
+
+    @Nullable
+    private PsiElement getPreviousVisibleSiblings(int previousPastPositions, @NotNull PsiElement element){
+        PsiElement prevVisibleSibling=element;
+        try {
+            for (int i = 0; i < previousPastPositions; i++) {
+                prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling);
+            }
+            return prevVisibleSibling;
+        }catch (NullPointerException exception){
+            return null;
+        }
+    }
+
+//    private boolean isTimeValue(IElementType elementType){
+//        switch (elementType){
+//            case
+//        }
+//        return false;
+//    }
 }
