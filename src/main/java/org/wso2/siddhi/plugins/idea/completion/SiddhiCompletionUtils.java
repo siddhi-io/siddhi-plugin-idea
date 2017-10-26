@@ -160,6 +160,7 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder HAVING;
     private static final LookupElementBuilder INSERT;
     private static final LookupElementBuilder DELETE;
+    private static final LookupElementBuilder UPDATE_OR_INSERT_INTO;
     private static final LookupElementBuilder UPDATE;
     private static final LookupElementBuilder RETURN;
     private static final LookupElementBuilder EVENTS;
@@ -337,6 +338,7 @@ public class SiddhiCompletionUtils {
         HAVING = createKeywordLookupElement("having");
         INSERT = createKeywordLookupElement("insert");
         DELETE = createKeywordLookupElement("delete");
+        UPDATE_OR_INSERT_INTO = createKeywordLookupElement("update or insert into");
         UPDATE = createKeywordLookupElement("update");
 
         EVENTS = createKeywordLookupElement("events");
@@ -586,26 +588,16 @@ public class SiddhiCompletionUtils {
     }
 
     /**
-     * Adds suggestions after INSERT keyword as lookups.
+     * Adds suggestions in beginning of a query_output node as lookups.
      *
      * @param resultSet result list which is used to add lookups
      */
-    static void addAfterInsertKeywordLookups(@NotNull CompletionResultSet resultSet) {
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SINK2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SOURCE2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_CONFIG_SNIIP2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_EXPORTSTREAM2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_IMPORTSTREAM2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANTRACE2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANSTATS2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANDESC2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANNAME2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PRIMARYKEY2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INDEX2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INFO2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_MAP, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_ATTRIBUTES, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PAYLOARD, VALUE_TYPES_PRIORITY));
+    static void addBeginingOfQueryOutputKeywords(@NotNull CompletionResultSet resultSet) {
+        resultSet.addElement(PrioritizedLookupElement.withPriority(INSERT, KEYWORDS_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(DELETE, KEYWORDS_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(UPDATE_OR_INSERT_INTO, KEYWORDS_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(UPDATE, KEYWORDS_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(RETURN, KEYWORDS_PRIORITY));
     }
 
     /**
@@ -642,6 +634,10 @@ public class SiddhiCompletionUtils {
 
     static void addEveryKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, EVERY);
+    }
+
+    static void addByKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, BY);
     }
 
     static void addReturnKeyword(@NotNull CompletionResultSet resultSet) {
