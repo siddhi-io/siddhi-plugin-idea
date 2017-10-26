@@ -15,5 +15,12 @@
  */
 package org.wso2.siddhi.plugins.idea.psi;
 
-public class ConstantValueNode {
+import com.intellij.lang.ASTNode;
+import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+import org.jetbrains.annotations.NotNull;
+
+public class ConstantValueNode extends ANTLRPsiNode {
+    public ConstantValueNode(@NotNull ASTNode node) {
+        super(node);
+    }
 }

@@ -15,5 +15,12 @@
  */
 package org.wso2.siddhi.plugins.idea.psi;
 
-public class HavingNode {
+import com.intellij.lang.ASTNode;
+import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+import org.jetbrains.annotations.NotNull;
+
+public class HavingNode extends ANTLRPsiNode {
+    public HavingNode(@NotNull ASTNode node) {
+        super(node);
+    }
 }

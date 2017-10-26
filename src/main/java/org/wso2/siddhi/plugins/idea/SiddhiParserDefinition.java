@@ -221,6 +221,20 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new AttributeReferenceNode(node);
             case RULE_output_attribute:
                 return new OutputAttributeNode(node);
+            case RULE_definition_element:
+                return new DefinitionElementNode(node);
+            case RULE_having:
+                return new HavingNode(node);
+            case RULE_expression:
+                return new ExpressionNode(node);
+            case RULE_math_operation:
+                return new MathOperationNode(node);
+            case RULE_constant_value:
+                return new ConstantValueNode(node);
+            case RULE_signed_int_value:
+                return new SignedIntValueNode(node);
+            case RULE_group_by:
+                return new GroupByNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

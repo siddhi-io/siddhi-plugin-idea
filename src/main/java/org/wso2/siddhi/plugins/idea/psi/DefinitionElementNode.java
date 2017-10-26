@@ -19,8 +19,8 @@ import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
 import org.jetbrains.annotations.NotNull;
 
-public class DefinitionElement extends ANTLRPsiNode {
-    public DefinitionElement(@NotNull ASTNode node) {
+public class DefinitionElementNode extends ANTLRPsiNode {
+    public DefinitionElementNode(@NotNull ASTNode node) {
         super(node);
     }
 }

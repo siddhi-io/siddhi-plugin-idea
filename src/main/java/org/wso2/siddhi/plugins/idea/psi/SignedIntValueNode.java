@@ -15,5 +15,12 @@
  */
 package org.wso2.siddhi.plugins.idea.psi;
 
-public class SignedIntValueNode {
+import com.intellij.lang.ASTNode;
+import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+import org.jetbrains.annotations.NotNull;
+
+public class SignedIntValueNode extends ANTLRPsiNode {
+    public SignedIntValueNode(@NotNull ASTNode node) {
+        super(node);
+    }
 }
