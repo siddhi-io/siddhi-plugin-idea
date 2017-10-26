@@ -53,6 +53,15 @@ public class AttributeNameReference extends SiddhiElementReference {
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
         PsiFile psiFile = identifier.getContainingFile();
+        //Avoiding suggesting attributes after group keyword
+        PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(identifier);
+        if (prevVisibleSibling != null) {
+            IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();
+            if (prevVisibleSiblingElementType==SiddhiTypes.GROUP){
+                return (new LookupElement[0]);
+            }
+        }
+
         List attributeNameNodes=null;
         if(PsiTreeUtil.getParentOfType(identifier, QueryNode.class)!=null){
             PsiElement queryNodeElement=PsiTreeUtil.getParentOfType(identifier, QueryNode.class);
