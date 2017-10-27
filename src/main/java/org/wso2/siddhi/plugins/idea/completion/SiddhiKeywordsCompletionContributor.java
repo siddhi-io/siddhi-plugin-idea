@@ -32,14 +32,19 @@ import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.AnnotationNode;
 import org.wso2.siddhi.plugins.idea.psi.AppAnnotationNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
+import org.wso2.siddhi.plugins.idea.psi.AttributeReferenceNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.DefinitionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.DefinitionElementWithExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.ExpressionNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionNameNode;
+import org.wso2.siddhi.plugins.idea.psi.GroupByNode;
+import org.wso2.siddhi.plugins.idea.psi.HavingNode;
 import org.wso2.siddhi.plugins.idea.psi.JoinNode;
 import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
+import org.wso2.siddhi.plugins.idea.psi.OutputAttributeNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputRateNode;
 import org.wso2.siddhi.plugins.idea.psi.ParseNode;
@@ -58,6 +63,7 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addA
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addByKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addDefineTypesAsLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addEveryKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addHavingKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addInitialTypesAsLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addIntoKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addLanguageTypesKeywords;
@@ -81,17 +87,6 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 // definition
                 addInitialTypesAsLookups(result);
                 return;
-            }
-            if (PsiTreeUtil.prevVisibleLeaf(element) != null) {
-                PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
-//                //suggesting keywords in the beginning of a query_output rule
-//                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null && PsiTreeUtil
-//                        .getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
-//                        || PsiTreeUtil.getParentOfType(prevVisibleSibling, QuerySectionNode.class) != null) {
-//                    addBeginingOfQueryOutputKeywords(result);
-//                }
-//                if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
-//                        && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class)!=null){}
             }
         }
         if (element instanceof LeafPsiElement) {
@@ -248,28 +243,59 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         }
         //Suggestions related to QuerySectionNode
         if(PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
+            //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) in
+            // query_section1 rule
+            if((prevVisibleSiblingElementType!=SiddhiTypes.AS && PsiTreeUtil
+                    .getParentOfType(prevVisibleSibling, OutputAttributeNode.class)!=null) ||
+                    prevVisibleSiblingElementType==SiddhiTypes.STAR){
+                addBeginingOfQueryOutputKeywords(result);
+                return;
+            }
+            //suggesting by keyword after group keyword
             if(prevVisibleSiblingElementType==SiddhiTypes.GROUP){
                 addByKeyword(result);
             }
         }
         //suggesting keywords in the beginning of a query_output rule
-//        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null && PsiTreeUtil
-//                .getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
-//                || PsiTreeUtil.getParentOfType(prevVisibleSibling, QuerySectionNode.class) != null) {
-//            addBeginingOfQueryOutputKeywords(result);
-//        }
+        //This provides suggestions after ->OUTPUT output_rate_type? EVERY ( time_value) | OUTPUT SNAPSHOT EVERY
+        // time_value  in output_rate rule
         IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling).getElementType();
         if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
-                && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class)!=null
-                &&  prevPreVisibleSiblingElementType==SiddhiTypes.EVERY){
-            addBeginingOfQueryOutputKeywords(result);
-            return;
+                && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class)!=null){
+            PsiElement timeValueNodeElement=PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class);
+            PsiElement prevSiblingOfTimeValueNode= null;
+            if (timeValueNodeElement != null) {
+                prevSiblingOfTimeValueNode = PsiTreeUtil.prevVisibleLeaf(timeValueNodeElement);
+            }
+            IElementType prevSiblingOfTimeValueNodeElementType = null;
+            if (prevSiblingOfTimeValueNode != null) {
+                prevSiblingOfTimeValueNodeElementType = ((LeafPsiElement) prevSiblingOfTimeValueNode).getElementType();
+            }
+            if(prevSiblingOfTimeValueNodeElementType==SiddhiTypes.EVERY  &&
+                    prevVisibleSiblingElementType!=SiddhiTypes.INT_LITERAL){
+                addBeginingOfQueryOutputKeywords(result);
+                return;
+            }
         }
+        //This provides suggestions after ->OUTPUT output_rate_type? EVERY INT_LITERAL EVENTS in output_rate rule
         if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
                 && prevVisibleSiblingElementType==SiddhiTypes.EVENTS
                 && prevPreVisibleSiblingElementType==SiddhiTypes.INT_LITERAL){
             addBeginingOfQueryOutputKeywords(result);
         }
+        //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) having in
+        // query_section1 rule
+        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, ExpressionNode.class)!=null
+                && PsiTreeUtil.getParentOfType(element, HavingNode.class)!=null){
+            addBeginingOfQueryOutputKeywords(result);
+        }
+        //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) group_by in
+        // query_section1 rule
+        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeReferenceNode.class)!=null
+                && PsiTreeUtil.getParentOfType(element, GroupByNode.class)!=null){
+            addBeginingOfQueryOutputKeywords(result);
+            addHavingKeyword(result);
+        }//TODO:restrict attribute name suggestions to only used in the select phrase
         //Suggestions related to QueryOutputNode
         //suggestions after INSERT keyword
         if (prevVisibleSiblingElementType == SiddhiTypes.INSERT && (PsiTreeUtil.getParentOfType
@@ -306,11 +332,4 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             return null;
         }
     }
-
-//    private boolean isTimeValue(IElementType elementType){
-//        switch (elementType){
-//            case
-//        }
-//        return false;
-//    }
 }

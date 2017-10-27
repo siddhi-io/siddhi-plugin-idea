@@ -373,11 +373,23 @@ group_by_query_selection
     : (SELECT ('*'| (output_attribute (',' output_attribute)* ))) group_by?
     ;
 
+//Added a new rule named query_section1(which has the same content previously used in the query_section rule) to avoid
+//node collapsing issue in psi tree building
 query_section
+    : query_section1
+    ;
+
+query_section1
     : (SELECT ('*'| (output_attribute (',' output_attribute)* ))) group_by? having?
     ;
 
+//Added a new rule named group_by1(which has the same content previously used in the group_by rule) to avoid node
+// collapsing issue in psi tree building
 group_by
+    : group_by1
+    ;
+
+group_by1
     : GROUP BY attribute_reference (',' attribute_reference)*
     ;
 

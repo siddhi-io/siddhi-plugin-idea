@@ -640,6 +640,10 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, BY);
     }
 
+    static void addHavingKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, HAVING);
+    }
+
     static void addReturnKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, RETURN);
     }
