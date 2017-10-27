@@ -83,7 +83,7 @@ public class StreamIdReference extends SiddhiElementReference {
                     streamDefinitionNodesWithoutDuplicates.add((StreamIdNode) streamDefinitionNodeIdentifier);
                 }
             }
-            List<LookupElement> results = SiddhiCompletionUtils.createStreamLookupElements
+            List<LookupElement> results = SiddhiCompletionUtils.createSourceLookupElements
                     (streamDefinitionNodesWithoutDuplicates.toArray());
             return results.toArray(new LookupElement[results.size()]);
         }

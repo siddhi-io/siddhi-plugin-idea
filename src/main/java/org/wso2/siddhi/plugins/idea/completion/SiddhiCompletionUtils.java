@@ -26,9 +26,14 @@ import com.intellij.codeInsight.template.impl.TemplateSettings;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
+import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
+import org.wso2.siddhi.plugins.idea.psi.StreamDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.TableDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -829,18 +834,29 @@ public class SiddhiCompletionUtils {
     }
 
     @NotNull
-    private static LookupElement createStreamLookupElement(@NotNull PsiElement element) {
+    private static LookupElement createSourceLookupElement(@NotNull PsiElement element) {
+        String definitionType="Source";
+        if(PsiTreeUtil.getParentOfType(element, StreamDefinitionNode.class)!=null){
+            definitionType="Stream";
+        }
+        if(PsiTreeUtil.getParentOfType(element, WindowDefinitionNode.class)!=null){
+            definitionType="Event Window";
+        }
+        if(PsiTreeUtil.getParentOfType(element, TableDefinitionNode.class)!=null){
+            definitionType="Event Table";
+        }
         LookupElementBuilder builder = LookupElementBuilder.create(element.getText())
-                .withTypeText("Stream").withIcon(SiddhiIcons.METHOD);
+                .withTypeText(definitionType).withIcon(SiddhiIcons.METHOD);
         return PrioritizedLookupElement.withPriority(builder, VARIABLE_PRIORITY);
+
     }
 
     @NotNull
-    public static List<LookupElement> createStreamLookupElements(@NotNull Object[] streamIdNodes) {
+    public static List<LookupElement> createSourceLookupElements(@NotNull Object[] streamIdNodes) {
         List<LookupElement> lookupElements = new LinkedList<>();
         for (Object streamIdNode : streamIdNodes) {
             PsiElement psiElement = (PsiElement) streamIdNode;
-            LookupElement lookupElement = SiddhiCompletionUtils.createStreamLookupElement(psiElement);
+            LookupElement lookupElement = SiddhiCompletionUtils.createSourceLookupElement(psiElement);
             lookupElements.add(lookupElement);
         }
         return lookupElements;
