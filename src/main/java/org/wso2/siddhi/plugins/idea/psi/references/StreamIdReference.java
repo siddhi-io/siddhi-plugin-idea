@@ -30,10 +30,12 @@ import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
 import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
+import org.wso2.siddhi.plugins.idea.psi.BasicSourceNode;
 import org.wso2.siddhi.plugins.idea.psi.IdNode;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
 import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
+import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
 import java.util.ArrayList;
@@ -68,17 +70,23 @@ public class StreamIdReference extends SiddhiElementReference {
                 return new LookupElement[0];
             }
         }
-        PsiFile psiFile = identifier.getContainingFile();
-        List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
-                .class).toArray()));
-        List<StreamIdNode> streamDefinitionNodesWithoutDuplicates=new ArrayList<>();
-        for ( Object streamDefinitionNode : streamDefinitionNodesWithDuplicates) {
-            PsiElement streamDefinitionNodeIdentifier = ((StreamIdNode)streamDefinitionNode);
-            if (streamDefinitionNodeIdentifier != null && streamDefinitionNodeIdentifier.getTextOffset() < caretOffSet) {
-                streamDefinitionNodesWithoutDuplicates.add((StreamIdNode) streamDefinitionNodeIdentifier);
+        //TODO:check(with the grammar file) the actual place that can be applied these stream name
+        if(PsiTreeUtil.getParentOfType(identifier,StandardStreamNode.class)!=null ||
+                PsiTreeUtil.getParentOfType(identifier, BasicSourceNode.class)!=null) {
+            PsiFile psiFile = identifier.getContainingFile();
+            List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
+                    .class).toArray()));
+            List<StreamIdNode> streamDefinitionNodesWithoutDuplicates = new ArrayList<>();
+            for (Object streamDefinitionNode : streamDefinitionNodesWithDuplicates) {
+                PsiElement streamDefinitionNodeIdentifier = ((StreamIdNode) streamDefinitionNode);
+                if (streamDefinitionNodeIdentifier != null && streamDefinitionNodeIdentifier.getTextOffset() < caretOffSet) {
+                    streamDefinitionNodesWithoutDuplicates.add((StreamIdNode) streamDefinitionNodeIdentifier);
+                }
             }
+            List<LookupElement> results = SiddhiCompletionUtils.createStreamLookupElements
+                    (streamDefinitionNodesWithoutDuplicates.toArray());
+            return results.toArray(new LookupElement[results.size()]);
         }
-        List<LookupElement> results = SiddhiCompletionUtils.createStreamLookupElements(streamDefinitionNodesWithoutDuplicates.toArray());
-        return results.toArray(new LookupElement[results.size()]);
+        return new LookupElement[0];
     }
 }

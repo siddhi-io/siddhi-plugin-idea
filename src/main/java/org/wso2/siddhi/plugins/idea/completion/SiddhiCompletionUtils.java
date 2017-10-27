@@ -847,6 +847,24 @@ public class SiddhiCompletionUtils {
     }
 
     @NotNull
+    private static LookupElement createEventTableLookupElement(@NotNull PsiElement element) {
+        LookupElementBuilder builder = LookupElementBuilder.create(element.getText())
+                .withTypeText("Event Table").withIcon(SiddhiIcons.METHOD);
+        return PrioritizedLookupElement.withPriority(builder, VARIABLE_PRIORITY);
+    }
+
+    @NotNull
+    public static List<LookupElement> createEventTableLookupElements(@NotNull Object[] streamIdNodes) {
+        List<LookupElement> lookupElements = new LinkedList<>();
+        for (Object streamIdNode : streamIdNodes) {
+            PsiElement psiElement = (PsiElement) streamIdNode;
+            LookupElement lookupElement = SiddhiCompletionUtils.createEventTableLookupElement(psiElement);
+            lookupElements.add(lookupElement);
+        }
+        return lookupElements;
+    }
+
+    @NotNull
     private static LookupElement createAttributeNameLookupElement(@NotNull PsiElement element) {
         LookupElementBuilder builder = LookupElementBuilder.create(element.getText())
                 .withTypeText("Attribute Name").withIcon(SiddhiIcons.PROPERTY);

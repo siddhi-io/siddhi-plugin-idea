@@ -172,7 +172,7 @@ partition_final
     ;
 
 partition_with_stream
-    :attribute OF stream_id
+    :attribute OF stream_id //TODO:for here stream id should be suggested via streamIdReference class
     |condition_ranges OF stream_id
     ;
 
@@ -399,7 +399,7 @@ having
 
 query_output
     :INSERT output_event_type? INTO target
-    |DELETE target (FOR output_event_type)? ON expression
+    |DELETE target (FOR output_event_type)? ON expression//TODO:for here only table names should suggest
     |UPDATE OR INSERT INTO target (FOR output_event_type)? set_clause? ON expression
     |UPDATE target (FOR output_event_type)? set_clause? ON expression
     |RETURN output_event_type?

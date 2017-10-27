@@ -35,6 +35,7 @@ import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.references.AttributeNameReference;
 import org.wso2.siddhi.plugins.idea.psi.references.StreamIdReference;
+import org.wso2.siddhi.plugins.idea.psi.references.TargetReference;
 
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_stream_id;
 
@@ -85,18 +86,17 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
     @Override
     public PsiReference getReference() {
         PsiElement parent = getParent();
-        if (PsiTreeUtil.getParentOfType(parent,StreamIdNode.class)!=null &&  PsiTreeUtil.getParentOfType(parent,
-                StandardStreamNode.class)!=null ){
-            return new StreamIdReference(this);
-        }else if (PsiTreeUtil.getParentOfType(parent,StreamIdNode.class)!=null &&  PsiTreeUtil.getParentOfType(parent,
-                BasicSourceNode.class)!=null ) {
-            return new StreamIdReference(this);
-        }else if (PsiTreeUtil.getParentOfType(parent,StreamIdNode.class)!=null &&  PsiTreeUtil.getParentOfType(parent,
-                TargetNode.class)!=null ) {
-            return new StreamIdReference(this);
+        //Do not change the order of the if statements. This order is aligned with the psi tree hierarchy
+        if (PsiTreeUtil.getParentOfType(parent,TargetNode.class)!=null){
+            return new TargetReference(this);
         }else if (PsiTreeUtil.getParentOfType(parent,AttributeNameNode.class)!=null && PsiTreeUtil.getParentOfType
                 (parent,AttributeReferenceNode.class)!=null ) {
             return new AttributeNameReference(this);
+            //TODO:handle this attribute name suggestion for the correct place in the get variants method in the
+            // reference class(only the required ones like in group by etc)
+        }
+        else if (PsiTreeUtil.getParentOfType(parent,StreamIdNode.class)!=null) {
+            return new StreamIdReference(this);
         }
         return null;
     }

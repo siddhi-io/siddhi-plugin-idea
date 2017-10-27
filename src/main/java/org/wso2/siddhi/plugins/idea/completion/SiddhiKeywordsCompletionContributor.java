@@ -221,7 +221,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                                                           PsiElement prevVisibleSibling,IElementType
                                                                   prevVisibleSiblingElementType,PsiElement
                                                                   prevPreVisibleSibling) {
-        //Suggestons related to QueryInputNode
+        //Suggestions related to QueryInputNode
         if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
             if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
                     == SiddhiTypes.FROM) {
@@ -295,7 +295,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 && PsiTreeUtil.getParentOfType(element, GroupByNode.class)!=null){
             addBeginingOfQueryOutputKeywords(result);
             addHavingKeyword(result);
-        }//TODO:restrict attribute name suggestions to only used in the select phrase
+        }
         //Suggestions related to QueryOutputNode
         //suggestions after INSERT keyword
         if (prevVisibleSiblingElementType == SiddhiTypes.INSERT && (PsiTreeUtil.getParentOfType
