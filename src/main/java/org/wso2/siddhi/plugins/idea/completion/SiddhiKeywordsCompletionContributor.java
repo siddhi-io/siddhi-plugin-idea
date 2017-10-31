@@ -49,6 +49,7 @@ import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputRateNode;
 import org.wso2.siddhi.plugins.idea.psi.ParseNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
+import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.psi.SourceNode;
@@ -306,6 +307,14 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             }
             if(elementTypeOfPrevVisibleSiblingOfParent==SiddhiTypes.INSERT){
                 addIntoKeyword(result);
+            }
+        }
+        //Suggestions inside a QueryOutputNode
+        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, QueryOutputNode.class) != null  ){
+            //Suggesting  output event types after RETURN keyword in the QueryOutputNode
+            if(prevVisibleSiblingElementType==SiddhiTypes.RETURN){
+                addOutputEventTypeKeywords(result);
+                return;
             }
         }
     }
