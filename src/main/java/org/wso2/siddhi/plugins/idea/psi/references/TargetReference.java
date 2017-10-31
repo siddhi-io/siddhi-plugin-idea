@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
+import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 import org.wso2.siddhi.plugins.idea.psi.TableDefinitionNode;
 
@@ -51,7 +52,14 @@ public class TargetReference extends SiddhiElementReference {
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
         int caretOffSet=identifier.getTextOffset();
-
+        //Stopping suggestions after output event type in a query. Ex: insert currents events _a --in place a editor
+        // suggests target node names since the psi tree doesn't recognise that the error should be in the into element
+        if(PsiTreeUtil.prevVisibleLeaf(identifier) != null){
+            PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(identifier);
+            if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class)!=null){
+                return new LookupElement[0];
+            }
+        }
         PsiFile psiFile = identifier.getContainingFile();
         List streamIdNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
                 .class).toArray()));

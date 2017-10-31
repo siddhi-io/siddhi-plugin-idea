@@ -237,6 +237,8 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new GroupByNode(node);
             case RULE_time_value:
                 return new TimeValueNode(node);
+            case RULE_update_or_insert_into:
+                return new UpdateOrInsertIntoNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

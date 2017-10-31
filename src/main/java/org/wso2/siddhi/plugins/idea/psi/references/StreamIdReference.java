@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
 import org.wso2.siddhi.plugins.idea.psi.BasicSourceNode;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
-import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
+import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
@@ -50,16 +50,16 @@ public class StreamIdReference extends SiddhiElementReference {
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
         int caretOffSet=identifier.getTextOffset();
-        //Stopping suggestions after output event type in a query.
-        if(PsiTreeUtil.prevVisibleLeaf(identifier) != null){
-            PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(identifier);
-            if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class)!=null){
-                return new LookupElement[0];
-            }
-        }
         //TODO:check(with the grammar file) the actual place that can be applied these stream name
+        /*
+          We suggest stream ids in the following places
+          1. after "from" in a Standard Stream node
+          2. if the parent is a Basic Source node
+          3. after "insert into"(not "update or insert into") clause in the query output node
+        */
         if(PsiTreeUtil.getParentOfType(identifier,StandardStreamNode.class)!=null ||
-                PsiTreeUtil.getParentOfType(identifier, BasicSourceNode.class)!=null) {
+                PsiTreeUtil.getParentOfType(identifier, BasicSourceNode.class)!=null ||
+                PsiTreeUtil.getParentOfType(identifier, QueryOutputNode.class)!=null) {
             PsiFile psiFile = identifier.getContainingFile();
             List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
                     .class).toArray()));

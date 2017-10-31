@@ -400,9 +400,20 @@ having
 query_output
     :INSERT output_event_type? INTO target
     |DELETE target (FOR output_event_type)? ON expression
-    |UPDATE OR INSERT INTO target (FOR output_event_type)? set_clause? ON expression
+    |update_or_insert_into
     |UPDATE target (FOR output_event_type)? set_clause? ON expression
     |RETURN output_event_type?
+    ;
+
+//Newly added rule to help to recognize that the user is typing a update or insert into clause
+update_or_insert_into
+    :update_or_insert_into1
+    ;
+
+//Added a new rule named group_by1(which has the same content previously used in the update_or_insert_into rule) to
+// avoid node collapsing issue in psi tree building
+update_or_insert_into1
+    :UPDATE OR INSERT INTO target (FOR output_event_type)? set_clause? ON expression
     ;
 
 set_clause
