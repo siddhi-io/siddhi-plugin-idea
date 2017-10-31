@@ -19,32 +19,19 @@ package org.wso2.siddhi.plugins.idea.psi.references;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.impl.source.tree.LeafPsiElement;
-import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import jdk.nashorn.internal.ir.IdentNode;
-import org.antlr.jetbrains.adaptor.xpath.XPath;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
-import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
-import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
 import org.wso2.siddhi.plugins.idea.psi.BasicSourceNode;
-import org.wso2.siddhi.plugins.idea.psi.IdNode;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
 import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
-import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class StreamIdReference extends SiddhiElementReference {
 

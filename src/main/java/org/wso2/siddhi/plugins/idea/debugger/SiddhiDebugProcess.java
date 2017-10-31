@@ -251,7 +251,6 @@ public class SiddhiDebugProcess extends XDebugProcess {
 
     @Override
     public void runToPosition(@NotNull XSourcePosition position, @Nullable XSuspendContext context) {
-        // Todo
     }
 
     @Override

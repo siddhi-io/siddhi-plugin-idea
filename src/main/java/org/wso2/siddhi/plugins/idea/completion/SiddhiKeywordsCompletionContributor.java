@@ -79,16 +79,6 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     @Override
     public void fillCompletionVariants(@NotNull CompletionParameters parameters, @NotNull CompletionResultSet result) {
         PsiElement element = parameters.getPosition();
-        PsiElement parent = element.getParent();
-        if (parent instanceof PsiErrorElement) {
-            PsiElement parentOfParent=parent.getParent();
-            if (parentOfParent instanceof DefinitionElementWithExecutionElementNode){
-                //Suggestions after an error element in outer background-this gives suggestions after a '}' in function
-                // definition
-                addInitialTypesAsLookups(result);
-                return;
-            }
-        }
         if (element instanceof LeafPsiElement) {
             IElementType elementType = ((LeafPsiElement) element).getElementType();
             if (elementType == SiddhiTypes.IDENTIFIER && PsiTreeUtil.prevVisibleLeaf(element) == null) { //gives

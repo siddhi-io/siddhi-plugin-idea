@@ -88,11 +88,11 @@ public class AttributeNameReference extends SiddhiElementReference {
                     streamName=deepestVisibleLastElement.getText();
             }
             List streamNodes=Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile,StreamIdNode.class).toArray()));
-            for(int i=0;i<streamNodes.size();i++){
-                PsiElement element=(StreamIdNode)streamNodes.get(i);
-                if(!streamName.equalsIgnoreCase("") && element.getText().equalsIgnoreCase(streamName) && PsiTreeUtil
-                        .getParentOfType(element, StreamDefinitionNode.class)!=null){
-                   StreamDefinitionNode streamDefinitionNode= PsiTreeUtil.getParentOfType(element, StreamDefinitionNode.class);
+            for (Object streamNode : streamNodes) {
+                PsiElement element = (StreamIdNode) streamNode;
+                if (!streamName.equalsIgnoreCase("") && element.getText().equalsIgnoreCase(streamName) && PsiTreeUtil
+                        .getParentOfType(element, StreamDefinitionNode.class) != null) {
+                    StreamDefinitionNode streamDefinitionNode = PsiTreeUtil.getParentOfType(element, StreamDefinitionNode.class);
                     attributeNameNodes = Arrays.asList((PsiTreeUtil.findChildrenOfType(streamDefinitionNode,
                             AttributeNameNode.class).toArray()));
                     break;

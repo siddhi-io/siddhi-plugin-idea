@@ -61,7 +61,6 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
     @NotNull
     public static Collection<? extends VirtualFile> getUserDefinedLibraries(@NotNull Module module) {
         Set<VirtualFile> result = ContainerUtil.newLinkedHashSet();
-        // Todo: Need to add library root urls from module?
         result.addAll(getUserDefinedLibraries(module.getProject()));
         return result;
     }

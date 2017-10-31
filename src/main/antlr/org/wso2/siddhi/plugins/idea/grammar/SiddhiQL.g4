@@ -399,7 +399,7 @@ having
 
 query_output
     :INSERT output_event_type? INTO target
-    |DELETE target (FOR output_event_type)? ON expression//TODO:for here only table names should suggest
+    |DELETE target (FOR output_event_type)? ON expression
     |UPDATE OR INSERT INTO target (FOR output_event_type)? set_clause? ON expression
     |UPDATE target (FOR output_event_type)? set_clause? ON expression
     |RETURN output_event_type?

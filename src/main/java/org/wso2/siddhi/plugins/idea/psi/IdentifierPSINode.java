@@ -92,8 +92,6 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
         }else if (PsiTreeUtil.getParentOfType(parent,AttributeNameNode.class)!=null && PsiTreeUtil.getParentOfType
                 (parent,AttributeReferenceNode.class)!=null ) {
             return new AttributeNameReference(this);
-            //TODO:handle this attribute name suggestion for the correct place in the get variants method in the
-            // reference class(only the required ones like in group by etc)
         }
         else if (PsiTreeUtil.getParentOfType(parent,StreamIdNode.class)!=null) {
             return new StreamIdReference(this);

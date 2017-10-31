@@ -45,5 +45,3 @@ public class AttributeNameNode extends IdentifierDefSubtree {
         };
     }
 }
-
-//TODO: Add item presentation method for all the suitable classes.
