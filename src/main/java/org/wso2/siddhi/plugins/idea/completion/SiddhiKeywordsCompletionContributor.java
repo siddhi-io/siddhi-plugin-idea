@@ -36,6 +36,7 @@ import org.wso2.siddhi.plugins.idea.psi.AttributeReferenceNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.DefinitionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.DefinitionElementWithExecutionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.DeleteFromTableNode;
 import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.ExpressionNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
@@ -54,8 +55,11 @@ import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.psi.SourceNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
+import org.wso2.siddhi.plugins.idea.psi.TargetNode;
 import org.wso2.siddhi.plugins.idea.psi.TimeValueNode;
 import org.wso2.siddhi.plugins.idea.psi.TriggerNameNode;
+import org.wso2.siddhi.plugins.idea.psi.UpdateOrInsertIntoNode;
+import org.wso2.siddhi.plugins.idea.psi.UpdateTableNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAfterATSymbolLookups;
@@ -64,12 +68,15 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addA
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addByKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addDefineTypesAsLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addEveryKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addForKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addHavingKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addInitialTypesAsLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addIntoKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addLanguageTypesKeywords;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOnKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addReturnKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSetKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterSource;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterUnidirectional;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addValueTypesAsLookups;
@@ -311,6 +318,58 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         }
         //Suggestions inside a QueryOutputNode
         if(PsiTreeUtil.getParentOfType(prevVisibleSibling, QueryOutputNode.class) != null  ){
+            //Suggesting keywords related to "delete" in query
+            if(PsiTreeUtil.getParentOfType(element, DeleteFromTableNode.class) != null) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
+                    addForKeyword(result);
+                    addOnKeyword(result);
+                    return;
+                }
+                if (prevVisibleSiblingElementType == SiddhiTypes.FOR) {
+                    addOutputEventTypeKeywords(result);
+                    return;
+                }
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class) != null) {
+                    addOnKeyword(result);
+                    return;
+                }
+            }
+            //suggesting keywords related to "update or insert into" in query
+            if(PsiTreeUtil.getParentOfType(element, UpdateOrInsertIntoNode.class) != null) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
+                    addForKeyword(result);
+                    addOnKeyword(result);
+                    addSetKeyword(result);
+                    return;
+                }
+                if (prevVisibleSiblingElementType == SiddhiTypes.FOR) {
+                    addOutputEventTypeKeywords(result);
+                    return;
+                }
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class) != null) {
+                    addOnKeyword(result);
+                    addSetKeyword(result);
+                    return;
+                }
+            }
+            //suggesting keywords related to "update" in query
+            if(PsiTreeUtil.getParentOfType(element, UpdateTableNode.class) != null) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
+                    addForKeyword(result);
+                    addOnKeyword(result);
+                    addSetKeyword(result);
+                    return;
+                }
+                if (prevVisibleSiblingElementType == SiddhiTypes.FOR) {
+                    addOutputEventTypeKeywords(result);
+                    return;
+                }
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class) != null) {
+                    addOnKeyword(result);
+                    addSetKeyword(result);
+                    return;
+                }
+            }
             //Suggesting  output event types after RETURN keyword in the QueryOutputNode
             if(prevVisibleSiblingElementType==SiddhiTypes.RETURN){
                 addOutputEventTypeKeywords(result);

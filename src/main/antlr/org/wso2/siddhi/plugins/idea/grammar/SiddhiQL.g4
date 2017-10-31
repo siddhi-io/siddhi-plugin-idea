@@ -399,13 +399,13 @@ having
 
 query_output
     :INSERT output_event_type? INTO target
-    |DELETE target (FOR output_event_type)? ON expression
+    |delete_from_table
     |update_or_insert_into
-    |UPDATE target (FOR output_event_type)? set_clause? ON expression
+    |update_table
     |RETURN output_event_type?
     ;
 
-//Newly added rule to help to recognize that the user is typing a update or insert into clause
+//Newly added rule to help to recognize that the user is typing a 'update or insert into' clause
 update_or_insert_into
     :update_or_insert_into1
     ;
@@ -416,12 +416,34 @@ update_or_insert_into1
     :UPDATE OR INSERT INTO target (FOR output_event_type)? set_clause? ON expression
     ;
 
+//Newly added rule to help to recognize that the user is typing a 'delete' clause
+delete_from_table
+    :delete_from_table1
+    ;
+
+//Added a new rule named delete_from_table1(which has the same content previously used in the delete_from_table1 rule) to
+// avoid node collapsing issue in psi tree building
+delete_from_table1
+    :DELETE target (FOR output_event_type)? ON expression
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'update' clause
+update_table
+    :update_table1
+    ;
+
+//Added a new rule named update_table1(which has the same content previously used in the update_table rule) to
+// avoid node collapsing issue in psi tree building
+update_table1
+    :UPDATE target (FOR output_event_type)? set_clause? ON expression
+    ;
+
 set_clause
     : SET set_assignment (',' set_assignment)*
     ;
 
 set_assignment
-    : attribute_reference '=' expression
+    : attribute_reference '=' expression //TODO: Need to improve code suggestions on this
     ;
 
 output_event_type

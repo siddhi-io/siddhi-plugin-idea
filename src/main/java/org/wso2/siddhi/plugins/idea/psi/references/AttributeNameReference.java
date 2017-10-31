@@ -54,6 +54,7 @@ public class AttributeNameReference extends SiddhiElementReference {
         //TODO:resolve attribute types for streams created in the output stream in query output
         //TODO:restrict attribute name suggestions to only used in the select phrase for group by clause
         //TODO:restrict attribute name suggestions to only used in the select phrase
+        //TODO:restrict attribute suggestions in delete,update or insert,update in query output
         IdentifierPSINode identifier = getElement();
         PsiFile psiFile = identifier.getContainingFile();
         //Avoiding suggesting attributes after group keyword

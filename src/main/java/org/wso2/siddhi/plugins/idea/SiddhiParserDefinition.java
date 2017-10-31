@@ -239,6 +239,10 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new TimeValueNode(node);
             case RULE_update_or_insert_into:
                 return new UpdateOrInsertIntoNode(node);
+            case RULE_delete_from_table:
+                return new DeleteFromTableNode(node);
+            case RULE_update_table:
+                return new UpdateTableNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

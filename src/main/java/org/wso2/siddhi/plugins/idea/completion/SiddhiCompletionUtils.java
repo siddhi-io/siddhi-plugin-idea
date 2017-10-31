@@ -159,6 +159,7 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder FULL_OUTER_JOIN;
 
     //Other Keywords
+    private static final LookupElementBuilder SET;
     private static final LookupElementBuilder SELECT;
     private static final LookupElementBuilder GROUP;
     private static final LookupElementBuilder BY;
@@ -346,6 +347,7 @@ public class SiddhiCompletionUtils {
         UPDATE_OR_INSERT_INTO = createKeywordLookupElement("update or insert into");
         UPDATE = createKeywordLookupElement("update");
 
+        SET= createKeywordLookupElement("set");
         EVENTS = createKeywordLookupElement("events");
         INTO = createKeywordLookupElement("into");
         OUTPUT = createKeywordLookupElement("output");
@@ -689,6 +691,18 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, JOIN);
         addKeywordAsLookup(resultSet, ON);
         addKeywordAsLookup(resultSet, WITHIN);
+    }
+
+    static void addForKeyword(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, FOR);
+    }
+
+    static void addOnKeyword(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, ON);
+    }
+
+    static void addSetKeyword(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, SET);
     }
 
     /**
