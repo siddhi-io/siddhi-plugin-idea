@@ -30,9 +30,9 @@ public class Frame {
 
     private BreakPoint location;
 
-    public Frame(String frameName, String fileName){
-        this.frameName=frameName;
-        this.fileName=fileName;
+    public Frame(String frameName, String fileName) {
+        this.frameName = frameName;
+        this.fileName = fileName;
     }
 
     public String getFrameName() {

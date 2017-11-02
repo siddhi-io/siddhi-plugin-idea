@@ -84,7 +84,6 @@ public class SiddhiBlock extends AbstractBlock {
                         indent = Indent.getSpaceIndent(4);
                     }
                 }
-                //TODO:Add more
                 // If the child node text is empty, the IDEA core will throw an exception.
                 if (!child.getText().isEmpty()) {
                     Block block = new SiddhiBlock(
@@ -104,17 +103,14 @@ public class SiddhiBlock extends AbstractBlock {
     }
 
     private static boolean isADefinitionElement(@NotNull final IElementType parentElementType) {
-        //TODO:provide implementation
         return false;
     }
 
     private static boolean isInsideADefinitionElement(@NotNull final IElementType childElementType) {
-        //TODO:provide implementation
         return false;
     }
 
     private static boolean isACodeBlock(@NotNull final IElementType parentElementType) {
-        //TODO:provide implementation
         return false;
     }
 

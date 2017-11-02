@@ -115,8 +115,8 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     return;
                 }
                 //suggestions after an annotation
-                if (prevVisibleSiblingElementType==SiddhiTypes.CLOSE_PAR && (PsiTreeUtil.getParentOfType
-                        (prevVisibleSibling, AppAnnotationNode.class)!= null ||
+                if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && (PsiTreeUtil.getParentOfType
+                        (prevVisibleSibling, AppAnnotationNode.class) != null ||
                         PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationNode.class) != null)) {
                     addInitialTypesAsLookups(result);
                     return;
@@ -136,9 +136,9 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 
                     PsiElement prevPreVisibleSibling = PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling);
                     //Handling suggestions in a query
-                    if(PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
-                        executionElementRelatedKeywordCompletion(result,element,prevVisibleSibling,
-                                prevVisibleSiblingElementType,prevPreVisibleSibling);
+                    if (PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
+                        executionElementRelatedKeywordCompletion(result, element, prevVisibleSibling,
+                                prevVisibleSiblingElementType, prevPreVisibleSibling);
                     }
                     //after AT in a Trigger definition, suggest EVERY keyword
                     if (prevVisibleSiblingElementType == SiddhiTypes.AT && PsiTreeUtil.getParentOfType
@@ -154,7 +154,6 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     //suggestions related to function definition
                     functionDefinitionRelatedKeywordCompletion(result, element, prevPreVisibleSibling,
                             prevVisibleSiblingElementType);
-                    //TODO: add aggregation definition
                 }
                 //Adding suggestions after a comment
                 if (prevVisibleSibling instanceof PsiComment && (prevVisibleSibling.getParent() instanceof SiddhiFile
@@ -216,41 +215,41 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     }
 
     private void executionElementRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
-                                                          PsiElement prevVisibleSibling,IElementType
-                                                                  prevVisibleSiblingElementType,PsiElement
+                                                          PsiElement prevVisibleSibling, IElementType
+                                                                  prevVisibleSiblingElementType, PsiElement
                                                                   prevPreVisibleSibling) {
         //Suggestions related to QueryInputNode
-        if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
+        if (PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
             if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
                     == SiddhiTypes.FROM) {
                 addEveryKeyword(result);
                 return;
             }
-            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ) {
+            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null) {
                 addSuggestionsAfterSource(result);
                 return;
             }
-            if (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL) {
+            if (prevVisibleSiblingElementType == SiddhiTypes.UNIDIRECTIONAL) {
                 addSuggestionsAfterUnidirectional(result);
                 return;
             }
-            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinNode.class) != null ) {
+            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinNode.class) != null) {
                 addEveryKeyword(result);
                 return;
             }
         }
         //Suggestions related to QuerySectionNode
-        if(PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
+        if (PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
             //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) in
             // query_section1 rule
-            if((prevVisibleSiblingElementType!=SiddhiTypes.AS && PsiTreeUtil
-                    .getParentOfType(prevVisibleSibling, OutputAttributeNode.class)!=null) ||
-                    prevVisibleSiblingElementType==SiddhiTypes.STAR){
+            if ((prevVisibleSiblingElementType != SiddhiTypes.AS && PsiTreeUtil
+                    .getParentOfType(prevVisibleSibling, OutputAttributeNode.class) != null) ||
+                    prevVisibleSiblingElementType == SiddhiTypes.STAR) {
                 addBeginingOfQueryOutputKeywords(result);
                 return;
             }
             //suggesting by keyword after group keyword
-            if(prevVisibleSiblingElementType==SiddhiTypes.GROUP){
+            if (prevVisibleSiblingElementType == SiddhiTypes.GROUP) {
                 addByKeyword(result);
             }
         }
@@ -258,10 +257,10 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         //This provides suggestions after ->OUTPUT output_rate_type? EVERY ( time_value) | OUTPUT SNAPSHOT EVERY
         // time_value  in output_rate rule
         IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling).getElementType();
-        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
-                && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class)!=null){
-            PsiElement timeValueNodeElement=PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class);
-            PsiElement prevSiblingOfTimeValueNode= null;
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null
+                && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class) != null) {
+            PsiElement timeValueNodeElement = PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class);
+            PsiElement prevSiblingOfTimeValueNode = null;
             if (timeValueNodeElement != null) {
                 prevSiblingOfTimeValueNode = PsiTreeUtil.prevVisibleLeaf(timeValueNodeElement);
             }
@@ -269,28 +268,28 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             if (prevSiblingOfTimeValueNode != null) {
                 prevSiblingOfTimeValueNodeElementType = ((LeafPsiElement) prevSiblingOfTimeValueNode).getElementType();
             }
-            if(prevSiblingOfTimeValueNodeElementType==SiddhiTypes.EVERY  &&
-                    prevVisibleSiblingElementType!=SiddhiTypes.INT_LITERAL){
+            if (prevSiblingOfTimeValueNodeElementType == SiddhiTypes.EVERY &&
+                    prevVisibleSiblingElementType != SiddhiTypes.INT_LITERAL) {
                 addBeginingOfQueryOutputKeywords(result);
                 return;
             }
         }
         //This provides suggestions after ->OUTPUT output_rate_type? EVERY INT_LITERAL EVENTS in output_rate rule
-        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
-                && prevVisibleSiblingElementType==SiddhiTypes.EVENTS
-                && prevPreVisibleSiblingElementType==SiddhiTypes.INT_LITERAL){
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null
+                && prevVisibleSiblingElementType == SiddhiTypes.EVENTS
+                && prevPreVisibleSiblingElementType == SiddhiTypes.INT_LITERAL) {
             addBeginingOfQueryOutputKeywords(result);
         }
         //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) having in
         // query_section1 rule
-        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, ExpressionNode.class)!=null
-                && PsiTreeUtil.getParentOfType(element, HavingNode.class)!=null){
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, ExpressionNode.class) != null
+                && PsiTreeUtil.getParentOfType(element, HavingNode.class) != null) {
             addBeginingOfQueryOutputKeywords(result);
         }
         //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) group_by in
         // query_section1 rule
-        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeReferenceNode.class)!=null
-                && PsiTreeUtil.getParentOfType(element, GroupByNode.class)!=null){
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeReferenceNode.class) != null
+                && PsiTreeUtil.getParentOfType(element, GroupByNode.class) != null) {
             addBeginingOfQueryOutputKeywords(result);
             addHavingKeyword(result);
         }
@@ -304,22 +303,22 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             addIntoKeyword(result);
         }
         //suggesting INTO keyword after a output event type in a query
-        PsiElement parentOfPrevVisSibling=prevVisibleSibling.getParent();
-        if(parentOfPrevVisSibling instanceof OutputEventTypeNode){
-            PsiElement prevVisibleSiblingOfParent=PsiTreeUtil.prevVisibleLeaf(parentOfPrevVisSibling);
+        PsiElement parentOfPrevVisSibling = prevVisibleSibling.getParent();
+        if (parentOfPrevVisSibling instanceof OutputEventTypeNode) {
+            PsiElement prevVisibleSiblingOfParent = PsiTreeUtil.prevVisibleLeaf(parentOfPrevVisSibling);
             IElementType elementTypeOfPrevVisibleSiblingOfParent = null;
             if (prevVisibleSiblingOfParent != null) {
                 elementTypeOfPrevVisibleSiblingOfParent = ((LeafPsiElement) prevVisibleSiblingOfParent)
                         .getElementType();
             }
-            if(elementTypeOfPrevVisibleSiblingOfParent==SiddhiTypes.INSERT){
+            if (elementTypeOfPrevVisibleSiblingOfParent == SiddhiTypes.INSERT) {
                 addIntoKeyword(result);
             }
         }
         //Suggestions inside a QueryOutputNode
-        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, QueryOutputNode.class) != null  ){
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, QueryOutputNode.class) != null) {
             //Suggesting keywords related to "delete" in query
-            if(PsiTreeUtil.getParentOfType(element, DeleteFromTableNode.class) != null) {
+            if (PsiTreeUtil.getParentOfType(element, DeleteFromTableNode.class) != null) {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
                     addForKeyword(result);
                     addOnKeyword(result);
@@ -335,7 +334,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 }
             }
             //suggesting keywords related to "update or insert into" in query
-            if(PsiTreeUtil.getParentOfType(element, UpdateOrInsertIntoNode.class) != null) {
+            if (PsiTreeUtil.getParentOfType(element, UpdateOrInsertIntoNode.class) != null) {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
                     addForKeyword(result);
                     addOnKeyword(result);
@@ -353,7 +352,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 }
             }
             //suggesting keywords related to "update" in query
-            if(PsiTreeUtil.getParentOfType(element, UpdateTableNode.class) != null) {
+            if (PsiTreeUtil.getParentOfType(element, UpdateTableNode.class) != null) {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
                     addForKeyword(result);
                     addOnKeyword(result);
@@ -371,7 +370,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 }
             }
             //Suggesting  output event types after RETURN keyword in the QueryOutputNode
-            if(prevVisibleSiblingElementType==SiddhiTypes.RETURN){
+            if (prevVisibleSiblingElementType == SiddhiTypes.RETURN) {
                 addOutputEventTypeKeywords(result);
                 return;
             }
@@ -379,14 +378,14 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     }
 
     @Nullable
-    private PsiElement getPreviousVisibleSiblings(int previousPastPositions, @NotNull PsiElement element){
-        PsiElement prevVisibleSibling=element;
+    private PsiElement getPreviousVisibleSiblings(int previousPastPositions, @NotNull PsiElement element) {
+        PsiElement prevVisibleSibling = element;
         try {
             for (int i = 0; i < previousPastPositions; i++) {
                 prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling);
             }
             return prevVisibleSibling;
-        }catch (NullPointerException exception){
+        } catch (NullPointerException exception) {
             return null;
         }
     }

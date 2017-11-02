@@ -60,7 +60,7 @@ public class SiddhiConsoleFilter implements Filter {
     }
 
     public SiddhiConsoleFilter(@NotNull Project project, @Nullable Module module,
-                                  @Nullable String workingDirectoryUrl) {
+                               @Nullable String workingDirectoryUrl) {
         myProject = project;
         myModule = module;
         myWorkingDirectoryUrl = ObjectUtils.chooseNotNull(workingDirectoryUrl,

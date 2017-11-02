@@ -54,7 +54,9 @@ public class WrongModuleTypeNotificationProvider extends EditorNotifications.Pro
 
     @Override
     public EditorNotificationPanel createNotificationPanel(@NotNull VirtualFile file, @NotNull FileEditor fileEditor) {
-        if (file.getFileType() != SiddhiFileType.INSTANCE) return null;
+        if (file.getFileType() != SiddhiFileType.INSTANCE) {
+            return null;
+        }
         Module module = ModuleUtilCore.findModuleForFile(file, myProject);
         SiddhiSdkService.getInstance(myProject);
         return module == null || SiddhiSdkService.isSiddhiModule(module)

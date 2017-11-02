@@ -30,15 +30,15 @@ import java.util.List;
 
 public class SiddhiSuspendContext extends XSuspendContext {
 
-    private static final String DEFAULT_THREAD_ID= "01";
+    private static final String DEFAULT_THREAD_ID = "01";
     @NotNull
     private final SiddhiExecutionStack myStack;
 
     public SiddhiSuspendContext(@NotNull SiddhiDebugProcess process, @NotNull Message message) {
 
-        String fileName=message.getLocation().getFileName();
-        String frameName= message.getQueryName();
-        Frame myFrame=new Frame(frameName,fileName);
+        String fileName = message.getLocation().getFileName();
+        String frameName = message.getQueryName();
+        Frame myFrame = new Frame(frameName, fileName);
         myFrame.setQueryName(message.getQueryName());
         myFrame.setEventInfo(message.getEventInfo());
         myFrame.setLocation(message.getLocation());

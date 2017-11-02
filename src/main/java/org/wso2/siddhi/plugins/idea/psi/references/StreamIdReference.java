@@ -49,17 +49,16 @@ public class StreamIdReference extends SiddhiElementReference {
     @Override
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
-        int caretOffSet=identifier.getTextOffset();
-        //TODO:check(with the grammar file) the actual place that can be applied these stream name
+        int caretOffSet = identifier.getTextOffset();
         /*
           We suggest stream ids in the following places
           1. after "from" in a Standard Stream node
           2. if the parent is a Basic Source node
           3. after "insert into"(not "update or insert into") clause in the query output node
         */
-        if(PsiTreeUtil.getParentOfType(identifier,StandardStreamNode.class)!=null ||
-                PsiTreeUtil.getParentOfType(identifier, BasicSourceNode.class)!=null ||
-                PsiTreeUtil.getParentOfType(identifier, QueryOutputNode.class)!=null) {
+        if (PsiTreeUtil.getParentOfType(identifier, StandardStreamNode.class) != null ||
+                PsiTreeUtil.getParentOfType(identifier, BasicSourceNode.class) != null ||
+                PsiTreeUtil.getParentOfType(identifier, QueryOutputNode.class) != null) {
             PsiFile psiFile = identifier.getContainingFile();
             List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
                     .class).toArray()));

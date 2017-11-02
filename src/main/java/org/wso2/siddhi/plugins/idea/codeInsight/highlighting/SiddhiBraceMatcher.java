@@ -47,7 +47,9 @@ public class SiddhiBraceMatcher implements PairedBraceMatcher {
     @Override
     public int getCodeConstructStart(final PsiFile file, int openingBraceOffset) {
         PsiElement element = file.findElementAt(openingBraceOffset);
-        if (element == null || element instanceof PsiFile) return openingBraceOffset;
+        if (element == null || element instanceof PsiFile) {
+            return openingBraceOffset;
+        }
         PsiElement parent = element.getParent();
         if (parent instanceof PsiCodeBlock) {
             parent = parent.getParent();

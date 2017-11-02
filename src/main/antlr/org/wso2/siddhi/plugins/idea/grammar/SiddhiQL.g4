@@ -172,7 +172,7 @@ partition_final
     ;
 
 partition_with_stream
-    :attribute OF stream_id //TODO:for here stream id should be suggested via streamIdReference class
+    :attribute OF stream_id
     |condition_ranges OF stream_id
     ;
 
@@ -443,7 +443,7 @@ set_clause
     ;
 
 set_assignment
-    : attribute_reference '=' expression //TODO: Need to improve code suggestions on this
+    : attribute_reference '=' expression
     ;
 
 output_event_type

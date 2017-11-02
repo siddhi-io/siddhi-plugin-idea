@@ -45,31 +45,30 @@ public class TargetReference extends SiddhiElementReference {
 
     /**
      * In this method only the table names are filtered and make lookups elements
-     *
      **/
     @NotNull
     @Override
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
-        int caretOffSet=identifier.getTextOffset();
+        int caretOffSet = identifier.getTextOffset();
         //Stopping suggestions after output event type in a query. Ex: insert currents events _a --in place a editor
         // suggests target node names since the psi tree doesn't recognise that the error should be in the into element
-        if(PsiTreeUtil.prevVisibleLeaf(identifier) != null){
+        if (PsiTreeUtil.prevVisibleLeaf(identifier) != null) {
             PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(identifier);
-            if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class)!=null){
+            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class) != null) {
                 return new LookupElement[0];
             }
         }
         PsiFile psiFile = identifier.getContainingFile();
         List streamIdNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
                 .class).toArray()));
-        List<StreamIdNode> tableDefinitionNodesWithoutDuplicates=new ArrayList<>();
-        for ( Object streamIdNode : streamIdNodesWithDuplicates) {
+        List<StreamIdNode> tableDefinitionNodesWithoutDuplicates = new ArrayList<>();
+        for (Object streamIdNode : streamIdNodesWithDuplicates) {
 
-            PsiElement streamIdNodeIdentifier = (StreamIdNode)streamIdNode;
+            PsiElement streamIdNodeIdentifier = (StreamIdNode) streamIdNode;
 
             if (streamIdNodeIdentifier != null
-                    && PsiTreeUtil.getParentOfType(streamIdNodeIdentifier, TableDefinitionNode.class)!=null
+                    && PsiTreeUtil.getParentOfType(streamIdNodeIdentifier, TableDefinitionNode.class) != null
                     && streamIdNodeIdentifier.getTextOffset() < caretOffSet) {
                 tableDefinitionNodesWithoutDuplicates.add((StreamIdNode) streamIdNodeIdentifier);
             }

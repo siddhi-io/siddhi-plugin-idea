@@ -59,7 +59,7 @@ public class BreakPoint {
     }
 
     public BreakPoint(String fileName, int queryIndex, String queryTerminal) {
-        this.fileName=fileName;
+        this.fileName = fileName;
         this.queryIndex = queryIndex;
         this.queryTerminal = queryTerminal;
     }

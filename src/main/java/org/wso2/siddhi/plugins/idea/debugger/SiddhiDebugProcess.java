@@ -91,12 +91,12 @@ public class SiddhiDebugProcess extends XDebugProcess {
 
     private final AtomicBoolean breakpointsInitiated = new AtomicBoolean();
 
-    public SiddhiDebugProcess(@NotNull XDebugSession session,@NotNull String debugFilePath, @NotNull
+    public SiddhiDebugProcess(@NotNull XDebugSession session, @NotNull String debugFilePath, @NotNull
             SiddhiWebSocketConnector connector,
-                                 @Nullable ExecutionResult executionResult) {
+                              @Nullable ExecutionResult executionResult) {
         super(session);
-        mySession=session;
-        myDebugFilePath=debugFilePath;
+        mySession = session;
+        myDebugFilePath = debugFilePath;
         myConnector = connector;
         myProcessHandler = executionResult == null ? super.getProcessHandler() : executionResult.getProcessHandler();
         myExecutionConsole = executionResult == null ? super.createConsole() : executionResult.getExecutionConsole();
@@ -123,7 +123,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     @NotNull
     @Override
     public XBreakpointHandler<?>[] getBreakpointHandlers() {
-        return new XBreakpointHandler[]{myInBreakPointHandler,myOutBreakPointHandler};
+        return new XBreakpointHandler[]{myInBreakPointHandler, myOutBreakPointHandler};
     }
 
     @NotNull
@@ -271,13 +271,13 @@ public class SiddhiDebugProcess extends XDebugProcess {
         String code = message.getCode();
         if (Response.DEBUG_HIT.name().equals(code)) {
             ApplicationManager.getApplication().runReadAction(() -> {
-                int queryIndex=message.getLocation().getQueryIndex();
-                String queryTerminal=message.getLocation().getQueryTerminal();
-                if(queryTerminal.equalsIgnoreCase("in")){
-                    int lineNumber=queryInLinePositions.get(queryIndex);
+                int queryIndex = message.getLocation().getQueryIndex();
+                String queryTerminal = message.getLocation().getQueryTerminal();
+                if (queryTerminal.equalsIgnoreCase("in")) {
+                    int lineNumber = queryInLinePositions.get(queryIndex);
                     message.getLocation().setLineNumber(lineNumber);
-                }else if(queryTerminal.equalsIgnoreCase("out")){
-                    int lineNumber=queryOutLinePositions.get(queryIndex);
+                } else if (queryTerminal.equalsIgnoreCase("out")) {
+                    int lineNumber = queryOutLinePositions.get(queryIndex);
                     message.getLocation().setLineNumber(lineNumber);
                 }
 
@@ -388,11 +388,11 @@ public class SiddhiDebugProcess extends XDebugProcess {
         leftToolbar.remove(ActionManager.getInstance().getAction(XDebuggerActions.PAUSE));
     }
 
-    private final List<Integer> queryInLinePositions=new ArrayList<>();//arrayList Index=>queryIndex value=>Line number
-    private final List<Integer> queryOutLinePositions=new ArrayList<>();//arrayList Index=>queryIndex value=>Line number
+    private final List<Integer> queryInLinePositions = new ArrayList<>();//arrayList Index=>queryIndex value=>Line number
+    private final List<Integer> queryOutLinePositions = new ArrayList<>();//arrayList Index=>queryIndex value=>Line number
 
-    private void setQueryInOutPositions(){
-        File localFile =new File(myDebugFilePath);
+    private void setQueryInOutPositions() {
+        File localFile = new File(myDebugFilePath);
         VirtualFile file = LocalFileSystem.getInstance().findFileByIoFile(localFile);
         ApplicationManager.getApplication().runReadAction(() -> {
             PsiFile psiFile = null;
@@ -442,12 +442,12 @@ public class SiddhiDebugProcess extends XDebugProcess {
                 return;
             }
             VirtualFile file = breakpointPosition.getFile();
-            if(!file.getPath().equalsIgnoreCase(myDebugFilePath)){
+            if (!file.getPath().equalsIgnoreCase(myDebugFilePath)) {
                 return;
             }
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
-            int offset=breakpointPosition.getOffset();
-            PsiElement element= null;
+            int offset = breakpointPosition.getOffset();
+            PsiElement element = null;
             if (psiFile != null) {
                 element = psiFile.findElementAt(offset);
             }
@@ -456,7 +456,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             }
             inBreakpoints.add(breakpoint);
             sendBreakpoints();
-            getSession().updateBreakpointPresentation(breakpoint, AllIcons.Debugger.Db_verified_breakpoint , null);
+            getSession().updateBreakpointPresentation(breakpoint, AllIcons.Debugger.Db_verified_breakpoint, null);
         }
 
         @Override
@@ -470,22 +470,22 @@ public class SiddhiDebugProcess extends XDebugProcess {
             sendRemovedBreakpoint(breakpoint);
         }
 
-        void sendRemovedBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint){
+        void sendRemovedBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
             XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
             if (breakpointPosition == null) {
                 return;
             }
             VirtualFile file = breakpointPosition.getFile();
-            if(!file.getPath().equalsIgnoreCase(myDebugFilePath)){
+            if (!file.getPath().equalsIgnoreCase(myDebugFilePath)) {
                 return;
             }
             int line = breakpointPosition.getLine();
             String name = file.getName();
-            String terminal="IN";
-            int queryIndex=-1;
-            for(int j=0;j<queryInLinePositions.size();j++){
-                if((queryInLinePositions.get(j)-1)==line){
-                    queryIndex=j;
+            String terminal = "IN";
+            int queryIndex = -1;
+            for (int j = 0; j < queryInLinePositions.size(); j++) {
+                if ((queryInLinePositions.get(j) - 1) == line) {
+                    queryIndex = j;
                     break;
                 }
             }
@@ -512,11 +512,11 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         VirtualFile file = breakpointPosition.getFile();
                         int line = breakpointPosition.getLine();
                         String name = file.getName();
-                        String terminal="IN";
-                        int queryIndex=-1;
-                        for(int j=0;j<queryInLinePositions.size();j++){
-                            if((queryInLinePositions.get(j)-1)==line){
-                                queryIndex=j;
+                        String terminal = "IN";
+                        int queryIndex = -1;
+                        for (int j = 0; j < queryInLinePositions.size(); j++) {
+                            if ((queryInLinePositions.get(j) - 1) == line) {
+                                queryIndex = j;
                                 break;
                             }
                         }
@@ -549,13 +549,13 @@ public class SiddhiDebugProcess extends XDebugProcess {
             }
 
             VirtualFile file = breakpointPosition.getFile();
-            if(!file.getPath().equalsIgnoreCase(myDebugFilePath)){
+            if (!file.getPath().equalsIgnoreCase(myDebugFilePath)) {
                 return;
             }
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
 
-            int offset=breakpointPosition.getOffset();
-            PsiElement element= null;
+            int offset = breakpointPosition.getOffset();
+            PsiElement element = null;
             if (psiFile != null) {
                 element = psiFile.findElementAt(offset);
             }
@@ -578,22 +578,22 @@ public class SiddhiDebugProcess extends XDebugProcess {
             sendRemovedBreakpoint(breakpoint);
         }
 
-        void sendRemovedBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint){
+        void sendRemovedBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
             XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
             if (breakpointPosition == null) {
                 return;
             }
             VirtualFile file = breakpointPosition.getFile();
-            if(!file.getPath().equalsIgnoreCase(myDebugFilePath)){
+            if (!file.getPath().equalsIgnoreCase(myDebugFilePath)) {
                 return;
             }
             int line = breakpointPosition.getLine();
             String name = file.getName();
-            String terminal="OUT";
-            int queryIndex=-1;
-            for(int j=0;j<queryOutLinePositions.size();j++){
-                if((queryOutLinePositions.get(j)-1)==line){
-                    queryIndex=j;
+            String terminal = "OUT";
+            int queryIndex = -1;
+            for (int j = 0; j < queryOutLinePositions.size(); j++) {
+                if ((queryOutLinePositions.get(j) - 1) == line) {
+                    queryIndex = j;
                     break;
                 }
             }
@@ -621,11 +621,11 @@ public class SiddhiDebugProcess extends XDebugProcess {
                         VirtualFile file = breakpointPosition.getFile();
                         int line = breakpointPosition.getLine();
                         String name = file.getName();
-                        String terminal="OUT";
-                        int queryIndex=-1;
-                        for(int j=0;j<queryOutLinePositions.size();j++){
-                            if((queryOutLinePositions.get(j)-1)==line){
-                                queryIndex=j;
+                        String terminal = "OUT";
+                        int queryIndex = -1;
+                        for (int j = 0; j < queryOutLinePositions.size(); j++) {
+                            if ((queryOutLinePositions.get(j) - 1) == line) {
+                                queryIndex = j;
                                 break;
                             }
                         }

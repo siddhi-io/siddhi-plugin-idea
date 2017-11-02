@@ -79,8 +79,8 @@ public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConf
     }
 
     private void setConfigurations(@NotNull SiddhiApplicationConfiguration configuration) {
-            // Set the kind to MAIN.
-            configuration.setRunKind(RunConfigurationKind.MAIN);
+        // Set the kind to MAIN.
+        configuration.setRunKind(RunConfigurationKind.MAIN);
     }
 
     @NotNull

@@ -18,7 +18,7 @@ package org.wso2.siddhi.plugins.idea.debugger.protocol;
 
 public enum Command {
 
-    START("START"), STOP("STOP"), SET_POINTS("SET_POINTS"), STEP_OVER("STEP_OVER"), RESUME("RESUME") ,CMD_SEND_EVENT
+    START("START"), STOP("STOP"), SET_POINTS("SET_POINTS"), STEP_OVER("STEP_OVER"), RESUME("RESUME"), CMD_SEND_EVENT
             ("SEND_EVENT"), REMOVE_BREAKPOINT("REMOVE_BREAKPOINT");
 
     private String myCommand;

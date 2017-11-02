@@ -31,7 +31,6 @@ import java.util.Map;
 public class SiddhiColorSettingsPage implements ColorSettingsPage {
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
-            //TODO: add more attributes--Other types like <,> ...
             new AttributesDescriptor("Keywords", SiddhiSyntaxHighlightingColors.KEYWORD),
             new AttributesDescriptor("Strings", SiddhiSyntaxHighlightingColors.STRING),
             new AttributesDescriptor("Comments", SiddhiSyntaxHighlightingColors.LINE_COMMENT),

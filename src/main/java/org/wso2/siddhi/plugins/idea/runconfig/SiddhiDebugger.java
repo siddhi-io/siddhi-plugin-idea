@@ -46,6 +46,7 @@ import java.net.ServerSocket;
 public class SiddhiDebugger extends GenericProgramRunner {
 
     private static final String ID = "SiddhiDebugger";
+
     @NotNull
     @Override
     public String getRunnerId() {
@@ -64,7 +65,7 @@ public class SiddhiDebugger extends GenericProgramRunner {
         if (state instanceof SiddhiApplicationRunningState) {
             FileDocumentManager.getInstance().saveAllDocuments();
             SiddhiHistoryProcessListener historyProcessListener = new SiddhiHistoryProcessListener();
-            String debugFilePath=((SiddhiApplicationRunningState) state).myConfiguration.getFilePath();
+            String debugFilePath = ((SiddhiApplicationRunningState) state).myConfiguration.getFilePath();
             int port = findFreePort();
 
             FileDocumentManager.getInstance().saveAllDocuments();
@@ -80,12 +81,12 @@ public class SiddhiDebugger extends GenericProgramRunner {
                     String address = NetUtils.getLocalHostString() + ":" + port;
                     // Create a new connector. This will be used to communicate with the debugger.
                     SiddhiWebSocketConnector siddhiDebugSession = new SiddhiWebSocketConnector(address);
-                    return new SiddhiDebugProcess(session,debugFilePath, siddhiDebugSession, getExecutionResults
+                    return new SiddhiDebugProcess(session, debugFilePath, siddhiDebugSession, getExecutionResults
                             (state, env));
                 }
             }).getRunContentDescriptor();
         } else if (state instanceof SiddhiRemoteRunningState) {
-            String debugFilePath=((SiddhiRemoteRunningState) state).myConfiguration.getFilePath();
+            String debugFilePath = ((SiddhiRemoteRunningState) state).myConfiguration.getFilePath();
             if (debugFilePath.isEmpty()) {
                 throw new ExecutionException("Please specify the current debug file path in run/debug configurations");
             }
@@ -102,7 +103,7 @@ public class SiddhiDebugger extends GenericProgramRunner {
                     }
                     // Create a new connector. This will be used to communicate with the debugger.
                     SiddhiWebSocketConnector siddhiDebugSession = new SiddhiWebSocketConnector(address);
-                    return new SiddhiDebugProcess(session,debugFilePath, siddhiDebugSession, null);
+                    return new SiddhiDebugProcess(session, debugFilePath, siddhiDebugSession, null);
                 }
             }).getRunContentDescriptor();
         }
