@@ -5,7 +5,7 @@
 
 1) Clone the siddi-sdk using 
 ```
-git clone https://github.com/RAVEENSR/siddhi-sdk.git
+git clone https://github.com/wso2/siddhi-sdk.git
 ```
 
 2) Build the siddhi-sdk using 
@@ -17,7 +17,7 @@ Now the siddhi-sdk-1.0.0-SNAPSHOT.zip zip file will be created in the siddhi-sdk
 
 3) Clone the plugin using 
 ```
-git clone --recursive https://github.com/RAVEENSR/Siddhi-Intellij-Plugin.git
+git clone --recursive https://github.com/wso2/siddhi-plugin-idea.git
 ```
 
 4) Install latest version of Gradle if you don't have it installed already.
