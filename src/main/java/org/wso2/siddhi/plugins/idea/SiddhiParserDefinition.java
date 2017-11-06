@@ -243,6 +243,32 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new DeleteFromTableNode(node);
             case RULE_update_table:
                 return new UpdateTableNode(node);
+            case RULE_basic_source_stream_handlers:
+                return new BasicSourceStreamHandlersNode(node);
+            case RULE_basic_source_stream_handler:
+                return new BasicSourceStreamHandlerNode(node);
+            case RULE_stream_function:
+                return new StreamFunctionNode(node);
+            case RULE_function_id:
+                return new FunctionIdNode(node);
+            case RULE_window:
+                return new WindowNode(node);
+            case RULE_filter:
+                return new FilterNode(node);
+            case RULE_per:
+                return new PerNode(node);
+            case RULE_null_check:
+                return new NullCheckNode(node);
+            case RULE_right_source:
+                return new RightSourceNode(node);
+            case RULE_normal_join:
+                return new NormalJoinNode(node);
+            case RULE_on_with_expression:
+                return new OnWithExpressionNode(node);
+            case RULE_left_unidirectional_join:
+                return new LeftUnidirectionalJoinNode(node);
+            case RULE_right_unidirectional_join:
+                return new RightUnidirectionalJoinNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

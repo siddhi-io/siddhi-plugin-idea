@@ -195,15 +195,45 @@ query
 query_input
     : (standard_stream|join_stream|pattern_stream|sequence_stream|anonymous_stream)
     ;
-
+//Added a new rule named standard_stream1(which has the same content previously used in the query_section rule) to avoid
+//node collapsing issue in psi tree building
 standard_stream
+    : standard_stream1
+    ;
+
+standard_stream1
     : source pre_window_handlers=basic_source_stream_handlers? window? post_window_handlers=basic_source_stream_handlers?
     ;
 
 join_stream
-    :left_source=join_source join right_source=join_source right_unidirectional=UNIDIRECTIONAL (ON expression)? (within_time_range per)?
-    |left_source=join_source join right_source=join_source (ON expression)? (within_time_range per)?
-    |left_source=join_source left_unidirectional=UNIDIRECTIONAL join right_source=join_source (ON expression)? (within_time_range per)?
+    :right_unidirectional_join
+    |normal_join
+    |left_unidirectional_join
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'right unidirectional join' clause
+right_unidirectional_join
+    :left_source=join_source join right_source right_unidirectional=UNIDIRECTIONAL on_with_expression? (within_time_range per)?
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'left unidirectional join' clause
+left_unidirectional_join
+    :left_source=join_source left_unidirectional=UNIDIRECTIONAL join right_source (ON expression)? (within_time_range per)??
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'normal join' clause
+normal_join
+    :left_source=join_source join right_source on_with_expression?? (within_time_range per)?
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'right source' clause
+right_source
+    :join_source
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'ON expression' clause
+on_with_expression
+    :ON expression
     ;
 
 join_source
@@ -490,14 +520,34 @@ expression
     ;
 
 
+//math_operation
+//    :math_operation1
+//    ;
+
+//math_operation
+//    :'('math_operation1')'                         #basic_math_operation
+//    |null_check                                   #basic_math_operation
+//    |NOT math_operation1                           #not_math_operation
+//    |math_operation1 (multiply='*'|devide='/'|mod='%') math_operation1    #multiplication_math_operation
+//    |math_operation1 (add='+'|substract='-') math_operation1              #addition_math_operation
+//    |math_operation1 (gt_eq='>='|lt_eq='<='|gt='>'|lt='<') math_operation1 #greaterthan_lessthan_math_operation
+//    |math_operation1 (eq='=='|not_eq='!=') math_operation1                #equality_math_operation
+//    |math_operation1 IN name                       #in_math_operation
+//    |math_operation1 AND math_operation1            #and_math_operation
+//    |math_operation1 OR math_operation1             #or_math_operation
+//    |function_operation                           #basic_math_operation
+//    |constant_value                               #basic_math_operation
+//    |attribute_reference                          #basic_math_operation
+//    ;
+
 math_operation
     :'('math_operation')'                         #basic_math_operation
     |null_check                                   #basic_math_operation
     |NOT math_operation                           #not_math_operation
-    |math_operation (multiply='*'|devide='/'|mod='%') math_operation    #multiplication_math_operation
-    |math_operation (add='+'|substract='-') math_operation              #addition_math_operation
+    |math_operation (multiply='*'|devide='/'|mod='%') math_operation     #multiplication_math_operation
+    |math_operation (add='+'|substract='-') math_operation               #addition_math_operation
     |math_operation (gt_eq='>='|lt_eq='<='|gt='>'|lt='<') math_operation #greaterthan_lessthan_math_operation
-    |math_operation (eq='=='|not_eq='!=') math_operation                #equality_math_operation
+    |math_operation (eq='=='|not_eq='!=') math_operation                 #equality_math_operation
     |math_operation IN name                       #in_math_operation
     |math_operation AND math_operation            #and_math_operation
     |math_operation OR math_operation             #or_math_operation

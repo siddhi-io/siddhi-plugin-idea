@@ -687,6 +687,16 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, UPDATE);
     }
 
+    static void addSuggestionsAfterQueryInput(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, SELECT);
+        addKeywordAsLookup(resultSet, OUTPUT);
+        addKeywordAsLookup(resultSet, INSERT);
+        addKeywordAsLookup(resultSet, DELETE);
+        addKeywordAsLookup(resultSet,UPDATE_OR_INSERT_INTO);
+        addKeywordAsLookup(resultSet, UPDATE);
+        addKeywordAsLookup(resultSet,RETURN);
+    }
+
     static void addSuggestionsAfterUnidirectional(@NotNull CompletionResultSet resultSet){
         addKeywordAsLookup(resultSet, JOIN);
         addKeywordAsLookup(resultSet, ON);

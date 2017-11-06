@@ -34,6 +34,8 @@ import org.wso2.siddhi.plugins.idea.psi.AppAnnotationNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeReferenceNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeTypeNode;
+import org.wso2.siddhi.plugins.idea.psi.BasicSourceStreamHandlerNode;
+import org.wso2.siddhi.plugins.idea.psi.ConstantValueNode;
 import org.wso2.siddhi.plugins.idea.psi.DefinitionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.DefinitionElementWithExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.DeleteFromTableNode;
@@ -41,19 +43,31 @@ import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.ExpressionNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionNameNode;
+import org.wso2.siddhi.plugins.idea.psi.FunctionOperationNode;
 import org.wso2.siddhi.plugins.idea.psi.GroupByNode;
 import org.wso2.siddhi.plugins.idea.psi.HavingNode;
 import org.wso2.siddhi.plugins.idea.psi.JoinNode;
+import org.wso2.siddhi.plugins.idea.psi.JoinStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
+import org.wso2.siddhi.plugins.idea.psi.LeftUnidirectionalJoinNode;
+import org.wso2.siddhi.plugins.idea.psi.MathOperationNode;
+import org.wso2.siddhi.plugins.idea.psi.NameNode;
+import org.wso2.siddhi.plugins.idea.psi.NormalJoinNode;
+import org.wso2.siddhi.plugins.idea.psi.NullCheckNode;
+import org.wso2.siddhi.plugins.idea.psi.OnWithExpressionNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputAttributeNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputRateNode;
 import org.wso2.siddhi.plugins.idea.psi.ParseNode;
+import org.wso2.siddhi.plugins.idea.psi.PerNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
+import org.wso2.siddhi.plugins.idea.psi.RightSourceNode;
+import org.wso2.siddhi.plugins.idea.psi.RightUnidirectionalJoinNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.psi.SourceNode;
+import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 import org.wso2.siddhi.plugins.idea.psi.TargetNode;
 import org.wso2.siddhi.plugins.idea.psi.TimeValueNode;
@@ -61,6 +75,7 @@ import org.wso2.siddhi.plugins.idea.psi.TriggerNameNode;
 import org.wso2.siddhi.plugins.idea.psi.UpdateOrInsertIntoNode;
 import org.wso2.siddhi.plugins.idea.psi.UpdateTableNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.WindowNode;
 
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAfterATSymbolLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addBeginingOfQueryOutputKeywords;
@@ -77,6 +92,7 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addO
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addReturnKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSetKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterQueryInput;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterSource;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterUnidirectional;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addValueTypesAsLookups;
@@ -220,23 +236,58 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                                                                   prevVisibleSiblingElementType,PsiElement
                                                                   prevPreVisibleSibling) {
         //Suggestions related to QueryInputNode
+//        if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
+//            if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
+//                    == SiddhiTypes.FROM) {
+//                addEveryKeyword(result);
+//                return;
+//            }
+//            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ) {
+//                addSuggestionsAfterSource(result);
+//                return;//TODO:check this
+//            }
+//            if (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL) {
+//                addSuggestionsAfterUnidirectional(result);
+//                return;
+//            }
+//            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinNode.class) != null ) {
+//                addEveryKeyword(result);
+//                return;
+//            }
+//        }
+        //suggesting keywords in the beginning of a query_section rule
         if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
-            if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
-                    == SiddhiTypes.FROM) {
-                addEveryKeyword(result);
-                return;
+            //suggestions after a standard stream node
+            if(PsiTreeUtil.getParentOfType(prevVisibleSibling, StandardStreamNode.class) != null){
+                if(PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ||
+                        PsiTreeUtil.getParentOfType(prevVisibleSibling, BasicSourceStreamHandlerNode.class) != null||
+                        PsiTreeUtil.getParentOfType(prevVisibleSibling, WindowNode.class) != null){
+                    addSuggestionsAfterQueryInput(result);
+                    return;
+                }
             }
-            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ) {
-                addSuggestionsAfterSource(result);
-                return;
-            }
-            if (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL) {
-                addSuggestionsAfterUnidirectional(result);
-                return;
-            }
-            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinNode.class) != null ) {
-                addEveryKeyword(result);
-                return;
+            //suggestions after a join stream node
+            if(PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinStreamNode.class) != null){
+                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, RightUnidirectionalJoinNode.class) != null) &&
+                        prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL){
+                    addSuggestionsAfterQueryInput(result);
+                }
+                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, LeftUnidirectionalJoinNode.class) != null) &&
+                        (PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null)){
+                    addSuggestionsAfterQueryInput(result);
+                }
+                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, OnWithExpressionNode.class) != null) &&
+                         isExpression(prevVisibleSibling)){
+                    addSuggestionsAfterQueryInput(result);
+                }
+                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, PerNode.class) != null) &&
+                        isExpression(prevVisibleSibling)){
+                    addSuggestionsAfterQueryInput(result);
+                }
+                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, NormalJoinNode.class) != null) &&
+                        (PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null)){
+                    addSuggestionsAfterQueryInput(result);
+                }
             }
         }
         //Suggestions related to QuerySectionNode
@@ -389,5 +440,26 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         }catch (NullPointerException exception){
             return null;
         }
+    }
+
+    private Boolean isExpression(@NotNull PsiElement element){
+        if(PsiTreeUtil.getParentOfType(element, ExpressionNode.class) != null){
+            if(PsiTreeUtil.getParentOfType(element, MathOperationNode.class) != null ||
+                    PsiTreeUtil.getParentOfType(element, NullCheckNode.class) != null ||
+                    PsiTreeUtil.getParentOfType(element, NameNode.class) != null ||
+                    PsiTreeUtil.getParentOfType(element, AttributeReferenceNode.class) != null ||
+                    PsiTreeUtil.getParentOfType(element, ConstantValueNode.class) != null ||
+                    PsiTreeUtil.getParentOfType(element, FunctionOperationNode.class) != null) {
+                return true;
+            }else{
+                PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
+                IElementType elementType = ((LeafPsiElement) element).getElementType();
+                if(elementType == SiddhiTypes.CLOSE_PAR
+                        && PsiTreeUtil.getParentOfType(prevVisibleSibling,MathOperationNode.class) != null ){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
