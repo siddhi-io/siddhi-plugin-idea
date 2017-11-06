@@ -65,6 +65,7 @@ import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
 import org.wso2.siddhi.plugins.idea.psi.RightSourceNode;
 import org.wso2.siddhi.plugins.idea.psi.RightUnidirectionalJoinNode;
+import org.wso2.siddhi.plugins.idea.psi.SiddhiAppNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.psi.SourceNode;
 import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
@@ -174,9 +175,9 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 }
                 //Adding suggestions after a comment
                 if (prevVisibleSibling instanceof PsiComment && (prevVisibleSibling.getParent() instanceof SiddhiFile
-                        || prevVisibleSibling.getParent() instanceof ParseNode || ((prevVisibleSibling.getParent()
-                        instanceof PsiErrorElement) && prevVisibleSibling.getParent().getParent() instanceof
-                        SiddhiFile))) {
+                        || prevVisibleSibling.getParent() instanceof ParseNode
+                        || prevVisibleSibling.getParent().getParent() instanceof ParseNode
+                        || prevVisibleSibling.getParent() instanceof SiddhiAppNode)) {
                     addInitialTypesAsLookups(result);
                 }
             }
