@@ -195,6 +195,7 @@ query
 query_input
     : (standard_stream|join_stream|pattern_stream|sequence_stream|anonymous_stream)
     ;
+
 //Added a new rule named standard_stream1(which has the same content previously used in the query_section rule) to avoid
 //node collapsing issue in psi tree building
 standard_stream
@@ -202,7 +203,17 @@ standard_stream
     ;
 
 standard_stream1
-    : source pre_window_handlers=basic_source_stream_handlers? window? post_window_handlers=basic_source_stream_handlers?
+    : source pre_window_handlers? window? post_window_handlers?//TODO:check the # symbol issue in here
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'pre window handler' clause
+pre_window_handlers
+    :basic_source_stream_handlers
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'post window handler' clause
+post_window_handlers
+    :basic_source_stream_handlers
     ;
 
 join_stream

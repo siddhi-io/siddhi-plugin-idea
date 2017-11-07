@@ -60,6 +60,7 @@ import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputRateNode;
 import org.wso2.siddhi.plugins.idea.psi.ParseNode;
 import org.wso2.siddhi.plugins.idea.psi.PerNode;
+import org.wso2.siddhi.plugins.idea.psi.PreWindowHandlerNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
@@ -84,6 +85,7 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addA
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addByKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addDefineTypesAsLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addEveryKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addFilterSuggestion;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addForKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addHavingKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addInitialTypesAsLookups;
@@ -93,11 +95,13 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addO
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addReturnKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSetKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addStreamFunctions;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterQueryInput;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterSource;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterUnidirectional;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addValueTypesAsLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWindowProcessorTypesAsLookups;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWindowTypesWithWindowKeyword;
 
 public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 
@@ -237,16 +241,36 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                                                                   prevVisibleSiblingElementType,PsiElement
                                                                   prevPreVisibleSibling) {
         //Suggestions related to QueryInputNode
-//        if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
-//            if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
-//                    == SiddhiTypes.FROM) {
-//                addEveryKeyword(result);
-//                return;
-//            }
-//            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ) {
-//                addSuggestionsAfterSource(result);
-//                return;//TODO:check this
-//            }
+        if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
+            if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
+                    == SiddhiTypes.FROM) {
+                addEveryKeyword(result);
+                return;
+            }
+            //Suggestions related to Standard stream
+            if (PsiTreeUtil.getParentOfType(element, StandardStreamNode.class) != null) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ) {
+                    //addSuggestionsAfterSource(result);
+                    addWindowTypesWithWindowKeyword(result);
+                    addStreamFunctions(result);
+                    addFilterSuggestion(result);
+                    addSuggestionsAfterQueryInput(result);
+                    return;
+                }
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, PreWindowHandlerNode.class) != null ) {
+                    addWindowTypesWithWindowKeyword(result);
+                    addStreamFunctions(result);
+                    addFilterSuggestion(result);
+                    addSuggestionsAfterQueryInput(result);
+                    return;
+                }
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, WindowNode.class) != null ) {
+                    addStreamFunctions(result);
+                    addFilterSuggestion(result);
+                    addSuggestionsAfterQueryInput(result);
+                    return;
+                }
+            }
 //            if (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL) {
 //                addSuggestionsAfterUnidirectional(result);
 //                return;
@@ -255,7 +279,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 //                addEveryKeyword(result);
 //                return;
 //            }
-//        }
+        }
         //suggesting keywords in the beginning of a query_section rule
         if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
             //suggestions after a standard stream node

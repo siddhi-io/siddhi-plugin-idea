@@ -269,6 +269,10 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new LeftUnidirectionalJoinNode(node);
             case RULE_right_unidirectional_join:
                 return new RightUnidirectionalJoinNode(node);
+            case RULE_pre_window_handlers:
+                return new PreWindowHandlerNode(node);
+            case RULE_post_window_handlers:
+                return new PostWindowHandlerNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

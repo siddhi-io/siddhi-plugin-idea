@@ -135,7 +135,7 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder EVERY;
     private static final LookupElementBuilder AT;
 
-    //Window Processor Code Snippets
+    //Window Processor Code Snippets without window keyword
     private static final LookupElementBuilder LENGTH;
     private static final LookupElementBuilder LENGTHBATCH;
     private static final LookupElementBuilder SORT;
@@ -148,6 +148,19 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder TIMELENGTH;
     private static final LookupElementBuilder EXTERNALTIME;
 
+    //Window Processor Code Snippets with window keyword
+    private static final LookupElementBuilder LENGTH_WITH_WINDOW;
+    private static final LookupElementBuilder LENGTHBATCH_WITH_WINDOW;
+    private static final LookupElementBuilder SORT_WITH_WINDOW;
+    private static final LookupElementBuilder EXTERNALTIMEBATCH_WITH_WINDOW;
+    private static final LookupElementBuilder TIME_WITH_WINDOW;
+    private static final LookupElementBuilder FREQUENT_WITH_WINDOW;
+    private static final LookupElementBuilder LOSSYFREQUENT_WITH_WINDOW;
+    private static final LookupElementBuilder TIMEBATCH_WITH_WINDOW;
+    private static final LookupElementBuilder CRON_WITH_WINDOW;
+    private static final LookupElementBuilder TIMELENGTH_WITH_WINDOW;
+    private static final LookupElementBuilder EXTERNALTIME_WITH_WINDOW;
+
     //Language type keywords
     private static final LookupElementBuilder JAVASCRIPT;
     private static final LookupElementBuilder SCALA;
@@ -157,6 +170,12 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder LEFT_OUTER_JOIN;
     private static final LookupElementBuilder RIGHT_OUTER_JOIN;
     private static final LookupElementBuilder FULL_OUTER_JOIN;
+
+    //Expression
+    private static final LookupElementBuilder EXPRESSION_WITH_HASH;
+    private static final LookupElementBuilder EXPRESSION_WITHOUT_HASH;
+    //Siddhi Log
+    private static final LookupElementBuilder LOG;
 
     //Other Keywords
     private static final LookupElementBuilder SET;
@@ -288,22 +307,22 @@ public class SiddhiCompletionUtils {
         ANNOTATION_INFO=createDefineSnippetTypeLookupElement("@info(name = \"Stream_ID\")",null)
                 .withPresentableText("annotation-Info");
 
-        ANNOTATION_SINK2=createLookupElement("sink(type='sink_type', option_key='option_value', ...)",null);
-        ANNOTATION_SOURCE2=createLookupElement("source(type='source_type', option_key='option_value', ...) ",null);
-        ANNOTATION_CONFIG_SNIIP2=createLookupElement("config(async = 'true')",null);
-        ANNOTATION_EXPORTSTREAM2=createLookupElement("Export(\"Stream_ID\")",null);
-        ANNOTATION_IMPORTSTREAM2=createLookupElement("Import(\"Stream_ID\")",null);
-        ANNOTATION_PLANTRACE2=createLookupElement("App:Trace(\"Plan_Trace\")",null);
-        ANNOTATION_PLANSTATS2=createLookupElement("App:Statistics(\"Plan_Statistics\")",null);
-        ANNOTATION_PLANDESC2=createLookupElement("App:Description(\"Plan_Description\")",null);
-        ANNOTATION_PLANNAME2=createLookupElement("App:name(\"Plan_Name\")",null);
-        ANNOTATION_PRIMARYKEY2=createLookupElement("PrimaryKey('attribute_name')",null);
-        ANNOTATION_INDEX2=createLookupElement("Index('attribute_name')",null);
-        ANNOTATION_INFO2=createLookupElement("info(name = \"Stream_ID\")",null);
-        ANNOTATION_MAP=createLookupElement("map(type='map_type', option_key='option_value', ...)",null);
-        ANNOTATION_ATTRIBUTES=createLookupElement("attributes('attribute_mapping_a', " +
+        ANNOTATION_SINK2=createDefineSnippetTypeLookupElement("sink(type='sink_type', option_key='option_value', ...)",null);
+        ANNOTATION_SOURCE2=createDefineSnippetTypeLookupElement("source(type='source_type', option_key='option_value', ...) ",null);
+        ANNOTATION_CONFIG_SNIIP2=createDefineSnippetTypeLookupElement("config(async = 'true')",null);
+        ANNOTATION_EXPORTSTREAM2=createDefineSnippetTypeLookupElement("Export(\"Stream_ID\")",null);
+        ANNOTATION_IMPORTSTREAM2=createDefineSnippetTypeLookupElement("Import(\"Stream_ID\")",null);
+        ANNOTATION_PLANTRACE2=createDefineSnippetTypeLookupElement("App:Trace(\"Plan_Trace\")",null);
+        ANNOTATION_PLANSTATS2=createDefineSnippetTypeLookupElement("App:Statistics(\"Plan_Statistics\")",null);
+        ANNOTATION_PLANDESC2=createDefineSnippetTypeLookupElement("App:Description(\"Plan_Description\")",null);
+        ANNOTATION_PLANNAME2=createDefineSnippetTypeLookupElement("App:name(\"Plan_Name\")",null);
+        ANNOTATION_PRIMARYKEY2=createDefineSnippetTypeLookupElement("PrimaryKey('attribute_name')",null);
+        ANNOTATION_INDEX2=createDefineSnippetTypeLookupElement("Index('attribute_name')",null);
+        ANNOTATION_INFO2=createDefineSnippetTypeLookupElement("info(name = \"Stream_ID\")",null);
+        ANNOTATION_MAP=createDefineSnippetTypeLookupElement("map(type='map_type', option_key='option_value', ...)",null);
+        ANNOTATION_ATTRIBUTES=createDefineSnippetTypeLookupElement("attributes('attribute_mapping_a', " +
                 "'attribute_mapping_b') ",null);
-        ANNOTATION_PAYLOARD=createLookupElement("payload(type='payload_string')",null);
+        ANNOTATION_PAYLOARD=createDefineSnippetTypeLookupElement("payload(type='payload_string')",null);
 
         STREAM = createKeywordLookupElement("stream");
         TABLE = createKeywordLookupElement("table");
@@ -368,6 +387,13 @@ public class SiddhiCompletionUtils {
         RIGHT_OUTER_JOIN=createKeywordLookupElement("right outer join");
         FULL_OUTER_JOIN=createKeywordLookupElement("full outer join");
 
+        EXPRESSION_WITH_HASH=createLookupElementWithCustomTypeText("#[\"enter your expression here\"]",null,
+                "expression").withPresentableText("#expression");
+        EXPRESSION_WITHOUT_HASH=createLookupElementWithCustomTypeText("[\"enter your expression here\"]",null,
+                "expression").withPresentableText("expression");
+        LOG=createLookupElementWithCustomTypeText("#log(priority, log.message, is.event.logged)",null,"stream " +
+                "processor").withPresentableText("log()");
+
         LAST = createKeywordLookupElement("last");
         FIRST = createKeywordLookupElement("first");
         JOIN = createKeywordLookupElement("join");
@@ -394,6 +420,7 @@ public class SiddhiCompletionUtils {
         BOOL = createDataTypeLookupElement("bool", null);
         OBJECT = createDataTypeLookupElement("object", null);
 
+        //window types snippets without window keyword
         LENGTH = createWindowProcessorTypeLookupElement("length(window.length)", null)
                 .withPresentableText("length");
         LENGTHBATCH = createWindowProcessorTypeLookupElement("lengthBatch(window.length)", null)
@@ -416,6 +443,30 @@ public class SiddhiCompletionUtils {
                 null).withPresentableText("timeLength");
         EXTERNALTIME = createWindowProcessorTypeLookupElement("externalTime(window.time)", null)
                 .withPresentableText("externalTime");
+
+        //window types snippets with window keyword
+        LENGTH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.length(window.length)", null)
+                .withPresentableText("length window");
+        LENGTHBATCH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.lengthBatch(window.length)", null)
+                .withPresentableText("lengthBatch window");
+        SORT_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.sort(window.length, attribute, order)", null)
+                .withPresentableText("sort window");
+        EXTERNALTIMEBATCH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.externalTimeBatch(timestamp, window.time, start" +
+                ".time, timeout)", null).withPresentableText("externalTimeBatch window");
+        TIME_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.time(window.time)", null)
+                .withPresentableText("time window");
+        FREQUENT_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.frequent(event.count, attribute)", null)
+                .withPresentableText("frequent window");
+        LOSSYFREQUENT_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.lossyFrequent(support.threshold, error.bound, " +
+                "attribute)", null).withPresentableText("lossyFrequent window");
+        TIMEBATCH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.timeBatch(window.time, start.time)",
+                null).withPresentableText("timeBatch window");
+        CRON_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.cron(cron.expression)", null)
+                .withPresentableText("cron window");
+        TIMELENGTH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.timeLength(window.time, window.length)",
+                null).withPresentableText("timeLength window");
+        EXTERNALTIME_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.externalTime(window.time)", null)
+                .withPresentableText("externalTime window");
     }
 
     private SiddhiCompletionUtils() {
@@ -425,7 +476,7 @@ public class SiddhiCompletionUtils {
     /**
      * Creates a lookup element.
      *
-     * @param name          name of the lookup
+     * @param name name of the lookup
      * @param insertHandler insert handler of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
@@ -508,7 +559,7 @@ public class SiddhiCompletionUtils {
     /**
      * Creates a <b>Type</b> lookup element.
      *
-     * @param name          of the lookup
+     * @param name  of the lookup
      * @param insertHandler insert handler of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
@@ -517,6 +568,22 @@ public class SiddhiCompletionUtils {
                                                                                @Nullable InsertHandler<LookupElement>
                                                                                        insertHandler) {
         return createLookupElement(name, insertHandler).withTypeText("Snippet");
+    }
+
+    /**
+     * Creates a <b>Type</b> lookup element with a user given Type Text.
+     *
+     * @param name of the lookup
+     * @param insertHandler insert handler of the lookup
+     * @param text string which needed to be shown as type text
+     * @return {@link LookupElementBuilder} which will be used to create the lookup element.
+     */
+    @NotNull
+    private static LookupElementBuilder createLookupElementWithCustomTypeText(@NotNull String name,
+                                                                             @Nullable InsertHandler<LookupElement>
+                                                                                     insertHandler,@NotNull String
+                                                                                          text) {
+        return createLookupElement(name, insertHandler).withTypeText(text);
     }
 
 
@@ -671,20 +738,37 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, SCALA);
     }
 
+    static void addFilterSuggestion(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, EXPRESSION_WITH_HASH);
+        addKeywordAsLookup(resultSet, EXPRESSION_WITHOUT_HASH);
+    }
+
+    static void addStreamFunctions(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, LOG);
+    }
+
+    static void addWindowTypesWithWindowKeyword(@NotNull CompletionResultSet resultSet){
+        resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTHBATCH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(SORT_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIMEBATCH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(TIME_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(FREQUENT_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(LOSSYFREQUENT_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(TIMEBATCH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(CRON_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(TIMELENGTH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIME_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+    }
+
     static void addSuggestionsAfterSource(@NotNull CompletionResultSet resultSet){
-        addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
-        addKeywordAsLookup(resultSet, LEFT_OUTER_JOIN);
-        addKeywordAsLookup(resultSet, RIGHT_OUTER_JOIN);
-        addKeywordAsLookup(resultSet, FULL_OUTER_JOIN);
-        addKeywordAsLookup(resultSet, HASH_SYMBOL);
-        addKeywordAsLookup(resultSet, ON);
-        addKeywordAsLookup(resultSet, JOIN);
-        addKeywordAsLookup(resultSet, WITHIN);
-        addKeywordAsLookup(resultSet, SELECT);
-        addKeywordAsLookup(resultSet, OUTPUT);
-        addKeywordAsLookup(resultSet, INSERT);
-        addKeywordAsLookup(resultSet, DELETE);
-        addKeywordAsLookup(resultSet, UPDATE);
+//        addKeywordAsLookup(resultSet, UNIDIRECTIONAL);//TODO:verify these suggestions
+//        addKeywordAsLookup(resultSet, LEFT_OUTER_JOIN);
+//        addKeywordAsLookup(resultSet, RIGHT_OUTER_JOIN);
+//        addKeywordAsLookup(resultSet, FULL_OUTER_JOIN);
+//        addKeywordAsLookup(resultSet, ON);
+//        addKeywordAsLookup(resultSet, JOIN);
+//        addKeywordAsLookup(resultSet, WITHIN);
     }
 
     static void addSuggestionsAfterQueryInput(@NotNull CompletionResultSet resultSet){
@@ -692,9 +776,9 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, OUTPUT);
         addKeywordAsLookup(resultSet, INSERT);
         addKeywordAsLookup(resultSet, DELETE);
-        addKeywordAsLookup(resultSet,UPDATE_OR_INSERT_INTO);
+        addKeywordAsLookup(resultSet, UPDATE_OR_INSERT_INTO);
         addKeywordAsLookup(resultSet, UPDATE);
-        addKeywordAsLookup(resultSet,RETURN);
+        addKeywordAsLookup(resultSet, RETURN);
     }
 
     static void addSuggestionsAfterUnidirectional(@NotNull CompletionResultSet resultSet){
@@ -716,7 +800,7 @@ public class SiddhiCompletionUtils {
     }
 
     /**
-     * Adds value types as lookups.
+     * Adds window types as lookups.
      *
      * @param resultSet result list which is used to add lookups
      */
