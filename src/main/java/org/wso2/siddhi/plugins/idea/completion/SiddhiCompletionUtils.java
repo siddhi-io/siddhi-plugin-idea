@@ -166,14 +166,17 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder SCALA;
     private static final LookupElementBuilder R;
 
-    //Joints
+    //Joins
     private static final LookupElementBuilder LEFT_OUTER_JOIN;
     private static final LookupElementBuilder RIGHT_OUTER_JOIN;
     private static final LookupElementBuilder FULL_OUTER_JOIN;
+    private static final LookupElementBuilder OUTER_JOIN;
+    private static final LookupElementBuilder INNER_JOIN;
 
     //Expression
     private static final LookupElementBuilder EXPRESSION_WITH_HASH;
     private static final LookupElementBuilder EXPRESSION_WITHOUT_HASH;
+
     //Siddhi Log
     private static final LookupElementBuilder LOG;
 
@@ -386,6 +389,8 @@ public class SiddhiCompletionUtils {
         LEFT_OUTER_JOIN=createKeywordLookupElement("left outer join");
         RIGHT_OUTER_JOIN=createKeywordLookupElement("right outer join");
         FULL_OUTER_JOIN=createKeywordLookupElement("full outer join");
+        OUTER_JOIN=createKeywordLookupElement("outer join");
+        INNER_JOIN=createKeywordLookupElement("inner join");
 
         EXPRESSION_WITH_HASH=createLookupElementWithCustomTypeText("#[\"enter your expression here\"]",null,
                 "expression").withPresentableText("#expression");
@@ -761,13 +766,20 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIME_WITH_WINDOW, VALUE_TYPES_PRIORITY));
     }
 
+    static void addSuggestionsRelatedToJoins(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, LEFT_OUTER_JOIN);
+        addKeywordAsLookup(resultSet, RIGHT_OUTER_JOIN);
+        addKeywordAsLookup(resultSet, FULL_OUTER_JOIN);
+        addKeywordAsLookup(resultSet, OUTER_JOIN);
+        addKeywordAsLookup(resultSet, INNER_JOIN);
+        addKeywordAsLookup(resultSet, JOIN);
+        addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
+//        addKeywordAsLookup(resultSet, ON);//TODO:verify these suggestions
+//        addKeywordAsLookup(resultSet, WITHIN);
+    }
+
     static void addSuggestionsAfterSource(@NotNull CompletionResultSet resultSet){
-//        addKeywordAsLookup(resultSet, UNIDIRECTIONAL);//TODO:verify these suggestions
-//        addKeywordAsLookup(resultSet, LEFT_OUTER_JOIN);
-//        addKeywordAsLookup(resultSet, RIGHT_OUTER_JOIN);
-//        addKeywordAsLookup(resultSet, FULL_OUTER_JOIN);
-//        addKeywordAsLookup(resultSet, ON);
-//        addKeywordAsLookup(resultSet, JOIN);
+//        addKeywordAsLookup(resultSet, ON);//TODO:verify these suggestions
 //        addKeywordAsLookup(resultSet, WITHIN);
     }
 

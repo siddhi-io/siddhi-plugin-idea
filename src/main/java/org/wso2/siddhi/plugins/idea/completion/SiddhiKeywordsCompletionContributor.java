@@ -21,7 +21,6 @@ import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.psi.PsiComment;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiErrorElement;
 import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
@@ -37,7 +36,6 @@ import org.wso2.siddhi.plugins.idea.psi.AttributeTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.BasicSourceStreamHandlerNode;
 import org.wso2.siddhi.plugins.idea.psi.ConstantValueNode;
 import org.wso2.siddhi.plugins.idea.psi.DefinitionElementNode;
-import org.wso2.siddhi.plugins.idea.psi.DefinitionElementWithExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.DeleteFromTableNode;
 import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.ExpressionNode;
@@ -46,7 +44,6 @@ import org.wso2.siddhi.plugins.idea.psi.FunctionNameNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionOperationNode;
 import org.wso2.siddhi.plugins.idea.psi.GroupByNode;
 import org.wso2.siddhi.plugins.idea.psi.HavingNode;
-import org.wso2.siddhi.plugins.idea.psi.JoinNode;
 import org.wso2.siddhi.plugins.idea.psi.JoinStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
 import org.wso2.siddhi.plugins.idea.psi.LeftUnidirectionalJoinNode;
@@ -97,8 +94,7 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addR
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSetKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addStreamFunctions;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterQueryInput;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterSource;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterUnidirectional;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsRelatedToJoins;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addValueTypesAsLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWindowProcessorTypesAsLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWindowTypesWithWindowKeyword;
@@ -250,13 +246,18 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             //Suggestions related to Standard stream
             if (PsiTreeUtil.getParentOfType(element, StandardStreamNode.class) != null) {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ) {
-                    //addSuggestionsAfterSource(result);
+                    //Suggesting join types after the initial source declaration of the query. we provide these
+                    // suggestions here because at the moment antlr doesn't know which stream user is going to enter
+                    addSuggestionsRelatedToJoins(result);
+
+                    //suggestions after the source declaration of the standard stream
                     addWindowTypesWithWindowKeyword(result);
                     addStreamFunctions(result);
                     addFilterSuggestion(result);
                     addSuggestionsAfterQueryInput(result);
                     return;
                 }
+                //suggestions after the Pre Window Handler of the standard stream
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, PreWindowHandlerNode.class) != null ) {
                     addWindowTypesWithWindowKeyword(result);
                     addStreamFunctions(result);
@@ -264,6 +265,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     addSuggestionsAfterQueryInput(result);
                     return;
                 }
+                //suggestions after the Window declaration of the standard stream
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, WindowNode.class) != null ) {
                     addStreamFunctions(result);
                     addFilterSuggestion(result);
