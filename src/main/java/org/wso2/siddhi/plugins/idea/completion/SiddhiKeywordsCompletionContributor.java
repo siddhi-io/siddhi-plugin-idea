@@ -106,14 +106,14 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         PsiElement element = parameters.getPosition();
         if (element instanceof LeafPsiElement) {
             IElementType elementType = ((LeafPsiElement) element).getElementType();
-            if (elementType == SiddhiTypes.IDENTIFIER && PsiTreeUtil.prevVisibleLeaf(element) == null) { //gives
+            if (elementType == SiddhiTypes.IDENTIFIER && getPreviousVisibleSiblingSkippingComments(element) == null) { //gives
                 // gives null in first line first character
                 //initial suggestions-suggestion for first character of the file
                 addInitialTypesAsLookups(result);
                 return;
             }
-            if (elementType == SiddhiTypes.IDENTIFIER && PsiTreeUtil.prevVisibleLeaf(element) != null) {
-                PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
+            if (elementType == SiddhiTypes.IDENTIFIER && getPreviousVisibleSiblingSkippingComments(element) != null) {
+                PsiElement prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(element);
                 IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();
 
                 //Suggestions after a semicolon
@@ -149,9 +149,9 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     addAtKeyword(result);
                     return;
                 }
-                if (PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling) != null) {
+                if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
 
-                    PsiElement prevPreVisibleSibling = PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling);
+                    PsiElement prevPreVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
                     //Handling suggestions in a query
                     if(PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
                         executionElementRelatedKeywordCompletion(result,element,prevVisibleSibling,
@@ -187,8 +187,8 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     private void windowDefinitionRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
                                                           PsiElement prevVisibleSibling, IElementType
                                                                   prevVisibleSiblingElementType) {
-        if (PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling) != null) {
-            PsiElement prevPrevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling);
+        if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
+            PsiElement prevPrevVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
             if (element.getParent().getParent().getPrevSibling() != null) {
                 if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && PsiTreeUtil.getParentOfType
                         (prevPrevVisibleSibling, AttributeTypeNode.class) != null && element.getParent()
@@ -341,7 +341,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             PsiElement timeValueNodeElement=PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class);
             PsiElement prevSiblingOfTimeValueNode= null;
             if (timeValueNodeElement != null) {
-                prevSiblingOfTimeValueNode = PsiTreeUtil.prevVisibleLeaf(timeValueNodeElement);
+                prevSiblingOfTimeValueNode = getPreviousVisibleSiblingSkippingComments(timeValueNodeElement);
             }
             IElementType prevSiblingOfTimeValueNodeElementType = null;
             if (prevSiblingOfTimeValueNode != null) {
@@ -384,7 +384,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         //suggesting INTO keyword after a output event type in a query
         PsiElement parentOfPrevVisSibling=prevVisibleSibling.getParent();
         if(parentOfPrevVisSibling instanceof OutputEventTypeNode){
-            PsiElement prevVisibleSiblingOfParent=PsiTreeUtil.prevVisibleLeaf(parentOfPrevVisSibling);
+            PsiElement prevVisibleSiblingOfParent=getPreviousVisibleSiblingSkippingComments(parentOfPrevVisSibling);
             IElementType elementTypeOfPrevVisibleSiblingOfParent = null;
             if (prevVisibleSiblingOfParent != null) {
                 elementTypeOfPrevVisibleSiblingOfParent = ((LeafPsiElement) prevVisibleSiblingOfParent)
@@ -457,16 +457,15 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     }
 
     @Nullable
-    private PsiElement getPreviousVisibleSiblings(int previousPastPositions, @NotNull PsiElement element){
-        PsiElement prevVisibleSibling=element;
-        try {
-            for (int i = 0; i < previousPastPositions; i++) {
-                prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(prevVisibleSibling);
-            }
-            return prevVisibleSibling;
-        }catch (NullPointerException exception){
+    private PsiElement getPreviousVisibleSiblingSkippingComments(@NotNull PsiElement currentElement){
+        PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(currentElement);
+        if(prevVisibleSibling instanceof PsiComment){
+            prevVisibleSibling=getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
+        }
+        if(prevVisibleSibling==null){
             return null;
         }
+        return prevVisibleSibling;
     }
 
     private Boolean isExpression(@NotNull PsiElement element){
@@ -479,7 +478,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     PsiTreeUtil.getParentOfType(element, FunctionOperationNode.class) != null) {
                 return true;
             }else{
-                PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(element);
+                PsiElement prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(element);
                 IElementType elementType = ((LeafPsiElement) element).getElementType();
                 if(elementType == SiddhiTypes.CLOSE_PAR
                         && PsiTreeUtil.getParentOfType(prevVisibleSibling,MathOperationNode.class) != null ){
