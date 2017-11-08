@@ -19,16 +19,13 @@ package org.wso2.siddhi.plugins.idea.psi.references;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
-import org.wso2.siddhi.plugins.idea.psi.BasicSourceNode;
-import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
-import org.wso2.siddhi.plugins.idea.psi.JoinSourceNode;
-import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
-import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
-import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
+import org.wso2.siddhi.plugins.idea.psi.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,11 +55,24 @@ public class StreamIdReference extends SiddhiElementReference {
           2. if the parent is a Basic Source node
           3. after "insert into"(not "update or insert into") clause in the query output node
           4. if the parent is a Join Source node
+          5. Right Source Node ex: from stream1 join stream2--In here if the user request suggestions in the before
+                s(still he entered stream2) in stream2 we need to provide suggestions.
+                ***In here we need to avoid suggesting stream ids after a unidirectional keyword.***
         */
         if(PsiTreeUtil.getParentOfType(identifier,StandardStreamNode.class)!=null
                 || PsiTreeUtil.getParentOfType(identifier, BasicSourceNode.class)!=null
                 || PsiTreeUtil.getParentOfType(identifier, JoinSourceNode.class)!=null
+                || PsiTreeUtil.getParentOfType(identifier, RightSourceNode.class)!=null
                 || PsiTreeUtil.getParentOfType(identifier, QueryOutputNode.class)!=null) {
+            try {
+                if ((PsiTreeUtil.getParentOfType(identifier, RightSourceNode.class) != null
+                        && ((LeafPsiElement) PsiTreeUtil.prevVisibleLeaf(identifier)).getElementType() == SiddhiTypes
+                        .UNIDIRECTIONAL)) {
+                    return new LookupElement[0];
+                }
+            }catch (NullPointerException e){
+                return new LookupElement[0];
+            }
             PsiFile psiFile = identifier.getContainingFile();
             List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
                     .class).toArray()));

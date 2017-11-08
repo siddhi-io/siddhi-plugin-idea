@@ -773,7 +773,6 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, OUTER_JOIN);
         addKeywordAsLookup(resultSet, INNER_JOIN);
         addKeywordAsLookup(resultSet, JOIN);
-        addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
 //        addKeywordAsLookup(resultSet, ON);//TODO:verify these suggestions
 //        addKeywordAsLookup(resultSet, WITHIN);
     }
@@ -809,6 +808,10 @@ public class SiddhiCompletionUtils {
 
     static void addSetKeyword(@NotNull CompletionResultSet resultSet){
         addKeywordAsLookup(resultSet, SET);
+    }
+
+    static void addUnidirectionalKeyword(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
     }
 
     /**

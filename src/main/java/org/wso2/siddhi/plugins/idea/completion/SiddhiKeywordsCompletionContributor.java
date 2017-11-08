@@ -75,28 +75,7 @@ import org.wso2.siddhi.plugins.idea.psi.UpdateTableNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowNode;
 
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAfterATSymbolLookups;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addBeginingOfQueryOutputKeywords;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAtKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addByKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addDefineTypesAsLookups;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addEveryKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addFilterSuggestion;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addForKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addHavingKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addInitialTypesAsLookups;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addIntoKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addLanguageTypesKeywords;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOnKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addReturnKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSetKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addStreamFunctions;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterQueryInput;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsRelatedToJoins;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addValueTypesAsLookups;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWindowProcessorTypesAsLookups;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWindowTypesWithWindowKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.*;
 
 public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 
@@ -248,6 +227,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     //Suggesting join types after the initial source declaration of the query. we provide these
                     // suggestions here because at the moment antlr doesn't know which stream user is going to enter
                     addSuggestionsRelatedToJoins(result);
+                    addUnidirectionalKeyword(result);
 
                     //suggestions after the source declaration of the standard stream
                     addWindowTypesWithWindowKeyword(result);
@@ -272,12 +252,12 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     return;
                 }
             }
-            //Suggestions related to Standard stream
-            if (PsiTreeUtil.getParentOfType(element, JoinStreamNode.class) != null) {
-                if (PsiTreeUtil.getParentOfType(element, RightSourceNode.class) != null) {
-                    return;
-                }
-            }
+//            //Suggestions related to Standard stream
+//            if (PsiTreeUtil.getParentOfType(element, JoinStreamNode.class) != null) {
+//                if (PsiTreeUtil.getParentOfType(element, RightSourceNode.class) != null) {
+//                    return;
+//                }
+//            }
 //            if (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL) {
 //                addSuggestionsAfterUnidirectional(result);
 //                return;
@@ -298,16 +278,30 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     return;
                 }
             }
-            //suggestions after a join stream node
+            //suggestions related to a join stream node
             if(PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinStreamNode.class) != null){
-                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, RightUnidirectionalOrNormalJoinNode.class) != null) &&
-                        (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL
-                        || PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null)){
-                    addSuggestionsAfterQueryInput(result);//TODO:check
+                if(PsiTreeUtil.getParentOfType(prevVisibleSibling, RightUnidirectionalOrNormalJoinNode.class) != null){
+                    //suggestions after a right source in Right Unidirectional Or Normal Join node
+                    if (PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null) {
+                        addSuggestionsAfterQueryInput(result);
+                        addUnidirectionalKeyword(result);
+                        return;
+                    }//TODO:add keyword suggestions within join_source
+                    //TODO: on sensorStream.sensorId like suggestions in on_with_expression rule
+                    //TODO:https://wso2.github.io/siddhi/documentation/siddhi-4.0/#join-stream
+                    //suggestions after UNIDIRECTIONAL keyword in Right Unidirectional Or Normal Join node
+                    if (prevVisibleSiblingElementType == SiddhiTypes.UNIDIRECTIONAL) {
+                        addSuggestionsAfterQueryInput(result);
+                        return;
+                    }
                 }
-                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, LeftUnidirectionalJoinNode.class) != null) &&
-                        (PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null)){
-                    addSuggestionsAfterQueryInput(result);//TODO:check
+                if(PsiTreeUtil.getParentOfType(prevVisibleSibling, LeftUnidirectionalJoinNode.class) != null) {
+                    if (prevVisibleSiblingElementType == SiddhiTypes.UNIDIRECTIONAL) {
+                        addSuggestionsRelatedToJoins(result);
+                    }
+                    if (PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null) {
+                        addSuggestionsAfterQueryInput(result);
+                    }
                 }
                 if((PsiTreeUtil.getParentOfType(prevVisibleSibling, OnWithExpressionNode.class) != null) &&
                          isExpression(prevVisibleSibling)){

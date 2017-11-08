@@ -217,18 +217,24 @@ post_window_handlers
     ;
 
 join_stream
+    :join_stream1
+    ;
+
+//Added a new rule named join_stream1(which has the same content previously used in the join_stream rule) to avoid
+//node collapsing issue in psi tree building
+join_stream1
     :left_source=join_source (right_unidirectional_or_normal_join | left_unidirectional_join) on_with_expression?
     (within_time_range per)?
     ;
 
-//Newly added rule to help to recognize that the user is typing a 'right unidirectional join' clause
+//Newly added rule to help to recognize that the user is typing a 'right unidirectional join or a normal join' clause
 right_unidirectional_or_normal_join
     :join right_source UNIDIRECTIONAL?
     ;
 
 //Newly added rule to help to recognize that the user is typing a 'left unidirectional join' clause
 left_unidirectional_join
-    : UNIDIRECTIONAL right_source
+    : UNIDIRECTIONAL join right_source
     ;
 
 //Newly added rule to help to recognize that the user is typing a 'right source' clause
