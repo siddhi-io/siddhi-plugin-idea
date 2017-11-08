@@ -217,24 +217,18 @@ post_window_handlers
     ;
 
 join_stream
-    :right_unidirectional_join
-    |normal_join
-    |left_unidirectional_join
+    :left_source=join_source (right_unidirectional_or_normal_join | left_unidirectional_join) on_with_expression?
+    (within_time_range per)?
     ;
 
 //Newly added rule to help to recognize that the user is typing a 'right unidirectional join' clause
-right_unidirectional_join
-    :left_source=join_source join right_source right_unidirectional=UNIDIRECTIONAL on_with_expression? (within_time_range per)?
+right_unidirectional_or_normal_join
+    :join right_source UNIDIRECTIONAL?
     ;
 
 //Newly added rule to help to recognize that the user is typing a 'left unidirectional join' clause
 left_unidirectional_join
-    :left_source=join_source left_unidirectional=UNIDIRECTIONAL join right_source (ON expression)? (within_time_range per)??
-    ;
-
-//Newly added rule to help to recognize that the user is typing a 'normal join' clause
-normal_join
-    :left_source=join_source join right_source on_with_expression?? (within_time_range per)?
+    : UNIDIRECTIONAL right_source
     ;
 
 //Newly added rule to help to recognize that the user is typing a 'right source' clause

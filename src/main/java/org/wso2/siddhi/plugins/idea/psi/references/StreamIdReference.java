@@ -25,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
 import org.wso2.siddhi.plugins.idea.psi.BasicSourceNode;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
+import org.wso2.siddhi.plugins.idea.psi.JoinSourceNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
@@ -56,10 +57,12 @@ public class StreamIdReference extends SiddhiElementReference {
           1. after "from" in a Standard Stream node
           2. if the parent is a Basic Source node
           3. after "insert into"(not "update or insert into") clause in the query output node
+          4. if the parent is a Join Source node
         */
-        if(PsiTreeUtil.getParentOfType(identifier,StandardStreamNode.class)!=null ||
-                PsiTreeUtil.getParentOfType(identifier, BasicSourceNode.class)!=null ||
-                PsiTreeUtil.getParentOfType(identifier, QueryOutputNode.class)!=null) {
+        if(PsiTreeUtil.getParentOfType(identifier,StandardStreamNode.class)!=null
+                || PsiTreeUtil.getParentOfType(identifier, BasicSourceNode.class)!=null
+                || PsiTreeUtil.getParentOfType(identifier, JoinSourceNode.class)!=null
+                || PsiTreeUtil.getParentOfType(identifier, QueryOutputNode.class)!=null) {
             PsiFile psiFile = identifier.getContainingFile();
             List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
                     .class).toArray()));

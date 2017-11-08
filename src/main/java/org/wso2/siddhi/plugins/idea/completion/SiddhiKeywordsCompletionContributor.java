@@ -49,7 +49,6 @@ import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
 import org.wso2.siddhi.plugins.idea.psi.LeftUnidirectionalJoinNode;
 import org.wso2.siddhi.plugins.idea.psi.MathOperationNode;
 import org.wso2.siddhi.plugins.idea.psi.NameNode;
-import org.wso2.siddhi.plugins.idea.psi.NormalJoinNode;
 import org.wso2.siddhi.plugins.idea.psi.NullCheckNode;
 import org.wso2.siddhi.plugins.idea.psi.OnWithExpressionNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputAttributeNode;
@@ -62,7 +61,7 @@ import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
 import org.wso2.siddhi.plugins.idea.psi.RightSourceNode;
-import org.wso2.siddhi.plugins.idea.psi.RightUnidirectionalJoinNode;
+import org.wso2.siddhi.plugins.idea.psi.RightUnidirectionalOrNormalJoinNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiAppNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.psi.SourceNode;
@@ -273,6 +272,12 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     return;
                 }
             }
+            //Suggestions related to Standard stream
+            if (PsiTreeUtil.getParentOfType(element, JoinStreamNode.class) != null) {
+                if (PsiTreeUtil.getParentOfType(element, RightSourceNode.class) != null) {
+                    return;
+                }
+            }
 //            if (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL) {
 //                addSuggestionsAfterUnidirectional(result);
 //                return;
@@ -295,13 +300,14 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             }
             //suggestions after a join stream node
             if(PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinStreamNode.class) != null){
-                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, RightUnidirectionalJoinNode.class) != null) &&
-                        prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL){
-                    addSuggestionsAfterQueryInput(result);
+                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, RightUnidirectionalOrNormalJoinNode.class) != null) &&
+                        (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL
+                        || PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null)){
+                    addSuggestionsAfterQueryInput(result);//TODO:check
                 }
                 if((PsiTreeUtil.getParentOfType(prevVisibleSibling, LeftUnidirectionalJoinNode.class) != null) &&
                         (PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null)){
-                    addSuggestionsAfterQueryInput(result);
+                    addSuggestionsAfterQueryInput(result);//TODO:check
                 }
                 if((PsiTreeUtil.getParentOfType(prevVisibleSibling, OnWithExpressionNode.class) != null) &&
                          isExpression(prevVisibleSibling)){
@@ -309,10 +315,6 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 }
                 if((PsiTreeUtil.getParentOfType(prevVisibleSibling, PerNode.class) != null) &&
                         isExpression(prevVisibleSibling)){
-                    addSuggestionsAfterQueryInput(result);
-                }
-                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, NormalJoinNode.class) != null) &&
-                        (PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null)){
                     addSuggestionsAfterQueryInput(result);
                 }
             }

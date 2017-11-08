@@ -19,8 +19,8 @@ import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
 import org.jetbrains.annotations.NotNull;
 
-public class NormalJoinNode extends ANTLRPsiNode {
-    public NormalJoinNode(@NotNull ASTNode node) {
+public class RightUnidirectionalOrNormalJoinNode extends ANTLRPsiNode {
+    public RightUnidirectionalOrNormalJoinNode(@NotNull ASTNode node) {
         super(node);
     }
 }

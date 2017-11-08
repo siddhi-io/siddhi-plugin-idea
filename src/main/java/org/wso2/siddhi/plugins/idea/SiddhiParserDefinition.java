@@ -261,14 +261,12 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new NullCheckNode(node);
             case RULE_right_source:
                 return new RightSourceNode(node);
-            case RULE_normal_join:
-                return new NormalJoinNode(node);
             case RULE_on_with_expression:
                 return new OnWithExpressionNode(node);
             case RULE_left_unidirectional_join:
                 return new LeftUnidirectionalJoinNode(node);
-            case RULE_right_unidirectional_join:
-                return new RightUnidirectionalJoinNode(node);
+            case RULE_right_unidirectional_or_normal_join:
+                return new RightUnidirectionalOrNormalJoinNode(node);
             case RULE_pre_window_handlers:
                 return new PreWindowHandlerNode(node);
             case RULE_post_window_handlers:
