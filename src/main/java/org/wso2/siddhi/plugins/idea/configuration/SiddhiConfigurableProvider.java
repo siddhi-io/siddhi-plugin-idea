@@ -40,7 +40,7 @@ public class SiddhiConfigurableProvider extends ConfigurableProvider {
     public Configurable createConfigurable() {
         Configurable projectSettingsConfigurable = new SiddhiProjectSettingsConfigurable(myProject);
         Configurable librariesConfigurable = new SiddhiLibrariesConfigurableProvider(myProject).createConfigurable();
-        return new SiddhiCompositeConfigurable(projectSettingsConfigurable,librariesConfigurable);
+        return new SiddhiCompositeConfigurable(projectSettingsConfigurable, librariesConfigurable);
     }
 
     private static class SiddhiCompositeConfigurable extends SearchableConfigurable.Parent.Abstract {

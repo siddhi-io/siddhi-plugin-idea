@@ -65,21 +65,24 @@ public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpoint
     private static final class Checker implements Processor<PsiElement> {
 
         private boolean myIsLineBreakpointAvailable;
-        private int counter=0;
+        private int counter = 0;
 
         @Override
         public boolean process(@NotNull PsiElement element) {
             if (PsiTreeUtil.nextVisibleLeaf(element) != null) {
                 PsiElement nextVisibleSibling = PsiTreeUtil.nextVisibleLeaf(element);
                 IElementType elementType = element.getNode().getElementType();
-                if(elementType== SiddhiTypes.FROM && element.getParent().getParent() instanceof ExecutionElementNode
-                        && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryInputNode.class)!= null){
-                    counter=1;
+                if (elementType == SiddhiTypes.FROM && element.getParent().getParent() instanceof ExecutionElementNode
+                        && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryInputNode.class) != null) {
+                    counter = 1;
                     myIsLineBreakpointAvailable = true;
-                }else myIsLineBreakpointAvailable = counter == 1;
+                } else {
+                    myIsLineBreakpointAvailable = counter == 1;
+                }
             }
             return true;
         }
+
         public boolean isLineBreakpointAvailable() {
             return myIsLineBreakpointAvailable;
         }

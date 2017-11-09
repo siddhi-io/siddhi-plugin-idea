@@ -98,14 +98,14 @@ public class SiddhiRunUtil {
     }
 
     public static void installSiddhiWithSiddhiFileChooser(Project project,
-                                                           @NotNull TextFieldWithBrowseButton fileField) {
+                                                          @NotNull TextFieldWithBrowseButton fileField) {
         installFileChooser(project, fileField, file ->
                 isRunnableSiddhiFile(PsiManager.getInstance(project).findFile(file)));
     }
 
     public static void installSiddhiWithFileChooser(Project project,
-                                                        @NotNull TextFieldWithBrowseButton fileField) {
-        installFileChooser(project, fileField,null);
+                                                    @NotNull TextFieldWithBrowseButton fileField) {
+        installFileChooser(project, fileField, null);
     }
 
     @Contract("null -> false")
@@ -139,11 +139,11 @@ public class SiddhiRunUtil {
     }
 
     public static void printSiddhiEnvVariables(@NotNull GeneralCommandLine commandLine,
-                                                  @NotNull ProcessHandler handler) {
+                                               @NotNull ProcessHandler handler) {
         Map<String, String> environment = commandLine.getEnvironment();
         // Todo - Add SIDDHI_REPOSITORY
-                handler.notifyTextAvailable("SIDDHI_REPOSITORY=" + StringUtil.nullize(environment.get
-                        (SiddhiConstants.SIDDHI_REPOSITORY)) + '\n', ProcessOutputTypes.SYSTEM);
+        handler.notifyTextAvailable("SIDDHI_REPOSITORY=" + StringUtil.nullize(environment.get
+                (SiddhiConstants.SIDDHI_REPOSITORY)) + '\n', ProcessOutputTypes.SYSTEM);
     }
 
     @Nullable

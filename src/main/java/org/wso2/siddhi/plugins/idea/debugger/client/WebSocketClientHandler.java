@@ -51,13 +51,13 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     @Override
-    public void channelActive(final ChannelHandlerContext ctx) throws Exception{
+    public void channelActive(final ChannelHandlerContext ctx) throws Exception {
         handshaker.handshake(ctx.channel());
         isConnected = true;
     }
 
     @Override
-    public void channelInactive(final ChannelHandlerContext ctx) throws Exception{
+    public void channelInactive(final ChannelHandlerContext ctx) throws Exception {
         LOGGER.debug("WebSocket Client disconnected!");
         isConnected = false;
     }
@@ -96,7 +96,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     @Override
-    public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception{
+    public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
         cause.printStackTrace();
         if (!handshakeFuture.isDone()) {
             LOGGER.debug("Handshake failed : " + cause.getMessage(), cause);

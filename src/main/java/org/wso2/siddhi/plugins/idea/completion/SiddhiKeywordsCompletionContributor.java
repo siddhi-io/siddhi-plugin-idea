@@ -247,8 +247,8 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinStreamNode.class) != null) {
                 //suggestions after a Left source node. antlr identifies that the user is typing exactly a join
                 // stream after typing a as with an alias in a source node. We have to provide suggestions after alias.
-                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, LeftSourceNode.class) !=null
-                        && PsiTreeUtil.getParentOfType(prevVisibleSibling, AliasNode.class) !=null) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, LeftSourceNode.class) != null
+                        && PsiTreeUtil.getParentOfType(prevVisibleSibling, AliasNode.class) != null) {
                     addSuggestionsRelatedToJoins(result);
                     addUnidirectionalKeyword(result);
                     return;
@@ -357,35 +357,35 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     }
                 }
                 //suggestions related to within time range node
-                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, WithinTimeRangeNode.class) != null){
-                    if(prevVisibleSiblingElementType == SiddhiTypes.WITHIN) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, WithinTimeRangeNode.class) != null) {
+                    if (prevVisibleSiblingElementType == SiddhiTypes.WITHIN) {
                         addEnterYourExpressionClause(result);
                         return;
                     }
-                    if(PsiTreeUtil.getParentOfType(prevVisibleSibling, StartPatternNode.class) != null) {
+                    if (PsiTreeUtil.getParentOfType(prevVisibleSibling, StartPatternNode.class) != null) {
                         addComma(result);
                         addPerKeyword(result);
                         return;
                     }
-                    if(PsiTreeUtil.getParentOfType(prevPreVisibleSibling, StartPatternNode.class) != null
+                    if (PsiTreeUtil.getParentOfType(prevPreVisibleSibling, StartPatternNode.class) != null
                             && prevVisibleSiblingElementType == SiddhiTypes.COMMA) {
                         addEnterYourExpressionClause(result);
                         return;
                     }
-                    if(PsiTreeUtil.getParentOfType(prevVisibleSibling, EndPatternNode.class) != null) {
+                    if (PsiTreeUtil.getParentOfType(prevVisibleSibling, EndPatternNode.class) != null) {
                         addPerKeyword(result);
                         return;
                     }
                 }
                 //suggestions after per keyword in a join stream
-                if(prevVisibleSiblingElementType == SiddhiTypes.PER && isExpression(prevPreVisibleSibling)) {
+                if (prevVisibleSiblingElementType == SiddhiTypes.PER && isExpression(prevPreVisibleSibling)) {
                     addEnterYourExpressionClause(result);
                     return;
                 }
                 //suggestions after 'per and expression clause' in a join stream
                 IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling)
                         .getElementType();
-                if(prevPreVisibleSiblingElementType == SiddhiTypes.PER && isExpression(prevVisibleSibling)) {
+                if (prevPreVisibleSiblingElementType == SiddhiTypes.PER && isExpression(prevVisibleSibling)) {
                     addSuggestionsAfterQueryInput(result);
                     return;
                 }

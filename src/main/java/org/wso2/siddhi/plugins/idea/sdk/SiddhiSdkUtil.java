@@ -70,7 +70,9 @@ public class SiddhiSdkUtil {
                 return LocalFileSystem.getInstance().findFileByPath(fromEnv);
             }
             VirtualFile usrLocal = LocalFileSystem.getInstance().findFileByPath("/usr/local/siddhi");
-            if (usrLocal != null) return usrLocal;
+            if (usrLocal != null) {
+                return usrLocal;
+            }
         }
         if (SystemInfo.isMac) {
             String macPorts = "/opt/local/lib/siddhi";
@@ -157,7 +159,7 @@ public class SiddhiSdkUtil {
     public static LinkedHashSet<VirtualFile> getSourcesPathsToLookup(@NotNull Project project, @Nullable Module module) {
         LinkedHashSet<VirtualFile> sdkAndGoPath = newLinkedHashSet();
         ContainerUtil.addIfNotNull(sdkAndGoPath, getSdkSrcDir(project, module));
-//        ContainerUtil.addAllNotNull(sdkAndGoPath, getSiddhiPathSources(project, module));
+        //        ContainerUtil.addAllNotNull(sdkAndGoPath, getSiddhiPathSources(project, module));
         return sdkAndGoPath;
     }
 

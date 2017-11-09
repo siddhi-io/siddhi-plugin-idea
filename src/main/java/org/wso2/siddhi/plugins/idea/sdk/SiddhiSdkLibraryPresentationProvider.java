@@ -27,7 +27,7 @@ import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 import javax.swing.*;
 import java.util.List;
 
-public class SiddhiSdkLibraryPresentationProvider  extends LibraryPresentationProvider<DummyLibraryProperties> {
+public class SiddhiSdkLibraryPresentationProvider extends LibraryPresentationProvider<DummyLibraryProperties> {
 
     private static final LibraryKind KIND = LibraryKind.create("Siddhi-SDK");
 

@@ -63,24 +63,24 @@ public class SiddhiXValue extends XNamedValue {
 
     @Override
     public void computePresentation(@NotNull XValueNode node, @NotNull XValuePlace place) {
-        if(myValue instanceof JSONObject || myValue instanceof JSONArray) {
-            node.setPresentation(myIcon, getName(),"", true);
-        }else if(myValue instanceof String){
+        if (myValue instanceof JSONObject || myValue instanceof JSONArray) {
+            node.setPresentation(myIcon, getName(), "", true);
+        } else if (myValue instanceof String) {
             node.setPresentation(AllIcons.Nodes.Property, new XStringValuePresentation(myValue.toString()),
                     false);
-        }else if(myValue instanceof Integer){
+        } else if (myValue instanceof Integer) {
             node.setPresentation(AllIcons.Nodes.Property, new XNumericValuePresentation(myValue.toString()), false);
-        }else if(myValue instanceof Double){
+        } else if (myValue instanceof Double) {
             node.setPresentation(AllIcons.Nodes.Property, new XNumericValuePresentation(myValue.toString()), false);
-        }else if(myValue instanceof Boolean){
+        } else if (myValue instanceof Boolean) {
             node.setPresentation(AllIcons.Nodes.Property, new XValuePresentation() {
                 @Override
                 public void renderValue(@NotNull XValueTextRenderer renderer) {
                     renderer.renderValue(myValue.toString(), SiddhiSyntaxHighlightingColors.KEYWORD);
                 }
-            },false);
-        }else {
-            node.setPresentation(AllIcons.Nodes.Property, "Type",myValue.toString(), false);
+            }, false);
+        } else {
+            node.setPresentation(AllIcons.Nodes.Property, "Type", myValue.toString(), false);
         }
     }
 
@@ -105,8 +105,8 @@ public class SiddhiXValue extends XNamedValue {
                     {
                         Object value = o.toString();
                         String name = ((XValueNodeImpl) node).getName();
-                        if(name==null){
-                            name="";
+                        if (name == null) {
+                            name = "";
                         }
                         list.add(((XValueNodeImpl) node).getName(), new SiddhiXValue(myProcess, myFrameName, name,
                                 value, AllIcons.Nodes.Parameter));

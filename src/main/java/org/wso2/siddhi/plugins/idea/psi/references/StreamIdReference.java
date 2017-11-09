@@ -47,7 +47,7 @@ public class StreamIdReference extends SiddhiElementReference {
     @Override
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
-        int caretOffSet=identifier.getTextOffset();
+        int caretOffSet = identifier.getTextOffset();
         //TODO:check(with the grammar file) the actual place that can be applied these stream name
         /*
           We suggest stream ids in the following places
@@ -59,18 +59,18 @@ public class StreamIdReference extends SiddhiElementReference {
                 s(still he entered stream2) in stream2 we need to provide suggestions.
                 ***In here we need to avoid suggesting stream ids after a unidirectional keyword.***
         */
-        if(PsiTreeUtil.getParentOfType(identifier,StandardStreamNode.class)!=null
-                || PsiTreeUtil.getParentOfType(identifier, BasicSourceNode.class)!=null
-                || PsiTreeUtil.getParentOfType(identifier, JoinSourceNode.class)!=null
-                || PsiTreeUtil.getParentOfType(identifier, RightSourceNode.class)!=null
-                || PsiTreeUtil.getParentOfType(identifier, QueryOutputNode.class)!=null) {
+        if (PsiTreeUtil.getParentOfType(identifier, StandardStreamNode.class) != null
+                || PsiTreeUtil.getParentOfType(identifier, BasicSourceNode.class) != null
+                || PsiTreeUtil.getParentOfType(identifier, JoinSourceNode.class) != null
+                || PsiTreeUtil.getParentOfType(identifier, RightSourceNode.class) != null
+                || PsiTreeUtil.getParentOfType(identifier, QueryOutputNode.class) != null) {
             try {
                 if ((PsiTreeUtil.getParentOfType(identifier, RightSourceNode.class) != null
                         && ((LeafPsiElement) PsiTreeUtil.prevVisibleLeaf(identifier)).getElementType() == SiddhiTypes
                         .UNIDIRECTIONAL)) {
                     return new LookupElement[0];
                 }
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 return new LookupElement[0];
             }
             PsiFile psiFile = identifier.getContainingFile();

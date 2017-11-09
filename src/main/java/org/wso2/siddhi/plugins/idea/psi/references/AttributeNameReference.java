@@ -62,34 +62,34 @@ public class AttributeNameReference extends SiddhiElementReference {
         PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(identifier);
         if (prevVisibleSibling != null) {
             IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();
-            if (prevVisibleSiblingElementType==SiddhiTypes.GROUP){
+            if (prevVisibleSiblingElementType == SiddhiTypes.GROUP) {
                 return (new LookupElement[0]);
             }
         }
 
-        List attributeNameNodes=null;
-        if(PsiTreeUtil.getParentOfType(identifier, QueryNode.class)!=null){
-            PsiElement queryNodeElement=PsiTreeUtil.getParentOfType(identifier, QueryNode.class);
-            PsiElement queryInputNodeElement=PsiTreeUtil.getChildOfType(queryNodeElement, QueryInputNode.class);
+        List attributeNameNodes = null;
+        if (PsiTreeUtil.getParentOfType(identifier, QueryNode.class) != null) {
+            PsiElement queryNodeElement = PsiTreeUtil.getParentOfType(identifier, QueryNode.class);
+            PsiElement queryInputNodeElement = PsiTreeUtil.getChildOfType(queryNodeElement, QueryInputNode.class);
             //suggestions for Standard stream query input
-            PsiElement standardStreamNode=PsiTreeUtil.getChildOfType(queryInputNodeElement, StandardStreamNode.class);
+            PsiElement standardStreamNode = PsiTreeUtil.getChildOfType(queryInputNodeElement, StandardStreamNode.class);
             PsiElement deepestVisibleLastElement;
             if (standardStreamNode != null) {
                 deepestVisibleLastElement = PsiTreeUtil.getDeepestVisibleLast(standardStreamNode);
-            }else{
+            } else {
                 return (new LookupElement[0]);
             }
             IElementType deepestVisibleLastElementType;
             if (deepestVisibleLastElement != null) {
                 deepestVisibleLastElementType = ((LeafPsiElement) deepestVisibleLastElement).getElementType();
-            }else {
+            } else {
                 return (new LookupElement[0]);
             }
-            String streamName="";
-            if(deepestVisibleLastElementType== SiddhiTypes.IDENTIFIER ){
-                    streamName=deepestVisibleLastElement.getText();
+            String streamName = "";
+            if (deepestVisibleLastElementType == SiddhiTypes.IDENTIFIER) {
+                streamName = deepestVisibleLastElement.getText();
             }
-            List streamNodes=Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile,StreamIdNode.class).toArray()));
+            List streamNodes = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode.class).toArray()));
             for (Object streamNode : streamNodes) {
                 PsiElement element = (StreamIdNode) streamNode;
                 if (!streamName.equalsIgnoreCase("") && element.getText().equalsIgnoreCase(streamName) && PsiTreeUtil
