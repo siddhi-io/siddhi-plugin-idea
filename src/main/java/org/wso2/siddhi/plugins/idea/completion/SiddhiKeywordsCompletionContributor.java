@@ -28,52 +28,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-import org.wso2.siddhi.plugins.idea.psi.AnnotationNode;
-import org.wso2.siddhi.plugins.idea.psi.AppAnnotationNode;
-import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
-import org.wso2.siddhi.plugins.idea.psi.AttributeReferenceNode;
-import org.wso2.siddhi.plugins.idea.psi.AttributeTypeNode;
-import org.wso2.siddhi.plugins.idea.psi.BasicSourceStreamHandlerNode;
-import org.wso2.siddhi.plugins.idea.psi.ConstantValueNode;
-import org.wso2.siddhi.plugins.idea.psi.DefinitionElementNode;
-import org.wso2.siddhi.plugins.idea.psi.DeleteFromTableNode;
-import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
-import org.wso2.siddhi.plugins.idea.psi.ExpressionNode;
-import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
-import org.wso2.siddhi.plugins.idea.psi.FunctionNameNode;
-import org.wso2.siddhi.plugins.idea.psi.FunctionOperationNode;
-import org.wso2.siddhi.plugins.idea.psi.GroupByNode;
-import org.wso2.siddhi.plugins.idea.psi.HavingNode;
-import org.wso2.siddhi.plugins.idea.psi.JoinStreamNode;
-import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
-import org.wso2.siddhi.plugins.idea.psi.LeftUnidirectionalJoinNode;
-import org.wso2.siddhi.plugins.idea.psi.MathOperationNode;
-import org.wso2.siddhi.plugins.idea.psi.NameNode;
-import org.wso2.siddhi.plugins.idea.psi.NullCheckNode;
-import org.wso2.siddhi.plugins.idea.psi.OnWithExpressionNode;
-import org.wso2.siddhi.plugins.idea.psi.OutputAttributeNode;
-import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
-import org.wso2.siddhi.plugins.idea.psi.OutputRateNode;
-import org.wso2.siddhi.plugins.idea.psi.ParseNode;
-import org.wso2.siddhi.plugins.idea.psi.PerNode;
-import org.wso2.siddhi.plugins.idea.psi.PreWindowHandlerNode;
-import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
-import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
-import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
-import org.wso2.siddhi.plugins.idea.psi.RightSourceNode;
-import org.wso2.siddhi.plugins.idea.psi.RightUnidirectionalOrNormalJoinNode;
-import org.wso2.siddhi.plugins.idea.psi.SiddhiAppNode;
-import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
-import org.wso2.siddhi.plugins.idea.psi.SourceNode;
-import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
-import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
-import org.wso2.siddhi.plugins.idea.psi.TargetNode;
-import org.wso2.siddhi.plugins.idea.psi.TimeValueNode;
-import org.wso2.siddhi.plugins.idea.psi.TriggerNameNode;
-import org.wso2.siddhi.plugins.idea.psi.UpdateOrInsertIntoNode;
-import org.wso2.siddhi.plugins.idea.psi.UpdateTableNode;
-import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
-import org.wso2.siddhi.plugins.idea.psi.WindowNode;
+import org.wso2.siddhi.plugins.idea.psi.*;
 
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.*;
 
@@ -110,8 +65,8 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     return;
                 }
                 //suggestions after an annotation
-                if (prevVisibleSiblingElementType==SiddhiTypes.CLOSE_PAR && (PsiTreeUtil.getParentOfType
-                        (prevVisibleSibling, AppAnnotationNode.class)!= null ||
+                if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && (PsiTreeUtil.getParentOfType
+                        (prevVisibleSibling, AppAnnotationNode.class) != null ||
                         PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationNode.class) != null)) {
                     addInitialTypesAsLookups(result);
                     return;
@@ -131,9 +86,9 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 
                     PsiElement prevPreVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
                     //Handling suggestions in a query
-                    if(PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
-                        executionElementRelatedKeywordCompletion(result,element,prevVisibleSibling,
-                                prevVisibleSiblingElementType,prevPreVisibleSibling);
+                    if (PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
+                        executionElementRelatedKeywordCompletion(result, element, prevVisibleSibling,
+                                prevVisibleSiblingElementType, prevPreVisibleSibling);
                     }
                     //after AT in a Trigger definition, suggest EVERY keyword
                     if (prevVisibleSiblingElementType == SiddhiTypes.AT && PsiTreeUtil.getParentOfType
@@ -211,11 +166,11 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     }
 
     private void executionElementRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
-                                                          PsiElement prevVisibleSibling,IElementType
-                                                                  prevVisibleSiblingElementType,PsiElement
+                                                          PsiElement prevVisibleSibling, IElementType
+                                                                  prevVisibleSiblingElementType, PsiElement
                                                                   prevPreVisibleSibling) {
         //Suggestions related to QueryInputNode
-        if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
+        if (PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
             if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
                     == SiddhiTypes.FROM) {
                 addEveryKeyword(result);
@@ -223,7 +178,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             }
             //Suggestions related to Standard stream
             if (PsiTreeUtil.getParentOfType(element, StandardStreamNode.class) != null) {
-                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null) {
                     //Suggesting join types after the initial source declaration of the query. we provide these
                     // suggestions here because at the moment antlr doesn't know which stream user is going to enter
                     addSuggestionsRelatedToJoins(result);
@@ -237,105 +192,241 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     return;
                 }
                 //suggestions after the Pre Window Handler of the standard stream
-                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, PreWindowHandlerNode.class) != null ) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, PreWindowHandlerNode.class) != null) {
                     addWindowTypesWithWindowKeyword(result);
                     addStreamFunctions(result);
                     addFilterSuggestion(result);
                     addSuggestionsAfterQueryInput(result);
+                    //Adding following code suggestions related to join stream, because at this point we cant' decide
+                    // that user is typing exactly a standard stream. It can be a join stream as well
+                    addAsKeywordWithDummyAlias(result);
+                    addSuggestionsRelatedToJoins(result);
+                    addUnidirectionalKeyword(result);
                     return;
                 }
                 //suggestions after the Window declaration of the standard stream
-                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, WindowNode.class) != null ) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, WindowNode.class) != null) {
                     addStreamFunctions(result);
                     addFilterSuggestion(result);
                     addSuggestionsAfterQueryInput(result);
+                    //Adding following code suggestions related to join stream, because at this point we cant' decide
+                    // that user is typing exactly a standard stream. It can be a join stream as well
+                    addAsKeywordWithDummyAlias(result);
+                    addSuggestionsRelatedToJoins(result);
+                    addUnidirectionalKeyword(result);
                     return;
                 }
             }
-//            //Suggestions related to Standard stream
-//            if (PsiTreeUtil.getParentOfType(element, JoinStreamNode.class) != null) {
-//                if (PsiTreeUtil.getParentOfType(element, RightSourceNode.class) != null) {
-//                    return;
-//                }
-//            }
-//            if (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL) {
-//                addSuggestionsAfterUnidirectional(result);
-//                return;
-//            }
-//            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinNode.class) != null ) {
-//                addEveryKeyword(result);
-//                return;
-//            }
+            //            //Suggestions related to Standard stream
+            //            if (PsiTreeUtil.getParentOfType(element, JoinStreamNode.class) != null) {
+            //                if (PsiTreeUtil.getParentOfType(element, RightSourceNode.class) != null) {
+            //                    return;
+            //                }
+            //            }
+            //            if (prevVisibleSiblingElementType==SiddhiTypes.UNIDIRECTIONAL) {
+            //                addSuggestionsAfterUnidirectional(result);
+            //                return;
+            //            }
+            //            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinNode.class) != null ) {
+            //                addEveryKeyword(result);
+            //                return;
+            //            }
         }
         //suggesting keywords in the beginning of a query_section rule
-        if(PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
+        if (PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
             //suggestions after a standard stream node
-            if(PsiTreeUtil.getParentOfType(prevVisibleSibling, StandardStreamNode.class) != null){
-                if(PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ||
-                        PsiTreeUtil.getParentOfType(prevVisibleSibling, BasicSourceStreamHandlerNode.class) != null||
-                        PsiTreeUtil.getParentOfType(prevVisibleSibling, WindowNode.class) != null){
+            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, StandardStreamNode.class) != null) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null ||
+                        PsiTreeUtil.getParentOfType(prevVisibleSibling, BasicSourceStreamHandlerNode.class) != null ||
+                        PsiTreeUtil.getParentOfType(prevVisibleSibling, WindowNode.class) != null) {
                     addSuggestionsAfterQueryInput(result);
                     return;
                 }
             }
             //suggestions related to a join stream node
-            if(PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinStreamNode.class) != null){
-                if(PsiTreeUtil.getParentOfType(prevVisibleSibling, RightUnidirectionalOrNormalJoinNode.class) != null){
+            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinStreamNode.class) != null) {
+                //suggestions after a Left source node. antlr identifies that the user is typing exactly a join
+                // stream after typing a as with an alias in a source node. We have to provide suggestions after alias.
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, LeftSourceNode.class) !=null
+                        && PsiTreeUtil.getParentOfType(prevVisibleSibling, AliasNode.class) !=null) {
+                    addSuggestionsRelatedToJoins(result);
+                    addUnidirectionalKeyword(result);
+                    return;
+                }
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, RightUnidirectionalOrNormalJoinNode.class) != null) {
                     //suggestions after a right source in Right Unidirectional Or Normal Join node
                     if (PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null) {
-                        addSuggestionsAfterQueryInput(result);
-                        addUnidirectionalKeyword(result);
-                        return;
-                    }//TODO:add keyword suggestions within join_source
+                        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null) {
+                            addUnidirectionalKeyword(result);
+                            addWindowTypesWithWindowKeyword(result);
+                            addStreamFunctions(result);
+                            addFilterSuggestion(result);
+                            addAsKeywordWithDummyAlias(result);
+                            addSuggestionsAfterQueryInput(result);
+                            onWithExpressionKeyword(result);
+                            addWithinKeyword(result);
+                            return;
+                        }
+                        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, BasicSourceStreamHandlerNode.class) !=
+                                null) {
+                            addUnidirectionalKeyword(result);
+                            addWindowTypesWithWindowKeyword(result);
+                            addStreamFunctions(result);
+                            addFilterSuggestion(result);
+                            addAsKeywordWithDummyAlias(result);
+                            addSuggestionsAfterQueryInput(result);
+                            onWithExpressionKeyword(result);
+                            addWithinKeyword(result);
+                            return;
+                        }
+                        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, WindowNode.class) != null) {
+                            addAsKeywordWithDummyAlias(result);
+                            addSuggestionsAfterQueryInput(result);
+                            addUnidirectionalKeyword(result);
+                            onWithExpressionKeyword(result);
+                            addWithinKeyword(result);
+                            return;
+                        }
+                        IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling)
+                                .getElementType();
+                        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AliasNode.class) != null
+                                && prevPreVisibleSiblingElementType == SiddhiTypes.AS) {
+                            addSuggestionsAfterQueryInput(result);
+                            addUnidirectionalKeyword(result);
+                            onWithExpressionKeyword(result);
+                            addWithinKeyword(result);
+                            return;
+                        }
+
+                    }
+                    //TODO:configure giving attribute after select in join streams
                     //TODO: on sensorStream.sensorId like suggestions in on_with_expression rule
                     //TODO:https://wso2.github.io/siddhi/documentation/siddhi-4.0/#join-stream
                     //suggestions after UNIDIRECTIONAL keyword in Right Unidirectional Or Normal Join node
                     if (prevVisibleSiblingElementType == SiddhiTypes.UNIDIRECTIONAL) {
                         addSuggestionsAfterQueryInput(result);
+                        onWithExpressionKeyword(result);
+                        addWithinKeyword(result);
                         return;
                     }
                 }
-                if(PsiTreeUtil.getParentOfType(prevVisibleSibling, LeftUnidirectionalJoinNode.class) != null) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, LeftUnidirectionalJoinNode.class) != null) {
                     if (prevVisibleSiblingElementType == SiddhiTypes.UNIDIRECTIONAL) {
                         addSuggestionsRelatedToJoins(result);
+                        return;
                     }
+                    //suggestions after the right source declaration of the Left Unidirectional Join Node
                     if (PsiTreeUtil.getParentOfType(prevVisibleSibling, RightSourceNode.class) != null) {
-                        addSuggestionsAfterQueryInput(result);
+                        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, SourceNode.class) != null) {
+                            addWindowTypesWithWindowKeyword(result);
+                            addStreamFunctions(result);
+                            addFilterSuggestion(result);
+                            addAsKeywordWithDummyAlias(result);
+                            addSuggestionsAfterQueryInput(result);
+                            onWithExpressionKeyword(result);
+                            addWithinKeyword(result);
+                            return;
+                        }
+                        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, BasicSourceStreamHandlerNode.class) !=
+                                null) {
+                            addWindowTypesWithWindowKeyword(result);
+                            addStreamFunctions(result);
+                            addFilterSuggestion(result);
+                            addAsKeywordWithDummyAlias(result);
+                            addSuggestionsAfterQueryInput(result);
+                            onWithExpressionKeyword(result);
+                            addWithinKeyword(result);
+                            return;
+                        }
+                        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, WindowNode.class) != null) {
+                            addAsKeywordWithDummyAlias(result);
+                            addSuggestionsAfterQueryInput(result);
+                            onWithExpressionKeyword(result);
+                            addWithinKeyword(result);
+                            return;
+                        }
+                        IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling)
+                                .getElementType();
+                        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AliasNode.class) != null
+                                && prevPreVisibleSiblingElementType == SiddhiTypes.AS) {
+                            addSuggestionsAfterQueryInput(result);
+                            addWithinKeyword(result);
+                            onWithExpressionKeyword(result);
+                            return;
+                        }
                     }
                 }
-                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, OnWithExpressionNode.class) != null) &&
-                         isExpression(prevVisibleSibling)){
-                    addSuggestionsAfterQueryInput(result);
+                //suggestions related to within time range node
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, WithinTimeRangeNode.class) != null){
+                    if(prevVisibleSiblingElementType == SiddhiTypes.WITHIN) {
+                        addEnterYourExpressionClause(result);
+                        return;
+                    }
+                    if(PsiTreeUtil.getParentOfType(prevVisibleSibling, StartPatternNode.class) != null) {
+                        addComma(result);
+                        addPerKeyword(result);
+                        return;
+                    }
+                    if(PsiTreeUtil.getParentOfType(prevPreVisibleSibling, StartPatternNode.class) != null
+                            && prevVisibleSiblingElementType == SiddhiTypes.COMMA) {
+                        addEnterYourExpressionClause(result);
+                        return;
+                    }
+                    if(PsiTreeUtil.getParentOfType(prevVisibleSibling, EndPatternNode.class) != null) {
+                        addPerKeyword(result);
+                        return;
+                    }
                 }
-                if((PsiTreeUtil.getParentOfType(prevVisibleSibling, PerNode.class) != null) &&
-                        isExpression(prevVisibleSibling)){
+                //suggestions after per keyword in a join stream
+                if(prevVisibleSiblingElementType == SiddhiTypes.PER && isExpression(prevPreVisibleSibling)) {
+                    addEnterYourExpressionClause(result);
+                    return;
+                }
+                //suggestions after 'per and expression clause' in a join stream
+                IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling)
+                        .getElementType();
+                if(prevPreVisibleSiblingElementType == SiddhiTypes.PER && isExpression(prevVisibleSibling)) {
                     addSuggestionsAfterQueryInput(result);
+                    return;
+                }
+                //suggestions after a on with expression node
+                if ((PsiTreeUtil.getParentOfType(prevVisibleSibling, OnWithExpressionNode.class) != null) &&
+                        isExpression(prevVisibleSibling)) {
+                    addSuggestionsAfterQueryInput(result);
+                    addWithinKeyword(result);
+                    return;
+                }
+                //suggestions after 'per and an expression' clause
+                if ((PsiTreeUtil.getParentOfType(prevVisibleSibling, PerNode.class) != null) &&
+                        isExpression(prevVisibleSibling)) {
+                    addSuggestionsAfterQueryInput(result);
+                    return;
                 }
             }
         }
         //Suggestions related to QuerySectionNode
-        if(PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
+        if (PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
             //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) in
             // query_section1 rule
-            if((prevVisibleSiblingElementType!=SiddhiTypes.AS && PsiTreeUtil
-                    .getParentOfType(prevVisibleSibling, OutputAttributeNode.class)!=null) ||
-                    prevVisibleSiblingElementType==SiddhiTypes.STAR){
+            if ((prevVisibleSiblingElementType != SiddhiTypes.AS && PsiTreeUtil
+                    .getParentOfType(prevVisibleSibling, OutputAttributeNode.class) != null) ||
+                    prevVisibleSiblingElementType == SiddhiTypes.STAR) {
                 addBeginingOfQueryOutputKeywords(result);
                 return;
             }
             //suggesting by keyword after group keyword
-            if(prevVisibleSiblingElementType==SiddhiTypes.GROUP){
+            if (prevVisibleSiblingElementType == SiddhiTypes.GROUP) {
                 addByKeyword(result);
             }
         }
         //suggesting keywords in the beginning of a query_output rule
         //This provides suggestions after ->OUTPUT output_rate_type? EVERY ( time_value) | OUTPUT SNAPSHOT EVERY
-        // time_value  in output_rate rule
+        // time_value  in output_rate rule//TODO:check output related keyword suggestions
         IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling).getElementType();
-        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
-                && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class)!=null){
-            PsiElement timeValueNodeElement=PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class);
-            PsiElement prevSiblingOfTimeValueNode= null;
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null
+                && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class) != null) {
+            PsiElement timeValueNodeElement = PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class);
+            PsiElement prevSiblingOfTimeValueNode = null;
             if (timeValueNodeElement != null) {
                 prevSiblingOfTimeValueNode = getPreviousVisibleSiblingSkippingComments(timeValueNodeElement);
             }
@@ -343,28 +434,28 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             if (prevSiblingOfTimeValueNode != null) {
                 prevSiblingOfTimeValueNodeElementType = ((LeafPsiElement) prevSiblingOfTimeValueNode).getElementType();
             }
-            if(prevSiblingOfTimeValueNodeElementType==SiddhiTypes.EVERY  &&
-                    prevVisibleSiblingElementType!=SiddhiTypes.INT_LITERAL){
+            if (prevSiblingOfTimeValueNodeElementType == SiddhiTypes.EVERY &&
+                    prevVisibleSiblingElementType != SiddhiTypes.INT_LITERAL) {
                 addBeginingOfQueryOutputKeywords(result);
                 return;
             }
         }
         //This provides suggestions after ->OUTPUT output_rate_type? EVERY INT_LITERAL EVENTS in output_rate rule
-        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class)!=null
-                && prevVisibleSiblingElementType==SiddhiTypes.EVENTS
-                && prevPreVisibleSiblingElementType==SiddhiTypes.INT_LITERAL){
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null
+                && prevVisibleSiblingElementType == SiddhiTypes.EVENTS
+                && prevPreVisibleSiblingElementType == SiddhiTypes.INT_LITERAL) {
             addBeginingOfQueryOutputKeywords(result);
         }
         //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) having in
         // query_section1 rule
-        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, ExpressionNode.class)!=null
-                && PsiTreeUtil.getParentOfType(element, HavingNode.class)!=null){
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, ExpressionNode.class) != null
+                && PsiTreeUtil.getParentOfType(element, HavingNode.class) != null) {
             addBeginingOfQueryOutputKeywords(result);
         }
         //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) group_by in
         // query_section1 rule
-        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeReferenceNode.class)!=null
-                && PsiTreeUtil.getParentOfType(element, GroupByNode.class)!=null){
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeReferenceNode.class) != null
+                && PsiTreeUtil.getParentOfType(element, GroupByNode.class) != null) {
             addBeginingOfQueryOutputKeywords(result);
             addHavingKeyword(result);
         }
@@ -378,22 +469,22 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             addIntoKeyword(result);
         }
         //suggesting INTO keyword after a output event type in a query
-        PsiElement parentOfPrevVisSibling=prevVisibleSibling.getParent();
-        if(parentOfPrevVisSibling instanceof OutputEventTypeNode){
-            PsiElement prevVisibleSiblingOfParent=getPreviousVisibleSiblingSkippingComments(parentOfPrevVisSibling);
+        PsiElement parentOfPrevVisSibling = prevVisibleSibling.getParent();
+        if (parentOfPrevVisSibling instanceof OutputEventTypeNode) {
+            PsiElement prevVisibleSiblingOfParent = getPreviousVisibleSiblingSkippingComments(parentOfPrevVisSibling);
             IElementType elementTypeOfPrevVisibleSiblingOfParent = null;
             if (prevVisibleSiblingOfParent != null) {
                 elementTypeOfPrevVisibleSiblingOfParent = ((LeafPsiElement) prevVisibleSiblingOfParent)
                         .getElementType();
             }
-            if(elementTypeOfPrevVisibleSiblingOfParent==SiddhiTypes.INSERT){
+            if (elementTypeOfPrevVisibleSiblingOfParent == SiddhiTypes.INSERT) {
                 addIntoKeyword(result);
             }
         }
         //Suggestions inside a QueryOutputNode
-        if(PsiTreeUtil.getParentOfType(prevVisibleSibling, QueryOutputNode.class) != null  ){
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, QueryOutputNode.class) != null) {
             //Suggesting keywords related to "delete" in query
-            if(PsiTreeUtil.getParentOfType(element, DeleteFromTableNode.class) != null) {
+            if (PsiTreeUtil.getParentOfType(element, DeleteFromTableNode.class) != null) {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
                     addForKeyword(result);
                     addOnKeyword(result);
@@ -409,7 +500,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 }
             }
             //suggesting keywords related to "update or insert into" in query
-            if(PsiTreeUtil.getParentOfType(element, UpdateOrInsertIntoNode.class) != null) {
+            if (PsiTreeUtil.getParentOfType(element, UpdateOrInsertIntoNode.class) != null) {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
                     addForKeyword(result);
                     addOnKeyword(result);
@@ -427,7 +518,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 }
             }
             //suggesting keywords related to "update" in query
-            if(PsiTreeUtil.getParentOfType(element, UpdateTableNode.class) != null) {
+            if (PsiTreeUtil.getParentOfType(element, UpdateTableNode.class) != null) {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
                     addForKeyword(result);
                     addOnKeyword(result);
@@ -445,7 +536,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 }
             }
             //Suggesting  output event types after RETURN keyword in the QueryOutputNode
-            if(prevVisibleSiblingElementType==SiddhiTypes.RETURN){
+            if (prevVisibleSiblingElementType == SiddhiTypes.RETURN) {
                 addOutputEventTypeKeywords(result);
                 return;
             }
@@ -453,31 +544,31 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     }
 
     @Nullable
-    private PsiElement getPreviousVisibleSiblingSkippingComments(@NotNull PsiElement currentElement){
+    private PsiElement getPreviousVisibleSiblingSkippingComments(@NotNull PsiElement currentElement) {
         PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(currentElement);
-        if(prevVisibleSibling instanceof PsiComment){
-            prevVisibleSibling=getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
+        if (prevVisibleSibling instanceof PsiComment) {
+            prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
         }
-        if(prevVisibleSibling==null){
+        if (prevVisibleSibling == null) {
             return null;
         }
         return prevVisibleSibling;
     }
 
-    private Boolean isExpression(@NotNull PsiElement element){
-        if(PsiTreeUtil.getParentOfType(element, ExpressionNode.class) != null){
-            if(PsiTreeUtil.getParentOfType(element, MathOperationNode.class) != null ||
+    private Boolean isExpression(@NotNull PsiElement element) {
+        if (PsiTreeUtil.getParentOfType(element, ExpressionNode.class) != null) {
+            if (PsiTreeUtil.getParentOfType(element, MathOperationNode.class) != null ||
                     PsiTreeUtil.getParentOfType(element, NullCheckNode.class) != null ||
                     PsiTreeUtil.getParentOfType(element, NameNode.class) != null ||
                     PsiTreeUtil.getParentOfType(element, AttributeReferenceNode.class) != null ||
                     PsiTreeUtil.getParentOfType(element, ConstantValueNode.class) != null ||
                     PsiTreeUtil.getParentOfType(element, FunctionOperationNode.class) != null) {
                 return true;
-            }else{
+            } else {
                 PsiElement prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(element);
                 IElementType elementType = ((LeafPsiElement) element).getElementType();
-                if(elementType == SiddhiTypes.CLOSE_PAR
-                        && PsiTreeUtil.getParentOfType(prevVisibleSibling,MathOperationNode.class) != null ){
+                if (elementType == SiddhiTypes.CLOSE_PAR
+                        && PsiTreeUtil.getParentOfType(prevVisibleSibling, MathOperationNode.class) != null) {
                     return true;
                 }
             }

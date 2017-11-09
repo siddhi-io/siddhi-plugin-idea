@@ -30,7 +30,6 @@ import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
-import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.TableDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
@@ -51,6 +50,7 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder FROM;
     private static final LookupElementBuilder AT_SYMBOL;
     private static final LookupElementBuilder HASH_SYMBOL;
+    private static final LookupElementBuilder COMMA_SYMBOL;
     private static final LookupElementBuilder QUERY_SNIIP;
     private static final LookupElementBuilder QUERY_PATTERN_SNIP;
     private static final LookupElementBuilder QUERY_JOIN_SNIIP;
@@ -180,6 +180,11 @@ public class SiddhiCompletionUtils {
     //Siddhi Log
     private static final LookupElementBuilder LOG;
 
+    private static final LookupElementBuilder AS_WITH_ALIAS;
+    private static final LookupElementBuilder ON_WITH_EXPRESSION;
+
+    private static final LookupElementBuilder ENTER_YOUR_EXPRESSION;
+
     //Other Keywords
     private static final LookupElementBuilder SET;
     private static final LookupElementBuilder SELECT;
@@ -227,6 +232,7 @@ public class SiddhiCompletionUtils {
         FROM = createKeywordLookupElement("from");
         AT_SYMBOL=createKeywordLookupElement("@");
         HASH_SYMBOL=createKeywordLookupElement("#");
+        COMMA_SYMBOL=createKeywordLookupElement(",");
         QUERY_SNIIP=createDefineSnippetTypeLookupElement("from stream_name\n" +
                 "select attribute1 , attribute2\n" +
                 "insert into output_stream",null).withPresentableText("query");
@@ -398,6 +404,11 @@ public class SiddhiCompletionUtils {
                 "expression").withPresentableText("expression");
         LOG=createLookupElementWithCustomTypeText("#log(priority, log.message, is.event.logged)",null,"stream " +
                 "processor").withPresentableText("log()");
+
+        AS_WITH_ALIAS=createKeywordLookupElement("as enter_alias_here").withPresentableText("as");
+        ON_WITH_EXPRESSION=createKeywordLookupElement("on enter_your_expression").withPresentableText("on");
+
+        ENTER_YOUR_EXPRESSION=createKeywordLookupElement("enter_your_expression");
 
         LAST = createKeywordLookupElement("last");
         FIRST = createKeywordLookupElement("first");
@@ -773,13 +784,10 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, OUTER_JOIN);
         addKeywordAsLookup(resultSet, INNER_JOIN);
         addKeywordAsLookup(resultSet, JOIN);
-//        addKeywordAsLookup(resultSet, ON);//TODO:verify these suggestions
-//        addKeywordAsLookup(resultSet, WITHIN);
     }
 
-    static void addSuggestionsAfterSource(@NotNull CompletionResultSet resultSet){
-//        addKeywordAsLookup(resultSet, ON);//TODO:verify these suggestions
-//        addKeywordAsLookup(resultSet, WITHIN);
+    static void onWithExpressionKeyword(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, ON_WITH_EXPRESSION);
     }
 
     static void addSuggestionsAfterQueryInput(@NotNull CompletionResultSet resultSet){
@@ -792,9 +800,7 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, RETURN);
     }
 
-    static void addSuggestionsAfterUnidirectional(@NotNull CompletionResultSet resultSet){
-        addKeywordAsLookup(resultSet, JOIN);
-        addKeywordAsLookup(resultSet, ON);
+    static void addWithinKeyword(@NotNull CompletionResultSet resultSet){
         addKeywordAsLookup(resultSet, WITHIN);
     }
 
@@ -814,6 +820,22 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
     }
 
+    static void addAsKeywordWithDummyAlias(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, AS_WITH_ALIAS);
+    }
+
+    static void addEnterYourExpressionClause(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, ENTER_YOUR_EXPRESSION);
+    }
+
+    static void addComma(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, COMMA_SYMBOL);
+    }
+
+    static void addPerKeyword(@NotNull CompletionResultSet resultSet){
+        addKeywordAsLookup(resultSet, PER);
+    }
+
     /**
      * Adds window types as lookups.
      *
@@ -831,114 +853,6 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(CRON, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(TIMELENGTH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIME, VALUE_TYPES_PRIORITY));
-    }
-
-
-    /**
-     * Adds common keywords like if, else as lookup elements.
-     *
-     * @param resultSet result list which is used to add lookups
-     */
-    static void addCommonKeywords(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, SELECT);
-        addKeywordAsLookup(resultSet, GROUP);
-        addKeywordAsLookup(resultSet, BY);
-        addKeywordAsLookup(resultSet, HAVING);
-        addKeywordAsLookup(resultSet, INSERT);
-        addKeywordAsLookup(resultSet, DELETE);
-        addKeywordAsLookup(resultSet, UPDATE);
-        addKeywordAsLookup(resultSet, EVENTS);
-        addKeywordAsLookup(resultSet, INTO);
-        addKeywordAsLookup(resultSet, OUTPUT);
-        addKeywordAsLookup(resultSet, SNAPSHOT);
-        addKeywordAsLookup(resultSet, FOR);
-        addKeywordAsLookup(resultSet, RAW);
-        addKeywordAsLookup(resultSet, OF);
-        addKeywordAsLookup(resultSet, AS);
-        addKeywordAsLookup(resultSet, OR);
-        addKeywordAsLookup(resultSet, AND);
-        addKeywordAsLookup(resultSet, ON);
-        addKeywordAsLookup(resultSet, IN);
-        addKeywordAsLookup(resultSet, IS);
-        addKeywordAsLookup(resultSet, NOT);
-        addKeywordAsLookup(resultSet, WITHIN);
-        addKeywordAsLookup(resultSet, WITH);
-        addKeywordAsLookup(resultSet, BEGIN);
-        addKeywordAsLookup(resultSet, END);
-        addKeywordAsLookup(resultSet, NULL);
-        addKeywordAsLookup(resultSet, LAST);
-        addKeywordAsLookup(resultSet, FIRST);
-        addKeywordAsLookup(resultSet, JOIN);
-        addKeywordAsLookup(resultSet, INNER);
-        addKeywordAsLookup(resultSet, OUTER);
-        addKeywordAsLookup(resultSet, RIGHT);
-        addKeywordAsLookup(resultSet, LEFT);
-        addKeywordAsLookup(resultSet, FULL);
-        addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
-        addKeywordAsLookup(resultSet, YEARS);
-        addKeywordAsLookup(resultSet, MONTHS);
-        addKeywordAsLookup(resultSet, WEEKS);
-        addKeywordAsLookup(resultSet, DAYS);
-        addKeywordAsLookup(resultSet, HOURS);
-        addKeywordAsLookup(resultSet, MINUTES);
-        addKeywordAsLookup(resultSet, SECONDS);
-        addKeywordAsLookup(resultSet, MILLISECONDS);
-        addKeywordAsLookup(resultSet, AGGREGATION);
-        addKeywordAsLookup(resultSet, AGGREGATE);
-        addKeywordAsLookup(resultSet, PER);
-    }
-
-    @NotNull
-    public static List<LookupElement> createCommonKeywords() {
-        List<LookupElement> lookupElements = new LinkedList<>();
-
-        lookupElements.add(createKeywordAsLookup(SELECT));
-        lookupElements.add(createKeywordAsLookup(GROUP));
-        lookupElements.add(createKeywordAsLookup(BY));
-        lookupElements.add(createKeywordAsLookup(HAVING));
-        lookupElements.add(createKeywordAsLookup(INSERT));
-        lookupElements.add(createKeywordAsLookup(DELETE));
-        lookupElements.add(createKeywordAsLookup(UPDATE));
-        lookupElements.add(createKeywordAsLookup(EVENTS));
-        lookupElements.add(createKeywordAsLookup(INTO));
-        lookupElements.add(createKeywordAsLookup(OUTPUT));
-        lookupElements.add(createKeywordAsLookup(SNAPSHOT));
-        lookupElements.add(createKeywordAsLookup(FOR));
-        lookupElements.add(createKeywordAsLookup(RAW));
-        lookupElements.add(createKeywordAsLookup(OF));
-        lookupElements.add(createKeywordAsLookup(AS));
-        lookupElements.add(createKeywordAsLookup(OR));
-        lookupElements.add(createKeywordAsLookup(AND));
-        lookupElements.add(createKeywordAsLookup(ON));
-        lookupElements.add(createKeywordAsLookup(IN));
-        lookupElements.add(createKeywordAsLookup(IS));
-        lookupElements.add(createKeywordAsLookup(NOT));
-        lookupElements.add(createKeywordAsLookup(WITHIN));
-        lookupElements.add(createKeywordAsLookup(WITH));
-        lookupElements.add(createKeywordAsLookup(BEGIN));
-        lookupElements.add(createKeywordAsLookup(END));
-        lookupElements.add(createKeywordAsLookup(NULL));
-        lookupElements.add(createKeywordAsLookup(LAST));
-        lookupElements.add(createKeywordAsLookup(FIRST));
-        lookupElements.add(createKeywordAsLookup(JOIN));
-        lookupElements.add(createKeywordAsLookup(INNER));
-        lookupElements.add(createKeywordAsLookup(OUTER));
-        lookupElements.add(createKeywordAsLookup(RIGHT));
-        lookupElements.add(createKeywordAsLookup(LEFT));
-        lookupElements.add(createKeywordAsLookup(FULL));
-        lookupElements.add(createKeywordAsLookup(UNIDIRECTIONAL));
-        lookupElements.add(createKeywordAsLookup(YEARS));
-        lookupElements.add(createKeywordAsLookup(MONTHS));
-        lookupElements.add(createKeywordAsLookup(WEEKS));
-        lookupElements.add(createKeywordAsLookup(DAYS));
-        lookupElements.add(createKeywordAsLookup(HOURS));
-        lookupElements.add(createKeywordAsLookup(MINUTES));
-        lookupElements.add(createKeywordAsLookup(SECONDS));
-        lookupElements.add(createKeywordAsLookup(MILLISECONDS));
-        lookupElements.add(createKeywordAsLookup(AGGREGATION));
-        lookupElements.add(createKeywordAsLookup(AGGREGATE));
-        lookupElements.add(createKeywordAsLookup(PER));
-        return lookupElements;
     }
 
     static void addValueKeywords(@NotNull CompletionResultSet resultSet) {

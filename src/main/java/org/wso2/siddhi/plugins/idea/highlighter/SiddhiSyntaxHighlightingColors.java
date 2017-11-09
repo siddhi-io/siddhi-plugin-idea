@@ -40,15 +40,15 @@ public class SiddhiSyntaxHighlightingColors {
             DefaultLanguageHighlighterColors.DOT);
     public static final TextAttributesKey COL = createTextAttributesKey("SIDDHI_COLON_TOKEN",
             DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey TRIPLE_DOT = createTextAttributesKey("SIDDHI_COLON_TOKEN",
+    public static final TextAttributesKey TRIPLE_DOT = createTextAttributesKey("SIDDHI_TRIPLE_DOT_TOKEN",
             DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey PARENTHESIS = createTextAttributesKey("SIDDHI_COLON_TOKEN",
+    public static final TextAttributesKey PARENTHESIS = createTextAttributesKey("SIDDHI_PARENTHESIS_TOKEN",
             DefaultLanguageHighlighterColors.PARENTHESES);
-    public static final TextAttributesKey SQUARE_BRACKETS = createTextAttributesKey("SIDDHI_COLON_TOKEN",
+    public static final TextAttributesKey SQUARE_BRACKETS = createTextAttributesKey("SIDDHI_SQUARE_BRACKETS_TOKEN",
             DefaultLanguageHighlighterColors.BRACKETS);
-    public static final TextAttributesKey COMMA = createTextAttributesKey("SIDDHI_COLON_TOKEN",
+    public static final TextAttributesKey COMMA = createTextAttributesKey("SIDDHI_COMMA_TOKEN",
             DefaultLanguageHighlighterColors.COMMA);
-    public static final TextAttributesKey SYMBOLS = createTextAttributesKey("SIDDHI_COLON_TOKEN",
+    public static final TextAttributesKey SYMBOLS = createTextAttributesKey("SIDDHI_SYMBOLS_TOKEN",
             DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
     public static final TextAttributesKey VALID_STRING_ESCAPE = createTextAttributesKey("SIDDHI_VALID_STRING_ESCAPE",
             DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);

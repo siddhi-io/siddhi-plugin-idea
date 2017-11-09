@@ -271,6 +271,16 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new PreWindowHandlerNode(node);
             case RULE_post_window_handlers:
                 return new PostWindowHandlerNode(node);
+            case RULE_alias:
+                return new AliasNode(node);
+            case RULE_left_source:
+                return new LeftSourceNode(node);
+            case RULE_within_time_range:
+                return new WithinTimeRangeNode(node);
+            case RULE_start_pattern:
+                return new StartPatternNode(node);
+            case RULE_end_pattern:
+                return new EndPatternNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }

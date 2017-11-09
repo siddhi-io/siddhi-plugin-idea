@@ -51,10 +51,11 @@ public class AttributeNameReference extends SiddhiElementReference {
     @NotNull
     @Override
     public Object[] getVariants() {
-        //TODO:resolve attribute types for streams created in the output stream in query output
+        //TODO: resolve attribute types for streams created in the output stream in query output
         //TODO:restrict attribute name suggestions to only used in the select phrase for group by clause
         //TODO:restrict attribute name suggestions to only used in the select phrase
         //TODO:restrict attribute suggestions in delete,update or insert,update in query output
+        //TODO: add attribute suggestions after on in queries ex: on Table.roomNo == Rstream.roomNo
         IdentifierPSINode identifier = getElement();
         PsiFile psiFile = identifier.getContainingFile();
         //Avoiding suggesting attributes after group keyword

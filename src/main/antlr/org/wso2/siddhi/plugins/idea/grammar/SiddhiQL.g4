@@ -223,12 +223,17 @@ join_stream
 //Added a new rule named join_stream1(which has the same content previously used in the join_stream rule) to avoid
 //node collapsing issue in psi tree building
 join_stream1
-    :left_source=join_source (right_unidirectional_or_normal_join | left_unidirectional_join) on_with_expression?
+    :left_source (right_unidirectional_or_normal_join | left_unidirectional_join) on_with_expression?
     (within_time_range per)?
     ;
 
 //Newly added rule to help to recognize that the user is typing a 'right unidirectional join or a normal join' clause
 right_unidirectional_or_normal_join
+    :right_unidirectional_or_normal_join1
+    ;
+//Added a new rule named right_unidirectional_or_normal_join1(which has the same content previously used in the
+// right_unidirectional_or_normal_join rule) to avoid node collapsing issue in psi tree building
+right_unidirectional_or_normal_join1
     :join right_source UNIDIRECTIONAL?
     ;
 
@@ -239,6 +244,11 @@ left_unidirectional_join
 
 //Newly added rule to help to recognize that the user is typing a 'right source' clause
 right_source
+    :join_source
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'right source' clause
+left_source
     :join_source
     ;
 
@@ -511,7 +521,17 @@ within_time
     ;
 
 within_time_range
-    :WITHIN start_pattern=expression (',' end_pattern=expression)?
+    :WITHIN start_pattern (',' end_pattern)?
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'start pattern' clause
+start_pattern
+    :expression
+    ;
+
+//Newly added rule to help to recognize that the user is typing a 'end pattern' clause
+end_pattern
+    :expression
     ;
 
 per :PER expression
@@ -529,27 +549,6 @@ attribute
 expression
     :math_operation
     ;
-
-
-//math_operation
-//    :math_operation1
-//    ;
-
-//math_operation
-//    :'('math_operation1')'                         #basic_math_operation
-//    |null_check                                   #basic_math_operation
-//    |NOT math_operation1                           #not_math_operation
-//    |math_operation1 (multiply='*'|devide='/'|mod='%') math_operation1    #multiplication_math_operation
-//    |math_operation1 (add='+'|substract='-') math_operation1              #addition_math_operation
-//    |math_operation1 (gt_eq='>='|lt_eq='<='|gt='>'|lt='<') math_operation1 #greaterthan_lessthan_math_operation
-//    |math_operation1 (eq='=='|not_eq='!=') math_operation1                #equality_math_operation
-//    |math_operation1 IN name                       #in_math_operation
-//    |math_operation1 AND math_operation1            #and_math_operation
-//    |math_operation1 OR math_operation1             #or_math_operation
-//    |function_operation                           #basic_math_operation
-//    |constant_value                               #basic_math_operation
-//    |attribute_reference                          #basic_math_operation
-//    ;
 
 math_operation
     :'('math_operation')'                         #basic_math_operation
