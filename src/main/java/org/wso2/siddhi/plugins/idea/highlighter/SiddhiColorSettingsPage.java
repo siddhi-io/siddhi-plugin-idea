@@ -29,7 +29,7 @@ import javax.swing.*;
 import java.util.Map;
 
 /**
- * CLass which defines the custom page shown in the "Colors and Fonts" settings dialog.
+ * Class which defines the custom page shown in the "Colors and Fonts" settings dialog.
  */
 public class SiddhiColorSettingsPage implements ColorSettingsPage {
 
@@ -46,7 +46,7 @@ public class SiddhiColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("SquareBrackets", SiddhiSyntaxHighlightingColors.SQUARE_BRACKETS),
             new AttributesDescriptor("Comma", SiddhiSyntaxHighlightingColors.COMMA),
             new AttributesDescriptor("Symbols", SiddhiSyntaxHighlightingColors.SYMBOLS),
-    };
+    };//TODO:colon,Semicolon and Follow the meeting nodes.
 
     @Nullable
     @Override

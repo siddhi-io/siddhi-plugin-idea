@@ -58,6 +58,7 @@ public class SiddhiSyntaxHighlightingColors {
     public static final TextAttributesKey INVALID_STRING_ESCAPE = createTextAttributesKey(
             "SIDDHI_INVALID_STRING_ESCAPE", DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE);
 
+    //TODO:color only comma ,#,semicolon
     private SiddhiSyntaxHighlightingColors() {
 
     }
