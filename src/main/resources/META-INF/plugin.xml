@@ -1,5 +1,5 @@
 <idea-plugin>
-    <id>org.wso2</id>
+    <id>org.wso2.siddhi</id>
     <name>Siddhi</name>
     <version>0.1</version>
     <vendor email="support@wso2.com" url="http://wso2.org">WSO2 Inc.</vendor>
