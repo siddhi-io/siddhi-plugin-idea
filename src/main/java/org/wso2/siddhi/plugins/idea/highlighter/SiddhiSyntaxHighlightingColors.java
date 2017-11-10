@@ -22,6 +22,9 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 
 import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
 
+/**
+ * Defines syntax highlighting colors of siddhi language
+ */
 public class SiddhiSyntaxHighlightingColors {
 
     public static final TextAttributesKey LINE_COMMENT = createTextAttributesKey("SIDDHI_LINE_COMMENT",

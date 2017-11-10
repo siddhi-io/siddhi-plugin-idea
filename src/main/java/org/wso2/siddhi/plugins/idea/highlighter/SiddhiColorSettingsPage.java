@@ -28,10 +28,12 @@ import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 import javax.swing.*;
 import java.util.Map;
 
+/**
+ * CLass which defines the custom page shown in the "Colors and Fonts" settings dialog.
+ */
 public class SiddhiColorSettingsPage implements ColorSettingsPage {
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
-            //TODO: add more attributes--Other types like <,> ...
             new AttributesDescriptor("Keywords", SiddhiSyntaxHighlightingColors.KEYWORD),
             new AttributesDescriptor("Strings", SiddhiSyntaxHighlightingColors.STRING),
             new AttributesDescriptor("Comments", SiddhiSyntaxHighlightingColors.LINE_COMMENT),

@@ -19,6 +19,9 @@ package org.wso2.siddhi.plugins.idea;
 import com.intellij.lang.Commenter;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Defines comment types associated with siddhi language
+ */
 public class SiddhiCommenter implements Commenter {
 
     @Nullable

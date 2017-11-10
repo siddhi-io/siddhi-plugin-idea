@@ -22,6 +22,9 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.Icon;
 
+/**
+ * Defines file types associated with siddhi language
+ */
 public class SiddhiFileType extends LanguageFileType {
 
     public static final SiddhiFileType INSTANCE = new SiddhiFileType();

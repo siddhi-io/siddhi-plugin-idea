@@ -18,6 +18,9 @@ package org.wso2.siddhi.plugins.idea;
 
 import com.intellij.lang.Language;
 
+/**
+ * The base class for siddhi language support implementations.
+ */
 public class SiddhiLanguage extends Language {
 
     public static final SiddhiLanguage INSTANCE = new SiddhiLanguage();

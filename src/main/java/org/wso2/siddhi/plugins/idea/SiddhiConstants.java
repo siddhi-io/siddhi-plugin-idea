@@ -20,6 +20,9 @@ import com.intellij.notification.NotificationGroup;
 import com.intellij.openapi.wm.ToolWindowId;
 import org.jetbrains.annotations.NonNls;
 
+/**
+ * Defines constant variables
+ */
 public class SiddhiConstants {
 
     private SiddhiConstants() {

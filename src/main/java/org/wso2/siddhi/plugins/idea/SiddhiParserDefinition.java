@@ -17,7 +17,9 @@
 package org.wso2.siddhi.plugins.idea;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.lang.Language;
 import com.intellij.lang.ParserDefinition;
+import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.project.Project;
@@ -42,6 +44,11 @@ import org.wso2.siddhi.plugins.idea.psi.*;
 
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.*;
 
+/**
+ * Defines the implementation of the parser for the Siddhi language.
+ *
+ * @see com.intellij.lang.LanguageParserDefinitions#forLanguage(Language)
+ */
 public class SiddhiParserDefinition implements ParserDefinition {
 
     private static final IFileElementType FILE = new IFileElementType(SiddhiLanguage.INSTANCE);
@@ -103,6 +110,7 @@ public class SiddhiParserDefinition implements ParserDefinition {
         };
     }
 
+    /** "Tokens of those types are automatically skipped by PsiBuilder." */
     @NotNull
     public TokenSet getWhitespaceTokens() {
         return WHITESPACE;
@@ -127,10 +135,40 @@ public class SiddhiParserDefinition implements ParserDefinition {
         return SpaceRequirements.MAY;
     }
 
+    /** Create the root of your PSI tree (a PsiFile).
+     *
+     *  From IntelliJ IDEA Architectural Overview:
+     *  "A PSI (Program Structure Interface) file is the root of a structure
+     *  representing the contents of a file as a hierarchy of elements
+     *  in a particular programming language."
+     *
+     *  PsiFile is to be distinguished from a FileASTNode, which is a parse
+     *  tree node that eventually becomes a PsiFile. From PsiFile, we can get
+     *  it back via: {@link PsiFile#getNode}.
+     */
     public PsiFile createFile(FileViewProvider viewProvider) {
         return new SiddhiFile(viewProvider);
     }
 
+    /** Convert from *NON-LEAF* parse node (AST they call it)
+     *  to PSI node. Leaves are created in the AST factory.
+     *  Rename re-factoring can cause this to be
+     *  called on a TokenIElementType since we want to rename ID nodes.
+     *  In that case, this method is called to create the root node
+     *  but with ID type. Kind of strange, but we can simply create a
+     *  ASTWrapperPsiElement to make everything work correctly.
+     *
+     *  RuleIElementType.  Ah! It's that ID is the root
+     *  IElementType requested to parse, which means that the root
+     *  node returned from parsetree->PSI conversion.  But, it
+     *  must be a CompositeElement! The adaptor calls
+     *  rootMarker.done(root) to finish off the PSI conversion.
+     *  See {@link ANTLRParserAdaptor#parse(IElementType, PsiBuilder)}
+     *
+     *  If you don't care to distinguish PSI nodes by type, it is
+     *  sufficient to create a {@link ANTLRPsiNode} around
+     *  the parse tree node
+     */
     @NotNull
     public PsiElement createElement(ASTNode node) {
         IElementType elementType = node.getElementType();

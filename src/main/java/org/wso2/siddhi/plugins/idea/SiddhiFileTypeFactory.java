@@ -20,6 +20,9 @@ import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.fileTypes.FileTypeFactory;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Creates file types associated with siddhi language
+ */
 public class SiddhiFileTypeFactory extends FileTypeFactory {
 
     @Override

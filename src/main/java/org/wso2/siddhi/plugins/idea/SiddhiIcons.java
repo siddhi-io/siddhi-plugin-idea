@@ -23,6 +23,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
+/**
+ * Defines icons specific to siddhi language
+ */
 public class SiddhiIcons {
     public static final Icon ICON = IconLoader.findIcon("/icons/siddhi.png");
     public static final Icon APPLICATION_RUN = createIconWithShift(ICON, AllIcons.Nodes.RunnableMark);

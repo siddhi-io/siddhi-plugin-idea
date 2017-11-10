@@ -18,11 +18,23 @@ package org.wso2.siddhi.plugins.idea;
 
 import com.intellij.psi.tree.TokenSet;
 import org.antlr.jetbrains.adaptor.lexer.PSIElementTypeFactory;
+import org.antlr.jetbrains.adaptor.lexer.RuleIElementType;
 import org.antlr.jetbrains.adaptor.lexer.TokenIElementType;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 
 import java.util.List;
 
+/**
+ *  Represents a token in the language of the plug-in. The "token type" of
+ *  leaf nodes in jetbrains PSI tree. Corresponds to ANTLR's int token type.
+ *  Intellij lexer token types are instances of IElementType:
+ *
+ *  "Interface for token types returned from lexical analysis and for types
+ *   of nodes in the AST tree."
+ *
+ *  We differentiate between parse tree subtree roots and tokens with
+ *  {@link RuleIElementType} and {@link TokenIElementType}, respectively.
+ */
 public class SiddhiTypes {
 
     private SiddhiTypes() {
@@ -33,8 +45,6 @@ public class SiddhiTypes {
             PSIElementTypeFactory.getTokenIElementTypes(SiddhiLanguage.INSTANCE);
 
     public static final TokenIElementType IDENTIFIER = tokenIElementTypes.get(SiddhiQLLexer.ID);
-
-
     public static final TokenIElementType INT_LITERAL = tokenIElementTypes.get(SiddhiQLLexer.INT_LITERAL);
     public static final TokenIElementType LONG_LITERAL = tokenIElementTypes.get(SiddhiQLLexer.LONG_LITERAL);
     public static final TokenIElementType FLOAT_LITERAL = tokenIElementTypes.get(SiddhiQLLexer.FLOAT_LITERAL);

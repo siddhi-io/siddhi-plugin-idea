@@ -28,6 +28,11 @@ import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
 
+/**
+ *  Defines how to create parse tree nodes (Jetbrains calls them AST nodes). Later
+ *  non-leaf nodes are converted to PSI nodes by the {@link ParserDefinition}.
+ *  Leaf nodes are already considered PSI nodes.
+ */
 public class SiddhiASTFactory extends CoreASTFactory {
     /**
      * Create an internal parse tree node. FileElement for root or a parse tree CompositeElement (not

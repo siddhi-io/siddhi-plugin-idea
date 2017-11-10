@@ -30,6 +30,27 @@ import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *  A highlighter is really just a mapping from token type to
+ *  some text attributes using {@link #getTokenHighlights(IElementType)}.
+ *  The reason that it returns an array, TextAttributesKey[], is
+ *  that you might want to mix the attributes of a few known highlighters.
+ *  A {@link TextAttributesKey} is just a name for that a theme
+ *  or IDE skin can set. For example, {@link com.intellij.openapi.editor.DefaultLanguageHighlighterColors#KEYWORD}
+ *  is the key that maps to what identifiers look like in the editor.
+ *  To change it, see dialog: Editor > Colors & Fonts > Language Defaults.
+ *
+ *  From <a href="http://www.jetbrains.org/intellij/sdk/docs/reference_guide/custom_language_support/syntax_highlighting_and_error_highlighting.html">doc</a>:
+ *  "The mapping of the TextAttributesKey to specific attributes used
+ *  in an editor is defined by the EditorColorsScheme class, and can
+ *  be configured by the user if the plugin provides an appropriate
+ *  configuration interface.
+ *  ...
+ *  The syntax highlighter returns the {@link TextAttributesKey}
+ * instances for each token type which needs special highlighting.
+ * For highlighting lexer errors, the standard TextAttributesKey
+ * for bad characters HighlighterColors.BAD_CHARACTER can be used."
+ */
 public class SiddhiSyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
