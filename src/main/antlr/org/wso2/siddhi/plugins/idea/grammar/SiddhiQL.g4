@@ -163,7 +163,7 @@ annotation_element
     :(property_name '=')? property_value
     ;
 
-partition
+partition //TODO:Add suggestions for partitions
     :  PARTITION WITH '('partition_with_stream (','partition_with_stream)* ')' BEGIN (query|error) (';' (query|error))* ';'? END
     ;
 
@@ -404,6 +404,9 @@ sequence_collection_stateful_source
     ;
 
 anonymous_stream
+    :anonymous_stream1
+    ;
+anonymous_stream1
     : '('anonymous_stream')'
     | FROM query_input query_section? output_rate? RETURN output_event_type?
     ;
@@ -940,8 +943,8 @@ ID : [a-zA-Z_] [a-zA-Z_0-9]* ;
 
 STRING_LITERAL
     :(
-        '\'' ( ~('\u0000'..'\u001f' | '\''| '\"' ) )* '\''?
-        |'"' ( ~('\u0000'..'\u001f'  |'\"') )* '"'?
+        '\'' ( ~('\u0000'..'\u001f' | '\'' ) )* '\''?
+        |'"' ( ~('\u0000'..'\u001f'  ) )* '"'?
      )  {setText(getText().substring(1, getText().length()-1));}
      |('"""'(.*?)'"""')  {setText(getText().substring(3, getText().length()-3));}
     ;

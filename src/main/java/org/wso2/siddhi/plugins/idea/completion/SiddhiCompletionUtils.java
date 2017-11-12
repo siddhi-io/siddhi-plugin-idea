@@ -609,7 +609,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    static void addValueTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+    public static void addValueTypesAsLookups(@NotNull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(LONG, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(INT, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(FLOAT, VALUE_TYPES_PRIORITY));
@@ -624,7 +624,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    static void addInitialTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+    public static void addInitialTypesAsLookups(@NotNull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(PARTITION, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(FROM, VALUE_TYPES_PRIORITY));
@@ -660,7 +660,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    static void addAfterATSymbolLookups(@NotNull CompletionResultSet resultSet) {
+    public static void addAfterATSymbolLookups(@NotNull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SINK2, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SOURCE2, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_CONFIG_SNIIP2, VALUE_TYPES_PRIORITY));
@@ -683,7 +683,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    static void addBeginingOfQueryOutputKeywords(@NotNull CompletionResultSet resultSet) {
+    public static void addBeginingOfQueryOutputKeywords(@NotNull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(INSERT, KEYWORDS_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(DELETE, KEYWORDS_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(UPDATE_OR_INSERT_INTO, KEYWORDS_PRIORITY));
@@ -696,7 +696,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    static void addDefineTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+    public static void addDefineTypesAsLookups(@NotNull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(STREAM, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(TABLE, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(TRIGGER, VALUE_TYPES_PRIORITY));
@@ -719,52 +719,92 @@ public class SiddhiCompletionUtils {
         return PrioritizedLookupElement.withPriority(lookupElement, KEYWORDS_PRIORITY);
     }
 
-    static void addAtKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addAtKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, AT);
     }
 
-    static void addEveryKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addEveryKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, EVERY);
     }
 
-    static void addByKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addFromKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, FROM);
+    }
+
+    public static void addByKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, BY);
     }
 
-    static void addHavingKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addHavingKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, HAVING);
     }
 
-    static void addReturnKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addReturnKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, RETURN);
     }
 
-    static void addIntoKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addIntoKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, INTO);
     }
 
-    static void addOutputEventTypeKeywords(@NotNull CompletionResultSet resultSet) {
+    public static void addWithinKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, WITHIN);
+    }
+
+    public static void addForKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, FOR);
+    }
+
+    public static void addOnKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, ON);
+    }
+
+    public static void addSetKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, SET);
+    }
+
+    public static void addUnidirectionalKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
+    }
+
+    public static void addAsKeywordWithDummyAlias(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, AS_WITH_ALIAS);
+    }
+
+    public static void addEnterYourExpressionClause(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, ENTER_YOUR_EXPRESSION);
+    }
+
+    public static void addComma(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, COMMA_SYMBOL);
+    }
+
+    public static void addPerKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, PER);
+    }
+
+    public static void addOutputEventTypeKeywords(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, (ALL_EVENTS));
         addKeywordAsLookup(resultSet, (EXPIRED_EVENTS));
         addKeywordAsLookup(resultSet, (CURRENT_EVENTS));
     }
 
-    static void addLanguageTypesKeywords(@NotNull CompletionResultSet resultSet) {
+    public static void addLanguageTypesKeywords(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, JAVASCRIPT);
         addKeywordAsLookup(resultSet, R);
         addKeywordAsLookup(resultSet, SCALA);
     }
 
-    static void addFilterSuggestion(@NotNull CompletionResultSet resultSet) {
+    public static void addFilterSuggestion(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, EXPRESSION_WITH_HASH);
         addKeywordAsLookup(resultSet, EXPRESSION_WITHOUT_HASH);
     }
 
-    static void addStreamFunctions(@NotNull CompletionResultSet resultSet) {
+    public static void addStreamFunctions(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, LOG);
     }
 
-    static void addWindowTypesWithWindowKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addWindowTypesWithWindowKeyword(@NotNull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTHBATCH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(SORT_WITH_WINDOW, VALUE_TYPES_PRIORITY));
@@ -778,7 +818,7 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIME_WITH_WINDOW, VALUE_TYPES_PRIORITY));
     }
 
-    static void addSuggestionsRelatedToJoins(@NotNull CompletionResultSet resultSet) {
+    public static void addSuggestionsRelatedToJoins(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, LEFT_OUTER_JOIN);
         addKeywordAsLookup(resultSet, RIGHT_OUTER_JOIN);
         addKeywordAsLookup(resultSet, FULL_OUTER_JOIN);
@@ -787,11 +827,11 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, JOIN);
     }
 
-    static void onWithExpressionKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void onWithExpressionKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, ON_WITH_EXPRESSION);
     }
 
-    static void addSuggestionsAfterQueryInput(@NotNull CompletionResultSet resultSet) {
+    public static void addSuggestionsAfterQueryInput(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, SELECT);
         addKeywordAsLookup(resultSet, OUTPUT);
         addKeywordAsLookup(resultSet, INSERT);
@@ -801,48 +841,12 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, RETURN);
     }
 
-    static void addWithinKeyword(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, WITHIN);
-    }
-
-    static void addForKeyword(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, FOR);
-    }
-
-    static void addOnKeyword(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, ON);
-    }
-
-    static void addSetKeyword(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, SET);
-    }
-
-    static void addUnidirectionalKeyword(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
-    }
-
-    static void addAsKeywordWithDummyAlias(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, AS_WITH_ALIAS);
-    }
-
-    static void addEnterYourExpressionClause(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, ENTER_YOUR_EXPRESSION);
-    }
-
-    static void addComma(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, COMMA_SYMBOL);
-    }
-
-    static void addPerKeyword(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, PER);
-    }
-
     /**
      * Adds window types as lookups.
      *
      * @param resultSet result list which is used to add lookups
      */
-    static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+    public static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTHBATCH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(SORT, VALUE_TYPES_PRIORITY));
@@ -856,7 +860,7 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIME, VALUE_TYPES_PRIORITY));
     }
 
-    static void addValueKeywords(@NotNull CompletionResultSet resultSet) {
+    public static void addValueKeywords(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, TRUE);
         addKeywordAsLookup(resultSet, FALSE);
         addKeywordAsLookup(resultSet, NULL);
