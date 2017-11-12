@@ -22,6 +22,7 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
+import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeReferenceNode;
 import org.wso2.siddhi.plugins.idea.psi.ExpressionNode;
 import org.wso2.siddhi.plugins.idea.psi.GroupByNode;
@@ -36,13 +37,14 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addB
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addHavingKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addIntoKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterQueryInput;
 import static org.wso2.siddhi.plugins.idea.completion.executionElements.query.QueryInputCompletionContributor.queryInputCompletion;
 import static org.wso2.siddhi.plugins.idea.completion.executionElements.query.QueryOutputCompletionContributor.queryOutputCompletion;
 import static org.wso2.siddhi.plugins.idea.completion.executionElements.query.QuerySectionCompletionContributor.querySectionCompletion;
 import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getPreviousVisibleSiblingSkippingComments;
 
 public class QueryCompletionContributor {
-
+    
     public static void queryCompletion(@NotNull CompletionResultSet result, PsiElement element,
                                        PsiElement prevVisibleSibling, IElementType
                                                prevVisibleSiblingElementType, PsiElement
@@ -52,6 +54,21 @@ public class QueryCompletionContributor {
         if (PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
             queryInputCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType, prevPreVisibleSibling);
             return;
+        }
+        /*
+        * Suggestions after a anonymous stream.
+        * Had to define here because in this situation the current element will not be in the QueryInputNode.
+        * It will be under QueryNode as a PsiError element.(This means still antlr can't match to a rule)
+        * So we have to give code suggestion after the QueryInputNode.
+        * */
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, QueryInputNode.class) != null
+                && PsiTreeUtil.getParentOfType(prevVisibleSibling, AnonymousStreamNode.class) != null) {
+                if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class) != null
+                    || (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR
+                        && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, OutputEventTypeNode.class) != null)) {
+                    addSuggestionsAfterQueryInput(result);
+                    return;
+                }
         }
         //Suggestions related to QuerySectionNode
         if (PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {

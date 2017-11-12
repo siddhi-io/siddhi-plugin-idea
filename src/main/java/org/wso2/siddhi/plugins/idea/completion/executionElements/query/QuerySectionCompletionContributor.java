@@ -42,7 +42,7 @@ public class QuerySectionCompletionContributor {
                 addBeginingOfQueryOutputKeywords(result);
                 return;
             }
-            //suggesting by keyword after group keyword
+            //suggesting 'by' keyword after 'group' keyword
             if (prevVisibleSiblingElementType == SiddhiTypes.GROUP) {
                 addByKeyword(result);
             }

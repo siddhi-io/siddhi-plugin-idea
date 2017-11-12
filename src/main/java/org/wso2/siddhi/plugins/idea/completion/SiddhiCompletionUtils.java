@@ -31,6 +31,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
+import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.TableDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
@@ -684,11 +685,27 @@ public class SiddhiCompletionUtils {
      * @param resultSet result list which is used to add lookups
      */
     public static void addBeginingOfQueryOutputKeywords(@NotNull CompletionResultSet resultSet) {
-        resultSet.addElement(PrioritizedLookupElement.withPriority(INSERT, KEYWORDS_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(DELETE, KEYWORDS_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(UPDATE_OR_INSERT_INTO, KEYWORDS_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(UPDATE, KEYWORDS_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(RETURN, KEYWORDS_PRIORITY));
+        addKeywordAsLookup(resultSet,INSERT);
+        addKeywordAsLookup(resultSet,DELETE);
+        addKeywordAsLookup(resultSet,UPDATE_OR_INSERT_INTO);
+        addKeywordAsLookup(resultSet,UPDATE);
+        addKeywordAsLookup(resultSet,RETURN);
+    }
+
+    /**
+     * Adds suggestions after a query_input node as lookups.
+     *
+     * @param resultSet result list which is used to add lookups
+     */
+    public static void addSuggestionsAfterQueryInput(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, SELECT);
+        addKeywordAsLookup(resultSet, OUTPUT);
+        addKeywordAsLookup(resultSet,INSERT);
+        addKeywordAsLookup(resultSet,DELETE);
+        addKeywordAsLookup(resultSet,UPDATE_OR_INSERT_INTO);
+        addKeywordAsLookup(resultSet,UPDATE);
+        addKeywordAsLookup(resultSet,RETURN);
+
     }
 
     /**
@@ -829,16 +846,6 @@ public class SiddhiCompletionUtils {
 
     public static void onWithExpressionKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, ON_WITH_EXPRESSION);
-    }
-
-    public static void addSuggestionsAfterQueryInput(@NotNull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet, SELECT);
-        addKeywordAsLookup(resultSet, OUTPUT);
-        addKeywordAsLookup(resultSet, INSERT);
-        addKeywordAsLookup(resultSet, DELETE);
-        addKeywordAsLookup(resultSet, UPDATE_OR_INSERT_INTO);
-        addKeywordAsLookup(resultSet, UPDATE);
-        addKeywordAsLookup(resultSet, RETURN);
     }
 
     /**

@@ -23,12 +23,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.AliasNode;
+import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.BasicSourceStreamHandlerNode;
 import org.wso2.siddhi.plugins.idea.psi.EndPatternNode;
 import org.wso2.siddhi.plugins.idea.psi.JoinStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.LeftSourceNode;
 import org.wso2.siddhi.plugins.idea.psi.LeftUnidirectionalJoinNode;
 import org.wso2.siddhi.plugins.idea.psi.OnWithExpressionNode;
+import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.PerNode;
 import org.wso2.siddhi.plugins.idea.psi.PreWindowHandlerNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
@@ -47,6 +49,7 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addE
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addEveryKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addFilterSuggestion;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addFromKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addPerKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addStreamFunctions;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterQueryInput;
@@ -82,6 +85,25 @@ public class QueryInputCompletionContributor {
         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinStreamNode.class) != null) {
             joinStreamCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType,
                     prevPreVisibleSibling);
+            return;
+        }
+        /*
+        * for anonymous stream it is basically build with query elements without query_output rule.
+        * So we only restrict keyword suggestions of query_output rule in queries.
+        * see @SiddhiCompletionUtils.addBeginingOfQueryOutputKeywords() and
+        * @SiddhiCompletionUtils.addSuggestionsAfterQueryInput() for more.
+        * */
+        //suggestions related to a anonymous stream node
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AnonymousStreamNode.class) != null) {
+            //Suggesting  output event types after RETURN keyword in the QueryOutputNode
+            if (prevVisibleSiblingElementType == SiddhiTypes.RETURN) {
+                addOutputEventTypeKeywords(result);
+                return;
+            }
+            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class) != null) {
+                addSuggestionsAfterQueryInput(result);
+                return;
+            }
         }
     }
 

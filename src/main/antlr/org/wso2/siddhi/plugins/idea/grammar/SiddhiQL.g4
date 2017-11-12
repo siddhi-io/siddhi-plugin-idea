@@ -189,6 +189,12 @@ query_final
     ;
 
 query
+    :query1
+    ;
+
+//Added a new rule named query1(which has the same content previously used in the query rule) to avoid
+//node collapsing issue in psi tree building
+query1
     : FROM query_input query_section? output_rate? query_output
     ;
 
