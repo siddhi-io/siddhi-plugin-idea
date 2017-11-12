@@ -39,26 +39,17 @@ public class SiddhiSyntaxHighlightingColors {
             DefaultLanguageHighlighterColors.CONSTANT);
     public static final TextAttributesKey SEMICOLON = createTextAttributesKey("SIDDHI_COMMA_TOKEN",
             DefaultLanguageHighlighterColors.SEMICOLON);
-    public static final TextAttributesKey DOT = createTextAttributesKey("SIDDHI_DOT_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
     public static final TextAttributesKey COL = createTextAttributesKey("SIDDHI_COLON_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey TRIPLE_DOT = createTextAttributesKey("SIDDHI_TRIPLE_DOT_TOKEN",
-            DefaultLanguageHighlighterColors.DOT);
-    public static final TextAttributesKey PARENTHESIS = createTextAttributesKey("SIDDHI_PARENTHESIS_TOKEN",
-            DefaultLanguageHighlighterColors.PARENTHESES);
-    public static final TextAttributesKey SQUARE_BRACKETS = createTextAttributesKey("SIDDHI_SQUARE_BRACKETS_TOKEN",
-            DefaultLanguageHighlighterColors.BRACKETS);
+            DefaultLanguageHighlighterColors.KEYWORD);
     public static final TextAttributesKey COMMA = createTextAttributesKey("SIDDHI_COMMA_TOKEN",
             DefaultLanguageHighlighterColors.COMMA);
     public static final TextAttributesKey SYMBOLS = createTextAttributesKey("SIDDHI_SYMBOLS_TOKEN",
-            DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
+            DefaultLanguageHighlighterColors.KEYWORD);
     public static final TextAttributesKey VALID_STRING_ESCAPE = createTextAttributesKey("SIDDHI_VALID_STRING_ESCAPE",
             DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE);
     public static final TextAttributesKey INVALID_STRING_ESCAPE = createTextAttributesKey(
             "SIDDHI_INVALID_STRING_ESCAPE", DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE);
 
-    //TODO:color only comma ,#,semicolon
     private SiddhiSyntaxHighlightingColors() {
 
     }

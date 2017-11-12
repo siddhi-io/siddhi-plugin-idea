@@ -38,15 +38,11 @@ public class SiddhiColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Strings", SiddhiSyntaxHighlightingColors.STRING),
             new AttributesDescriptor("Comments", SiddhiSyntaxHighlightingColors.LINE_COMMENT),
             new AttributesDescriptor("StreamId", SiddhiSyntaxHighlightingColors.STREAM_ID),
-            new AttributesDescriptor("Dot", SiddhiSyntaxHighlightingColors.DOT),
-            new AttributesDescriptor("Semicolan", SiddhiSyntaxHighlightingColors.SEMICOLON),
-            new AttributesDescriptor("TripleDot", SiddhiSyntaxHighlightingColors.TRIPLE_DOT),
-            new AttributesDescriptor("Colan", SiddhiSyntaxHighlightingColors.COL),
-            new AttributesDescriptor("Parenthesis", SiddhiSyntaxHighlightingColors.PARENTHESIS),
-            new AttributesDescriptor("SquareBrackets", SiddhiSyntaxHighlightingColors.SQUARE_BRACKETS),
+            new AttributesDescriptor("Semicolon", SiddhiSyntaxHighlightingColors.SEMICOLON),
+            new AttributesDescriptor("Colon", SiddhiSyntaxHighlightingColors.COL),
             new AttributesDescriptor("Comma", SiddhiSyntaxHighlightingColors.COMMA),
             new AttributesDescriptor("Symbols", SiddhiSyntaxHighlightingColors.SYMBOLS),
-    };//TODO:colon,Semicolon and Follow the meeting nodes.
+    };
 
     @Nullable
     @Override

@@ -75,20 +75,12 @@ public class SiddhiParserDefinition implements ParserDefinition {
             UNEXPECTED_CHAR);
     public static final TokenSet SEMICOLON = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             SCOL);
-    public static final TokenSet DOT = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            SiddhiQLParser.DOT);
     public static final TokenSet COLON = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             SiddhiQLParser.COL);
-    public static final TokenSet TRIPLE_DOT = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            SiddhiQLParser.TRIPLE_DOT);
-    public static final TokenSet PARENTHESIS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            SiddhiQLParser.OPEN_PAR, CLOSE_PAR);
-    public static final TokenSet SQUARE_BRACKETS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            SiddhiQLParser.OPEN_SQUARE_BRACKETS, CLOSE_SQUARE_BRACKETS);
     public static final TokenSet COMMA = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
             SiddhiQLParser.COMMA);
     public static final TokenSet SYMBOLS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            ASSIGN, STAR, PLUS, QUESTION, MINUS, DIV, MOD, LT, LT_EQ, GT, GT_EQ, EQ, NOT_EQ, AT_SYMBOL, FOLLOWED_BY, HASH);
+            AT_SYMBOL, HASH);
 
     @NotNull
     @Override
