@@ -27,10 +27,12 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
+import org.wso2.siddhi.plugins.idea.completion.executionElements.partition.PartitionCompletionContributor;
 import org.wso2.siddhi.plugins.idea.completion.executionElements.query.QueryCompletionContributor;
 import org.wso2.siddhi.plugins.idea.psi.*;
 
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.*;
+import static org.wso2.siddhi.plugins.idea.completion.executionElements.partition.PartitionCompletionContributor.isEndOfAQueryOutput;
 import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getPreviousVisibleSiblingSkippingComments;
 
 public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
@@ -50,6 +52,26 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                 PsiElement prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(element);
                 IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();
 
+                PsiElement prevPreVisibleSibling=null;
+                if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
+
+                    prevPreVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
+                }
+                PsiElement prevPrePreVisibleSibling=null;
+                if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
+
+                    prevPrePreVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
+                }
+                //Suggestions after ';' in a partition. This means another query is going to write
+                if (prevVisibleSiblingElementType == SiddhiTypes.SCOL
+                        && PsiTreeUtil.getParentOfType(element, ParseNode.class) != null
+                        && prevPreVisibleSibling !=null
+                        && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, PartitionNode.class) != null
+                        && prevPrePreVisibleSibling != null
+                        && isEndOfAQueryOutput(prevPreVisibleSibling,prevPrePreVisibleSibling,null)) {
+                    addFromKeyword(result);
+                    return;
+                }
                 //Suggestions after a semicolon
                 if (prevVisibleSiblingElementType == SiddhiTypes.SCOL) {
                     addInitialTypesAsLookups(result);
@@ -83,9 +105,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     addAtKeyword(result);
                     return;
                 }
-                if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
-
-                    PsiElement prevPreVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
+                if (prevPreVisibleSibling != null) {
                     //Handling suggestions in a query
                     if (PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
                         executionElementRelatedKeywordCompletion(result, element, prevVisibleSibling,
@@ -172,17 +192,20 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                                                           PsiElement prevVisibleSibling, IElementType
                                                                   prevVisibleSiblingElementType, PsiElement
                                                                   prevPreVisibleSibling) {
+        //keyword completion related to partitions
+        if (PsiTreeUtil.getParentOfType(element, PartitionNode.class) != null) {
+            PartitionCompletionContributor.partitionCompletion(result, element, prevVisibleSibling,
+                    prevVisibleSiblingElementType,
+                    prevPreVisibleSibling);
+            //Don't use 'return' here. Because inside a partition there can be queries as well. So if we return from
+            // here then those code suggestions for queries will not work.
+        }
         //keyword completion related to queries
         if (PsiTreeUtil.getParentOfType(element, QueryNode.class) != null) {
             QueryCompletionContributor.queryCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType,
                     prevPreVisibleSibling);
             return;
         }
-        //keyword completion related to partitions
-        if (PsiTreeUtil.getParentOfType(element, PartitionNode.class) != null) {
-            QueryCompletionContributor.queryCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType,
-                    prevPreVisibleSibling);
-            return;
-        }
+
     }
 }

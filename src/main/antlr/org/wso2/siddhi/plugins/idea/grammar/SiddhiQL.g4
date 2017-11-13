@@ -163,7 +163,13 @@ annotation_element
     :(property_name '=')? property_value
     ;
 
-partition //TODO:Add suggestions for partitions
+partition
+    :partition1
+    ;
+
+//Added a new rule named partition1(which has the same content previously used in the partition rule) to avoid
+//node collapsing issue in psi tree building
+partition1 //TODO:Add suggestions for partitions
     :  PARTITION WITH '('partition_with_stream (','partition_with_stream)* ')' BEGIN (query|error) (';' (query|error))* ';'? END
     ;
 
@@ -172,12 +178,22 @@ partition_final
     ;
 
 partition_with_stream
-    :attribute OF stream_id //TODO:for here stream id should be suggested via streamIdReference class
-    |condition_ranges OF stream_id
+    :partition_with_stream1
     ;
+//TODO:add or,not and keyword suggestions
+//Added a new rule named partition_with_stream1(which has the same content previously used in the partition_with_stream1 rule) to avoid
+//node collapsing issue in psi tree building
+//To get rid of antlr ambiguity common rules were taken out and introduced a new rule first_condition_range in condition_ranges
+partition_with_stream1
+    : math_operation (condition_ranges)? OF stream_id
+    ;//TODO:for here stream id should be suggested via streamIdReference class
 
 condition_ranges
-    :condition_range (OR condition_range)*
+    :first_condition_range (OR condition_range)*
+    ;
+
+first_condition_range
+    : AS string_value
     ;
 
 condition_range
@@ -552,6 +568,12 @@ output_attribute
     ;
 
 attribute
+    :attribute1
+    ;
+
+//Added a new rule named attribute(which has the same content previously used in the attribute rule) to
+// avoid node collapsing issue in psi tree building
+attribute1
     :math_operation
     ;
 
@@ -949,8 +971,8 @@ ID : [a-zA-Z_] [a-zA-Z_0-9]* ;
 
 STRING_LITERAL
     :(
-        '\'' ( ~('\u0000'..'\u001f' | '\'' ) )* '\''?
-        |'"' ( ~('\u0000'..'\u001f'  ) )* '"'?
+        '\'' ( ~('\u0000'..'\u001f' | '\''| '\"' ) )* '\''?
+        |'"' ( ~('\u0000'..'\u001f'  |'\"') )* '"'?
      )  {setText(getText().substring(1, getText().length()-1));}
      |('"""'(.*?)'"""')  {setText(getText().substring(3, getText().length()-3));}
     ;

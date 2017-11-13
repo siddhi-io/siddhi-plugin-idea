@@ -47,20 +47,25 @@ public class KeywordCompletionUtils {
 
     public static Boolean isExpression(@NotNull PsiElement element) {
         if (PsiTreeUtil.getParentOfType(element, ExpressionNode.class) != null) {
-            if (PsiTreeUtil.getParentOfType(element, MathOperationNode.class) != null ||
-                    PsiTreeUtil.getParentOfType(element, NullCheckNode.class) != null ||
-                    PsiTreeUtil.getParentOfType(element, NameNode.class) != null ||
-                    PsiTreeUtil.getParentOfType(element, AttributeReferenceNode.class) != null ||
-                    PsiTreeUtil.getParentOfType(element, ConstantValueNode.class) != null ||
-                    PsiTreeUtil.getParentOfType(element, FunctionOperationNode.class) != null) {
+            return isMathOperation(element);
+        }
+        return false;
+    }
+
+    public static Boolean isMathOperation(@NotNull PsiElement element) {
+        if (PsiTreeUtil.getParentOfType(element, MathOperationNode.class) != null ||
+                PsiTreeUtil.getParentOfType(element, NullCheckNode.class) != null ||
+                PsiTreeUtil.getParentOfType(element, NameNode.class) != null ||
+                PsiTreeUtil.getParentOfType(element, AttributeReferenceNode.class) != null ||
+                PsiTreeUtil.getParentOfType(element, ConstantValueNode.class) != null ||
+                PsiTreeUtil.getParentOfType(element, FunctionOperationNode.class) != null) {
+            return true;
+        } else {
+            PsiElement prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(element);
+            IElementType elementType = ((LeafPsiElement) element).getElementType();
+            if (elementType == SiddhiTypes.CLOSE_PAR
+                    && PsiTreeUtil.getParentOfType(prevVisibleSibling, MathOperationNode.class) != null) {
                 return true;
-            } else {
-                PsiElement prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(element);
-                IElementType elementType = ((LeafPsiElement) element).getElementType();
-                if (elementType == SiddhiTypes.CLOSE_PAR
-                        && PsiTreeUtil.getParentOfType(prevVisibleSibling, MathOperationNode.class) != null) {
-                    return true;
-                }
             }
         }
         return false;

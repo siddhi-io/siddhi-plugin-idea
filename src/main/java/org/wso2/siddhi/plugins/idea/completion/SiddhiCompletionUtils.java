@@ -53,6 +53,7 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder AT_SYMBOL;
     private static final LookupElementBuilder HASH_SYMBOL;
     private static final LookupElementBuilder COMMA_SYMBOL;
+    private static final LookupElementBuilder SEMI_COLON_SYMBOL;
     private static final LookupElementBuilder QUERY_SNIIP;
     private static final LookupElementBuilder QUERY_PATTERN_SNIP;
     private static final LookupElementBuilder QUERY_JOIN_SNIIP;
@@ -187,6 +188,8 @@ public class SiddhiCompletionUtils {
 
     private static final LookupElementBuilder ENTER_YOUR_EXPRESSION;
 
+    private static final LookupElementBuilder WITH_AND_PARENTHESES;
+
     //Other Keywords
     private static final LookupElementBuilder SET;
     private static final LookupElementBuilder SELECT;
@@ -235,6 +238,7 @@ public class SiddhiCompletionUtils {
         AT_SYMBOL = createKeywordLookupElement("@");
         HASH_SYMBOL = createKeywordLookupElement("#");
         COMMA_SYMBOL = createKeywordLookupElement(",");
+        SEMI_COLON_SYMBOL = createKeywordLookupElement(";");
         QUERY_SNIIP = createDefineSnippetTypeLookupElement("from stream_name\n" +
                 "select attribute1 , attribute2\n" +
                 "insert into output_stream", null).withPresentableText("query");
@@ -411,6 +415,8 @@ public class SiddhiCompletionUtils {
         ON_WITH_EXPRESSION = createKeywordLookupElement("on enter_your_expression").withPresentableText("on");
 
         ENTER_YOUR_EXPRESSION = createKeywordLookupElement("enter_your_expression");
+
+        WITH_AND_PARENTHESES = createKeywordLookupElement("with ( )");
 
         LAST = createKeywordLookupElement("last");
         FIRST = createKeywordLookupElement("first");
@@ -780,6 +786,26 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, SET);
     }
 
+    public static void addOrKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, OR);
+    }
+
+    public static void addAsKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, AS);
+    }
+
+    public static void addBeginKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, BEGIN);
+    }
+
+    public static void addEndKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, END);
+    }
+
+    public static void addOfKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, OF);
+    }
+
     public static void addUnidirectionalKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
     }
@@ -794,6 +820,10 @@ public class SiddhiCompletionUtils {
 
     public static void addComma(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, COMMA_SYMBOL);
+    }
+
+    public static void addSemicolon(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, SEMI_COLON_SYMBOL);
     }
 
     public static void addPerKeyword(@NotNull CompletionResultSet resultSet) {
@@ -819,6 +849,10 @@ public class SiddhiCompletionUtils {
 
     public static void addStreamFunctions(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, LOG);
+    }
+
+    public static void addWithKeywordAndParentheses(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, WITH_AND_PARENTHESES);
     }
 
     public static void addWindowTypesWithWindowKeyword(@NotNull CompletionResultSet resultSet) {

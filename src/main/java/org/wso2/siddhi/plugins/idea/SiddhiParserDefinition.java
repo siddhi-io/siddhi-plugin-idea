@@ -313,6 +313,12 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new EndPatternNode(node);
             case RULE_anonymous_stream:
                 return new AnonymousStreamNode(node);
+            case RULE_attribute:
+                return new AttributeNode(node);
+            case RULE_partition_with_stream:
+                return new PartitionWithStreamNode(node);
+            case RULE_string_value:
+                return new StringValueNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }
