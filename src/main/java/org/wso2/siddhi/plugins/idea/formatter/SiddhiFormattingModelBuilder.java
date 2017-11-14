@@ -95,7 +95,6 @@ public class SiddhiFormattingModelBuilder implements FormattingModelBuilder {
                 .after(COMMA).spaceIf(true)
                 .after(AT).spaceIf(false)
                 .between(IDENTIFIER, OPEN_PAR).spaceIf(true);
-        //TODO:Add more spacing
     }
 
     @Nullable

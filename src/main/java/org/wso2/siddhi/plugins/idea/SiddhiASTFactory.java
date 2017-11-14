@@ -62,8 +62,6 @@ public class SiddhiASTFactory extends CoreASTFactory {
             // we have an identifier node that will be connected somewhere in a tree.
             //
             // You can only rename, find usages, etc... on leaves implementing PsiNamedElement
-            //
-            // TODO: try not to create one for IDs under def subtree roots like vardef, function
             return new IdentifierPSINode(type, text);
         }
         return super.createLeaf(type, text);

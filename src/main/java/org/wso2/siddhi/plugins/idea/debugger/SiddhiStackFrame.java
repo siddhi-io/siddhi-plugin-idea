@@ -56,7 +56,6 @@ public class SiddhiStackFrame extends XStackFrame {
     @Nullable
     @Override
     public XDebuggerEvaluator getEvaluator() {
-        // Todo - Add evaluator support
         return null;
     }
 
