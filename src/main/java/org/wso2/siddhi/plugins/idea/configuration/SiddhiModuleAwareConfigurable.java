@@ -19,17 +19,17 @@ package org.wso2.siddhi.plugins.idea.configuration;
 import com.intellij.application.options.ModuleAwareProjectConfigurable;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkService;
 
 public abstract class SiddhiModuleAwareConfigurable extends ModuleAwareProjectConfigurable {
 
-    public SiddhiModuleAwareConfigurable(@NotNull Project project, String displayName, String helpTopic) {
+    public SiddhiModuleAwareConfigurable(@Nonnull Project project, String displayName, String helpTopic) {
         super(project, displayName, helpTopic);
     }
 
     @Override
-    protected boolean isSuitableForModule(@NotNull Module module) {
+    protected boolean isSuitableForModule(@Nonnull Module module) {
         if (module.isDisposed()) {
             return false;
         }

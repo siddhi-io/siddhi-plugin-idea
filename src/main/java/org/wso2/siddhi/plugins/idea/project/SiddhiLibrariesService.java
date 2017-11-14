@@ -27,7 +27,7 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.messages.Topic;
 import com.intellij.util.xmlb.XmlSerializerUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
             LibrariesListener.class);
     protected final T myState = createState();
 
-    @NotNull
+    @Nonnull
     @Override
     public T getState() {
         return myState;
@@ -52,21 +52,21 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
         XmlSerializerUtil.copyBean(state, myState);
     }
 
-    @NotNull
+    @Nonnull
     protected T createState() {
         //noinspection unchecked
         return (T) new SiddhiLibraryState();
     }
 
-    @NotNull
-    public static Collection<? extends VirtualFile> getUserDefinedLibraries(@NotNull Module module) {
+    @Nonnull
+    public static Collection<? extends VirtualFile> getUserDefinedLibraries(@Nonnull Module module) {
         Set<VirtualFile> result = ContainerUtil.newLinkedHashSet();
         result.addAll(getUserDefinedLibraries(module.getProject()));
         return result;
     }
 
-    @NotNull
-    public static Collection<? extends VirtualFile> getUserDefinedLibraries(@NotNull Project project) {
+    @Nonnull
+    public static Collection<? extends VirtualFile> getUserDefinedLibraries(@Nonnull Project project) {
         Set<VirtualFile> result = ContainerUtil.newLinkedHashSet();
         result.addAll(siddhiRootsFromUrls(SiddhiProjectLibrariesService.getInstance(project)
                 .getLibraryRootUrls()));
@@ -74,23 +74,23 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
         return result;
     }
 
-    @NotNull
+    @Nonnull
     private static Collection<? extends VirtualFile> getUserDefinedLibraries() {
         return siddhiRootsFromUrls(SiddhiApplicationLibrariesService.getInstance().getLibraryRootUrls());
     }
 
-    @NotNull
-    public static ModificationTracker[] getModificationTrackers(@NotNull Project project, @Nullable Module module) {
+    @Nonnull
+    public static ModificationTracker[] getModificationTrackers(@Nonnull Project project, @Nullable Module module) {
         assert module != null;
         return new ModificationTracker[]{SiddhiProjectLibrariesService.getInstance(module.getProject()),
                 SiddhiApplicationLibrariesService.getInstance()};
     }
 
-    public void setLibraryRootUrls(@NotNull String... libraryRootUrls) {
+    public void setLibraryRootUrls(@Nonnull String... libraryRootUrls) {
         setLibraryRootUrls(Arrays.asList(libraryRootUrls));
     }
 
-    public void setLibraryRootUrls(@NotNull Collection<String> libraryRootUrls) {
+    public void setLibraryRootUrls(@Nonnull Collection<String> libraryRootUrls) {
         if (!myState.getUrls().equals(libraryRootUrls)) {
             myState.setUrls(libraryRootUrls);
             incModificationCount();
@@ -99,17 +99,17 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
         }
     }
 
-    @NotNull
+    @Nonnull
     public Collection<String> getLibraryRootUrls() {
         return myState.getUrls();
     }
 
-    @NotNull
-    private static Collection<? extends VirtualFile> siddhiRootsFromUrls(@NotNull Collection<String> urls) {
+    @Nonnull
+    private static Collection<? extends VirtualFile> siddhiRootsFromUrls(@Nonnull Collection<String> urls) {
         return ContainerUtil.mapNotNull(urls, url -> VirtualFileManager.getInstance().findFileByUrl(url));
     }
 
     public interface LibrariesListener {
-        void librariesChanged(@NotNull Collection<String> newRootUrls);
+        void librariesChanged(@Nonnull Collection<String> newRootUrls);
     }
 }

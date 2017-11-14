@@ -75,9 +75,6 @@ public class SiddhiUtil {
      */
     public static boolean isWorkspaceFile(Project project, VirtualFile virtualFile) {
         String filePath = virtualFile.getPath();
-        if (filePath.startsWith(project.getBasePath())) {
-            return true;
-        }
-        return false;
+        return project.getBasePath() != null && filePath.startsWith(project.getBasePath());
     }
 }

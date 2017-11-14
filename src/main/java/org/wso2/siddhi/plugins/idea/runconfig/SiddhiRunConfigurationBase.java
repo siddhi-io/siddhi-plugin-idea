@@ -35,7 +35,7 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.util.PathUtil;
 import com.intellij.util.containers.ContainerUtil;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkService;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkUtil;
@@ -52,14 +52,14 @@ public abstract class SiddhiRunConfigurationBase<RunningState extends SiddhiRunn
     private static final String PARAMETERS_NAME = "parameters";
     private static final String PASS_PARENT_ENV = "pass_parent_env";
 
-    @NotNull
+    @Nonnull
     private String myWorkingDirectory = "";
-    @NotNull
+    @Nonnull
     private String mySiddhiParams = "";
     // This string contains the arguments provided by the user.
-    @NotNull
+    @Nonnull
     private String myParams = "";
-    @NotNull
+    @Nonnull
     private final Map<String, String> myCustomEnvironment = ContainerUtil.newHashMap();
     private boolean myPassParentEnvironment = true;
 
@@ -87,12 +87,12 @@ public abstract class SiddhiRunConfigurationBase<RunningState extends SiddhiRunn
 
     @Nullable
     @Override
-    public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment environment)
+    public RunProfileState getState(@Nonnull Executor executor, @Nonnull ExecutionEnvironment environment)
             throws ExecutionException {
         return createRunningState(environment);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Collection<Module> getValidModules() {
         return SiddhiSdkUtil.getSiddhiModules(getProject());
@@ -132,14 +132,14 @@ public abstract class SiddhiRunConfigurationBase<RunningState extends SiddhiRunn
         }
     }
 
-    protected void addNonEmptyElement(@NotNull Element element, @NotNull String attributeName, @Nullable String value) {
+    protected void addNonEmptyElement(@Nonnull Element element, @Nonnull String attributeName, @Nullable String value) {
         if (StringUtil.isNotEmpty(value)) {
             JDOMExternalizerUtil.addElementWithValueAttribute(element, attributeName, value);
         }
     }
 
     @Override
-    public void readExternal(@NotNull Element element) throws InvalidDataException {
+    public void readExternal(@Nonnull Element element) throws InvalidDataException {
         super.readExternal(element);
         readModule(element);
         mySiddhiParams = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
@@ -157,7 +157,7 @@ public abstract class SiddhiRunConfigurationBase<RunningState extends SiddhiRunn
         myPassParentEnvironment = passEnvValue == null || Boolean.valueOf(passEnvValue);
     }
 
-    @NotNull
+    @Nonnull
     private RunningState createRunningState(ExecutionEnvironment env) throws ExecutionException {
         SiddhiModuleBasedConfiguration configuration = getConfigurationModule();
         Module module = configuration.getModule();
@@ -168,7 +168,7 @@ public abstract class SiddhiRunConfigurationBase<RunningState extends SiddhiRunn
     }
 
     @Nullable
-    protected VirtualFile findFile(@NotNull String filePath) {
+    protected VirtualFile findFile(@Nonnull String filePath) {
         VirtualFile virtualFile = VirtualFileManager.getInstance().findFileByUrl(VfsUtilCore.pathToUrl(filePath));
         if (virtualFile == null) {
             String path = FileUtil.join(getWorkingDirectory(), filePath);
@@ -177,33 +177,33 @@ public abstract class SiddhiRunConfigurationBase<RunningState extends SiddhiRunn
         return virtualFile;
     }
 
-    @NotNull
+    @Nonnull
     protected abstract RunningState newRunningState(ExecutionEnvironment env, Module module);
 
-    @NotNull
+    @Nonnull
     public String getSiddhiToolParams() {
         return mySiddhiParams;
     }
 
-    @NotNull
+    @Nonnull
     public String getParams() {
         return myParams;
     }
 
-    public void setSiddhiParams(@NotNull String params) {
+    public void setSiddhiParams(@Nonnull String params) {
         mySiddhiParams = params;
     }
 
-    public void setParams(@NotNull String params) {
+    public void setParams(@Nonnull String params) {
         myParams = params;
     }
 
-    @NotNull
+    @Nonnull
     public Map<String, String> getCustomEnvironment() {
         return myCustomEnvironment;
     }
 
-    public void setCustomEnvironment(@NotNull Map<String, String> customEnvironment) {
+    public void setCustomEnvironment(@Nonnull Map<String, String> customEnvironment) {
         myCustomEnvironment.clear();
         myCustomEnvironment.putAll(customEnvironment);
     }
@@ -216,17 +216,17 @@ public abstract class SiddhiRunConfigurationBase<RunningState extends SiddhiRunn
         return myPassParentEnvironment;
     }
 
-    @NotNull
+    @Nonnull
     public String getWorkingDirectory() {
         return myWorkingDirectory;
     }
 
-    @NotNull
+    @Nonnull
     public String getWorkingDirectoryUrl() {
         return VfsUtilCore.pathToUrl(myWorkingDirectory);
     }
 
-    public void setWorkingDirectory(@NotNull String workingDirectory) {
+    public void setWorkingDirectory(@Nonnull String workingDirectory) {
         myWorkingDirectory = workingDirectory;
     }
 }

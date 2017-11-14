@@ -18,13 +18,13 @@ package org.wso2.siddhi.plugins.idea.runconfig.remote;
 
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunningState;
 
 public class SiddhiRemoteRunningState extends SiddhiRunningState<SiddhiRemoteConfiguration> {
 
-    SiddhiRemoteRunningState(@NotNull ExecutionEnvironment env, @NotNull Module module,
-                             @NotNull SiddhiRemoteConfiguration configuration) {
+    SiddhiRemoteRunningState(@Nonnull ExecutionEnvironment env, @Nonnull Module module,
+                             @Nonnull SiddhiRemoteConfiguration configuration) {
         super(env, module, configuration);
     }
 }

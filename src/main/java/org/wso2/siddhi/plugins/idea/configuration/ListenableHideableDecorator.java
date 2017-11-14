@@ -18,7 +18,7 @@ package org.wso2.siddhi.plugins.idea.configuration;
 
 import com.intellij.ui.HideableDecorator;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.util.Collection;
@@ -27,12 +27,12 @@ class ListenableHideableDecorator extends HideableDecorator {
 
     private final Collection<MyListener> myListeners = ContainerUtil.newSmartList();
 
-    public ListenableHideableDecorator(@NotNull JPanel panel, @NotNull String displayName, @NotNull JComponent content) {
+    public ListenableHideableDecorator(@Nonnull JPanel panel, @Nonnull String displayName, @Nonnull JComponent content) {
         super(panel, displayName, false);
         setContentComponent(content);
     }
 
-    public void addListener(@NotNull MyListener listener) {
+    public void addListener(@Nonnull MyListener listener) {
         myListeners.add(listener);
     }
 

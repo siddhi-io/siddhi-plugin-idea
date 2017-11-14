@@ -26,7 +26,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.ListCellRendererWrapper;
 import com.intellij.ui.RawCommandLineEditor;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.runconfig.RunConfigurationKind;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunUtil;
@@ -55,7 +55,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     }
 
     @Override
-    protected void resetEditorFrom(@NotNull SiddhiApplicationConfiguration configuration) {
+    protected void resetEditorFrom(@Nonnull SiddhiApplicationConfiguration configuration) {
         myFileField.getComponent().setText(configuration.getFilePath());
 
         myEventInputFile.getComponent().setText(configuration.getInputFilePath());
@@ -70,7 +70,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     }
 
     @Override
-    protected void applyEditorTo(@NotNull SiddhiApplicationConfiguration configuration)
+    protected void applyEditorTo(@Nonnull SiddhiApplicationConfiguration configuration)
             throws ConfigurationException {
         RunConfigurationKind runKind = (RunConfigurationKind) myRunKindComboBox.getComponent().getSelectedItem();
         configuration.setRunKind(runKind);
@@ -85,7 +85,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
         myWorkingDirectoryField.setVisible(true);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     protected JComponent createEditor() {
         return myPanel;

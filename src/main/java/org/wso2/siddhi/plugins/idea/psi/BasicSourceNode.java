@@ -18,10 +18,10 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class BasicSourceNode extends ANTLRPsiNode {
-    public BasicSourceNode(@NotNull ASTNode node) {
+    public BasicSourceNode(@Nonnull ASTNode node) {
         super(node);
     }
 }

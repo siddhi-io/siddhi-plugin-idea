@@ -34,7 +34,7 @@ import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.containers.ContainerUtil;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.SiddhiModuleType;
@@ -49,11 +49,11 @@ public class SiddhiSdkService extends SimpleModificationTracker {
             "linux_arm");
     private Project myProject;
 
-    protected SiddhiSdkService(@NotNull Project project) {
+    protected SiddhiSdkService(@Nonnull Project project) {
         myProject = project;
     }
 
-    public static SiddhiSdkService getInstance(@NotNull Project project) {
+    public static SiddhiSdkService getInstance(@Nonnull Project project) {
         return ServiceManager.getService(project, SiddhiSdkService.class);
     }
 

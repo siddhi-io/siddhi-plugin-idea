@@ -21,7 +21,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 
@@ -50,13 +50,13 @@ public class SiddhiColorSettingsPage implements ColorSettingsPage {
         return SiddhiIcons.ICON;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public SyntaxHighlighter getHighlighter() {
         return new SiddhiSyntaxHighlighter();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getDemoText() {
         return "define stream TempStream (deviceID long, roomNo int, temp double);" +
@@ -71,19 +71,20 @@ public class SiddhiColorSettingsPage implements ColorSettingsPage {
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public AttributesDescriptor[] getAttributeDescriptors() {
-        return DESCRIPTORS;
+        AttributesDescriptor[] DESCRIPTORS_COPY=DESCRIPTORS;
+        return DESCRIPTORS_COPY;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ColorDescriptor[] getColorDescriptors() {
         return ColorDescriptor.EMPTY_ARRAY;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getDisplayName() {
         return "Siddhi";

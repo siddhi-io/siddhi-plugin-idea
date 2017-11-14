@@ -18,7 +18,7 @@ package org.wso2.siddhi.plugins.idea.project;
 
 import com.intellij.openapi.components.*;
 import com.intellij.openapi.project.Project;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 
 @State(
@@ -30,7 +30,7 @@ import org.wso2.siddhi.plugins.idea.SiddhiConstants;
         }
 )
 public class SiddhiProjectLibrariesService extends SiddhiLibrariesService<SiddhiLibraryState> {
-    public static SiddhiProjectLibrariesService getInstance(@NotNull Project project) {
+    public static SiddhiProjectLibrariesService getInstance(@Nonnull Project project) {
         return ServiceManager.getService(project, SiddhiProjectLibrariesService.class);
     }
 }

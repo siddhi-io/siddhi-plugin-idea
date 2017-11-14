@@ -26,7 +26,7 @@ import com.intellij.openapi.util.JDOMExternalizerUtil;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.util.text.StringUtil;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.runconfig.RunConfigurationKind;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiModuleBasedConfiguration;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfigurationWithMain;
@@ -38,12 +38,12 @@ public class SiddhiApplicationConfiguration
     private static final String KIND_ATTRIBUTE_NAME = "kind";
 
     public SiddhiApplicationConfiguration(Project project, String name,
-                                          @NotNull ConfigurationType configurationType) {
+                                          @Nonnull ConfigurationType configurationType) {
         super(name, new SiddhiModuleBasedConfiguration(project), configurationType.getConfigurationFactories()[0]);
     }
 
     @Override
-    public void readExternal(@NotNull Element element) throws InvalidDataException {
+    public void readExternal(@Nonnull Element element) throws InvalidDataException {
         super.readExternal(element);
         try {
             String kindName = JDOMExternalizerUtil.getFirstChildValueAttribute(element, KIND_ATTRIBUTE_NAME);
@@ -59,23 +59,23 @@ public class SiddhiApplicationConfiguration
         JDOMExternalizerUtil.addElementWithValueAttribute(element, KIND_ATTRIBUTE_NAME, myRunKind.name());
     }
 
-    @NotNull
+    @Nonnull
     @Override
     protected ModuleBasedConfiguration createInstance() {
         return new SiddhiApplicationConfiguration(getProject(), getName(),
                 SiddhiApplicationRunConfigurationType.getInstance());
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
         return new SiddhiApplicationSettingsEditor(getProject());
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    protected SiddhiApplicationRunningState newRunningState(@NotNull ExecutionEnvironment env,
-                                                            @NotNull Module module) {
+    protected SiddhiApplicationRunningState newRunningState(@Nonnull ExecutionEnvironment env,
+                                                            @Nonnull Module module) {
         return new SiddhiApplicationRunningState(env, module, this);
     }
 

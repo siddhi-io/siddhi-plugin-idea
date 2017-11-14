@@ -28,7 +28,7 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
@@ -504,8 +504,8 @@ public class SiddhiCompletionUtils {
      * @param insertHandler insert handler of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
-    @NotNull
-    private static LookupElementBuilder createLookupElement(@NotNull String name,
+    @Nonnull
+    private static LookupElementBuilder createLookupElement(@Nonnull String name,
                                                             @Nullable InsertHandler<LookupElement> insertHandler) {
         return LookupElementBuilder.create(name).withBoldness(true).withInsertHandler(insertHandler);
     }
@@ -516,8 +516,8 @@ public class SiddhiCompletionUtils {
      * @param name name of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
-    @NotNull
-    private static LookupElementBuilder createKeywordLookupElement(@NotNull String name) {
+    @Nonnull
+    private static LookupElementBuilder createKeywordLookupElement(@Nonnull String name) {
         return createLookupElement(name, createTemplateBasedInsertHandler("siddhi_lang_" + name));
     }
 
@@ -527,13 +527,13 @@ public class SiddhiCompletionUtils {
      * @param name name of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
-    @NotNull
-    private static LookupElementBuilder createKeywordWithoutEndWhitespaceLookupElement(@NotNull String name) {
+    @Nonnull
+    private static LookupElementBuilder createKeywordWithoutEndWhitespaceLookupElement(@Nonnull String name) {
         return createLookupElement(name, null);
     }
 
-    @NotNull
-    private static InsertHandler<LookupElement> createTemplateBasedInsertHandler(@NotNull String templateId) {
+    @Nonnull
+    private static InsertHandler<LookupElement> createTemplateBasedInsertHandler(@Nonnull String templateId) {
         return (context, item) -> {
             Template template = TemplateSettings.getInstance().getTemplateById(templateId);
             Editor editor = context.getEditor();
@@ -559,8 +559,8 @@ public class SiddhiCompletionUtils {
      * @param insertHandler insert handler of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
-    @NotNull
-    private static LookupElementBuilder createDataTypeLookupElement(@NotNull String name,
+    @Nonnull
+    private static LookupElementBuilder createDataTypeLookupElement(@Nonnull String name,
                                                                     @Nullable InsertHandler<LookupElement>
                                                                             insertHandler) {
         return createLookupElement(name, insertHandler).withTypeText("Data Type");
@@ -573,8 +573,8 @@ public class SiddhiCompletionUtils {
      * @param insertHandler insert handler of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
-    @NotNull
-    private static LookupElementBuilder createWindowProcessorTypeLookupElement(@NotNull String name,
+    @Nonnull
+    private static LookupElementBuilder createWindowProcessorTypeLookupElement(@Nonnull String name,
                                                                                @Nullable InsertHandler<LookupElement>
                                                                                        insertHandler) {
         return createLookupElement(name, insertHandler).withTypeText("Window Processor");
@@ -587,8 +587,8 @@ public class SiddhiCompletionUtils {
      * @param insertHandler insert handler of the lookup
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
-    @NotNull
-    private static LookupElementBuilder createDefineSnippetTypeLookupElement(@NotNull String name,
+    @Nonnull
+    private static LookupElementBuilder createDefineSnippetTypeLookupElement(@Nonnull String name,
                                                                              @Nullable InsertHandler<LookupElement>
                                                                                      insertHandler) {
         return createLookupElement(name, insertHandler).withTypeText("Snippet");
@@ -602,10 +602,10 @@ public class SiddhiCompletionUtils {
      * @param text          string which needed to be shown as type text
      * @return {@link LookupElementBuilder} which will be used to create the lookup element.
      */
-    @NotNull
-    private static LookupElementBuilder createLookupElementWithCustomTypeText(@NotNull String name,
+    @Nonnull
+    private static LookupElementBuilder createLookupElementWithCustomTypeText(@Nonnull String name,
                                                                               @Nullable InsertHandler<LookupElement>
-                                                                                      insertHandler, @NotNull String
+                                                                                      insertHandler, @Nonnull String
                                                                                       text) {
         return createLookupElement(name, insertHandler).withTypeText(text);
     }
@@ -616,7 +616,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    public static void addValueTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+    public static void addValueTypesAsLookups(@Nonnull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(LONG, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(INT, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(FLOAT, VALUE_TYPES_PRIORITY));
@@ -631,7 +631,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    public static void addInitialTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+    public static void addInitialTypesAsLookups(@Nonnull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(PARTITION, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(FROM, VALUE_TYPES_PRIORITY));
@@ -667,7 +667,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    public static void addAfterATSymbolLookups(@NotNull CompletionResultSet resultSet) {
+    public static void addAfterATSymbolLookups(@Nonnull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SINK2, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_SOURCE2, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_CONFIG_SNIIP2, VALUE_TYPES_PRIORITY));
@@ -690,7 +690,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    public static void addBeginingOfQueryOutputKeywords(@NotNull CompletionResultSet resultSet) {
+    public static void addBeginingOfQueryOutputKeywords(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet,INSERT);
         addKeywordAsLookup(resultSet,DELETE);
         addKeywordAsLookup(resultSet,UPDATE_OR_INSERT_INTO);
@@ -703,7 +703,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    public static void addSuggestionsAfterQueryInput(@NotNull CompletionResultSet resultSet) {
+    public static void addSuggestionsAfterQueryInput(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, SELECT);
         addKeywordAsLookup(resultSet, OUTPUT);
         addKeywordAsLookup(resultSet,INSERT);
@@ -719,7 +719,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    public static void addDefineTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+    public static void addDefineTypesAsLookups(@Nonnull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(STREAM, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(TABLE, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(TRIGGER, VALUE_TYPES_PRIORITY));
@@ -733,129 +733,129 @@ public class SiddhiCompletionUtils {
      * @param resultSet     result list which is used to add lookups
      * @param lookupElement lookup element which needs to be added to the result list
      */
-    private static void addKeywordAsLookup(@NotNull CompletionResultSet resultSet, @NotNull LookupElement
+    private static void addKeywordAsLookup(@Nonnull CompletionResultSet resultSet, @Nonnull LookupElement
             lookupElement) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(lookupElement, KEYWORDS_PRIORITY));
     }
 
-    private static LookupElement createKeywordAsLookup(@NotNull LookupElement lookupElement) {
+    private static LookupElement createKeywordAsLookup(@Nonnull LookupElement lookupElement) {
         return PrioritizedLookupElement.withPriority(lookupElement, KEYWORDS_PRIORITY);
     }
 
-    public static void addAtKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addAtKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, AT);
     }
 
-    public static void addEveryKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addEveryKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, EVERY);
     }
 
-    public static void addFromKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addFromKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, FROM);
     }
 
-    public static void addByKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addByKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, BY);
     }
 
-    public static void addHavingKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addHavingKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, HAVING);
     }
 
-    public static void addReturnKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addReturnKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, RETURN);
     }
 
-    public static void addIntoKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addIntoKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, INTO);
     }
 
-    public static void addWithinKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addWithinKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, WITHIN);
     }
 
-    public static void addForKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addForKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, FOR);
     }
 
-    public static void addOnKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addOnKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, ON);
     }
 
-    public static void addSetKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addSetKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, SET);
     }
 
-    public static void addOrKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addOrKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, OR);
     }
 
-    public static void addAsKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addAsKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, AS);
     }
 
-    public static void addBeginKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addBeginKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, BEGIN);
     }
 
-    public static void addEndKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addEndKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, END);
     }
 
-    public static void addOfKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addOfKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, OF);
     }
 
-    public static void addUnidirectionalKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addUnidirectionalKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, UNIDIRECTIONAL);
     }
 
-    public static void addAsKeywordWithDummyAlias(@NotNull CompletionResultSet resultSet) {
+    public static void addAsKeywordWithDummyAlias(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, AS_WITH_ALIAS);
     }
 
-    public static void addEnterYourExpressionClause(@NotNull CompletionResultSet resultSet) {
+    public static void addEnterYourExpressionClause(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, ENTER_YOUR_EXPRESSION);
     }
 
-    public static void addComma(@NotNull CompletionResultSet resultSet) {
+    public static void addComma(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, COMMA_SYMBOL);
     }
 
-    public static void addSemicolon(@NotNull CompletionResultSet resultSet) {
+    public static void addSemicolon(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, SEMI_COLON_SYMBOL);
     }
 
-    public static void addPerKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addPerKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, PER);
     }
 
-    public static void addOutputEventTypeKeywords(@NotNull CompletionResultSet resultSet) {
+    public static void addOutputEventTypeKeywords(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, (ALL_EVENTS));
         addKeywordAsLookup(resultSet, (EXPIRED_EVENTS));
         addKeywordAsLookup(resultSet, (CURRENT_EVENTS));
     }
 
-    public static void addLanguageTypesKeywords(@NotNull CompletionResultSet resultSet) {
+    public static void addLanguageTypesKeywords(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, JAVASCRIPT);
         addKeywordAsLookup(resultSet, R);
         addKeywordAsLookup(resultSet, SCALA);
     }
 
-    public static void addFilterSuggestion(@NotNull CompletionResultSet resultSet) {
+    public static void addFilterSuggestion(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, EXPRESSION_WITH_HASH);
         addKeywordAsLookup(resultSet, EXPRESSION_WITHOUT_HASH);
     }
 
-    public static void addStreamFunctions(@NotNull CompletionResultSet resultSet) {
+    public static void addStreamFunctions(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, LOG);
     }
 
-    public static void addWithKeywordAndParentheses(@NotNull CompletionResultSet resultSet) {
+    public static void addWithKeywordAndParentheses(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, WITH_AND_PARENTHESES);
     }
 
-    public static void addWindowTypesWithWindowKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void addWindowTypesWithWindowKeyword(@Nonnull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTHBATCH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(SORT_WITH_WINDOW, VALUE_TYPES_PRIORITY));
@@ -869,7 +869,7 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIME_WITH_WINDOW, VALUE_TYPES_PRIORITY));
     }
 
-    public static void addSuggestionsRelatedToJoins(@NotNull CompletionResultSet resultSet) {
+    public static void addSuggestionsRelatedToJoins(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, LEFT_OUTER_JOIN);
         addKeywordAsLookup(resultSet, RIGHT_OUTER_JOIN);
         addKeywordAsLookup(resultSet, FULL_OUTER_JOIN);
@@ -878,7 +878,7 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, JOIN);
     }
 
-    public static void onWithExpressionKeyword(@NotNull CompletionResultSet resultSet) {
+    public static void onWithExpressionKeyword(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, ON_WITH_EXPRESSION);
     }
 
@@ -887,7 +887,7 @@ public class SiddhiCompletionUtils {
      *
      * @param resultSet result list which is used to add lookups
      */
-    public static void addWindowProcessorTypesAsLookups(@NotNull CompletionResultSet resultSet) {
+    public static void addWindowProcessorTypesAsLookups(@Nonnull CompletionResultSet resultSet) {
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTHBATCH, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(SORT, VALUE_TYPES_PRIORITY));
@@ -901,13 +901,13 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIME, VALUE_TYPES_PRIORITY));
     }
 
-    public static void addValueKeywords(@NotNull CompletionResultSet resultSet) {
+    public static void addValueKeywords(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, TRUE);
         addKeywordAsLookup(resultSet, FALSE);
         addKeywordAsLookup(resultSet, NULL);
     }
 
-    @NotNull
+    @Nonnull
     public static List<LookupElement> createValueKeywords() {
         List<LookupElement> lookupElements = new LinkedList<>();
         lookupElements.add(createKeywordAsLookup(TRUE));
@@ -916,8 +916,8 @@ public class SiddhiCompletionUtils {
         return lookupElements;
     }
 
-    @NotNull
-    private static LookupElement createSourceLookupElement(@NotNull PsiElement element) {
+    @Nonnull
+    private static LookupElement createSourceLookupElement(@Nonnull PsiElement element) {
         String definitionType = "Source";
         if (PsiTreeUtil.getParentOfType(element, StreamDefinitionNode.class) != null) {
             definitionType = "Stream";
@@ -934,8 +934,8 @@ public class SiddhiCompletionUtils {
 
     }
 
-    @NotNull
-    public static List<LookupElement> createSourceLookupElements(@NotNull Object[] streamIdNodes) {
+    @Nonnull
+    public static List<LookupElement> createSourceLookupElements(@Nonnull Object[] streamIdNodes) {
         List<LookupElement> lookupElements = new LinkedList<>();
         for (Object streamIdNode : streamIdNodes) {
             PsiElement psiElement = (PsiElement) streamIdNode;
@@ -945,15 +945,15 @@ public class SiddhiCompletionUtils {
         return lookupElements;
     }
 
-    @NotNull
-    private static LookupElement createEventTableLookupElement(@NotNull PsiElement element) {
+    @Nonnull
+    private static LookupElement createEventTableLookupElement(@Nonnull PsiElement element) {
         LookupElementBuilder builder = LookupElementBuilder.create(element.getText())
                 .withTypeText("Event Table").withIcon(SiddhiIcons.METHOD);
         return PrioritizedLookupElement.withPriority(builder, VARIABLE_PRIORITY);
     }
 
-    @NotNull
-    public static List<LookupElement> createEventTableLookupElements(@NotNull Object[] streamIdNodes) {
+    @Nonnull
+    public static List<LookupElement> createEventTableLookupElements(@Nonnull Object[] streamIdNodes) {
         List<LookupElement> lookupElements = new LinkedList<>();
         for (Object streamIdNode : streamIdNodes) {
             PsiElement psiElement = (PsiElement) streamIdNode;
@@ -963,15 +963,15 @@ public class SiddhiCompletionUtils {
         return lookupElements;
     }
 
-    @NotNull
-    private static LookupElement createAttributeNameLookupElement(@NotNull PsiElement element) {
+    @Nonnull
+    private static LookupElement createAttributeNameLookupElement(@Nonnull PsiElement element) {
         LookupElementBuilder builder = LookupElementBuilder.create(element.getText())
                 .withTypeText("Attribute Name").withIcon(SiddhiIcons.PROPERTY);
         return PrioritizedLookupElement.withPriority(builder, VARIABLE_PRIORITY);
     }
 
-    @NotNull
-    public static List<LookupElement> createAttributeNameLookupElements(@NotNull Object[] attributeNameNodes) {
+    @Nonnull
+    public static List<LookupElement> createAttributeNameLookupElements(@Nonnull Object[] attributeNameNodes) {
         List<LookupElement> lookupElements = new LinkedList<>();
         for (Object attributeNameNode : attributeNameNodes) {
             PsiElement psiElement = (PsiElement) attributeNameNode;

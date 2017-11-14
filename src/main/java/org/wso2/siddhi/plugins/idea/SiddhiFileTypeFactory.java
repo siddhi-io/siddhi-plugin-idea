@@ -18,7 +18,7 @@ package org.wso2.siddhi.plugins.idea;
 
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.fileTypes.FileTypeFactory;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * Creates file types associated with siddhi language
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 public class SiddhiFileTypeFactory extends FileTypeFactory {
 
     @Override
-    public void createFileTypes(@NotNull FileTypeConsumer fileTypeConsumer) {
+    public void createFileTypes(@Nonnull FileTypeConsumer fileTypeConsumer) {
         fileTypeConsumer.consume(SiddhiFileType.INSTANCE, "siddhi");
     }
 }

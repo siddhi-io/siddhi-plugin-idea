@@ -22,7 +22,7 @@ import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.roots.ui.configuration.*;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiModuleType;
 
 import javax.swing.*;
@@ -31,7 +31,7 @@ import java.util.List;
 public class SiddhiModuleEditorsProvider implements ModuleConfigurationEditorProvider {
 
     @Override
-    public ModuleConfigurationEditor[] createEditors(@NotNull ModuleConfigurationState state) {
+    public ModuleConfigurationEditor[] createEditors(@Nonnull ModuleConfigurationState state) {
         ModifiableRootModel rootModel = state.getRootModel();
         Module module = rootModel.getModule();
         if (!(ModuleType.get(module) instanceof SiddhiModuleType)) {

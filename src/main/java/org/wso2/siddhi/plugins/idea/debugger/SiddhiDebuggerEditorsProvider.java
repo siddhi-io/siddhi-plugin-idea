@@ -21,19 +21,19 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProviderBase;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 
 public class SiddhiDebuggerEditorsProvider extends XDebuggerEditorsProviderBase {
 
     @Override
-    protected PsiFile createExpressionCodeFragment(@NotNull Project project, @NotNull String text,
+    protected PsiFile createExpressionCodeFragment(@Nonnull Project project, @Nonnull String text,
                                                    @Nullable PsiElement context, boolean isPhysical) {
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public FileType getFileType() {
         return SiddhiFileType.INSTANCE;

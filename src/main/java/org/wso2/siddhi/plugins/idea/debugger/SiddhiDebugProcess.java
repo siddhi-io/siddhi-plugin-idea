@@ -53,7 +53,7 @@ import com.intellij.xdebugger.frame.XValueMarkerProvider;
 import com.intellij.xdebugger.impl.actions.XDebuggerActions;
 import com.intellij.xdebugger.stepping.XSmartStepIntoHandler;
 import com.intellij.xdebugger.ui.XDebugTabLayouter;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeIN;
@@ -91,7 +91,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
 
     private final AtomicBoolean breakpointsInitiated = new AtomicBoolean();
 
-    public SiddhiDebugProcess(@NotNull XDebugSession session, @NotNull String debugFilePath, @NotNull
+    public SiddhiDebugProcess(@Nonnull XDebugSession session, @Nonnull String debugFilePath, @Nonnull
             SiddhiWebSocketConnector connector,
                               @Nullable ExecutionResult executionResult) {
         super(session);
@@ -114,19 +114,19 @@ public class SiddhiDebugProcess extends XDebugProcess {
         return myProcessHandler;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ExecutionConsole createConsole() {
         return myExecutionConsole;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public XBreakpointHandler<?>[] getBreakpointHandlers() {
         return new XBreakpointHandler[]{myInBreakPointHandler, myOutBreakPointHandler};
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public XDebuggerEditorsProvider getEditorsProvider() {
         return myEditorsProvider;
@@ -250,7 +250,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     }
 
     @Override
-    public void runToPosition(@NotNull XSourcePosition position, @Nullable XSuspendContext context) {
+    public void runToPosition(@Nonnull XSourcePosition position, @Nullable XSuspendContext context) {
     }
 
     @Override
@@ -326,7 +326,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
         }
     }
 
-    private XBreakpoint<SiddhiBreakpointProperties> findBreakPoint(@NotNull BreakPoint breakPoint) {
+    private XBreakpoint<SiddhiBreakpointProperties> findBreakPoint(@Nonnull BreakPoint breakPoint) {
         String fileName = breakPoint.getFileName();
         int lineNumber = breakPoint.getLineNumber();
 
@@ -366,7 +366,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
         return super.getCurrentStateHyperlinkListener();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public XDebugTabLayouter createTabLayouter() {
         return super.createTabLayouter();
@@ -379,9 +379,9 @@ public class SiddhiDebugProcess extends XDebugProcess {
     }
 
     @Override
-    public void registerAdditionalActions(@NotNull DefaultActionGroup leftToolbar,
-                                          @NotNull DefaultActionGroup topToolbar,
-                                          @NotNull DefaultActionGroup settings) {
+    public void registerAdditionalActions(@Nonnull DefaultActionGroup leftToolbar,
+                                          @Nonnull DefaultActionGroup topToolbar,
+                                          @Nonnull DefaultActionGroup settings) {
         topToolbar.removeAll();
         topToolbar.add(ActionManager.getInstance().getAction(XDebuggerActions.SHOW_EXECUTION_POINT));
         topToolbar.add(ActionManager.getInstance().getAction(XDebuggerActions.STEP_OVER));
@@ -436,7 +436,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
         }
 
         @Override
-        public void registerBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
+        public void registerBreakpoint(@Nonnull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
             XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
             if (breakpointPosition == null) {
                 return;
@@ -460,7 +460,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
         }
 
         @Override
-        public void unregisterBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint,
+        public void unregisterBreakpoint(@Nonnull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint,
                                          boolean temporary) {
             XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
             if (breakpointPosition == null) {
@@ -470,7 +470,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             sendRemovedBreakpoint(breakpoint);
         }
 
-        void sendRemovedBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
+        void sendRemovedBreakpoint(@Nonnull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
             XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
             if (breakpointPosition == null) {
                 return;
@@ -542,7 +542,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
         }
 
         @Override
-        public void registerBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
+        public void registerBreakpoint(@Nonnull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
             XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
             if (breakpointPosition == null) {
                 return;
@@ -568,7 +568,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
         }
 
         @Override
-        public void unregisterBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint,
+        public void unregisterBreakpoint(@Nonnull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint,
                                          boolean temporary) {
             XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
             if (breakpointPosition == null) {
@@ -578,7 +578,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             sendRemovedBreakpoint(breakpoint);
         }
 
-        void sendRemovedBreakpoint(@NotNull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
+        void sendRemovedBreakpoint(@Nonnull XLineBreakpoint<SiddhiBreakpointProperties> breakpoint) {
             XSourcePosition breakpointPosition = breakpoint.getSourcePosition();
             if (breakpointPosition == null) {
                 return;

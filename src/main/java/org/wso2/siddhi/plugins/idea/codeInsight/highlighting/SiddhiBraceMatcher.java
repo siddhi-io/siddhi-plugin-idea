@@ -23,7 +23,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
 import com.intellij.psi.tree.IElementType;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 public class SiddhiBraceMatcher implements PairedBraceMatcher {
@@ -33,13 +33,15 @@ public class SiddhiBraceMatcher implements PairedBraceMatcher {
             new BracePair(SiddhiTypes.OPEN_SQUARE_BRACKETS, SiddhiTypes.CLOSE_SQUARE_BRACKETS, false)
     };
 
+    @Nonnull
     @Override
     public BracePair[] getPairs() {
-        return pairs;
+        BracePair[] pairsCopy =pairs;
+        return pairsCopy;
     }
 
     @Override
-    public boolean isPairedBracesAllowedBeforeType(@NotNull final IElementType lbraceType,
+    public boolean isPairedBracesAllowedBeforeType(@Nonnull final IElementType lbraceType,
                                                    @Nullable final IElementType contextType) {
         return true;
     }

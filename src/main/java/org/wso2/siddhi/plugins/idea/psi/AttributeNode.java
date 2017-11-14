@@ -17,10 +17,10 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class AttributeNode extends ANTLRPsiNode {
-    public AttributeNode(@NotNull ASTNode node) {
+    public AttributeNode(@Nonnull ASTNode node) {
         super(node);
     }
 }

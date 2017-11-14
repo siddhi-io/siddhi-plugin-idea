@@ -30,7 +30,7 @@ import com.intellij.openapi.roots.ui.configuration.ProjectSettingsService;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
@@ -42,7 +42,7 @@ public class SiddhiProjectSdkSetupValidator implements ProjectSdkSetupValidator 
     public static final SiddhiProjectSdkSetupValidator INSTANCE = new SiddhiProjectSdkSetupValidator();
 
     @Override
-    public boolean isApplicableFor(@NotNull Project project, @NotNull VirtualFile file) {
+    public boolean isApplicableFor(@Nonnull Project project, @Nonnull VirtualFile file) {
         if (file.getFileType() == SiddhiFileType.INSTANCE) {
             return true;
         }
@@ -52,7 +52,7 @@ public class SiddhiProjectSdkSetupValidator implements ProjectSdkSetupValidator 
 
     @Nullable
     @Override
-    public String getErrorMessage(@NotNull Project project, @NotNull VirtualFile file) {
+    public String getErrorMessage(@Nonnull Project project, @Nonnull VirtualFile file) {
         final Module module = ModuleUtilCore.findModuleForFile(file, project);
         if (module != null && !module.isDisposed()) {
             final Sdk sdk = ModuleRootManager.getInstance(module).getSdk();
@@ -74,7 +74,7 @@ public class SiddhiProjectSdkSetupValidator implements ProjectSdkSetupValidator 
     }
 
     @Override
-    public void doFix(@NotNull Project project, @NotNull VirtualFile file) {
+    public void doFix(@Nonnull Project project, @Nonnull VirtualFile file) {
         // Get the current project SDK.
         Sdk currentProjectSDK = ProjectRootManager.getInstance(project).getProjectSdk();
         if (currentProjectSDK != null) {

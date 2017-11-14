@@ -27,12 +27,12 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 
 import java.util.Map;
+import javax.annotation.Nonnull;
 
 public class SiddhiCreateFileAction extends CreateFileFromTemplateAction implements DumbAware {
     private static final String MAIN_TEMPLATE_NAME = "Siddhi Main";
@@ -46,7 +46,7 @@ public class SiddhiCreateFileAction extends CreateFileFromTemplateAction impleme
 
     @Override
     protected void buildDialog(Project project, PsiDirectory directory,
-                               @NotNull CreateFileFromTemplateDialog.Builder builder) {
+                               @Nonnull CreateFileFromTemplateDialog.Builder builder) {
         builder.setTitle(NEW_SIDDHI_FILE).addKind("Siddhi Main", SiddhiIcons.ICON, MAIN_TEMPLATE_NAME);
     }
 
@@ -56,7 +56,7 @@ public class SiddhiCreateFileAction extends CreateFileFromTemplateAction impleme
         return DEFAULT_SIDDHI_TEMPLATE_PROPERTY;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     protected String getActionName(PsiDirectory directory, String newName, String templateName) {
         return NEW_SIDDHI_FILE;

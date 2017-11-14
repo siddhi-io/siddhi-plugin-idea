@@ -22,7 +22,7 @@ import com.intellij.ide.util.projectWizard.WizardContext;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.module.ModuleTypeManager;
 import com.intellij.openapi.roots.ui.configuration.ModulesProvider;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType;
 
@@ -34,24 +34,24 @@ public class SiddhiModuleType extends ModuleType<SiddhiModuleBuilder> {
         super(SiddhiConstants.MODULE_TYPE_ID);
     }
 
-    @NotNull
+    @Nonnull
     public static SiddhiModuleType getInstance() {
         return (SiddhiModuleType) ModuleTypeManager.getInstance().findByID(SiddhiConstants.MODULE_TYPE_ID);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public SiddhiModuleBuilder createModuleBuilder() {
         return new SiddhiModuleBuilder();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getName() {
         return "Siddhi Module";
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getDescription() {
         return "Siddhi modules are used for developing <b>Siddhi</b> applications.";
@@ -68,11 +68,11 @@ public class SiddhiModuleType extends ModuleType<SiddhiModuleBuilder> {
         return SiddhiIcons.ICON;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public ModuleWizardStep[] createWizardSteps(@NotNull WizardContext wizardContext,
-                                                @NotNull SiddhiModuleBuilder moduleBuilder,
-                                                @NotNull ModulesProvider modulesProvider) {
+    public ModuleWizardStep[] createWizardSteps(@Nonnull WizardContext wizardContext,
+                                                @Nonnull SiddhiModuleBuilder moduleBuilder,
+                                                @Nonnull ModulesProvider modulesProvider) {
         return new ModuleWizardStep[]{new ProjectJdkForModuleStep(wizardContext, SiddhiSdkType.getInstance()) {
             @Override
             public void updateDataModel() {

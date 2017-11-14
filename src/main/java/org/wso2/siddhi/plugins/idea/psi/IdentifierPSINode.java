@@ -30,7 +30,7 @@ import org.antlr.jetbrains.adaptor.psi.ANTLRPsiLeafNode;
 import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
 import org.antlr.jetbrains.adaptor.psi.Trees;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
@@ -57,7 +57,7 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
      * replace.
      */
     @Override
-    public PsiElement setName(@NonNls @NotNull String name) throws IncorrectOperationException {
+    public PsiElement setName(@NonNls @Nonnull String name) throws IncorrectOperationException {
         if (getParent() == null) {
             return this;
         }
@@ -126,5 +126,10 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
     @Override
     public PsiElement getNameIdentifier() {
         return null;
+    }
+
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException( "contract violation: calling hashCode() on such an object makes no sense" );
     }
 }

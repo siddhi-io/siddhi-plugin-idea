@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.AliasNode;
 import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
@@ -62,7 +62,7 @@ import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtil
 
 public class QueryInputCompletionContributor {
 
-    public static void queryInputCompletion(@NotNull CompletionResultSet result, PsiElement element,
+    public static void queryInputCompletion(@Nonnull CompletionResultSet result, PsiElement element,
                                             PsiElement prevVisibleSibling, IElementType
                                                     prevVisibleSiblingElementType, PsiElement
                                                     prevPreVisibleSibling) {
@@ -107,7 +107,7 @@ public class QueryInputCompletionContributor {
         }
     }
 
-    private static void standardStreamCompletion(@NotNull CompletionResultSet result, PsiElement element,
+    private static void standardStreamCompletion(@Nonnull CompletionResultSet result, PsiElement element,
                                                  PsiElement prevVisibleSibling, IElementType
                                                          prevVisibleSiblingElementType, PsiElement
                                                          prevPreVisibleSibling) {
@@ -163,7 +163,7 @@ public class QueryInputCompletionContributor {
         }
     }
 
-    private static void joinStreamCompletion(@NotNull CompletionResultSet result, PsiElement element,
+    private static void joinStreamCompletion(@Nonnull CompletionResultSet result, PsiElement element,
                                                  PsiElement prevVisibleSibling, IElementType
                                                          prevVisibleSiblingElementType, PsiElement
                                                          prevPreVisibleSibling) {

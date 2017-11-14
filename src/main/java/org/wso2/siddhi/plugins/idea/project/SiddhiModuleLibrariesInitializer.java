@@ -41,7 +41,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.Alarm;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.messages.MessageBusConnection;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.TestOnly;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.configuration.SiddhiLibrariesConfigurableProvider;
@@ -65,18 +65,18 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
     private final MessageBusConnection myConnection;
     private boolean myModuleInitialized;
 
-    @NotNull
+    @Nonnull
     private final Set<VirtualFile> myLastHandledSiddhiPathSourcesRoots = ContainerUtil.newHashSet();
-    @NotNull
+    @Nonnull
     private final Set<VirtualFile> myLastHandledExclusions = ContainerUtil.newHashSet();
-    @NotNull
+    @Nonnull
     private final Set<LocalFileSystem.WatchRequest> myWatchedRequests = ContainerUtil.newHashSet();
 
-    @NotNull
+    @Nonnull
     private final Module myModule;
 
     @TestOnly
-    public static void setTestingMode(@NotNull Disposable disposable) {
+    public static void setTestingMode(@Nonnull Disposable disposable) {
         isTestingMode = true;
         Disposer.register(disposable, () -> {
             //noinspection AssignmentToStaticFieldFromInstanceMethod
@@ -84,7 +84,7 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
         });
     }
 
-    public SiddhiModuleLibrariesInitializer(@NotNull Module module) {
+    public SiddhiModuleLibrariesInitializer(@Nonnull Module module) {
         myModule = module;
         myAlarm = ApplicationManager.getApplication().isUnitTestMode() ? new Alarm() :
                 new Alarm(Alarm.ThreadToUse.POOLED_THREAD, myModule);
@@ -120,7 +120,7 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
         }
     }
 
-    private void attachLibraries(@NotNull Collection<VirtualFile> libraryRoots, Set<VirtualFile> exclusions) {
+    private void attachLibraries(@Nonnull Collection<VirtualFile> libraryRoots, Set<VirtualFile> exclusions) {
         ApplicationManager.getApplication().assertIsDispatchThread();
 
         if (!libraryRoots.isEmpty()) {
@@ -151,7 +151,7 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
         return SIDDHI_LIB_NAME + " <" + myModule.getName() + ">";
     }
 
-    private static void fillLibrary(@NotNull Library library, @NotNull Collection<VirtualFile> libraryRoots,
+    private static void fillLibrary(@Nonnull Library library, @Nonnull Collection<VirtualFile> libraryRoots,
                                     Set<VirtualFile> exclusions) {
         ApplicationManager.getApplication().assertWriteAccessAllowed();
 
@@ -200,7 +200,7 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
         }
     }
 
-    private static void showNotification(@NotNull Project project) {
+    private static void showNotification(@Nonnull Project project) {
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
         PropertiesComponent projectPropertiesComponent = PropertiesComponent.getInstance(project);
         boolean shownAlready;
@@ -216,7 +216,7 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
         if (!shownAlready) {
             NotificationListener.Adapter notificationListener = new NotificationListener.Adapter() {
                 @Override
-                protected void hyperlinkActivated(@NotNull Notification notification, @NotNull HyperlinkEvent event) {
+                protected void hyperlinkActivated(@Nonnull Notification notification, @Nonnull HyperlinkEvent event) {
                     if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED
                             && "configure".equals(event.getDescription())) {
                         SiddhiLibrariesConfigurableProvider.showModulesConfigurable(project);
@@ -258,7 +258,7 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
         disposeComponent();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getComponentName() {
         return getClass().getName();
@@ -313,7 +313,7 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
         }
     }
 
-    @NotNull
+    @Nonnull
     private static Collection<VirtualFile> gatherIncludeRoots(Collection<VirtualFile> siddhiPathSourcesRoots,
                                                               Set<VirtualFile> excludeRoots) {
         Collection<VirtualFile> includeRoots = ContainerUtil.newHashSet();

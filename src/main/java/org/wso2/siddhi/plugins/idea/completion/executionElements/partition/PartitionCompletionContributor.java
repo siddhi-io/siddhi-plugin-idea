@@ -21,7 +21,7 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.DeleteFromTableNode;
@@ -50,7 +50,7 @@ import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtil
 
 public class PartitionCompletionContributor {
 
-    public static void partitionCompletion(@NotNull CompletionResultSet result, PsiElement element,
+    public static void partitionCompletion(@Nonnull CompletionResultSet result, PsiElement element,
                                            PsiElement prevVisibleSibling, IElementType
                                                    prevVisibleSiblingElementType, PsiElement
                                                    prevPrevVisibleSibling){
@@ -155,7 +155,7 @@ public class PartitionCompletionContributor {
         return false;
     }
 
-    public static IElementType getElementTypeOfPreviousVisibleSiblingOfGivenNode(PsiElement element, @NotNull Class aClass){
+    public static IElementType getElementTypeOfPreviousVisibleSiblingOfGivenNode(PsiElement element, @Nonnull Class aClass){
         PsiElement prevSiblingOfGivenNode=getPrevSiblingOfGivenType(element,aClass);
         IElementType prevSiblingOfExpressionNodeElementType = null;
         if (prevSiblingOfGivenNode != null) {
@@ -165,7 +165,7 @@ public class PartitionCompletionContributor {
         return prevSiblingOfExpressionNodeElementType;
     }
 
-    public static PsiElement getPrevSiblingOfGivenType(PsiElement element, @NotNull Class aClass){
+    public static PsiElement getPrevSiblingOfGivenType(PsiElement element, @Nonnull Class aClass){
         PsiElement GivenNodeElement = PsiTreeUtil.getParentOfType(element, aClass);
         PsiElement prevSiblingOfGivenNode = null;
         if (GivenNodeElement != null) {

@@ -20,7 +20,7 @@ import com.intellij.execution.configurations.ConfigurationTypeBase;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.project.Project;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiConfigurationFactoryBase;
@@ -34,14 +34,14 @@ public class SiddhiApplicationRunConfigurationType extends ConfigurationTypeBase
         addFactory(new SiddhiConfigurationFactoryBase(this) {
 
             @Override
-            @NotNull
-            public RunConfiguration createTemplateConfiguration(@NotNull Project project) {
+            @Nonnull
+            public RunConfiguration createTemplateConfiguration(@Nonnull Project project) {
                 return new SiddhiApplicationConfiguration(project, SiddhiConstants.SIDDHI, getInstance());
             }
         });
     }
 
-    @NotNull
+    @Nonnull
     public static SiddhiApplicationRunConfigurationType getInstance() {
         return Extensions.findExtension(CONFIGURATION_TYPE_EP, SiddhiApplicationRunConfigurationType.class);
     }

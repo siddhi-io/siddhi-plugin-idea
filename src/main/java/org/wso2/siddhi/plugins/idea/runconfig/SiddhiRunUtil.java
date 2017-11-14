@@ -39,7 +39,7 @@ import com.intellij.psi.PsiFileSystemItem;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
@@ -75,12 +75,12 @@ public class SiddhiRunUtil {
         return psiElement;
     }
 
-    public static void installSiddhiWithWorkingDirectoryChooser(Project project, @NotNull TextFieldWithBrowseButton
+    public static void installSiddhiWithWorkingDirectoryChooser(Project project, @Nonnull TextFieldWithBrowseButton
             fileField) {
         installWorkingDirectoryChooser(project, fileField);
     }
 
-    private static void installWorkingDirectoryChooser(@NotNull Project project, @NotNull ComponentWithBrowseButton
+    private static void installWorkingDirectoryChooser(@Nonnull Project project, @Nonnull ComponentWithBrowseButton
             field) {
         FileChooserDescriptor chooseDirectoryDescriptor =
                 FileChooserDescriptorFactory.createSingleFolderDescriptor();
@@ -98,13 +98,13 @@ public class SiddhiRunUtil {
     }
 
     public static void installSiddhiWithSiddhiFileChooser(Project project,
-                                                          @NotNull TextFieldWithBrowseButton fileField) {
+                                                          @Nonnull TextFieldWithBrowseButton fileField) {
         installFileChooser(project, fileField, file ->
                 isRunnableSiddhiFile(PsiManager.getInstance(project).findFile(file)));
     }
 
     public static void installSiddhiWithFileChooser(Project project,
-                                                    @NotNull TextFieldWithBrowseButton fileField) {
+                                                    @Nonnull TextFieldWithBrowseButton fileField) {
         installFileChooser(project, fileField, null);
     }
 
@@ -120,7 +120,7 @@ public class SiddhiRunUtil {
         return executionElementNodes.toArray().length > 0;
     }
 
-    private static void installFileChooser(@NotNull Project project, @NotNull ComponentWithBrowseButton field,
+    private static void installFileChooser(@Nonnull Project project, @Nonnull ComponentWithBrowseButton field,
                                            @Nullable Condition<VirtualFile> fileFilter) {
         FileChooserDescriptor chooseDirectoryDescriptor =
                 FileChooserDescriptorFactory.createSingleFileDescriptor(SiddhiFileType.INSTANCE);
@@ -138,8 +138,8 @@ public class SiddhiRunUtil {
         }
     }
 
-    public static void printSiddhiEnvVariables(@NotNull GeneralCommandLine commandLine,
-                                               @NotNull ProcessHandler handler) {
+    public static void printSiddhiEnvVariables(@Nonnull GeneralCommandLine commandLine,
+                                               @Nonnull ProcessHandler handler) {
         Map<String, String> environment = commandLine.getEnvironment();
         // Todo - Add SIDDHI_REPOSITORY
         handler.notifyTextAvailable("SIDDHI_REPOSITORY=" + StringUtil.nullize(environment.get
@@ -147,7 +147,7 @@ public class SiddhiRunUtil {
     }
 
     @Nullable
-    public static VirtualFile findByPath(@NotNull String path, @NotNull Project project) {
+    public static VirtualFile findByPath(@Nonnull String path, @Nonnull Project project) {
         String systemIndependentPath = FileUtil.toSystemIndependentName(path);
         VirtualFile projectBaseDir = project.getBaseDir();
         if (systemIndependentPath.isEmpty()) {

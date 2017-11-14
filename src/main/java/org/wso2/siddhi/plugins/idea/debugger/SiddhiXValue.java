@@ -33,7 +33,7 @@ import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XStringValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XValuePresentation;
 import com.intellij.xdebugger.impl.ui.tree.nodes.XValueNodeImpl;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,16 +43,16 @@ import javax.swing.*;
 
 public class SiddhiXValue extends XNamedValue {
 
-    @NotNull
+    @Nonnull
     private final SiddhiDebugProcess myProcess;
-    @NotNull
+    @Nonnull
     private final Object myValue;
-    @NotNull
+    @Nonnull
     private final String myFrameName;
     @Nullable
     private final Icon myIcon;
 
-    SiddhiXValue(@NotNull SiddhiDebugProcess process, @NotNull String frameName, @NotNull String key, @NotNull Object
+    SiddhiXValue(@Nonnull SiddhiDebugProcess process, @Nonnull String frameName, @Nonnull String key, @Nonnull Object
             value, @Nullable Icon icon) {
         super(key);
         myProcess = process;
@@ -62,7 +62,7 @@ public class SiddhiXValue extends XNamedValue {
     }
 
     @Override
-    public void computePresentation(@NotNull XValueNode node, @NotNull XValuePlace place) {
+    public void computePresentation(@Nonnull XValueNode node, @Nonnull XValuePlace place) {
         if (myValue instanceof JSONObject || myValue instanceof JSONArray) {
             node.setPresentation(myIcon, getName(), "", true);
         } else if (myValue instanceof String) {
@@ -75,7 +75,7 @@ public class SiddhiXValue extends XNamedValue {
         } else if (myValue instanceof Boolean) {
             node.setPresentation(AllIcons.Nodes.Property, new XValuePresentation() {
                 @Override
-                public void renderValue(@NotNull XValueTextRenderer renderer) {
+                public void renderValue(@Nonnull XValueTextRenderer renderer) {
                     renderer.renderValue(myValue.toString(), SiddhiSyntaxHighlightingColors.KEYWORD);
                 }
             }, false);
@@ -85,7 +85,7 @@ public class SiddhiXValue extends XNamedValue {
     }
 
     @Override
-    public void computeChildren(@NotNull XCompositeNode node) {
+    public void computeChildren(@Nonnull XCompositeNode node) {
 
         if (myValue instanceof JSONObject) {
             JSONObject jsonObject = (JSONObject) this.myValue;
@@ -117,13 +117,13 @@ public class SiddhiXValue extends XNamedValue {
     }
 
     @Nullable
-    private static PsiElement findTargetElement(@NotNull Project project, @NotNull XSourcePosition position,
-                                                @NotNull Editor editor, @NotNull String name) {
+    private static PsiElement findTargetElement(@Nonnull Project project, @Nonnull XSourcePosition position,
+                                                @Nonnull Editor editor, @Nonnull String name) {
         return null;
     }
 
     @Override
-    public void computeSourcePosition(@NotNull XNavigatable navigatable) {
+    public void computeSourcePosition(@Nonnull XNavigatable navigatable) {
         readActionInPooledThread(new Runnable() {
 
             @Override
@@ -159,14 +159,14 @@ public class SiddhiXValue extends XNamedValue {
         });
     }
 
-    private static void readActionInPooledThread(@NotNull Runnable runnable) {
+    private static void readActionInPooledThread(@Nonnull Runnable runnable) {
         ApplicationManager.getApplication().executeOnPooledThread(() ->
                 ApplicationManager.getApplication().runReadAction(runnable));
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public ThreeState computeInlineDebuggerData(@NotNull XInlineDebuggerDataCallback callback) {
+    public ThreeState computeInlineDebuggerData(@Nonnull XInlineDebuggerDataCallback callback) {
         computeSourcePosition(callback::computed);
         return ThreeState.YES;
     }

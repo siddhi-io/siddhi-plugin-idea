@@ -19,12 +19,12 @@ package org.wso2.siddhi.plugins.idea.spellchecker;
 import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.spellchecker.tokenizer.TokenConsumer;
 import com.intellij.spellchecker.tokenizer.Tokenizer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class SiddhiIdentifierTokenizer extends Tokenizer<PsiNameIdentifierOwner> {
 
     @Override
-    public void tokenize(@NotNull PsiNameIdentifierOwner element, TokenConsumer consumer) {
+    public void tokenize(@Nonnull PsiNameIdentifierOwner element, TokenConsumer consumer) {
         // Do nothing here. This is used to prevent adding multiple fix suggestions (Rename To, etc) to the code.
         // Otherwise one suggestion will be added when the identifier is processed, another will be added when the
         // parent node of the identifier is processed.

@@ -37,7 +37,7 @@ import com.intellij.util.ui.UIUtil;
 import org.wso2.siddhi.plugins.idea.project.SiddhiApplicationLibrariesService;
 import org.wso2.siddhi.plugins.idea.project.SiddhiLibrariesService;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -50,7 +50,7 @@ import static com.intellij.openapi.fileChooser.FileChooserDescriptorFactory.crea
 
 public class SiddhiLibrariesConfigurable implements SearchableConfigurable, Configurable.NoScroll {
 
-    @NotNull
+    @Nonnull
     private final String myDisplayName;
     private final SiddhiLibrariesService<?> myLibrariesService;
     private final String[] myReadOnlyPaths;
@@ -59,7 +59,7 @@ public class SiddhiLibrariesConfigurable implements SearchableConfigurable, Conf
     private final JPanel myPanel = new JPanel(new BorderLayout());
     private final CollectionListModel<ListItem> myListModel = new CollectionListModel<>();
 
-    public SiddhiLibrariesConfigurable(@NotNull String displayName, @NotNull SiddhiLibrariesService
+    public SiddhiLibrariesConfigurable(@Nonnull String displayName, @Nonnull SiddhiLibrariesService
             librariesService, String... urls) {
 
         myDisplayName = displayName;
@@ -69,7 +69,7 @@ public class SiddhiLibrariesConfigurable implements SearchableConfigurable, Conf
         JBList filesList = new JBList(myListModel);
         filesList.setCellRenderer(new ColoredListCellRenderer() {
             @Override
-            protected void customizeCellRenderer(@NotNull JList list, Object value, int index, boolean selected,
+            protected void customizeCellRenderer(@Nonnull JList list, Object value, int index, boolean selected,
                                                  boolean hasFocus) {
                 ListItem item = (ListItem) value;
                 String url = item.url;
@@ -216,7 +216,7 @@ public class SiddhiLibrariesConfigurable implements SearchableConfigurable, Conf
         myListModel.removeAll();
     }
 
-    @NotNull
+    @Nonnull
     @Nls
     @Override
     public String getDisplayName() {
@@ -229,7 +229,7 @@ public class SiddhiLibrariesConfigurable implements SearchableConfigurable, Conf
         return null;
     }
 
-    @NotNull
+    @Nonnull
     private Collection<String> getUserDefinedUrls() {
         Collection<String> libraryUrls = ContainerUtil.newArrayList();
         for (ListItem item : myListModel.getItems()) {
@@ -240,7 +240,7 @@ public class SiddhiLibrariesConfigurable implements SearchableConfigurable, Conf
         return libraryUrls;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getId() {
         return "siddhi.libraries";

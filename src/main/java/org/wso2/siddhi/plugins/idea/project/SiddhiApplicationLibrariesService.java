@@ -21,7 +21,7 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.components.StoragePathMacros;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkUtil;
 
@@ -33,7 +33,7 @@ import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkUtil;
 public class SiddhiApplicationLibrariesService extends
         SiddhiLibrariesService<SiddhiApplicationLibrariesService.SiddhiApplicationLibrariesState> {
 
-    @NotNull
+    @Nonnull
     @Override
     protected SiddhiApplicationLibrariesState createState() {
         return new SiddhiApplicationLibrariesState();

@@ -32,7 +32,7 @@ import com.intellij.xdebugger.XDebugProcess;
 import com.intellij.xdebugger.XDebugProcessStarter;
 import com.intellij.xdebugger.XDebugSession;
 import com.intellij.xdebugger.XDebuggerManager;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.debugger.SiddhiDebugProcess;
 import org.wso2.siddhi.plugins.idea.debugger.SiddhiWebSocketConnector;
@@ -41,27 +41,29 @@ import org.wso2.siddhi.plugins.idea.runconfig.remote.SiddhiRemoteConfiguration;
 import org.wso2.siddhi.plugins.idea.runconfig.remote.SiddhiRemoteRunningState;
 import org.wso2.siddhi.plugins.idea.util.SiddhiHistoryProcessListener;
 
+import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.SocketException;
 
 public class SiddhiDebugger extends GenericProgramRunner {
 
     private static final String ID = "SiddhiDebugger";
 
-    @NotNull
+    @Nonnull
     @Override
     public String getRunnerId() {
         return ID;
     }
 
     @Override
-    public boolean canRun(@NotNull String executorId, @NotNull RunProfile profile) {
+    public boolean canRun(@Nonnull String executorId, @Nonnull RunProfile profile) {
         return DefaultDebugExecutor.EXECUTOR_ID.equals(executorId) && profile instanceof SiddhiRunConfigurationBase;
     }
 
     @Nullable
     @Override
-    protected RunContentDescriptor doExecute(@NotNull RunProfileState state,
-                                             @NotNull ExecutionEnvironment env) throws ExecutionException {
+    protected RunContentDescriptor doExecute(@Nonnull RunProfileState state,
+                                             @Nonnull ExecutionEnvironment env) throws ExecutionException {
         if (state instanceof SiddhiApplicationRunningState) {
             FileDocumentManager.getInstance().saveAllDocuments();
             SiddhiHistoryProcessListener historyProcessListener = new SiddhiHistoryProcessListener();
@@ -74,9 +76,9 @@ public class SiddhiDebugger extends GenericProgramRunner {
 
             return XDebuggerManager.getInstance(env.getProject()).startSession(env, new XDebugProcessStarter() {
 
-                @NotNull
+                @Nonnull
                 @Override
-                public XDebugProcess start(@NotNull XDebugSession session) throws ExecutionException {
+                public XDebugProcess start(@Nonnull XDebugSession session) throws ExecutionException {
                     // Get the host address.
                     String address = NetUtils.getLocalHostString() + ":" + port;
                     // Create a new connector. This will be used to communicate with the debugger.
@@ -93,9 +95,9 @@ public class SiddhiDebugger extends GenericProgramRunner {
             FileDocumentManager.getInstance().saveAllDocuments();
             return XDebuggerManager.getInstance(env.getProject()).startSession(env, new XDebugProcessStarter() {
 
-                @NotNull
+                @Nonnull
                 @Override
-                public XDebugProcess start(@NotNull XDebugSession session) throws ExecutionException {
+                public XDebugProcess start(@Nonnull XDebugSession session) throws ExecutionException {
                     // Get the remote host address.
                     String address = getRemoteAddress(env);
                     if (address == null || address.isEmpty()) {
@@ -110,7 +112,7 @@ public class SiddhiDebugger extends GenericProgramRunner {
         return null;
     }
 
-    private ExecutionResult getExecutionResults(@NotNull RunProfileState state, @NotNull ExecutionEnvironment env)
+    private ExecutionResult getExecutionResults(@Nonnull RunProfileState state, @Nonnull ExecutionEnvironment env)
             throws ExecutionException {
         // Start debugger.
         ExecutionResult executionResult = state.execute(env.getExecutor(), new SiddhiDebugger());
@@ -121,7 +123,7 @@ public class SiddhiDebugger extends GenericProgramRunner {
     }
 
     @Nullable
-    private String getRemoteAddress(@NotNull ExecutionEnvironment env) {
+    private String getRemoteAddress(@Nonnull ExecutionEnvironment env) {
         RunnerAndConfigurationSettings runnerAndConfigurationSettings = env.getRunnerAndConfigurationSettings();
         if (runnerAndConfigurationSettings == null) {
             return null;
@@ -147,8 +149,9 @@ public class SiddhiDebugger extends GenericProgramRunner {
         try (ServerSocket socket = new ServerSocket(0)) {
             socket.setReuseAddress(true);
             return socket.getLocalPort();
-        } catch (Exception ignore) {
+        } catch (IOException e) {
+            throw new IllegalStateException("Could not find a free TCP/IP port to start debugging");
         }
-        throw new IllegalStateException("Could not find a free TCP/IP port to start debugging");
+
     }
 }

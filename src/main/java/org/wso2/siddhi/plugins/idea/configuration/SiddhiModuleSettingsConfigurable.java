@@ -18,23 +18,23 @@ package org.wso2.siddhi.plugins.idea.configuration;
 
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.ConfigurableBase;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.project.SiddhiModuleSettings;
 
 public class SiddhiModuleSettingsConfigurable extends
         ConfigurableBase<SiddhiModuleSettingsUI, SiddhiModuleSettings> {
 
-    @NotNull
+    @Nonnull
     private final Module myModule;
     private final boolean myDialogMode;
 
-    public SiddhiModuleSettingsConfigurable(@NotNull Module module, boolean dialogMode) {
+    public SiddhiModuleSettingsConfigurable(@Nonnull Module module, boolean dialogMode) {
         super("Siddhi.project.settings", "Siddhi Project Settings", null);
         myModule = module;
         myDialogMode = dialogMode;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     protected SiddhiModuleSettings getSettings() {
         return SiddhiModuleSettings.getInstance(myModule);

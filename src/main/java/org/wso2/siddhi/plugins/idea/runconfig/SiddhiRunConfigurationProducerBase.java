@@ -26,7 +26,7 @@ import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
@@ -34,12 +34,12 @@ import org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationConfi
 public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConfigurationWithMain>
         extends RunConfigurationProducer<T> implements Cloneable {
 
-    protected SiddhiRunConfigurationProducerBase(@NotNull ConfigurationType configurationType) {
+    protected SiddhiRunConfigurationProducerBase(@Nonnull ConfigurationType configurationType) {
         super(configurationType);
     }
 
     @Override
-    protected boolean setupConfigurationFromContext(@NotNull T configuration, @NotNull ConfigurationContext context,
+    protected boolean setupConfigurationFromContext(@Nonnull T configuration, @Nonnull ConfigurationContext context,
                                                     Ref<PsiElement> sourceElement) {
         PsiFile file = getFileFromContext(context);
         if (file == null) {
@@ -78,16 +78,16 @@ public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConf
         return false;
     }
 
-    private void setConfigurations(@NotNull SiddhiApplicationConfiguration configuration) {
+    private void setConfigurations(@Nonnull SiddhiApplicationConfiguration configuration) {
         // Set the kind to MAIN.
         configuration.setRunKind(RunConfigurationKind.MAIN);
     }
 
-    @NotNull
-    protected abstract String getConfigurationName(@NotNull PsiFile file);
+    @Nonnull
+    protected abstract String getConfigurationName(@Nonnull PsiFile file);
 
     @Override
-    public boolean isConfigurationFromContext(@NotNull T configuration, ConfigurationContext context) {
+    public boolean isConfigurationFromContext(@Nonnull T configuration, ConfigurationContext context) {
         SiddhiFile file = getFileFromContext(context);
         return file != null && FileUtil.pathsEqual(configuration.getFilePath(), file.getVirtualFile().getPath());
     }

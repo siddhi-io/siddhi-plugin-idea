@@ -26,12 +26,12 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class SiddhiEnterBetweenBracesHandler extends EnterBetweenBracesHandler {
 
     @Override
-    public Result postProcessEnter(@NotNull PsiFile file, @NotNull Editor editor, @NotNull DataContext dataContext) {
+    public Result postProcessEnter(@Nonnull PsiFile file, @Nonnull Editor editor, @Nonnull DataContext dataContext) {
         if (!file.getLanguage().is(SiddhiLanguage.INSTANCE)) {
             return Result.Continue;
         }

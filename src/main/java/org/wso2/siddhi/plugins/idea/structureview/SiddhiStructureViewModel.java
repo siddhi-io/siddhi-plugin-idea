@@ -21,7 +21,7 @@ import com.intellij.ide.structureView.StructureViewModelBase;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.Sorter;
 import org.wso2.siddhi.plugins.idea.psi.*;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class SiddhiStructureViewModel extends StructureViewModelBase
         implements StructureViewModel.ElementInfoProvider {
@@ -30,7 +30,7 @@ public class SiddhiStructureViewModel extends StructureViewModelBase
         super(root, new SiddhiStructureViewRootElement(root));
     }
 
-    @NotNull
+    @Nonnull
     public Sorter[] getSorters() {
         return new Sorter[]{Sorter.ALPHA_SORTER};
     }
@@ -50,7 +50,7 @@ public class SiddhiStructureViewModel extends StructureViewModelBase
                 || value instanceof TableDefinitionNode || value instanceof AggregationDefinitionNode;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     protected Class[] getSuitableClasses() {
         return super.getSuitableClasses();

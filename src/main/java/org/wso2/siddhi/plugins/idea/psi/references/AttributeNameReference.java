@@ -22,7 +22,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
@@ -39,7 +39,7 @@ import java.util.List;
 
 public class AttributeNameReference extends SiddhiElementReference {
 
-    public AttributeNameReference(@NotNull IdentifierPSINode element) {
+    public AttributeNameReference(@Nonnull IdentifierPSINode element) {
         super(element);
     }
 
@@ -49,7 +49,7 @@ public class AttributeNameReference extends SiddhiElementReference {
         return super.resolve();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Object[] getVariants() {
         //TODO: resolve attribute types for streams created in the output stream in query output

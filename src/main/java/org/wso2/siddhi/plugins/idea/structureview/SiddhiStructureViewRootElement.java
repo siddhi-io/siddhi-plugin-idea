@@ -18,7 +18,7 @@ package org.wso2.siddhi.plugins.idea.structureview;
 
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiFile;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class SiddhiStructureViewRootElement extends SiddhiStructureViewElement {
 
@@ -26,7 +26,7 @@ public class SiddhiStructureViewRootElement extends SiddhiStructureViewElement {
         super(element);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ItemPresentation getPresentation() {
         return new SiddhiRootPresentation((PsiFile) element);

@@ -20,7 +20,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class SiddhiSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
 
-    @NotNull
+    @Nonnull
     @Override
     public SyntaxHighlighter getSyntaxHighlighter(@Nullable Project project, @Nullable VirtualFile virtualFile) {
         return new SiddhiSyntaxHighlighter();

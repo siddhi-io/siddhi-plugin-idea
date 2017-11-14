@@ -27,7 +27,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 
 public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningState> extends
@@ -39,14 +39,14 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
     private static final String REMOTE_DEBUGGING_HOST_ATTRIBUTE_NAME = "remoteDebuggingHost";
     private static final String REMOTE_DEBUGGING_PORT_ATTRIBUTE_NAME = "remoteDebuggingPort";
 
-    @NotNull
+    @Nonnull
     private String myFilePath = "";
     private String myInputFilePath = "";
-    @NotNull
+    @Nonnull
     protected RunConfigurationKind myRunKind = RunConfigurationKind.MAIN;
-    @NotNull
+    @Nonnull
     private String remoteDebugHost = "";
-    @NotNull
+    @Nonnull
     private String remoteDebugPort = "";
 
     public SiddhiRunConfigurationWithMain(String name, SiddhiModuleBasedConfiguration configurationModule,
@@ -56,7 +56,7 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
     }
 
     @Override
-    public void readExternal(@NotNull Element element) throws InvalidDataException {
+    public void readExternal(@Nonnull Element element) throws InvalidDataException {
         super.readExternal(element);
         myFilePath = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
                 FILE_PATH_ATTRIBUTE_NAME));
@@ -95,12 +95,12 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
         super.checkConfiguration();
     }
 
-    @NotNull
+    @Nonnull
     public String getFilePath() {
         return myFilePath;
     }
 
-    public void setFilePath(@NotNull String filePath) {
+    public void setFilePath(@Nonnull String filePath) {
         myFilePath = filePath;
     }
 
@@ -108,7 +108,7 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
         return myInputFilePath;
     }
 
-    public void setInputFilePath(@NotNull String inputFilePath) {
+    public void setInputFilePath(@Nonnull String inputFilePath) {
         myInputFilePath = inputFilePath;
     }
 
@@ -120,21 +120,21 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
         this.myRunKind = runKind;
     }
 
-    @NotNull
+    @Nonnull
     public String getRemoteDebugHost() {
         return remoteDebugHost;
     }
 
-    public void setRemoteDebugHost(@NotNull String remoteDebugHost) {
+    public void setRemoteDebugHost(@Nonnull String remoteDebugHost) {
         this.remoteDebugHost = remoteDebugHost;
     }
 
-    @NotNull
+    @Nonnull
     public String getRemoteDebugPort() {
         return remoteDebugPort;
     }
 
-    public void setRemoteDebugPort(@NotNull String remoteDebugPort) {
+    public void setRemoteDebugPort(@Nonnull String remoteDebugPort) {
         this.remoteDebugPort = remoteDebugPort;
     }
 }

@@ -22,7 +22,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
 import org.antlr.jetbrains.adaptor.lexer.ANTLRLexerAdaptor;
 import org.antlr.jetbrains.adaptor.lexer.TokenIElementType;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiParserDefinition;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
@@ -67,13 +67,13 @@ public class SiddhiSyntaxHighlighter extends SyntaxHighlighterBase {
         fillMap(ATTRIBUTES, SiddhiParserDefinition.SYMBOLS, SiddhiSyntaxHighlightingColors.SYMBOLS);
     }
 
-    @NotNull
+    @Nonnull
     public Lexer getHighlightingLexer() {
         SiddhiQLLexer lexer = new SiddhiQLLexer(null);
         return new ANTLRLexerAdaptor(SiddhiLanguage.INSTANCE, lexer);
     }
 
-    @NotNull
+    @Nonnull
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
         if (!(tokenType instanceof TokenIElementType)) {
             return EMPTY_KEYS;

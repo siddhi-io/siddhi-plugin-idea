@@ -19,7 +19,7 @@ package org.wso2.siddhi.plugins.idea;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.ui.LayeredIcon;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -38,8 +38,8 @@ public class SiddhiIcons {
 
     }
 
-    @NotNull
-    private static LayeredIcon createIconWithShift(@NotNull Icon base, Icon mark) {
+    @Nonnull
+    private static LayeredIcon createIconWithShift(@Nonnull Icon base, Icon mark) {
         LayeredIcon icon = new LayeredIcon(2) {
             @Override
             public int getIconHeight() {

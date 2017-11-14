@@ -30,7 +30,7 @@ import com.intellij.xdebugger.evaluation.XDebuggerEvaluator;
 import com.intellij.xdebugger.frame.XCompositeNode;
 import com.intellij.xdebugger.frame.XStackFrame;
 import com.intellij.xdebugger.frame.XValueChildrenList;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import org.wso2.siddhi.plugins.idea.debugger.dto.Frame;
@@ -45,7 +45,7 @@ public class SiddhiStackFrame extends XStackFrame {
     private final SiddhiDebugProcess myProcess;
     private final Frame myFrame;
 
-    SiddhiStackFrame(@NotNull SiddhiDebugProcess process, @NotNull Frame frame) {
+    SiddhiStackFrame(@Nonnull SiddhiDebugProcess process, @Nonnull Frame frame) {
         myProcess = process;
         myFrame = frame;
     }
@@ -88,7 +88,7 @@ public class SiddhiStackFrame extends XStackFrame {
      * Customizes the stack name in the Frames sub window in Debug window.
      */
     @Override
-    public void customizePresentation(@NotNull ColoredTextContainer component) {
+    public void customizePresentation(@Nonnull ColoredTextContainer component) {
         super.customizePresentation(component);
         component.append(" at ", SimpleTextAttributes.REGULAR_ATTRIBUTES);
         component.append(myFrame.getFrameName() + " : ", SimpleTextAttributes.REGULAR_BOLD_ATTRIBUTES);
@@ -102,7 +102,7 @@ public class SiddhiStackFrame extends XStackFrame {
      * Adds variables in the current stack to the node.
      */
     @Override
-    public void computeChildren(@NotNull XCompositeNode node) {
+    public void computeChildren(@Nonnull XCompositeNode node) {
 
         Map<String, Object> queryStateMap = myFrame.getQueryState();
         Object eventInfo = myFrame.getEventInfo();

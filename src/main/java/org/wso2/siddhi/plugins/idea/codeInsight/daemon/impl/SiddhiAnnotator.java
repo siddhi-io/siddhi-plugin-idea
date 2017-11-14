@@ -23,7 +23,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.highlighter.SiddhiSyntaxHighlightingColors;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
@@ -42,7 +42,7 @@ public class SiddhiAnnotator implements Annotator {
     private static final Pattern INVALID_ESCAPE_CHAR_PATTERN = Pattern.compile(INVALID_ESCAPE_CHARACTERS);
 
     @Override
-    public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+    public void annotate(@Nonnull PsiElement element, @Nonnull AnnotationHolder holder) {
         if (element instanceof StreamIdNode) {
             annotateStreamIdNodes(element, holder);
         } else if (element instanceof LeafPsiElement) {
@@ -50,12 +50,12 @@ public class SiddhiAnnotator implements Annotator {
         }
     }
 
-    private void annotateStreamIdNodes(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+    private void annotateStreamIdNodes(@Nonnull PsiElement element, @Nonnull AnnotationHolder holder) {
         Annotation annotation = holder.createInfoAnnotation(element.getTextRange(), null);
         annotation.setTextAttributes(SiddhiSyntaxHighlightingColors.STREAM_ID);
     }
 
-    private void annotateLeafPsiElementNodes(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+    private void annotateLeafPsiElementNodes(@Nonnull PsiElement element, @Nonnull AnnotationHolder holder) {
         IElementType elementType = ((LeafPsiElement) element).getElementType();
         if (elementType == SiddhiTypes.STRING_LITERAL) {
             // In here, we annotate valid escape characters.

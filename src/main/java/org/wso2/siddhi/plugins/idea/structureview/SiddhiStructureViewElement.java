@@ -25,7 +25,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.wso2.siddhi.plugins.idea.psi.*;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -61,7 +61,7 @@ public class SiddhiStructureViewElement implements StructureViewTreeElement, Sor
         return element instanceof NavigationItem && ((NavigationItem) element).canNavigateToSource();
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getAlphaSortKey() {
         String s = element instanceof PsiNamedElement ? ((PsiNamedElement) element).getName() : null;
@@ -71,13 +71,13 @@ public class SiddhiStructureViewElement implements StructureViewTreeElement, Sor
         return s;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ItemPresentation getPresentation() {
         return new SiddhiItemPresentation(element);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public TreeElement[] getChildren() {
         if (element instanceof SiddhiFile) {

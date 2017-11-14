@@ -22,7 +22,7 @@ import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
 import com.intellij.openapi.components.ApplicationComponent;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class SiddhiNotification implements ApplicationComponent {
 
@@ -56,7 +56,7 @@ public class SiddhiNotification implements ApplicationComponent {
 
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getComponentName() {
         return getClass().getName();

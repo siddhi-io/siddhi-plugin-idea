@@ -17,21 +17,21 @@
 package org.wso2.siddhi.plugins.idea.project;
 
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Collection;
 
 public class SiddhiLibraryState {
 
-    @NotNull
+    @Nonnull
     private Collection<String> myUrls = ContainerUtil.newArrayList();
 
-    @NotNull
+    @Nonnull
     public Collection<String> getUrls() {
         return myUrls;
     }
 
-    public void setUrls(@NotNull Collection<String> urls) {
+    public void setUrls(@Nonnull Collection<String> urls) {
         myUrls = urls;
     }
 }

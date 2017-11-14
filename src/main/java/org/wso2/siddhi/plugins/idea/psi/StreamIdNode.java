@@ -18,12 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 
 public class StreamIdNode extends IdentifierDefSubtree {
 
-    public StreamIdNode(@NotNull ASTNode node) {
+    public StreamIdNode(@Nonnull ASTNode node) {
         super(node, SiddhiTypes.IDENTIFIER);
     }
 }

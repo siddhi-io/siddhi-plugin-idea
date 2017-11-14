@@ -22,7 +22,7 @@ import com.intellij.lang.Language;
 import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class SiddhiLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSettingsProvider {
 
@@ -36,15 +36,15 @@ public class SiddhiLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSe
                     "select sensorId, avg(temperature) as avgTemp\n" +
                     "insert into outputStream;";
 
-    @NotNull
+    @Nonnull
     @Override
     public Language getLanguage() {
         return SiddhiLanguage.INSTANCE;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public String getCodeSample(@NotNull SettingsType settingsType) {
+    public String getCodeSample(@Nonnull SettingsType settingsType) {
         return DEFAULT_CODE_SAMPLE;
     }
 

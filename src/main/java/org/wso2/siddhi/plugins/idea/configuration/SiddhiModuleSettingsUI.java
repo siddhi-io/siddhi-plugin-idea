@@ -21,7 +21,7 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.ConfigurableUi;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.util.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.project.SiddhiModuleSettings;
 
 import javax.swing.*;
@@ -31,26 +31,26 @@ public class SiddhiModuleSettingsUI implements ConfigurableUi<SiddhiModuleSettin
 
     private JPanel myPanel;
 
-    public SiddhiModuleSettingsUI(@NotNull Module module, boolean dialogMode) {
+    public SiddhiModuleSettingsUI(@Nonnull Module module, boolean dialogMode) {
         myPanel.setPreferredSize(new Dimension(400, -1));
     }
 
     @Override
-    public void reset(@NotNull SiddhiModuleSettings settings) {
+    public void reset(@Nonnull SiddhiModuleSettings settings) {
 
     }
 
     @Override
-    public boolean isModified(@NotNull SiddhiModuleSettings settings) {
+    public boolean isModified(@Nonnull SiddhiModuleSettings settings) {
         return false;
     }
 
     @Override
-    public void apply(@NotNull SiddhiModuleSettings settings) throws ConfigurationException {
+    public void apply(@Nonnull SiddhiModuleSettings settings) throws ConfigurationException {
 
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public JComponent getComponent() {
         return myPanel;

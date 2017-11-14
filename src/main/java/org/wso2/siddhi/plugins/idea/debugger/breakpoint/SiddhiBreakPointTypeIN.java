@@ -26,7 +26,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Processor;
 import com.intellij.xdebugger.XDebuggerUtil;
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
@@ -44,16 +44,16 @@ public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpoint
 
     @Nullable
     @Override
-    public SiddhiBreakpointProperties createBreakpointProperties(@NotNull VirtualFile file, int line) {
+    public SiddhiBreakpointProperties createBreakpointProperties(@Nonnull VirtualFile file, int line) {
         return new SiddhiBreakpointProperties();
     }
 
     @Override
-    public boolean canPutAt(@NotNull VirtualFile file, int line, @NotNull Project project) {
+    public boolean canPutAt(@Nonnull VirtualFile file, int line, @Nonnull Project project) {
         return line >= 0 && file.getFileType() == SiddhiFileType.INSTANCE && isLineBreakpointAvailable(file, line, project);
     }
 
-    private static boolean isLineBreakpointAvailable(@NotNull VirtualFile file, int line, @NotNull Project project) {
+    private static boolean isLineBreakpointAvailable(@Nonnull VirtualFile file, int line, @Nonnull Project project) {
         Document document = FileDocumentManager.getInstance().getDocument(file);
         if (document == null || document.getLineEndOffset(line) == document.getLineStartOffset(line)) {
             return false;
@@ -69,7 +69,7 @@ public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpoint
         private int counter = 0;
 
         @Override
-        public boolean process(@NotNull PsiElement element) {
+        public boolean process(@Nonnull PsiElement element) {
             if (PsiTreeUtil.nextVisibleLeaf(element) != null) {
                 PsiElement nextVisibleSibling = PsiTreeUtil.nextVisibleLeaf(element);
                 IElementType elementType = element.getNode().getElementType();

@@ -19,7 +19,7 @@ import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.OutputAttributeNode;
 import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
@@ -29,7 +29,7 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addB
 
 public class QuerySectionCompletionContributor {
 
-    public static void querySectionCompletion(@NotNull CompletionResultSet result, PsiElement element,
+    public static void querySectionCompletion(@Nonnull CompletionResultSet result, PsiElement element,
                                               PsiElement prevVisibleSibling, IElementType
                                                       prevVisibleSiblingElementType){
         //Suggestions related to QuerySectionNode

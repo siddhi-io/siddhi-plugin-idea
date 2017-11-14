@@ -22,7 +22,7 @@ import com.intellij.psi.PsiElement;
 import org.antlr.jetbrains.adaptor.lexer.RuleIElementType;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.*;
@@ -36,19 +36,19 @@ public class SiddhiFindUsageProvider implements FindUsagesProvider {
     }
 
     @Override
-    public boolean canFindUsagesFor(@NotNull PsiElement psiElement) {
+    public boolean canFindUsagesFor(@Nonnull PsiElement psiElement) {
         return psiElement instanceof IdentifierPSINode;
     }
 
     @Nullable
     @Override
-    public String getHelpId(@NotNull PsiElement psiElement) {
+    public String getHelpId(@Nonnull PsiElement psiElement) {
         return null;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public String getType(@NotNull PsiElement element) {
+    public String getType(@Nonnull PsiElement element) {
         if (!(element.getParent() instanceof ANTLRPsiNode)) {
             return "";
         }
@@ -74,15 +74,15 @@ public class SiddhiFindUsageProvider implements FindUsagesProvider {
         return "";
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public String getDescriptiveName(@NotNull PsiElement element) {
+    public String getDescriptiveName(@Nonnull PsiElement element) {
         return element.getText();
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public String getNodeText(@NotNull PsiElement element, boolean useFullName) {
+    public String getNodeText(@Nonnull PsiElement element, boolean useFullName) {
         String text = element.getText();
         return text;
     }

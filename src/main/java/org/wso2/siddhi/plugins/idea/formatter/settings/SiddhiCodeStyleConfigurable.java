@@ -21,15 +21,15 @@ import com.intellij.application.options.CodeStyleAbstractPanel;
 import com.intellij.application.options.TabbedLanguageCodeStylePanel;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class SiddhiCodeStyleConfigurable extends CodeStyleAbstractConfigurable {
 
-    public SiddhiCodeStyleConfigurable(@NotNull CodeStyleSettings settings, CodeStyleSettings cloneSettings) {
+    public SiddhiCodeStyleConfigurable(@Nonnull CodeStyleSettings settings, CodeStyleSettings cloneSettings) {
         super(settings, cloneSettings, "Siddhi");
     }
 
-    @NotNull
+    @Nonnull
     @Override
     protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
         return new SiddhiCodeStyleMainPanel(getCurrentSettings(), settings);

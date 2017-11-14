@@ -19,7 +19,7 @@ package org.wso2.siddhi.plugins.idea.spellchecker;
 import com.intellij.psi.PsiElement;
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy;
 import com.intellij.spellchecker.tokenizer.Tokenizer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
 
@@ -27,7 +27,7 @@ public class SiddhiSpellcheckingStrategy extends SpellcheckingStrategy {
 
     private final SiddhiIdentifierTokenizer identifierTokenizer = new SiddhiIdentifierTokenizer();
 
-    @NotNull
+    @Nonnull
     @Override
     public Tokenizer getTokenizer(PsiElement element) {
         if (element instanceof IdentifierPSINode) {

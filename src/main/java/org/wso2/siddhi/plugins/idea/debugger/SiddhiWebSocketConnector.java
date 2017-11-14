@@ -17,7 +17,7 @@
 package org.wso2.siddhi.plugins.idea.debugger;
 
 import com.intellij.openapi.diagnostic.Logger;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.debugger.client.WebSocketClient;
 import org.wso2.siddhi.plugins.idea.debugger.protocol.Command;
 
@@ -35,7 +35,7 @@ public class SiddhiWebSocketConnector {
     private String myAddress;
     private ConnectionState myConnectionState;
 
-    public SiddhiWebSocketConnector(@NotNull String address) {
+    public SiddhiWebSocketConnector(@Nonnull String address) {
         myAddress = address;
         myConnectionState = ConnectionState.NOT_CONNECTED;
     }
@@ -50,12 +50,12 @@ public class SiddhiWebSocketConnector {
         }
     }
 
-    @NotNull
+    @Nonnull
     private String getUri() {
         return DEBUG_PROTOCOL + myAddress + DEBUG_WEB_SOCKET_PATH;
     }
 
-    @NotNull
+    @Nonnull
     public String getDebugServerAddress() {
         return myAddress;
     }

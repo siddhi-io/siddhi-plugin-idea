@@ -18,10 +18,10 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class DeleteFromTableNode extends ANTLRPsiNode {
-    public DeleteFromTableNode(@NotNull ASTNode node) {
+    public DeleteFromTableNode(@Nonnull ASTNode node) {
         super(node);
     }
 }

@@ -23,14 +23,14 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 import static org.wso2.siddhi.plugins.idea.SiddhiTypes.*;
 
 public class SiddhiFormattingModelBuilder implements FormattingModelBuilder {
 
-    @NotNull
+    @Nonnull
     @Override
     public FormattingModel createModel(PsiElement element, CodeStyleSettings settings) {
         SiddhiBlock rootBlock = new SiddhiBlock(

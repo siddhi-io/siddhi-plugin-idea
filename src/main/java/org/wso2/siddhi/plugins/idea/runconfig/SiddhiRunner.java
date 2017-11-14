@@ -19,21 +19,21 @@ package org.wso2.siddhi.plugins.idea.runconfig;
 import com.intellij.execution.configurations.RunProfile;
 import com.intellij.execution.executors.DefaultRunExecutor;
 import com.intellij.execution.runners.DefaultProgramRunner;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
 
 public class SiddhiRunner extends DefaultProgramRunner {
 
     private static final String ID = "SiddhiRunner";
 
-    @NotNull
+    @Nonnull
     @Override
     public String getRunnerId() {
         return ID;
     }
 
     @Override
-    public boolean canRun(@NotNull String executorId, @NotNull RunProfile profile) {
+    public boolean canRun(@Nonnull String executorId, @Nonnull RunProfile profile) {
         // We don't need to run Siddhi Remote configuration, we only debug using it.
         return DefaultRunExecutor.EXECUTOR_ID.equals(executorId)
                 && profile instanceof SiddhiApplicationConfiguration;

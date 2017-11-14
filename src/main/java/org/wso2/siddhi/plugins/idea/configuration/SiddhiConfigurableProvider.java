@@ -23,15 +23,15 @@ import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.options.UnnamedConfigurable;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 public class SiddhiConfigurableProvider extends ConfigurableProvider {
 
-    @NotNull
+    @Nonnull
     private final Project myProject;
 
-    public SiddhiConfigurableProvider(@NotNull Project project) {
+    public SiddhiConfigurableProvider(@Nonnull Project project) {
         myProject = project;
     }
 
@@ -56,7 +56,7 @@ public class SiddhiConfigurableProvider extends ConfigurableProvider {
             return myConfigurables;
         }
 
-        @NotNull
+        @Nonnull
         @Override
         public String getId() {
             return "Siddhi";
@@ -83,11 +83,11 @@ public class SiddhiConfigurableProvider extends ConfigurableProvider {
 
     public static class SiddhiProjectSettingsConfigurable extends SiddhiModuleAwareConfigurable {
 
-        public SiddhiProjectSettingsConfigurable(@NotNull Project project) {
+        public SiddhiProjectSettingsConfigurable(@Nonnull Project project) {
             super(project, "Project Settings", null);
         }
 
-        @NotNull
+        @Nonnull
         @Override
         protected UnnamedConfigurable createModuleConfigurable(Module module) {
             return new SiddhiModuleSettingsConfigurable(module, false);

@@ -20,7 +20,7 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.xdebugger.frame.XExecutionStack;
 import com.intellij.xdebugger.frame.XStackFrame;
 import com.intellij.xdebugger.frame.XSuspendContext;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.debugger.dto.Frame;
 import org.wso2.siddhi.plugins.idea.debugger.dto.Message;
@@ -31,10 +31,10 @@ import java.util.List;
 public class SiddhiSuspendContext extends XSuspendContext {
 
     private static final String DEFAULT_THREAD_ID = "01";
-    @NotNull
+    @Nonnull
     private final SiddhiExecutionStack myStack;
 
-    public SiddhiSuspendContext(@NotNull SiddhiDebugProcess process, @NotNull Message message) {
+    public SiddhiSuspendContext(@Nonnull SiddhiDebugProcess process, @Nonnull Message message) {
 
         String fileName = message.getLocation().getFileName();
         String frameName = message.getQueryName();
@@ -55,7 +55,7 @@ public class SiddhiSuspendContext extends XSuspendContext {
         return myStack;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public XExecutionStack[] getExecutionStacks() {
         return new XExecutionStack[]{myStack};
@@ -64,12 +64,12 @@ public class SiddhiSuspendContext extends XSuspendContext {
     static class SiddhiExecutionStack extends XExecutionStack {
 
         private final String threadId;
-        @NotNull
+        @Nonnull
         private final SiddhiDebugProcess myProcess;
-        @NotNull
+        @Nonnull
         private final List<SiddhiStackFrame> myStack;
 
-        public SiddhiExecutionStack(@NotNull SiddhiDebugProcess process, List<Frame> frames) {
+        public SiddhiExecutionStack(@Nonnull SiddhiDebugProcess process, List<Frame> frames) {
             super("Thread #" + DEFAULT_THREAD_ID);
             this.threadId = DEFAULT_THREAD_ID;
             this.myProcess = process;
@@ -86,7 +86,7 @@ public class SiddhiSuspendContext extends XSuspendContext {
         }
 
         @Override
-        public void computeStackFrames(int firstFrameIndex, @NotNull XStackFrameContainer container) {
+        public void computeStackFrames(int firstFrameIndex, @Nonnull XStackFrameContainer container) {
             container.addStackFrames(myStack, true);
         }
 

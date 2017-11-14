@@ -20,7 +20,7 @@ import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
@@ -34,7 +34,7 @@ import java.util.List;
 
 public class TargetReference extends SiddhiElementReference {
 
-    public TargetReference(@NotNull IdentifierPSINode element) {
+    public TargetReference(@Nonnull IdentifierPSINode element) {
         super(element);
     }
 
@@ -47,7 +47,7 @@ public class TargetReference extends SiddhiElementReference {
     /**
      * In this method only the table names are filtered and make lookups elements
      **/
-    @NotNull
+    @Nonnull
     @Override
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();

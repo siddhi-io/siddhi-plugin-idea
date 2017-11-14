@@ -21,7 +21,7 @@ import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jdom.Element;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 
@@ -34,18 +34,18 @@ public class SiddhiSdkType extends SdkType {
         super("Siddhi SDK");
     }
 
-    @NotNull
+    @Nonnull
     public static SiddhiSdkType getInstance() {
         return SdkType.findInstance(SiddhiSdkType.class);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Icon getIcon() {
         return SiddhiIcons.ICON;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public Icon getIconForAddAction() {
         return getIcon();
@@ -60,7 +60,7 @@ public class SiddhiSdkType extends SdkType {
     }
 
     @Override
-    public boolean isValidSdkHome(@NotNull String path) {
+    public boolean isValidSdkHome(@Nonnull String path) {
         SiddhiSdkService.LOG.debug("Validating sdk path: " + path);
         String executablePath = SiddhiSdkService.getSiddhiExecutablePath(path);
         if (executablePath == null) {
@@ -78,15 +78,15 @@ public class SiddhiSdkType extends SdkType {
         return false;
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public String adjustSelectedSdkHome(@NotNull String homePath) {
+    public String adjustSelectedSdkHome(@Nonnull String homePath) {
         return "";
     }
 
-    @NotNull
+    @Nonnull
     @Override
-    public String suggestSdkName(@Nullable String currentSdkName, @NotNull String sdkHome) {
+    public String suggestSdkName(@Nullable String currentSdkName, @Nonnull String sdkHome) {
         String version = getVersionString(sdkHome);
         if (version == null) {
             return "Unknown Siddhi-SDK version at " + sdkHome;
@@ -96,28 +96,28 @@ public class SiddhiSdkType extends SdkType {
 
     @Nullable
     @Override
-    public String getVersionString(@NotNull String sdkHome) {
+    public String getVersionString(@Nonnull String sdkHome) {
         return SiddhiSdkUtil.retrieveSiddhiVersion(sdkHome);
     }
 
     @Nullable
     @Override
-    public String getDefaultDocumentationUrl(@NotNull Sdk sdk) {
+    public String getDefaultDocumentationUrl(@Nonnull Sdk sdk) {
         return null;
     }
 
     @Nullable
     @Override
-    public AdditionalDataConfigurable createAdditionalDataConfigurable(@NotNull SdkModel sdkModel, @NotNull
+    public AdditionalDataConfigurable createAdditionalDataConfigurable(@Nonnull SdkModel sdkModel, @Nonnull
             SdkModificator sdkModificator) {
         return null;
     }
 
     @Override
-    public void saveAdditionalData(@NotNull SdkAdditionalData additionalData, @NotNull Element additional) {
+    public void saveAdditionalData(@Nonnull SdkAdditionalData additionalData, @Nonnull Element additional) {
     }
 
-    @NotNull
+    @Nonnull
     @NonNls
     @Override
     public String getPresentableName() {
@@ -125,7 +125,7 @@ public class SiddhiSdkType extends SdkType {
     }
 
     @Override
-    public void setupSdkPaths(@NotNull Sdk sdk) {
+    public void setupSdkPaths(@Nonnull Sdk sdk) {
         String versionString = sdk.getVersionString();
         if (versionString == null) {
             throw new RuntimeException("SDK version is not defined");

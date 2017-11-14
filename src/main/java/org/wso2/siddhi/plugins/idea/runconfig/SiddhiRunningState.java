@@ -24,23 +24,23 @@ import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.process.ProcessTerminatedListener;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.util.SiddhiExecutor;
 
 public abstract class SiddhiRunningState<T extends SiddhiRunConfigurationBase<?>> extends CommandLineState {
 
-    @NotNull
+    @Nonnull
     private final Module myModule;
 
-    @NotNull
+    @Nonnull
     public T getConfiguration() {
         return myConfiguration;
     }
 
-    @NotNull
+    @Nonnull
     protected final T myConfiguration;
 
-    public SiddhiRunningState(@NotNull ExecutionEnvironment env, @NotNull Module module, @NotNull T configuration) {
+    public SiddhiRunningState(@Nonnull ExecutionEnvironment env, @Nonnull Module module, @Nonnull T configuration) {
         super(env);
         myModule = module;
         myConfiguration = configuration;
@@ -48,7 +48,7 @@ public abstract class SiddhiRunningState<T extends SiddhiRunConfigurationBase<?>
                 myConfiguration.getWorkingDirectoryUrl()));
     }
 
-    @NotNull
+    @Nonnull
     @Override
     protected ProcessHandler startProcess() throws ExecutionException {
         SiddhiExecutor executor = patchExecutor(createCommonExecutor());
@@ -69,14 +69,14 @@ public abstract class SiddhiRunningState<T extends SiddhiRunConfigurationBase<?>
         return handler;
     }
 
-    @NotNull
+    @Nonnull
     private SiddhiExecutor createCommonExecutor() {
         return SiddhiExecutor.in(myModule).withWorkDirectory(myConfiguration.getWorkingDirectory())
                 .withExtraEnvironment(myConfiguration.getCustomEnvironment())
                 .withPassParentEnvironment(myConfiguration.isPassParentEnvironment());
     }
 
-    protected SiddhiExecutor patchExecutor(@NotNull SiddhiExecutor executor) throws ExecutionException {
+    protected SiddhiExecutor patchExecutor(@Nonnull SiddhiExecutor executor) throws ExecutionException {
         return executor;
     }
 }

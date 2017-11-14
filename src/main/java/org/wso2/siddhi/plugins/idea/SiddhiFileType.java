@@ -17,7 +17,7 @@
 package org.wso2.siddhi.plugins.idea;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.Icon;
@@ -33,19 +33,19 @@ public class SiddhiFileType extends LanguageFileType {
         super(SiddhiLanguage.INSTANCE);
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getName() {
         return "Siddhi file";
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getDescription() {
         return "Siddhi language file";
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getDefaultExtension() {
         return "siddhi";

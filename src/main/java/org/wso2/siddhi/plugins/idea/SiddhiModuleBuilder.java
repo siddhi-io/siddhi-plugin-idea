@@ -27,7 +27,7 @@ import com.intellij.openapi.projectRoots.SdkTypeId;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.util.Pair;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class SiddhiModuleBuilder extends JavaModuleBuilder implements SourcePath
         return paths;
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public ModuleType getModuleType() {
         return SiddhiModuleType.getInstance();
@@ -61,7 +61,12 @@ public class SiddhiModuleBuilder extends JavaModuleBuilder implements SourcePath
     }
 
     @Override
-    public void moduleCreated(@NotNull Module module) {
+    public void moduleCreated(@Nonnull Module module) {
         CompilerWorkspaceConfiguration.getInstance(module.getProject()).CLEAR_OUTPUT_DIRECTORY = false;
+    }
+
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException( "contract violation: calling hashCode() on such an object makes no sense" );
     }
 }
