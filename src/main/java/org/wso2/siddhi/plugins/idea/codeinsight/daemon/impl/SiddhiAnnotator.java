@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package org.wso2.siddhi.plugins.idea.codeInsight.daemon.impl;
+package org.wso2.siddhi.plugins.idea.codeinsight.daemon.impl;
 
 import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.AnnotationHolder;
@@ -23,15 +23,17 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.highlighter.SiddhiSyntaxHighlightingColors;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nonnull;
 
-
+/**
+ * Add annotations to files in siddhi language.
+ */
 public class SiddhiAnnotator implements Annotator {
 
     private static final String VALID_ESCAPE_CHARACTERS = "\\\\[btnfr\"'\\\\]|\\\\u[0-f]{4}|\\\\[0-3][0-7]{2}" +

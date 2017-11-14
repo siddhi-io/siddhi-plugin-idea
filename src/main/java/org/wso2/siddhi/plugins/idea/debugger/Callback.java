@@ -16,6 +16,9 @@
 
 package org.wso2.siddhi.plugins.idea.debugger;
 
+/**
+ * Defines interface for callback.
+ */
 @FunctionalInterface
 public interface Callback {
 

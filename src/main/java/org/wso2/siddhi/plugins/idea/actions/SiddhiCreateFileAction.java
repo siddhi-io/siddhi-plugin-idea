@@ -34,6 +34,9 @@ import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import java.util.Map;
 import javax.annotation.Nonnull;
 
+/**
+ * Defines 'creating a file' action in siddhi.
+ */
 public class SiddhiCreateFileAction extends CreateFileFromTemplateAction implements DumbAware {
     private static final String MAIN_TEMPLATE_NAME = "Siddhi Main";
 

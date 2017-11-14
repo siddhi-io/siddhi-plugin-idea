@@ -17,13 +17,16 @@
 package org.wso2.siddhi.plugins.idea.debugger;
 
 import com.intellij.openapi.diagnostic.Logger;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.debugger.client.WebSocketClient;
 import org.wso2.siddhi.plugins.idea.debugger.protocol.Command;
 
-import javax.net.ssl.SSLException;
 import java.net.URISyntaxException;
+import javax.annotation.Nonnull;
+import javax.net.ssl.SSLException;
 
+/**
+ * Defines the web socket connector for siddhi.
+ */
 public class SiddhiWebSocketConnector {
 
     private static final Logger LOGGER = Logger.getInstance(SiddhiWebSocketConnector.class);

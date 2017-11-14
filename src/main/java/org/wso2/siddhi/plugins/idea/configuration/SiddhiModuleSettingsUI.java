@@ -21,12 +21,16 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.ConfigurableUi;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.util.ui.UIUtil;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.project.SiddhiModuleSettings;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import javax.annotation.Nonnull;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
+/**
+ * Created ui for module panel.
+ */
 public class SiddhiModuleSettingsUI implements ConfigurableUi<SiddhiModuleSettings>, Disposable {
 
     private JPanel myPanel;

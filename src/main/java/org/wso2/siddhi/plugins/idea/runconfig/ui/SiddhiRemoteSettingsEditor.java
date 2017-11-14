@@ -24,12 +24,17 @@ import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.ui.EditorTextField;
 import com.intellij.ui.RawCommandLineEditor;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunUtil;
 import org.wso2.siddhi.plugins.idea.runconfig.remote.SiddhiRemoteConfiguration;
 
-import javax.swing.*;
+import javax.annotation.Nonnull;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+/**
+ * Ui for siddhi remote settings editor.
+ */
 public class SiddhiRemoteSettingsEditor extends SettingsEditor<SiddhiRemoteConfiguration> {
 
     private JPanel myPanel;

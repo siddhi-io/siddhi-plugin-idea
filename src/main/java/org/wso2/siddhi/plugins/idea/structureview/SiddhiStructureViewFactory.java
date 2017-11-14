@@ -22,10 +22,14 @@ import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
 import com.intellij.lang.PsiStructureViewFactory;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiFile;
-import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines structure view factory for siddhi.
+ */
 public class SiddhiStructureViewFactory implements PsiStructureViewFactory {
 
     @Nullable

@@ -23,7 +23,7 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
 
 /**
- * Defines syntax highlighting colors of siddhi language
+ * Defines syntax highlighting colors of siddhi language.
  */
 public class SiddhiSyntaxHighlightingColors {
 

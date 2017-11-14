@@ -25,15 +25,15 @@ import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 import java.util.List;
 
 /**
- *  Represents a token in the language of the plug-in. The "token type" of
- *  leaf nodes in jetbrains PSI tree. Corresponds to ANTLR's int token type.
- *  Intellij lexer token types are instances of IElementType:
- *
- *  "Interface for token types returned from lexical analysis and for types
- *   of nodes in the AST tree."
- *
- *  We differentiate between parse tree subtree roots and tokens with
- *  {@link RuleIElementType} and {@link TokenIElementType}, respectively.
+ * Represents a token in the language of the plug-in. The "token type" of
+ * leaf nodes in jetbrains PSI tree. Corresponds to ANTLR's int token type.
+ * Intellij lexer token types are instances of IElementType:
+ * <p>
+ * "Interface for token types returned from lexical analysis and for types
+ * of nodes in the AST tree."
+ * <p>
+ * We differentiate between parse tree subtree roots and tokens with
+ * {@link RuleIElementType} and {@link TokenIElementType}, respectively.
  */
 public class SiddhiTypes {
 
@@ -55,8 +55,10 @@ public class SiddhiTypes {
     public static final TokenIElementType TRIPLE_DOT = tokenIElementTypes.get(SiddhiQLLexer.TRIPLE_DOT);
     public static final TokenIElementType OPEN_PAR = tokenIElementTypes.get(SiddhiQLLexer.OPEN_PAR);
     public static final TokenIElementType CLOSE_PAR = tokenIElementTypes.get(SiddhiQLLexer.CLOSE_PAR);
-    public static final TokenIElementType OPEN_SQUARE_BRACKETS = tokenIElementTypes.get(SiddhiQLLexer.OPEN_SQUARE_BRACKETS);
-    public static final TokenIElementType CLOSE_SQUARE_BRACKETS = tokenIElementTypes.get(SiddhiQLLexer.CLOSE_SQUARE_BRACKETS);
+    public static final TokenIElementType OPEN_SQUARE_BRACKETS = tokenIElementTypes.get(SiddhiQLLexer
+            .OPEN_SQUARE_BRACKETS);
+    public static final TokenIElementType CLOSE_SQUARE_BRACKETS = tokenIElementTypes.get(SiddhiQLLexer
+            .CLOSE_SQUARE_BRACKETS);
     public static final TokenIElementType COMMA = tokenIElementTypes.get(SiddhiQLLexer.COMMA);
     public static final TokenIElementType ASSIGN = tokenIElementTypes.get(SiddhiQLLexer.ASSIGN);
     public static final TokenIElementType STAR = tokenIElementTypes.get(SiddhiQLLexer.STAR);
@@ -147,7 +149,8 @@ public class SiddhiTypes {
     public static final TokenIElementType PER = tokenIElementTypes.get(SiddhiQLLexer.PER);
     public static final TokenIElementType ID_QUOTES = tokenIElementTypes.get(SiddhiQLLexer.ID_QUOTES);
     public static final TokenIElementType STRING_LITERAL = tokenIElementTypes.get(SiddhiQLLexer.STRING_LITERAL);
-    public static final TokenIElementType SINGLE_LINE_COMMENT = tokenIElementTypes.get(SiddhiQLLexer.SINGLE_LINE_COMMENT);
+    public static final TokenIElementType SINGLE_LINE_COMMENT = tokenIElementTypes.get(SiddhiQLLexer
+            .SINGLE_LINE_COMMENT);
     public static final TokenIElementType MULTILINE_COMMENT = tokenIElementTypes.get(SiddhiQLLexer.MULTILINE_COMMENT);
     public static final TokenIElementType SPACES = tokenIElementTypes.get(SiddhiQLLexer.SPACES);
     public static final TokenIElementType UNEXPECTED_CHAR = tokenIElementTypes.get(SiddhiQLLexer.UNEXPECTED_CHAR);

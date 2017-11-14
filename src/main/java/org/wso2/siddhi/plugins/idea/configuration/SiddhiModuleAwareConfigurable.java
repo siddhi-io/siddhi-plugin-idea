@@ -19,9 +19,13 @@ package org.wso2.siddhi.plugins.idea.configuration;
 import com.intellij.application.options.ModuleAwareProjectConfigurable;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkService;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Checks whether configuration is suitable as a module.
+ */
 public abstract class SiddhiModuleAwareConfigurable extends ModuleAwareProjectConfigurable {
 
     public SiddhiModuleAwareConfigurable(@Nonnull Project project, String displayName, String helpTopic) {

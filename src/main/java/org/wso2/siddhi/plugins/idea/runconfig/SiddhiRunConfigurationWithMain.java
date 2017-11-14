@@ -27,9 +27,14 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import org.jdom.Element;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines run configuration with main.
+ * @param <T>
+ */
 public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningState> extends
         SiddhiRunConfigurationBase<T> {
 

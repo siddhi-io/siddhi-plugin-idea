@@ -18,6 +18,9 @@ package org.wso2.siddhi.plugins.idea.debugger.dto;
 
 import java.util.Map;
 
+/**
+ * DTO class for Frame.
+ */
 public class Frame {
 
     private String frameName, fileName;

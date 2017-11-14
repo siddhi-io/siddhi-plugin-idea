@@ -33,14 +33,17 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.PathUtil;
 import com.intellij.util.containers.ContainerUtil;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nonnull;
 
+/**
+ * Defines console filter for siddhi.
+ */
 public class SiddhiConsoleFilter implements Filter {
 
     private static final Pattern MESSAGE_PATTERN = Pattern.compile("(?:^|\\s)(\\S+\\.\\w+):(\\d+)(:(\\d+))?" +
@@ -159,6 +162,9 @@ public class SiddhiConsoleFilter implements Filter {
         return null;
     }
 
+    /**
+     * Gets hyperlink info.
+     */
     public static class SiddhiGetHyperlinkInfo implements HyperlinkInfo {
 
         private final String myPackageName;

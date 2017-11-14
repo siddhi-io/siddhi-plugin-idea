@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents filter rule in parser.
+ */
 public class FilterNode extends ANTLRPsiNode {
     public FilterNode(@Nonnull ASTNode node) {
         super(node);

@@ -19,8 +19,12 @@ package org.wso2.siddhi.plugins.idea.spellchecker;
 import com.intellij.psi.PsiNameIdentifierOwner;
 import com.intellij.spellchecker.tokenizer.TokenConsumer;
 import com.intellij.spellchecker.tokenizer.Tokenizer;
+
 import javax.annotation.Nonnull;
 
+/**
+ * Defines identifier tokenizer for siddhi.
+ */
 public class SiddhiIdentifierTokenizer extends Tokenizer<PsiNameIdentifierOwner> {
 
     @Override

@@ -16,6 +16,9 @@
 
 package org.wso2.siddhi.plugins.idea.debugger.dto;
 
+/**
+ * DTO class for breakpoint.
+ */
 public class BreakPoint {
 
     private int queryIndex;

@@ -21,10 +21,14 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProviderBase;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Provides a debugger editor for siddhi.
+ */
 public class SiddhiDebuggerEditorsProvider extends XDebuggerEditorsProviderBase {
 
     @Override

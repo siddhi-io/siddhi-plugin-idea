@@ -19,10 +19,14 @@ package org.wso2.siddhi.plugins.idea.spellchecker;
 import com.intellij.psi.PsiElement;
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy;
 import com.intellij.spellchecker.tokenizer.Tokenizer;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines spell checking strategy.
+ */
 public class SiddhiSpellcheckingStrategy extends SpellcheckingStrategy {
 
     private final SiddhiIdentifierTokenizer identifierTokenizer = new SiddhiIdentifierTokenizer();

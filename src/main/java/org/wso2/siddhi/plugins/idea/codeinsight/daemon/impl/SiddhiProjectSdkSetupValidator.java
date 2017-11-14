@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package org.wso2.siddhi.plugins.idea.codeInsight.daemon.impl;
+package org.wso2.siddhi.plugins.idea.codeinsight.daemon.impl;
 
 import com.intellij.codeInsight.daemon.ProjectSdkSetupValidator;
 import com.intellij.openapi.application.WriteAction;
@@ -30,13 +30,17 @@ import com.intellij.openapi.roots.ui.configuration.ProjectSettingsService;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkService;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Validates the sdk setup of the project.
+ */
 public class SiddhiProjectSdkSetupValidator implements ProjectSdkSetupValidator {
 
     public static final SiddhiProjectSdkSetupValidator INSTANCE = new SiddhiProjectSdkSetupValidator();

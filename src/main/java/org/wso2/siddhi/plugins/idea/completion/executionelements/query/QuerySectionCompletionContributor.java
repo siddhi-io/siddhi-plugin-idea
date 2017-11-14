@@ -13,25 +13,29 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.siddhi.plugins.idea.completion.executionElements.query;
+package org.wso2.siddhi.plugins.idea.completion.executionelements.query;
 
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.OutputAttributeNode;
 import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
 
+import javax.annotation.Nonnull;
+
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addBeginingOfQueryOutputKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addByKeyword;
 
+/**
+ * Provides code completions for query sections.
+ */
 public class QuerySectionCompletionContributor {
 
     public static void querySectionCompletion(@Nonnull CompletionResultSet result, PsiElement element,
                                               PsiElement prevVisibleSibling, IElementType
-                                                      prevVisibleSiblingElementType){
+                                                      prevVisibleSiblingElementType) {
         //Suggestions related to QuerySectionNode
         if (PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
             //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) in

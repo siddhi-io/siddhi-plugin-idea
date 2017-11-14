@@ -16,7 +16,11 @@
 
 package org.wso2.siddhi.plugins.idea.debugger.client;
 
-import io.netty.channel.*;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPromise;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -27,6 +31,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.siddhi.plugins.idea.debugger.Callback;
 
+/**
+ * Implements a web socket client handler.
+ */
 public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketClient.class);
@@ -97,7 +104,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
 
     @Override
     public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
-        cause.printStackTrace();
+        LOGGER.error(cause.toString());
         if (!handshakeFuture.isDone()) {
             LOGGER.debug("Handshake failed : " + cause.getMessage(), cause);
             handshakeFuture.setFailure(cause);

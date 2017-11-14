@@ -27,13 +27,17 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.messages.Topic;
 import com.intellij.util.xmlb.XmlSerializerUtil;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
+/**
+ * Defines siddhi library service.
+ * @param <T>
+ */
 public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends SimpleModificationTracker
         implements PersistentStateComponent<T> {
 
@@ -109,6 +113,9 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
         return ContainerUtil.mapNotNull(urls, url -> VirtualFileManager.getInstance().findFileByUrl(url));
     }
 
+    /**
+     * Interface for libraries listener.
+     */
     public interface LibrariesListener {
         void librariesChanged(@Nonnull Collection<String> newRootUrls);
     }

@@ -21,12 +21,22 @@ import com.intellij.lang.findUsages.FindUsagesProvider;
 import com.intellij.psi.PsiElement;
 import org.antlr.jetbrains.adaptor.lexer.RuleIElementType;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
 
-import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.*;
+import javax.annotation.Nonnull;
 
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_definition_aggregation;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_definition_function;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_definition_stream;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_definition_table;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_definition_trigger;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_definition_window;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_execution_element;
+
+/**
+ * Implements find usage for siddhi.
+ */
 public class SiddhiFindUsageProvider implements FindUsagesProvider {
 
     @Nullable

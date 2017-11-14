@@ -17,9 +17,13 @@
 package org.wso2.siddhi.plugins.idea.runconfig.remote;
 
 import com.intellij.psi.PsiFile;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfigurationProducerBase;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Produce siddhi remote run configuration.
+ */
 public class SiddhiRemoteRunConfigurationProducer
         extends SiddhiRunConfigurationProducerBase<SiddhiRemoteConfiguration> implements Cloneable {
 
@@ -30,10 +34,9 @@ public class SiddhiRemoteRunConfigurationProducer
     @Nonnull
     @Override
     protected String getConfigurationName(@Nonnull PsiFile file) {
-        try{
+        try {
             return file.getName();
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return "";
         }
     }

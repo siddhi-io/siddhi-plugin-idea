@@ -23,12 +23,16 @@ import com.intellij.execution.process.ProcessEvent;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunningState;
 import org.wso2.siddhi.plugins.idea.util.SiddhiExecutor;
 import org.wso2.siddhi.plugins.idea.util.SiddhiHistoryProcessListener;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines siddhi application running state.
+ */
 public class SiddhiApplicationRunningState extends SiddhiRunningState<SiddhiApplicationConfiguration> {
 
     private int myDebugPort = 5006;

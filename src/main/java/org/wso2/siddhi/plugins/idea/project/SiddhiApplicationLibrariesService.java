@@ -21,10 +21,14 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.components.StoragePathMacros;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkUtil;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines siddhi application library service.
+ */
 @State(
         name = SiddhiConstants.SIDDHI_LIBRARIES_SERVICE_NAME,
         storages = @Storage(file = StoragePathMacros.APP_CONFIG + "/" +
@@ -58,6 +62,9 @@ public class SiddhiApplicationLibrariesService extends
         }
     }
 
+    /**
+     * Defines siddhi application library state.
+     */
     public static class SiddhiApplicationLibrariesState extends SiddhiLibraryState {
 
         private boolean myUseSiddhiPathFromSystemEnvironment = true;

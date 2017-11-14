@@ -18,7 +18,9 @@ package org.wso2.siddhi.plugins.idea.debugger.breakpoint;
 
 import com.intellij.xdebugger.breakpoints.XBreakpointProperties;
 import org.jetbrains.annotations.Nullable;
-
+/**
+ * Defines properties for a breakpoint.
+ */
 public class SiddhiBreakpointProperties extends XBreakpointProperties<SiddhiBreakpointProperties> {
 
     @Nullable

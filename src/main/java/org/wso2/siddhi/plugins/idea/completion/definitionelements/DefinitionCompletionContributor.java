@@ -13,21 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+package org.wso2.siddhi.plugins.idea.completion.definitionelements;
 
-package org.wso2.siddhi.plugins.idea.codeInsight.editoractions;
-
-import com.intellij.codeInsight.editorActions.SimpleTokenSetQuoteHandler;
-import com.intellij.openapi.editor.highlighter.HighlighterIterator;
-import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-
-public class SiddhiQuoteHandler extends SimpleTokenSetQuoteHandler {
-
-    public SiddhiQuoteHandler() {
-        super(SiddhiTypes.STRING_LITERAL);//Need to identify ending tokens
-    }
-
-    @Override
-    protected boolean isNonClosedLiteral(HighlighterIterator iterator, CharSequence chars) {
-        return true;
-    }
+/**
+ * Provides code completions for definitions.
+ */
+public class DefinitionCompletionContributor {
 }

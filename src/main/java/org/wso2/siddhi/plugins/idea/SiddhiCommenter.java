@@ -20,7 +20,7 @@ import com.intellij.lang.Commenter;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Defines comment types associated with siddhi language
+ * Defines comment types associated with siddhi language.
  */
 public class SiddhiCommenter implements Commenter {
 

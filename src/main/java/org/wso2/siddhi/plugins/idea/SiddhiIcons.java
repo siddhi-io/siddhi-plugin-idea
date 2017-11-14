@@ -19,12 +19,12 @@ package org.wso2.siddhi.plugins.idea;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.ui.LayeredIcon;
-import javax.annotation.Nonnull;
 
-import javax.swing.*;
+import javax.annotation.Nonnull;
+import javax.swing.Icon;
 
 /**
- * Defines icons specific to siddhi language
+ * Defines icons specific to siddhi language.
  */
 public class SiddhiIcons {
     public static final Icon ICON = IconLoader.findIcon("/icons/siddhi.png");

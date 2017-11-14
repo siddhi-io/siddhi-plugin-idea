@@ -43,7 +43,7 @@
 
         <!-- Annotator -->
         <annotator language="Siddhi"
-                   implementationClass="org.wso2.siddhi.plugins.idea.codeInsight.daemon.impl.SiddhiAnnotator"/>
+                   implementationClass="org.wso2.siddhi.plugins.idea.codeinsight.daemon.impl.SiddhiAnnotator"/>
 
         <!--formatter-->
         <lang.formatter language="Siddhi"
@@ -54,7 +54,7 @@
                 implementation="org.wso2.siddhi.plugins.idea.formatter.settings.SiddhiLanguageCodeStyleSettingsProvider"/>
 
         <!--<quoteHandler fileType="Siddhi file"
-                      className="org.wso2.siddhi.plugins.idea.codeInsight.editoractions.SiddhiQuoteHandler"/>-->
+                      className="org.wso2.siddhi.plugins.idea.codeinsight.editoractions.SiddhiQuoteHandler"/>-->
 
         <!--<enterHandlerDelegate
                 implementation="org.wso2.siddhi.plugins.idea.formatter.SiddhiEnterBetweenBracesHandler"/>-->
@@ -70,7 +70,7 @@
                                 implementationClass="org.wso2.siddhi.plugins.idea.completion.SiddhiKeywordsCompletionContributor"/>
 
         <lang.braceMatcher language="Siddhi"
-                           implementationClass="org.wso2.siddhi.plugins.idea.codeInsight.highlighting.SiddhiPairedBraceMatcher"/>
+                           implementationClass="org.wso2.siddhi.plugins.idea.codeinsight.highlighting.SiddhiPairedBraceMatcher"/>
 
         <!--spell checking-->
         <spellchecker.support language="Siddhi"
@@ -83,7 +83,7 @@
         <!-- sdk -->
         <sdkType implementation="org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType"/>
         <projectSdkSetupValidator id="SiddhiSdk"
-                                  implementation="org.wso2.siddhi.plugins.idea.codeInsight.daemon.impl.SiddhiProjectSdkSetupValidator"/>
+                                  implementation="org.wso2.siddhi.plugins.idea.codeinsight.daemon.impl.SiddhiProjectSdkSetupValidator"/>
         <library.presentationProvider
                 implementation="org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkLibraryPresentationProvider"/>
         <applicationService serviceImplementation="org.wso2.siddhi.plugins.idea.sdk.SiddhiPathModificationTracker"/>
@@ -119,7 +119,7 @@
         <projectConfigurable id="Siddhi" groupId="language" provider="org.wso2.siddhi.plugins.idea.configuration.SiddhiConfigurableProvider"
                              dynamic="true"/>
         <projectExtension implementation="org.wso2.siddhi.plugins.idea.project.SiddhiProjectExtension"/>
-        <applicationService serviceImplementation="org.wso2.siddhi.plugins.idea.codeInsight.imports.SiddhiCodeInsightSettings"/>
+        <applicationService serviceImplementation="org.wso2.siddhi.plugins.idea.codeinsight.imports.SiddhiCodeInsightSettings"/>
         <projectStructureDetector
                 implementation="org.wso2.siddhi.plugins.idea.project.SiddhiProjectStructureDetector"/>
 

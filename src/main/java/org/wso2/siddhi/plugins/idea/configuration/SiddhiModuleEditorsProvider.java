@@ -20,14 +20,21 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleConfigurationEditor;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.roots.ModifiableRootModel;
-import com.intellij.openapi.roots.ui.configuration.*;
+import com.intellij.openapi.roots.ui.configuration.ClasspathEditor;
+import com.intellij.openapi.roots.ui.configuration.ContentEntriesEditor;
+import com.intellij.openapi.roots.ui.configuration.ModuleConfigurationEditorProvider;
+import com.intellij.openapi.roots.ui.configuration.ModuleConfigurationState;
+import com.intellij.openapi.roots.ui.configuration.OutputEditor;
 import com.intellij.util.containers.ContainerUtil;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiModuleType;
 
-import javax.swing.*;
 import java.util.List;
+import javax.annotation.Nonnull;
+import javax.swing.JComponent;
 
+/**
+ * Provide tabs for a module editor in 'Project Structure' dialog.
+ */
 public class SiddhiModuleEditorsProvider implements ModuleConfigurationEditorProvider {
 
     @Override

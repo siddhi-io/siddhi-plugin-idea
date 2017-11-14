@@ -13,7 +13,24 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.siddhi.plugins.idea.completion.definitionElements;
 
-public class DefinitionCompletionContributor {
+package org.wso2.siddhi.plugins.idea.codeinsight.editoractions;
+
+import com.intellij.codeInsight.editorActions.SimpleTokenSetQuoteHandler;
+import com.intellij.openapi.editor.highlighter.HighlighterIterator;
+import org.wso2.siddhi.plugins.idea.SiddhiTypes;
+
+/**
+ * Handles string quotes in siddhi language.
+ */
+public class SiddhiQuoteHandler extends SimpleTokenSetQuoteHandler {
+
+    public SiddhiQuoteHandler() {
+        super(SiddhiTypes.STRING_LITERAL); //Need to identify ending tokens
+    }
+
+    @Override
+    protected boolean isNonClosedLiteral(HighlighterIterator iterator, CharSequence chars) {
+        return true;
+    }
 }

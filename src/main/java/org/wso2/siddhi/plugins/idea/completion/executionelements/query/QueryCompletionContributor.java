@@ -13,14 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.siddhi.plugins.idea.completion.executionElements.query;
+package org.wso2.siddhi.plugins.idea.completion.executionelements.query;
 
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeReferenceNode;
@@ -33,26 +32,32 @@ import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
 import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
 import org.wso2.siddhi.plugins.idea.psi.TimeValueNode;
 
+import javax.annotation.Nonnull;
+
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addBeginingOfQueryOutputKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addHavingKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addIntoKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterQueryInput;
-import static org.wso2.siddhi.plugins.idea.completion.executionElements.query.QueryInputCompletionContributor.queryInputCompletion;
-import static org.wso2.siddhi.plugins.idea.completion.executionElements.query.QueryOutputCompletionContributor.queryOutputCompletion;
-import static org.wso2.siddhi.plugins.idea.completion.executionElements.query.QuerySectionCompletionContributor.querySectionCompletion;
+import static org.wso2.siddhi.plugins.idea.completion.executionelements.query.QueryInputCompletionContributor.queryInputCompletion;
+import static org.wso2.siddhi.plugins.idea.completion.executionelements.query.QueryOutputCompletionContributor.queryOutputCompletion;
+import static org.wso2.siddhi.plugins.idea.completion.executionelements.query.QuerySectionCompletionContributor.querySectionCompletion;
 import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getPreviousVisibleSiblingSkippingComments;
 
+/**
+ * Provides code completions for queries.
+ */
 public class QueryCompletionContributor {
-    
+
     public static void queryCompletion(@Nonnull CompletionResultSet result, PsiElement element,
                                        PsiElement prevVisibleSibling, IElementType
                                                prevVisibleSiblingElementType, PsiElement
-                                               prevPreVisibleSibling){
+                                               prevPreVisibleSibling) {
 
         //Suggestions related to QueryInputNode
         if (PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
-            queryInputCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType, prevPreVisibleSibling);
+            queryInputCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType,
+                    prevPreVisibleSibling);
             return;
         }
         /*
@@ -63,12 +68,12 @@ public class QueryCompletionContributor {
         * */
         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, QueryInputNode.class) != null
                 && PsiTreeUtil.getParentOfType(prevVisibleSibling, AnonymousStreamNode.class) != null) {
-                if(PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class) != null
+            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class) != null
                     || (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR
-                        && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, OutputEventTypeNode.class) != null)) {
-                    addSuggestionsAfterQueryInput(result);
-                    return;
-                }
+                    && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, OutputEventTypeNode.class) != null)) {
+                addSuggestionsAfterQueryInput(result);
+                return;
+            }
         }
         //Suggestions related to QuerySectionNode
         if (PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
@@ -145,6 +150,7 @@ public class QueryCompletionContributor {
             }
         }
         //Suggestions inside a QueryOutputNode
-        queryOutputCompletion(result, element,prevVisibleSibling,prevVisibleSiblingElementType,prevPreVisibleSibling);
+        queryOutputCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType,
+                prevPreVisibleSibling);
     }
 }

@@ -30,7 +30,6 @@ import com.intellij.xdebugger.evaluation.XDebuggerEvaluator;
 import com.intellij.xdebugger.frame.XCompositeNode;
 import com.intellij.xdebugger.frame.XStackFrame;
 import com.intellij.xdebugger.frame.XValueChildrenList;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import org.wso2.siddhi.plugins.idea.debugger.dto.Frame;
@@ -39,7 +38,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
+import javax.annotation.Nonnull;
 
+/**
+ * Represents a frame of execution stack. The selected frame is shown in 'Variables' panel of 'Debug' tool window.
+ */
 public class SiddhiStackFrame extends XStackFrame {
 
     private final SiddhiDebugProcess myProcess;

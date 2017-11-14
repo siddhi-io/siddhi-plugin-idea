@@ -26,15 +26,19 @@ import com.intellij.ide.util.projectWizard.importSources.ProjectFromSourcesBuild
 import com.intellij.ide.util.projectWizard.importSources.ProjectStructureDetector;
 import org.wso2.siddhi.plugins.idea.SiddhiModuleType;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType;
-import javax.annotation.Nonnull;
 
-import javax.swing.*;
 import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import javax.annotation.Nonnull;
+import javax.swing.Icon;
 
+/**
+ * Automatic detection of modules and libraries for 'Create from existing sources' mode of
+ * the new project/module wizard.
+ */
 public class SiddhiProjectStructureDetector extends ProjectStructureDetector {
 
     @Nonnull

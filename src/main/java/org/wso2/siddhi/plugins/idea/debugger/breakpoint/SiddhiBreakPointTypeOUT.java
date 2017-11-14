@@ -26,13 +26,17 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Processor;
 import com.intellij.xdebugger.XDebuggerUtil;
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Implements a new breakpoint type named OUT.
+ */
 public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpointProperties> {
 
     public static final String ID = "SiddhiLineBreakpointOUT";
@@ -50,7 +54,8 @@ public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpoin
 
     @Override
     public boolean canPutAt(@Nonnull VirtualFile file, int line, @Nonnull Project project) {
-        return line >= 0 && file.getFileType() == SiddhiFileType.INSTANCE && isLineBreakpointAvailable(file, line, project);
+        return line >= 0 && file.getFileType() == SiddhiFileType.INSTANCE && isLineBreakpointAvailable(file, line,
+                project);
     }
 
     private static boolean isLineBreakpointAvailable(@Nonnull VirtualFile file, int line, @Nonnull Project project) {

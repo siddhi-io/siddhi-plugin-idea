@@ -21,8 +21,12 @@ import com.intellij.application.options.CodeStyleAbstractPanel;
 import com.intellij.application.options.TabbedLanguageCodeStylePanel;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
+
 import javax.annotation.Nonnull;
 
+/**
+ * Defines configurations for code styles in siddhi.
+ */
 public class SiddhiCodeStyleConfigurable extends CodeStyleAbstractConfigurable {
 
     public SiddhiCodeStyleConfigurable(@Nonnull CodeStyleSettings settings, CodeStyleSettings cloneSettings) {

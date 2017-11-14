@@ -24,14 +24,17 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiModuleBasedConfiguration;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfigurationWithMain;
 import org.wso2.siddhi.plugins.idea.runconfig.ui.SiddhiRemoteSettingsEditor;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nonnull;
 
+/**
+ * Defines siddhi remote configuration.
+ */
 public class SiddhiRemoteConfiguration extends SiddhiRunConfigurationWithMain<SiddhiRemoteRunningState> {
 
     private static final String IP_REGEX = "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$";

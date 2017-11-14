@@ -34,14 +34,17 @@ import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.containers.ContainerUtil;
 import org.jetbrains.annotations.Contract;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.SiddhiModuleType;
 
 import java.io.File;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
+/**
+ * Defines sdk service for siddhi.
+ */
 public class SiddhiSdkService extends SimpleModificationTracker {
 
     public static final Logger LOG = Logger.getInstance(SiddhiSdkService.class);

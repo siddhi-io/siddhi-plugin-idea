@@ -28,17 +28,19 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.EditorModificationUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
-import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.TableDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
 import java.util.LinkedList;
 import java.util.List;
+import javax.annotation.Nonnull;
 
+/**
+ * Suggests parenthesis.
+ */
 public class SiddhiCompletionUtils {
 
     private static final int VARIABLE_PRIORITY = 20;
@@ -248,7 +250,8 @@ public class SiddhiCompletionUtils {
                 "    within  time_gap\n" +
                 "select stream_reference.attribute1, stream_reference.attribute1\n" +
                 "insert into output_stream", null).withPresentableText("query-Pattern");
-        QUERY_JOIN_SNIIP = createDefineSnippetTypeLookupElement("from stream_name[filter_condition]#window.window_name" +
+        QUERY_JOIN_SNIIP = createDefineSnippetTypeLookupElement("from stream_name[filter_condition]#window" +
+                ".window_name" +
                 "(args) as reference\n" +
                 "    join stream_name[filter_condition]#window.window_name(args) as reference\n" +
                 "    on join_condition\n" +
@@ -259,7 +262,8 @@ public class SiddhiCompletionUtils {
                 ".namespace:window_name(args)\n" +
                 "select attribute1 , attribute2\n" +
                 "insert into output_stream", null).withPresentableText("query-windowFilter");
-        QUERY_WINDOW_SNIIP = createDefineSnippetTypeLookupElement("from stream_name#window.namespace:window_name(args)" +
+        QUERY_WINDOW_SNIIP = createDefineSnippetTypeLookupElement("from stream_name#window.namespace:window_name" +
+                "(args)" +
                 "\n" +
                 "select attribute1, attribute2\n" +
                 "insert into output_stream", null).withPresentableText("query-Window");
@@ -291,8 +295,8 @@ public class SiddhiCompletionUtils {
                 "end;", null).withPresentableText("partition");
         ANNOTATION_CONFIG_SNIIP = createDefineSnippetTypeLookupElement("@config(async = 'true')", null)
                 .withPresentableText("annotation-Config");
-        DEFINITION_STREAM = createDefineSnippetTypeLookupElement("define stream stream_name (attr1 Type1, attN TypeN);" +
-                "", null).withPresentableText("define-Stream");
+        DEFINITION_STREAM = createDefineSnippetTypeLookupElement("define stream stream_name (attr1 Type1, attN " +
+                "TypeN);", null).withPresentableText("define-Stream");
         ANNOTATION_EXPORTSTREAM = createDefineSnippetTypeLookupElement("@Export(\"Stream_ID\")", null)
                 .withPresentableText("annotation-ExportStream");
         ANNOTATION_IMPORTSTREAM = createDefineSnippetTypeLookupElement("@Import(\"Stream_ID\")", null)
@@ -322,8 +326,10 @@ public class SiddhiCompletionUtils {
         ANNOTATION_INFO = createDefineSnippetTypeLookupElement("@info(name = \"Stream_ID\")", null)
                 .withPresentableText("annotation-Info");
 
-        ANNOTATION_SINK2 = createDefineSnippetTypeLookupElement("sink(type='sink_type', option_key='option_value', ...)", null);
-        ANNOTATION_SOURCE2 = createDefineSnippetTypeLookupElement("source(type='source_type', option_key='option_value', ...) ", null);
+        ANNOTATION_SINK2 = createDefineSnippetTypeLookupElement("sink(type='sink_type', option_key='option_value', " +
+                "...)", null);
+        ANNOTATION_SOURCE2 = createDefineSnippetTypeLookupElement("source(type='source_type', " +
+                "option_key='option_value', ...) ", null);
         ANNOTATION_CONFIG_SNIIP2 = createDefineSnippetTypeLookupElement("config(async = 'true')", null);
         ANNOTATION_EXPORTSTREAM2 = createDefineSnippetTypeLookupElement("Export(\"Stream_ID\")", null);
         ANNOTATION_IMPORTSTREAM2 = createDefineSnippetTypeLookupElement("Import(\"Stream_ID\")", null);
@@ -334,7 +340,8 @@ public class SiddhiCompletionUtils {
         ANNOTATION_PRIMARYKEY2 = createDefineSnippetTypeLookupElement("PrimaryKey('attribute_name')", null);
         ANNOTATION_INDEX2 = createDefineSnippetTypeLookupElement("Index('attribute_name')", null);
         ANNOTATION_INFO2 = createDefineSnippetTypeLookupElement("info(name = \"Stream_ID\")", null);
-        ANNOTATION_MAP = createDefineSnippetTypeLookupElement("map(type='map_type', option_key='option_value', ...)", null);
+        ANNOTATION_MAP = createDefineSnippetTypeLookupElement("map(type='map_type', option_key='option_value', ...)" +
+                "", null);
         ANNOTATION_ATTRIBUTES = createDefineSnippetTypeLookupElement("attributes('attribute_mapping_a', " +
                 "'attribute_mapping_b') ", null);
         ANNOTATION_PAYLOARD = createDefineSnippetTypeLookupElement("payload(type='payload_string')", null);
@@ -473,22 +480,22 @@ public class SiddhiCompletionUtils {
                 .withPresentableText("length window");
         LENGTHBATCH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.lengthBatch(window.length)", null)
                 .withPresentableText("lengthBatch window");
-        SORT_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.sort(window.length, attribute, order)", null)
-                .withPresentableText("sort window");
-        EXTERNALTIMEBATCH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.externalTimeBatch(timestamp, window.time, start" +
-                ".time, timeout)", null).withPresentableText("externalTimeBatch window");
+        SORT_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.sort(window.length, attribute, order)",
+                null).withPresentableText("sort window");
+        EXTERNALTIMEBATCH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.externalTimeBatch(timestamp," +
+                " window.time, start.time, timeout)", null).withPresentableText("externalTimeBatch window");
         TIME_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.time(window.time)", null)
                 .withPresentableText("time window");
-        FREQUENT_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.frequent(event.count, attribute)", null)
-                .withPresentableText("frequent window");
-        LOSSYFREQUENT_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.lossyFrequent(support.threshold, error.bound, " +
-                "attribute)", null).withPresentableText("lossyFrequent window");
+        FREQUENT_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.frequent(event.count, attribute)",
+                null).withPresentableText("frequent window");
+        LOSSYFREQUENT_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.lossyFrequent(support.threshold," +
+                " error.bound,attribute)", null).withPresentableText("lossyFrequent window");
         TIMEBATCH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.timeBatch(window.time, start.time)",
                 null).withPresentableText("timeBatch window");
         CRON_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.cron(cron.expression)", null)
                 .withPresentableText("cron window");
-        TIMELENGTH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.timeLength(window.time, window.length)",
-                null).withPresentableText("timeLength window");
+        TIMELENGTH_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.timeLength(window.time, window" +
+                        ".length)", null).withPresentableText("timeLength window");
         EXTERNALTIME_WITH_WINDOW = createWindowProcessorTypeLookupElement("#window.externalTime(window.time)", null)
                 .withPresentableText("externalTime window");
     }
@@ -691,11 +698,11 @@ public class SiddhiCompletionUtils {
      * @param resultSet result list which is used to add lookups
      */
     public static void addBeginingOfQueryOutputKeywords(@Nonnull CompletionResultSet resultSet) {
-        addKeywordAsLookup(resultSet,INSERT);
-        addKeywordAsLookup(resultSet,DELETE);
-        addKeywordAsLookup(resultSet,UPDATE_OR_INSERT_INTO);
-        addKeywordAsLookup(resultSet,UPDATE);
-        addKeywordAsLookup(resultSet,RETURN);
+        addKeywordAsLookup(resultSet, INSERT);
+        addKeywordAsLookup(resultSet, DELETE);
+        addKeywordAsLookup(resultSet, UPDATE_OR_INSERT_INTO);
+        addKeywordAsLookup(resultSet, UPDATE);
+        addKeywordAsLookup(resultSet, RETURN);
     }
 
     /**
@@ -706,11 +713,11 @@ public class SiddhiCompletionUtils {
     public static void addSuggestionsAfterQueryInput(@Nonnull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, SELECT);
         addKeywordAsLookup(resultSet, OUTPUT);
-        addKeywordAsLookup(resultSet,INSERT);
-        addKeywordAsLookup(resultSet,DELETE);
-        addKeywordAsLookup(resultSet,UPDATE_OR_INSERT_INTO);
-        addKeywordAsLookup(resultSet,UPDATE);
-        addKeywordAsLookup(resultSet,RETURN);
+        addKeywordAsLookup(resultSet, INSERT);
+        addKeywordAsLookup(resultSet, DELETE);
+        addKeywordAsLookup(resultSet, UPDATE_OR_INSERT_INTO);
+        addKeywordAsLookup(resultSet, UPDATE);
+        addKeywordAsLookup(resultSet, RETURN);
 
     }
 
@@ -859,7 +866,8 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(LENGTHBATCH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(SORT_WITH_WINDOW, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIMEBATCH_WITH_WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(EXTERNALTIMEBATCH_WITH_WINDOW,
+                VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(TIME_WITH_WINDOW, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(FREQUENT_WITH_WINDOW, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(LOSSYFREQUENT_WITH_WINDOW, VALUE_TYPES_PRIORITY));

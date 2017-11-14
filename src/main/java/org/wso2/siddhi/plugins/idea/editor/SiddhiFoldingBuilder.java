@@ -25,12 +25,17 @@ import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.wso2.siddhi.plugins.idea.psi.*;
-import javax.annotation.Nonnull;
+import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
+import org.wso2.siddhi.plugins.idea.psi.QueryNode;
+import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 
 import java.util.Collection;
 import java.util.List;
+import javax.annotation.Nonnull;
 
+/**
+ * Builds custom folding regions.
+ */
 public class SiddhiFoldingBuilder extends CustomFoldingBuilder implements DumbAware {
 
     @Override

@@ -18,15 +18,24 @@ package org.wso2.siddhi.plugins.idea.sdk;
 
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.openapi.vfs.*;
+import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileAdapter;
+import com.intellij.openapi.vfs.VirtualFileCopyEvent;
+import com.intellij.openapi.vfs.VirtualFileEvent;
+import com.intellij.openapi.vfs.VirtualFileManager;
+import com.intellij.openapi.vfs.VirtualFileMoveEvent;
 import com.intellij.util.SystemProperties;
 import com.intellij.util.containers.ContainerUtil;
-import javax.annotation.Nonnull;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
+/**
+ * Defines a path modification tracker for siddhi.
+ */
 public class SiddhiPathModificationTracker {
 
     private final Set<String> pathsToTrack = ContainerUtil.newHashSet();

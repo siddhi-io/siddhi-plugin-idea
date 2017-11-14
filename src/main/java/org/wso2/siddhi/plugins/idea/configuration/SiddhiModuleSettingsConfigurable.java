@@ -18,9 +18,13 @@ package org.wso2.siddhi.plugins.idea.configuration;
 
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.ConfigurableBase;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.project.SiddhiModuleSettings;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Provide module items for "Project Settings" and "IDE Settings" groups correspondingly in the "Settings" dialog.
+ */
 public class SiddhiModuleSettingsConfigurable extends
         ConfigurableBase<SiddhiModuleSettingsUI, SiddhiModuleSettings> {
 

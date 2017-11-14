@@ -28,12 +28,15 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.EditorNotificationPanel;
 import com.intellij.ui.EditorNotifications;
 import com.intellij.util.containers.ContainerUtil;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkService;
 
 import java.util.Set;
+import javax.annotation.Nonnull;
 
+/**
+ * Defines the notifications for the wrong module type.
+ */
 public class WrongModuleTypeNotificationProvider extends EditorNotifications.Provider<EditorNotificationPanel>
         implements DumbAware {
 

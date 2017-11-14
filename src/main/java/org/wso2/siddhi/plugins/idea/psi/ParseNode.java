@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents parse rule in parser.
+ */
 public class ParseNode extends ANTLRPsiNode {
     public ParseNode(@Nonnull ASTNode node) {
         super(node);

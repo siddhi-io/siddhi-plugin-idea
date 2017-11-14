@@ -14,16 +14,24 @@
  *  limitations under the License.
  */
 
-package org.wso2.siddhi.plugins.idea.codeInsight.imports;
+package org.wso2.siddhi.plugins.idea.codeinsight.imports;
 
-import com.intellij.openapi.components.*;
+import com.intellij.openapi.components.PersistentStateComponent;
+import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.components.State;
+import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.components.StoragePathMacros;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Defines code insight setting for a siddhi language.
+ */
 @State(
         name = "Siddhi",
-        storages = @Storage(file = StoragePathMacros.APP_CONFIG + "/editor.codeInsight.xml")
+        storages = @Storage(file = StoragePathMacros.APP_CONFIG + "/editor.codeinsight.xml")
 )
+
 public class SiddhiCodeInsightSettings implements PersistentStateComponent<SiddhiCodeInsightSettings> {
 
     public static SiddhiCodeInsightSettings getInstance() {

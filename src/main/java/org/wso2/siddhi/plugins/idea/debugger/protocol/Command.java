@@ -16,6 +16,9 @@
 
 package org.wso2.siddhi.plugins.idea.debugger.protocol;
 
+/**
+ * Defines command protocol.
+ */
 public enum Command {
 
     START("START"), STOP("STOP"), SET_POINTS("SET_POINTS"), STEP_OVER("STEP_OVER"), RESUME("RESUME"), CMD_SEND_EVENT

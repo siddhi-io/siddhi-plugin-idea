@@ -21,16 +21,25 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
-import org.wso2.siddhi.plugins.idea.psi.*;
+import org.wso2.siddhi.plugins.idea.psi.BasicSourceNode;
+import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
+import org.wso2.siddhi.plugins.idea.psi.JoinSourceNode;
+import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
+import org.wso2.siddhi.plugins.idea.psi.RightSourceNode;
+import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
+import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.Nonnull;
 
+/**
+ * Provides element reference for stream ids.
+ */
 public class StreamIdReference extends SiddhiElementReference {
 
     public StreamIdReference(@Nonnull IdentifierPSINode element) {
@@ -74,12 +83,13 @@ public class StreamIdReference extends SiddhiElementReference {
                 return new LookupElement[0];
             }
             PsiFile psiFile = identifier.getContainingFile();
-            List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
-                    .class).toArray()));
+            List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile,
+                    StreamIdNode.class).toArray()));
             List<StreamIdNode> streamDefinitionNodesWithoutDuplicates = new ArrayList<>();
             for (Object streamDefinitionNode : streamDefinitionNodesWithDuplicates) {
                 PsiElement streamDefinitionNodeIdentifier = ((StreamIdNode) streamDefinitionNode);
-                if (streamDefinitionNodeIdentifier != null && streamDefinitionNodeIdentifier.getTextOffset() < caretOffSet) {
+                if (streamDefinitionNodeIdentifier != null && streamDefinitionNodeIdentifier.getTextOffset() <
+                        caretOffSet) {
                     streamDefinitionNodesWithoutDuplicates.add((StreamIdNode) streamDefinitionNodeIdentifier);
                 }
             }

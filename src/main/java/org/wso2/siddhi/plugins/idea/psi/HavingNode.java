@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents having rule in parser.
+ */
 public class HavingNode extends ANTLRPsiNode {
     public HavingNode(@Nonnull ASTNode node) {
         super(node);

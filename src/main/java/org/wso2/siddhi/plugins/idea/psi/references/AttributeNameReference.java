@@ -22,7 +22,6 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
@@ -36,7 +35,11 @@ import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.Nonnull;
 
+/**
+ * Provides element reference for attributes.
+ */
 public class AttributeNameReference extends SiddhiElementReference {
 
     public AttributeNameReference(@Nonnull IdentifierPSINode element) {
@@ -95,7 +98,8 @@ public class AttributeNameReference extends SiddhiElementReference {
                 PsiElement element = (StreamIdNode) streamNode;
                 if (!streamName.equalsIgnoreCase("") && element.getText().equalsIgnoreCase(streamName) && PsiTreeUtil
                         .getParentOfType(element, StreamDefinitionNode.class) != null) {
-                    StreamDefinitionNode streamDefinitionNode = PsiTreeUtil.getParentOfType(element, StreamDefinitionNode.class);
+                    StreamDefinitionNode streamDefinitionNode = PsiTreeUtil.getParentOfType(element,
+                            StreamDefinitionNode.class);
                     attributeNameNodes = Arrays.asList((PsiTreeUtil.findChildrenOfType(streamDefinitionNode,
                             AttributeNameNode.class).toArray()));
                     break;
@@ -104,8 +108,7 @@ public class AttributeNameReference extends SiddhiElementReference {
         }
         List<LookupElement> results = null;
         if (attributeNameNodes != null) {
-            results = SiddhiCompletionUtils.createAttributeNameLookupElements(attributeNameNodes
-                    .toArray());
+            results = SiddhiCompletionUtils.createAttributeNameLookupElements(attributeNameNodes.toArray());
         }
         if (results != null) {
             return results.toArray(new LookupElement[results.size()]);

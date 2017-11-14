@@ -24,14 +24,15 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.impl.source.tree.PsiCoreCommentImpl;
 import com.intellij.psi.tree.IElementType;
 import org.antlr.jetbrains.adaptor.lexer.TokenIElementType;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
 
+import javax.annotation.Nonnull;
+
 /**
- *  Defines how to create parse tree nodes (Jetbrains calls them AST nodes). Later
- *  non-leaf nodes are converted to PSI nodes by the {@link ParserDefinition}.
- *  Leaf nodes are already considered PSI nodes.
+ * Defines how to create parse tree nodes (Jetbrains calls them AST nodes). Later
+ * non-leaf nodes are converted to PSI nodes by the {@link ParserDefinition}.
+ * Leaf nodes are already considered PSI nodes.
  */
 public class SiddhiASTFactory extends CoreASTFactory {
     /**

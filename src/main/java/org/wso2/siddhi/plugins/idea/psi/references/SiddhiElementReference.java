@@ -21,10 +21,14 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReferenceBase;
 import com.intellij.util.IncorrectOperationException;
 import org.antlr.jetbrains.adaptor.psi.ScopeNode;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Provides element references.
+ */
 public abstract class SiddhiElementReference extends PsiReferenceBase<IdentifierPSINode> {
 
     public SiddhiElementReference(@Nonnull IdentifierPSINode element) {

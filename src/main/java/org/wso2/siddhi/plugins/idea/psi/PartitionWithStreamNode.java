@@ -17,8 +17,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents partition_with_stream rule in parser.
+ */
 public class PartitionWithStreamNode extends ANTLRPsiNode {
     public PartitionWithStreamNode(@Nonnull ASTNode node) {
         super(node);

@@ -19,6 +19,9 @@ package org.wso2.siddhi.plugins.idea.runconfig;
 import com.intellij.execution.configurations.RunConfigurationModule;
 import com.intellij.openapi.project.Project;
 
+/**
+ * Provides module based configuration for siddhi.
+ */
 public class SiddhiModuleBasedConfiguration extends RunConfigurationModule {
 
     public SiddhiModuleBasedConfiguration(Project project) {

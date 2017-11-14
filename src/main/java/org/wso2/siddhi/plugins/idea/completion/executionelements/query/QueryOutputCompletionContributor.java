@@ -13,14 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.siddhi.plugins.idea.completion.executionElements.query;
+package org.wso2.siddhi.plugins.idea.completion.executionelements.query;
 
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.DeleteFromTableNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
@@ -32,6 +31,8 @@ import org.wso2.siddhi.plugins.idea.psi.TargetNode;
 import org.wso2.siddhi.plugins.idea.psi.UpdateOrInsertIntoNode;
 import org.wso2.siddhi.plugins.idea.psi.UpdateTableNode;
 
+import javax.annotation.Nonnull;
+
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addForKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addIntoKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOnKeyword;
@@ -39,12 +40,15 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addO
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSetKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getPreviousVisibleSiblingSkippingComments;
 
+/**
+ * Provides code completions for query outputs.
+ */
 public class QueryOutputCompletionContributor {
 
     public static void queryOutputCompletion(@Nonnull CompletionResultSet result, PsiElement element,
                                              PsiElement prevVisibleSibling, IElementType
-                                                     prevVisibleSiblingElementType,PsiElement
-                                                     prevPreVisibleSibling){
+                                                     prevVisibleSiblingElementType, PsiElement
+                                                     prevPreVisibleSibling) {
         //suggestions after INSERT keyword
         if (prevVisibleSiblingElementType == SiddhiTypes.INSERT && (PsiTreeUtil.getParentOfType
                 (prevPreVisibleSibling, OutputRateNode.class) != null || PsiTreeUtil.getParentOfType

@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents null_check rule in parser.
+ */
 public class NullCheckNode extends ANTLRPsiNode {
     public NullCheckNode(@Nonnull ASTNode node) {
         super(node);

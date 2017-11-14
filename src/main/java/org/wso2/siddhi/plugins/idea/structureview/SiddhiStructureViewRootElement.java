@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.structureview;
 
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiFile;
+
 import javax.annotation.Nonnull;
 
+/**
+ * Defines structure view root element for siddhi.
+ */
 public class SiddhiStructureViewRootElement extends SiddhiStructureViewElement {
 
     SiddhiStructureViewRootElement(PsiFile element) {

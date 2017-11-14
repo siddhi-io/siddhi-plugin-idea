@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents attribute_reference rule in parser.
+ */
 public class AttributeReferenceNode extends ANTLRPsiNode {
     public AttributeReferenceNode(@Nonnull ASTNode node) {
         super(node);

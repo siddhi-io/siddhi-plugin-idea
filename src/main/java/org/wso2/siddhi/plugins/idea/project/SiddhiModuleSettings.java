@@ -29,11 +29,15 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.impl.source.resolve.ResolveCache;
 import com.intellij.util.messages.Topic;
 import com.intellij.util.xmlb.XmlSerializerUtil;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.configuration.SiddhiConfigurableProvider;
 import org.wso2.siddhi.plugins.idea.configuration.SiddhiModuleSettingsConfigurable;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Provides siddhi module settings.
+ */
 @State(
         name = SiddhiConstants.SIDDHI_MODULE_SESTTINGS_SERVICE_NAME,
         storages = @Storage(file = StoragePathMacros.MODULE_FILE)
@@ -77,6 +81,9 @@ public class SiddhiModuleSettings implements
         XmlSerializerUtil.copyBean(state, myState);
     }
 
+    /**
+     * Interface for build target listener.
+     */
     public interface BuildTargetListener {
         void changed(@Nonnull Module module);
     }
@@ -88,7 +95,8 @@ public class SiddhiModuleSettings implements
     public static void showModulesConfigurable(@Nonnull Project project) {
         ApplicationManager.getApplication().assertIsDispatchThread();
         if (!project.isDisposed()) {
-            ShowSettingsUtil.getInstance().editConfigurable(project, new SiddhiConfigurableProvider.SiddhiProjectSettingsConfigurable(project));
+            ShowSettingsUtil.getInstance().editConfigurable(project, new SiddhiConfigurableProvider
+                    .SiddhiProjectSettingsConfigurable(project));
         }
     }
 

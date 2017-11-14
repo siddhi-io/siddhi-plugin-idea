@@ -18,11 +18,14 @@ package org.wso2.siddhi.plugins.idea.structureview;
 
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiFile;
-import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 
-import javax.swing.*;
+import javax.swing.Icon;
 
+/**
+ * The presentation of an item in a tree, list or similar view.
+ */
 public class SiddhiRootPresentation implements ItemPresentation {
 
     protected final PsiFile element;

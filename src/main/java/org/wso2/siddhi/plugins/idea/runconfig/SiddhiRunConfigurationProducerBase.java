@@ -26,11 +26,16 @@ import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Provides run configuration producer base for siddhi.
+ * @param <T>
+ */
 public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConfigurationWithMain>
         extends RunConfigurationProducer<T> implements Cloneable {
 

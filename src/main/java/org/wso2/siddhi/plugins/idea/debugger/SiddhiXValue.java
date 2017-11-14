@@ -28,19 +28,29 @@ import com.intellij.util.ThreeState;
 import com.intellij.xdebugger.XDebugSession;
 import com.intellij.xdebugger.XDebuggerUtil;
 import com.intellij.xdebugger.XSourcePosition;
-import com.intellij.xdebugger.frame.*;
+import com.intellij.xdebugger.frame.XCompositeNode;
+import com.intellij.xdebugger.frame.XInlineDebuggerDataCallback;
+import com.intellij.xdebugger.frame.XNamedValue;
+import com.intellij.xdebugger.frame.XNavigatable;
+import com.intellij.xdebugger.frame.XStackFrame;
+import com.intellij.xdebugger.frame.XValueChildrenList;
+import com.intellij.xdebugger.frame.XValueNode;
+import com.intellij.xdebugger.frame.XValuePlace;
 import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XStringValuePresentation;
 import com.intellij.xdebugger.frame.presentation.XValuePresentation;
 import com.intellij.xdebugger.impl.ui.tree.nodes.XValueNodeImpl;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.wso2.siddhi.plugins.idea.highlighter.SiddhiSyntaxHighlightingColors;
 
-import javax.swing.*;
+import javax.annotation.Nonnull;
+import javax.swing.Icon;
 
+/**
+ * Defines a XNamed value for siddhi.
+ */
 public class SiddhiXValue extends XNamedValue {
 
     @Nonnull
@@ -90,8 +100,7 @@ public class SiddhiXValue extends XNamedValue {
         if (myValue instanceof JSONObject) {
             JSONObject jsonObject = (JSONObject) this.myValue;
             XValueChildrenList list = new XValueChildrenList();
-            jsonObject.keys().forEachRemaining(key ->
-                    {
+            jsonObject.keys().forEachRemaining(key -> {
                         Object value = jsonObject.get(key);
                         list.add(key, new SiddhiXValue(myProcess, myFrameName, key, value, AllIcons.Nodes.Field));
                     }
@@ -101,8 +110,7 @@ public class SiddhiXValue extends XNamedValue {
         if (myValue instanceof JSONArray) {
             JSONArray jsonArray = (JSONArray) this.myValue;
             XValueChildrenList list = new XValueChildrenList();
-            jsonArray.forEach(o ->
-                    {
+            jsonArray.forEach(o -> {
                         Object value = o.toString();
                         String name = ((XValueNodeImpl) node).getName();
                         if (name == null) {

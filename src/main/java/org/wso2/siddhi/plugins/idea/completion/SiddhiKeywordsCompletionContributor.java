@@ -25,18 +25,46 @@ import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.wso2.siddhi.plugins.idea.SiddhiTypes;
+import org.wso2.siddhi.plugins.idea.completion.executionelements.partition.PartitionCompletionContributor;
+import org.wso2.siddhi.plugins.idea.completion.executionelements.query.QueryCompletionContributor;
+import org.wso2.siddhi.plugins.idea.psi.AnnotationNode;
+import org.wso2.siddhi.plugins.idea.psi.AppAnnotationNode;
+import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
+import org.wso2.siddhi.plugins.idea.psi.AttributeTypeNode;
+import org.wso2.siddhi.plugins.idea.psi.DefinitionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.FunctionNameNode;
+import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
+import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
+import org.wso2.siddhi.plugins.idea.psi.ParseNode;
+import org.wso2.siddhi.plugins.idea.psi.PartitionNode;
+import org.wso2.siddhi.plugins.idea.psi.QueryNode;
+import org.wso2.siddhi.plugins.idea.psi.SiddhiAppNode;
+import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
+import org.wso2.siddhi.plugins.idea.psi.TriggerNameNode;
+import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
 import javax.annotation.Nonnull;
 
-import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-import org.wso2.siddhi.plugins.idea.completion.executionElements.partition.PartitionCompletionContributor;
-import org.wso2.siddhi.plugins.idea.completion.executionElements.query.QueryCompletionContributor;
-import org.wso2.siddhi.plugins.idea.psi.*;
-
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.*;
-import static org.wso2.siddhi.plugins.idea.completion.executionElements.partition.PartitionCompletionContributor.isEndOfAQueryOutput;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAfterATSymbolLookups;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAtKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addDefineTypesAsLookups;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addEveryKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addFromKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addInitialTypesAsLookups;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addLanguageTypesKeywords;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addReturnKeyword;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addValueTypesAsLookups;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWindowProcessorTypesAsLookups;
+import static org.wso2.siddhi.plugins.idea.completion.executionelements.partition.PartitionCompletionContributor.isEndOfAQueryOutput;
 import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getPreviousVisibleSiblingSkippingComments;
 
+/**
+ * Defines utility methods used for code completions.
+ */
 public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 
     @Override
@@ -44,7 +72,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         PsiElement element = parameters.getPosition();
         if (element instanceof LeafPsiElement) {
             IElementType elementType = ((LeafPsiElement) element).getElementType();
-            if (elementType == SiddhiTypes.IDENTIFIER && getPreviousVisibleSiblingSkippingComments(element) == null) { //gives
+            if (elementType == SiddhiTypes.IDENTIFIER && getPreviousVisibleSiblingSkippingComments(element) == null) {
                 // gives null in first line first character
                 //initial suggestions-suggestion for first character of the file
                 addInitialTypesAsLookups(result);
@@ -134,7 +162,8 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                         //TODO: add aggregation definition
                     }
                     //Adding suggestions after a comment
-                    if (prevVisibleSibling instanceof PsiComment && (prevVisibleSibling.getParent() instanceof SiddhiFile
+                    if (prevVisibleSibling instanceof PsiComment && (prevVisibleSibling.getParent() instanceof
+                            SiddhiFile
                             || prevVisibleSibling.getParent() instanceof ParseNode
                             || prevVisibleSibling.getParent().getParent() instanceof ParseNode
                             || prevVisibleSibling.getParent() instanceof SiddhiAppNode)) {
@@ -208,10 +237,9 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         }
         //keyword completion related to queries
         if (PsiTreeUtil.getParentOfType(element, QueryNode.class) != null) {
-            QueryCompletionContributor.queryCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType,
-                    prevPreVisibleSibling);
+            QueryCompletionContributor.queryCompletion(result, element, prevVisibleSibling,
+                    prevVisibleSiblingElementType, prevPreVisibleSibling);
             return;
         }
-
     }
 }

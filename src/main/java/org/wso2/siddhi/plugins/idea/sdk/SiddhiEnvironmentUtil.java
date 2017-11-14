@@ -21,10 +21,14 @@ import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.util.EnvironmentUtil;
 import com.intellij.util.PathUtil;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines utility methods related to siddhi environment.
+ */
 public class SiddhiEnvironmentUtil {
 
     private SiddhiEnvironmentUtil() {

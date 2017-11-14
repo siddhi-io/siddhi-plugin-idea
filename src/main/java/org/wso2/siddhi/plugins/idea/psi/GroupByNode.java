@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents group_by rule in parser.
+ */
 public class GroupByNode extends ANTLRPsiNode {
     public GroupByNode(@Nonnull ASTNode node) {
         super(node);

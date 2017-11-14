@@ -19,14 +19,17 @@ package org.wso2.siddhi.plugins.idea.psi;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.impl.SiddhiItemPresentation;
 
-import javax.swing.*;
+import javax.annotation.Nonnull;
+import javax.swing.Icon;
 
+/**
+ * ANTLRPsiNode which represents attribute_name rule in parser.
+ */
 public class AttributeNameNode extends IdentifierDefSubtree {
 
     public AttributeNameNode(@Nonnull ASTNode node) {

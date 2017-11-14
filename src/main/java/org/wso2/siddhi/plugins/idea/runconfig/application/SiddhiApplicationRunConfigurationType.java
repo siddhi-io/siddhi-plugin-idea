@@ -20,11 +20,15 @@ import com.intellij.execution.configurations.ConfigurationTypeBase;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.project.Project;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiConfigurationFactoryBase;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines sidddhi application run configuration type.
+ */
 public class SiddhiApplicationRunConfigurationType extends ConfigurationTypeBase {
 
     public SiddhiApplicationRunConfigurationType() {

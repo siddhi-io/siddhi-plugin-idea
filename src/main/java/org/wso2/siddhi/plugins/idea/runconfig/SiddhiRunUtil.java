@@ -39,7 +39,6 @@ import com.intellij.psi.PsiFileSystemItem;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.Contract;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
@@ -47,7 +46,11 @@ import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
 
 import java.util.Collection;
 import java.util.Map;
+import javax.annotation.Nonnull;
 
+/**
+ * Utility class for siddhi run.
+ */
 public class SiddhiRunUtil {
 
     private SiddhiRunUtil() {

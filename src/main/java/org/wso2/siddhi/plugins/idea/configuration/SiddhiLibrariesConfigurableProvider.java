@@ -18,7 +18,11 @@ package org.wso2.siddhi.plugins.idea.configuration;
 
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.options.*;
+import com.intellij.openapi.options.CompositeConfigurable;
+import com.intellij.openapi.options.Configurable;
+import com.intellij.openapi.options.ConfigurableProvider;
+import com.intellij.openapi.options.ShowSettingsUtil;
+import com.intellij.openapi.options.UnnamedConfigurable;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -29,18 +33,24 @@ import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.ui.JBUI;
 import org.jetbrains.annotations.Nls;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.project.SiddhiApplicationLibrariesService;
 import org.wso2.siddhi.plugins.idea.project.SiddhiProjectLibrariesService;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkUtil;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import javax.annotation.Nonnull;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 
+/**
+ * Provide library related items for "Project Settings" and "IDE Settings" groups correspondingly in the "Settings"
+ * dialog.
+ */
 public class SiddhiLibrariesConfigurableProvider extends ConfigurableProvider {
 
     @Nonnull
@@ -66,7 +76,8 @@ public class SiddhiLibrariesConfigurableProvider extends ConfigurableProvider {
                 List<UnnamedConfigurable> configurables = getConfigurables();
                 Collection<HideableDecorator> hideableDecorators = ContainerUtil.newHashSet();
 
-                GridLayoutManager layoutManager = new GridLayoutManager(configurables.size() + 1, 1, JBUI.emptyInsets(), -1, -1);
+                GridLayoutManager layoutManager = new GridLayoutManager(configurables.size() + 1, 1, JBUI
+                        .emptyInsets(), -1, -1);
                 JPanel rootPanel = new JPanel(layoutManager);
                 Spacer spacer = new Spacer();
                 rootPanel.add(spacer, new GridConstraints(configurables.size(), 0, 1, 1, GridConstraints.ANCHOR_SOUTH,

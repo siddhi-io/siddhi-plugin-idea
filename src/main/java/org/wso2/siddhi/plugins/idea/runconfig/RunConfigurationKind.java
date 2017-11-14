@@ -16,6 +16,9 @@
 
 package org.wso2.siddhi.plugins.idea.runconfig;
 
+/**
+ * Defines kinds of run configurations.
+ */
 public enum RunConfigurationKind {
     MAIN
 }

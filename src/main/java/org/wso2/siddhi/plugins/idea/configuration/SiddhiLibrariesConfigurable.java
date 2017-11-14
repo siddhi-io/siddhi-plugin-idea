@@ -34,20 +34,25 @@ import com.intellij.ui.components.JBList;
 import com.intellij.util.IconUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.ui.UIUtil;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.project.SiddhiApplicationLibrariesService;
 import org.wso2.siddhi.plugins.idea.project.SiddhiLibrariesService;
-import org.jetbrains.annotations.Nls;
-import javax.annotation.Nonnull;
-import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.annotation.Nonnull;
+import javax.swing.JComponent;
+import javax.swing.JList;
+import javax.swing.JPanel;
 
 import static com.intellij.openapi.fileChooser.FileChooserDescriptorFactory.createMultipleFoldersDescriptor;
 
+/**
+ * Provide library items for "Project Settings" and "IDE Settings" groups correspondingly in the "Settings" dialog.
+ */
 public class SiddhiLibrariesConfigurable implements SearchableConfigurable, Configurable.NoScroll {
 
     @Nonnull

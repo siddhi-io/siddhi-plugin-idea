@@ -19,9 +19,13 @@ package org.wso2.siddhi.plugins.idea.runconfig;
 import com.intellij.execution.configurations.RunProfile;
 import com.intellij.execution.executors.DefaultRunExecutor;
 import com.intellij.execution.runners.DefaultProgramRunner;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Default program runner for siddhi.
+ */
 public class SiddhiRunner extends DefaultProgramRunner {
 
     private static final String ID = "SiddhiRunner";

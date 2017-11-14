@@ -14,18 +14,29 @@
  *  limitations under the License.
  */
 
-package org.wso2.siddhi.plugins.idea.codeInsight.highlighting;
+package org.wso2.siddhi.plugins.idea.codeinsight.highlighting;
 
 import com.intellij.codeInsight.hint.DeclarationRangeUtil;
 import com.intellij.lang.BracePair;
 import com.intellij.lang.PairedBraceMatcher;
 import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiBlockStatement;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiClassInitializer;
+import com.intellij.psi.PsiCodeBlock;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiMethod;
+import com.intellij.psi.PsiStatement;
 import com.intellij.psi.tree.IElementType;
-import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines the brace matching support required for siddhi language.
+ */
 public class SiddhiBraceMatcher implements PairedBraceMatcher {
 
     private static final BracePair[] pairs = new BracePair[]{
@@ -36,7 +47,7 @@ public class SiddhiBraceMatcher implements PairedBraceMatcher {
     @Nonnull
     @Override
     public BracePair[] getPairs() {
-        BracePair[] pairsCopy =pairs;
+        BracePair[] pairsCopy = pairs;
         return pairsCopy;
     }
 

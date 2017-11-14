@@ -27,12 +27,15 @@ import com.intellij.openapi.projectRoots.SdkTypeId;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.util.Pair;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
 
+/**
+ * Module builder for siddhi.
+ */
 public class SiddhiModuleBuilder extends JavaModuleBuilder implements SourcePathsBuilder, ModuleBuilderListener {
 
     @Override
@@ -67,6 +70,7 @@ public class SiddhiModuleBuilder extends JavaModuleBuilder implements SourcePath
 
     @Override
     public int hashCode() {
-        throw new UnsupportedOperationException( "contract violation: calling hashCode() on such an object makes no sense" );
+        throw new UnsupportedOperationException("contract violation: calling hashCode() on such an object makes no " +
+                "sense");
     }
 }

@@ -19,12 +19,21 @@ package org.wso2.siddhi.plugins.idea.structureview;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
-import org.wso2.siddhi.plugins.idea.SiddhiIcons;
-import org.wso2.siddhi.plugins.idea.psi.*;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.siddhi.plugins.idea.SiddhiIcons;
+import org.wso2.siddhi.plugins.idea.psi.AggregationDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.StreamDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.TableDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.TriggerDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
-import javax.swing.*;
+import javax.swing.Icon;
 
+/**
+ * The presentation of an item in a tree, list or similar view.
+ */
 public class SiddhiItemPresentation implements ItemPresentation {
 
     protected final PsiElement element;

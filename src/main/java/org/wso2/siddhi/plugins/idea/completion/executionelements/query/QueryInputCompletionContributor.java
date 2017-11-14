@@ -13,14 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.wso2.siddhi.plugins.idea.completion.executionElements.query;
+package org.wso2.siddhi.plugins.idea.completion.executionelements.query;
 
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.AliasNode;
 import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
@@ -43,6 +42,8 @@ import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowNode;
 import org.wso2.siddhi.plugins.idea.psi.WithinTimeRangeNode;
 
+import javax.annotation.Nonnull;
+
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAsKeywordWithDummyAlias;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addComma;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addEnterYourExpressionClause;
@@ -60,6 +61,9 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addW
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.onWithExpressionKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.isExpression;
 
+/**
+ * Provides code completions for query inputs.
+ */
 public class QueryInputCompletionContributor {
 
     public static void queryInputCompletion(@Nonnull CompletionResultSet result, PsiElement element,
@@ -71,7 +75,7 @@ public class QueryInputCompletionContributor {
             if (PsiTreeUtil.getParentOfType(element, StreamIdNode.class) != null && prevVisibleSiblingElementType
                     == SiddhiTypes.FROM) {
                 addEveryKeyword(result);
-                addFromKeyword(result);//This is for the anonymous stream beginning
+                addFromKeyword(result); //This is for the anonymous stream beginning
                 return;
             }
             //Suggestions related to Standard stream
@@ -164,9 +168,9 @@ public class QueryInputCompletionContributor {
     }
 
     private static void joinStreamCompletion(@Nonnull CompletionResultSet result, PsiElement element,
-                                                 PsiElement prevVisibleSibling, IElementType
-                                                         prevVisibleSiblingElementType, PsiElement
-                                                         prevPreVisibleSibling) {
+                                             PsiElement prevVisibleSibling, IElementType
+                                                     prevVisibleSiblingElementType, PsiElement
+                                                     prevPreVisibleSibling) {
         //suggestions related to a join stream node
         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, JoinStreamNode.class) != null) {
             //suggestions after a Left source node. antlr identifies that the user is typing exactly a join

@@ -17,10 +17,15 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents anonymous_stream rule in parser.
+ */
 public class AnonymousStreamNode extends ANTLRPsiNode {
     public AnonymousStreamNode(@Nonnull ASTNode node) {
         super(node);
     }
 }
+

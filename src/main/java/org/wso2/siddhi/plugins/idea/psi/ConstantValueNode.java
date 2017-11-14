@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents constant_value rule in parser.
+ */
 public class ConstantValueNode extends ANTLRPsiNode {
     public ConstantValueNode(@Nonnull ASTNode node) {
         super(node);

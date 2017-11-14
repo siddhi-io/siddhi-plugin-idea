@@ -20,9 +20,21 @@ import com.intellij.ide.structureView.StructureViewModel;
 import com.intellij.ide.structureView.StructureViewModelBase;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.Sorter;
-import org.wso2.siddhi.plugins.idea.psi.*;
+import org.wso2.siddhi.plugins.idea.psi.AggregationDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
+import org.wso2.siddhi.plugins.idea.psi.StreamDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.TableDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.TriggerDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * Defines the model for the data displayed in the standard structure view or file structure
+ * popup component. The model of the standard structure view is represented as a tree of elements.
+ */
 public class SiddhiStructureViewModel extends StructureViewModelBase
         implements StructureViewModel.ElementInfoProvider {
 

@@ -32,7 +32,6 @@ import com.intellij.xdebugger.XDebugProcess;
 import com.intellij.xdebugger.XDebugProcessStarter;
 import com.intellij.xdebugger.XDebugSession;
 import com.intellij.xdebugger.XDebuggerManager;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.debugger.SiddhiDebugProcess;
 import org.wso2.siddhi.plugins.idea.debugger.SiddhiWebSocketConnector;
@@ -43,8 +42,11 @@ import org.wso2.siddhi.plugins.idea.util.SiddhiHistoryProcessListener;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.SocketException;
+import javax.annotation.Nonnull;
 
+/**
+ * Creates a debugger for siddhi.
+ */
 public class SiddhiDebugger extends GenericProgramRunner {
 
     private static final String ID = "SiddhiDebugger";

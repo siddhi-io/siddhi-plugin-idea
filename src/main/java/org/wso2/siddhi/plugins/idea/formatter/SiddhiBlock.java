@@ -16,20 +16,28 @@
 
 package org.wso2.siddhi.plugins.idea.formatter;
 
-import com.intellij.formatting.*;
+import com.intellij.formatting.Alignment;
+import com.intellij.formatting.Block;
+import com.intellij.formatting.Indent;
+import com.intellij.formatting.Spacing;
+import com.intellij.formatting.SpacingBuilder;
+import com.intellij.formatting.Wrap;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.common.AbstractBlock;
 import com.intellij.psi.tree.IElementType;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
 
-import static org.wso2.siddhi.plugins.idea.SiddhiTypes.*;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.MULTILINE_COMMENT;
 
+/**
+ * Defines code formatter setting related to code block.
+ */
 public class SiddhiBlock extends AbstractBlock {
 
     private SpacingBuilder spacingBuilder;

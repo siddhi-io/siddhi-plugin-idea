@@ -22,6 +22,9 @@ import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
 
+/**
+ * Defines utility methods.
+ */
 public class SiddhiUtil {
 
     private SiddhiUtil() {

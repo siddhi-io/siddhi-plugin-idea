@@ -16,18 +16,26 @@
 
 package org.wso2.siddhi.plugins.idea.sdk;
 
-import com.intellij.openapi.projectRoots.*;
+import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
+import com.intellij.openapi.projectRoots.Sdk;
+import com.intellij.openapi.projectRoots.SdkAdditionalData;
+import com.intellij.openapi.projectRoots.SdkModel;
+import com.intellij.openapi.projectRoots.SdkModificator;
+import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jdom.Element;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 
-import javax.swing.*;
 import java.io.File;
+import javax.annotation.Nonnull;
+import javax.swing.Icon;
 
+/**
+ * Defines sdk type for siddhi.
+ */
 public class SiddhiSdkType extends SdkType {
 
     public SiddhiSdkType() {

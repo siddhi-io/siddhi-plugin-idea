@@ -20,6 +20,9 @@ import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * The presentation of an item in a tree, list or similar view.
+ */
 public abstract class SiddhiItemPresentation implements ItemPresentation {
 
     private PsiElement nameIdentifier;

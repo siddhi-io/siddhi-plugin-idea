@@ -53,7 +53,6 @@ import com.intellij.xdebugger.frame.XValueMarkerProvider;
 import com.intellij.xdebugger.impl.actions.XDebuggerActions;
 import com.intellij.xdebugger.stepping.XSmartStepIntoHandler;
 import com.intellij.xdebugger.ui.XDebugTabLayouter;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.debugger.breakpoint.SiddhiBreakPointTypeIN;
@@ -66,13 +65,18 @@ import org.wso2.siddhi.plugins.idea.debugger.protocol.Response;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 
-import javax.swing.event.HyperlinkListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import javax.annotation.Nonnull;
+import javax.swing.event.HyperlinkListener;
 
+/**
+ * Provide debugging capabilities for siddhi language.
+ *
+ */
 public class SiddhiDebugProcess extends XDebugProcess {
 
     private static final Logger LOGGER = Logger.getInstance(SiddhiDebugProcess.class);
@@ -388,8 +392,10 @@ public class SiddhiDebugProcess extends XDebugProcess {
         leftToolbar.remove(ActionManager.getInstance().getAction(XDebuggerActions.PAUSE));
     }
 
-    private final List<Integer> queryInLinePositions = new ArrayList<>();//arrayList Index=>queryIndex value=>Line number
-    private final List<Integer> queryOutLinePositions = new ArrayList<>();//arrayList Index=>queryIndex value=>Line number
+    //arrayList Index=>queryIndex value=>Line number
+    private final List<Integer> queryInLinePositions = new ArrayList<>();
+    //arrayList Index=>queryIndex value=>Line number
+    private final List<Integer> queryOutLinePositions = new ArrayList<>();
 
     private void setQueryInOutPositions() {
         File localFile = new File(myDebugFilePath);

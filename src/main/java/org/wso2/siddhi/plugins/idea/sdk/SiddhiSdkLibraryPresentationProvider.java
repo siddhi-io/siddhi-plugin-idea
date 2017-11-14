@@ -20,13 +20,16 @@ import com.intellij.openapi.roots.libraries.DummyLibraryProperties;
 import com.intellij.openapi.roots.libraries.LibraryKind;
 import com.intellij.openapi.roots.libraries.LibraryPresentationProvider;
 import com.intellij.openapi.vfs.VirtualFile;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 
-import javax.swing.*;
 import java.util.List;
+import javax.annotation.Nonnull;
+import javax.swing.Icon;
 
+/**
+ * Provide a custom icon and description for specific libraries in Project Structure dialog.
+ */
 public class SiddhiSdkLibraryPresentationProvider extends LibraryPresentationProvider<DummyLibraryProperties> {
 
     private static final LibraryKind KIND = LibraryKind.create("Siddhi-SDK");

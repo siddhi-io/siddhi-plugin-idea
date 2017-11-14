@@ -24,6 +24,9 @@ import com.intellij.openapi.util.Pair;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+/**
+ * Defines a history process listener.
+ */
 public class SiddhiHistoryProcessListener extends ProcessAdapter {
 
     private final ConcurrentLinkedQueue<Pair<ProcessEvent, Key>> myHistory = new ConcurrentLinkedQueue<>();

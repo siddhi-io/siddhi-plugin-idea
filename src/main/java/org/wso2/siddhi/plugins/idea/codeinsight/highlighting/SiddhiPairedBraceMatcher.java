@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package org.wso2.siddhi.plugins.idea.codeInsight.highlighting;
+package org.wso2.siddhi.plugins.idea.codeinsight.highlighting;
 
 import com.intellij.codeInsight.highlighting.PairedBraceMatcherAdapter;
 import com.intellij.lang.BracePair;
@@ -22,6 +22,9 @@ import com.intellij.openapi.editor.highlighter.HighlighterIterator;
 import com.intellij.openapi.fileTypes.FileType;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 
+/**
+ * Matches braces in a siddhi file.
+ */
 public class SiddhiPairedBraceMatcher extends PairedBraceMatcherAdapter {
 
     public SiddhiPairedBraceMatcher() {

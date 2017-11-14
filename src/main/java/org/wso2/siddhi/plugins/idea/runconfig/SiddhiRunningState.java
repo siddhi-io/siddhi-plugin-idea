@@ -24,9 +24,14 @@ import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.process.ProcessTerminatedListener;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.util.SiddhiExecutor;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines siddhi running state.
+ * @param <T>
+ */
 public abstract class SiddhiRunningState<T extends SiddhiRunConfigurationBase<?>> extends CommandLineState {
 
     @Nonnull

@@ -18,10 +18,11 @@ package org.wso2.siddhi.plugins.idea;
 
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.fileTypes.FileTypeFactory;
+
 import javax.annotation.Nonnull;
 
 /**
- * Creates file types associated with siddhi language
+ * Creates file types associated with siddhi language.
  */
 public class SiddhiFileTypeFactory extends FileTypeFactory {
 

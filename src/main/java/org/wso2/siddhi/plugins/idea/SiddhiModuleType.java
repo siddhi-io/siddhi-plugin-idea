@@ -22,12 +22,15 @@ import com.intellij.ide.util.projectWizard.WizardContext;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.module.ModuleTypeManager;
 import com.intellij.openapi.roots.ui.configuration.ModulesProvider;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType;
 
-import javax.swing.*;
+import javax.annotation.Nonnull;
+import javax.swing.Icon;
 
+/**
+ * Defines siddhi module types.
+ */
 public class SiddhiModuleType extends ModuleType<SiddhiModuleBuilder> {
 
     public SiddhiModuleType() {

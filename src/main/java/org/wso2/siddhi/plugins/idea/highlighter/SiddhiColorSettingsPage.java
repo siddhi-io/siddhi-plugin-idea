@@ -21,12 +21,12 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 
-import javax.swing.*;
 import java.util.Map;
+import javax.annotation.Nonnull;
+import javax.swing.Icon;
 
 /**
  * Class which defines the custom page shown in the "Colors and Fonts" settings dialog.
@@ -74,8 +74,8 @@ public class SiddhiColorSettingsPage implements ColorSettingsPage {
     @Nonnull
     @Override
     public AttributesDescriptor[] getAttributeDescriptors() {
-        AttributesDescriptor[] DESCRIPTORS_COPY=DESCRIPTORS;
-        return DESCRIPTORS_COPY;
+        AttributesDescriptor[] descriptorsCopy = DESCRIPTORS;
+        return descriptorsCopy;
     }
 
     @Nonnull

@@ -20,14 +20,17 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.xdebugger.frame.XExecutionStack;
 import com.intellij.xdebugger.frame.XStackFrame;
 import com.intellij.xdebugger.frame.XSuspendContext;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.debugger.dto.Frame;
 import org.wso2.siddhi.plugins.idea.debugger.dto.Message;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
 
+/**
+ * Represents a suspended state of a debug process.
+ */
 public class SiddhiSuspendContext extends XSuspendContext {
 
     private static final String DEFAULT_THREAD_ID = "01";

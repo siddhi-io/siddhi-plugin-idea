@@ -23,9 +23,13 @@ import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.options.UnnamedConfigurable;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nls;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Provide items for "Project Settings" and "IDE Settings" groups correspondingly in the "Settings" dialog.
+ */
 public class SiddhiConfigurableProvider extends ConfigurableProvider {
 
     @Nonnull
@@ -81,6 +85,9 @@ public class SiddhiConfigurableProvider extends ConfigurableProvider {
         }
     }
 
+    /**
+     * Defines configurable for project settings in siddhi.
+     */
     public static class SiddhiProjectSettingsConfigurable extends SiddhiModuleAwareConfigurable {
 
         public SiddhiProjectSettingsConfigurable(@Nonnull Project project) {

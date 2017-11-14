@@ -24,13 +24,23 @@ import com.intellij.navigation.NavigationItem;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.wso2.siddhi.plugins.idea.psi.*;
-import javax.annotation.Nonnull;
+import org.wso2.siddhi.plugins.idea.psi.AggregationDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
+import org.wso2.siddhi.plugins.idea.psi.StreamDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.TableDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.TriggerDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.annotation.Nonnull;
 
+/**
+ * An element in the structure view tree model.
+ */
 public class SiddhiStructureViewElement implements StructureViewTreeElement, SortableTreeElement {
 
     protected final PsiElement element;

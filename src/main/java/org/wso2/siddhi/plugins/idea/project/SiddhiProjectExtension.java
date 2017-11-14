@@ -28,10 +28,14 @@ import com.intellij.openapi.roots.ModuleRootModificationUtil;
 import com.intellij.openapi.roots.ProjectExtension;
 import com.intellij.openapi.util.AsyncResult;
 import org.jdom.Element;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkService;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines the extension for siddhi project.
+ */
 public class SiddhiProjectExtension extends ProjectExtension {
 
     @Override

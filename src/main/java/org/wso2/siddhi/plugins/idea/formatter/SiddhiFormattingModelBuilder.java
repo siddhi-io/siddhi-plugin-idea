@@ -16,18 +16,48 @@
 
 package org.wso2.siddhi.plugins.idea.formatter;
 
-import com.intellij.formatting.*;
+import com.intellij.formatting.FormattingModel;
+import com.intellij.formatting.FormattingModelBuilder;
+import com.intellij.formatting.FormattingModelProvider;
+import com.intellij.formatting.Indent;
+import com.intellij.formatting.SpacingBuilder;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
-import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
+import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 
-import static org.wso2.siddhi.plugins.idea.SiddhiTypes.*;
+import javax.annotation.Nonnull;
 
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.ALL;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.AS;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.AT;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.CLOSE_PAR;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.CLOSE_SQUARE_BRACKETS;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.COL;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.COMMA;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.DOT;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.FLOAT_LITERAL;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.FUNCTION;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.IDENTIFIER;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.INT_LITERAL;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.JOIN;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.LT;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.MINUS;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.OPEN_PAR;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.OPEN_SQUARE_BRACKETS;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.OPERATORS;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.PLUS;
+import static org.wso2.siddhi.plugins.idea.SiddhiTypes.WITH;
+
+/**
+ * Allows siddhi language plugin to build a formatting model for a file in the language, or
+ * for a portion of a file.
+ * A formatting model defines how a file is broken into non-whitespace blocks and different
+ * types of whitespace (alignment, indents and wraps) between them.
+ */
 public class SiddhiFormattingModelBuilder implements FormattingModelBuilder {
 
     @Nonnull

@@ -22,6 +22,9 @@ import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
 import com.intellij.openapi.util.Key;
 
+/**
+ * Factory for run configuration instances.
+ */
 public abstract class SiddhiConfigurationFactoryBase extends ConfigurationFactory {
 
     protected SiddhiConfigurationFactoryBase(ConfigurationType type) {

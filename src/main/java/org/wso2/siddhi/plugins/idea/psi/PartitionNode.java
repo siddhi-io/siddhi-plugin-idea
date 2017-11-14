@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents partition rule in parser.
+ */
 public class PartitionNode extends ANTLRPsiNode {
     public PartitionNode(@Nonnull ASTNode node) {
         super(node);

@@ -38,12 +38,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.siddhi.plugins.idea.debugger.Callback;
 
-import javax.net.ssl.SSLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+import javax.net.ssl.SSLException;
 
+/**
+ * Implements a nweb socket client.
+ */
 public class WebSocketClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketClient.class);

@@ -17,13 +17,13 @@
 package org.wso2.siddhi.plugins.idea;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 /**
- * Defines file types associated with siddhi language
+ * Defines file types associated with siddhi language.
  */
 public class SiddhiFileType extends LanguageFileType {
 

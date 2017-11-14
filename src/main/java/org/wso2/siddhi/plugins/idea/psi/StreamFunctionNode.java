@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents stream_function rule in parser.
+ */
 public class StreamFunctionNode extends ANTLRPsiNode {
     public StreamFunctionNode(@Nonnull ASTNode node) {
         super(node);

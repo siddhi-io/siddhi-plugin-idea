@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Defines console folding for siddhi.
+ */
 public class SiddhiConsoleFolding extends ConsoleFolding {
 
     private static final String REGEX = "siddhi(.bat)? (run|build) (main) .+";

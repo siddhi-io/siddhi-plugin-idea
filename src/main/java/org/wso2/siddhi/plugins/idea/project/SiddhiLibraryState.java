@@ -17,10 +17,13 @@
 package org.wso2.siddhi.plugins.idea.project;
 
 import com.intellij.util.containers.ContainerUtil;
-import javax.annotation.Nonnull;
 
 import java.util.Collection;
+import javax.annotation.Nonnull;
 
+/**
+ * Defines siddhi library state.
+ */
 public class SiddhiLibraryState {
 
     @Nonnull

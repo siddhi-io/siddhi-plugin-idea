@@ -27,10 +27,13 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiDocumentManager;
 
+/**
+ * Suggests parenthesis.
+ */
 public class ParenthesisInsertHandler implements InsertHandler<LookupElement> {
 
-    public final static InsertHandler<LookupElement> INSTANCE = new ParenthesisInsertHandler(false);
-    public final static InsertHandler<LookupElement> INSTANCE_WITH_AUTO_POPUP =
+    public static final InsertHandler<LookupElement> INSTANCE = new ParenthesisInsertHandler(false);
+    public static final InsertHandler<LookupElement> INSTANCE_WITH_AUTO_POPUP =
             new ParenthesisInsertHandler(true);
 
     private final String myIgnoreOnChars;

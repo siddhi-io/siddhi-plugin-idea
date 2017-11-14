@@ -19,8 +19,12 @@ package org.wso2.siddhi.plugins.idea.formatter.settings;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CodeStyleSettingsProvider;
+
 import javax.annotation.Nonnull;
 
+/**
+ * Provides settings for code styles in siddhi.
+ */
 public class SiddhiCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
 
     @Override

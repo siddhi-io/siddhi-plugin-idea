@@ -36,7 +36,6 @@ import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.util.Function;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.containers.ContainerUtil;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.project.SiddhiApplicationLibrariesService;
@@ -50,9 +49,13 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.annotation.Nonnull;
 
 import static com.intellij.util.containers.ContainerUtil.newLinkedHashSet;
 
+/**
+ * Defines utility methods for sdk.
+ */
 public class SiddhiSdkUtil {
 
     private static final Pattern SIDDHI_VERSION_PATTERN = Pattern.compile("(\\d+\\.\\d+(\\.\\d+)?(-.+)?)");
@@ -156,7 +159,8 @@ public class SiddhiSdkUtil {
         return file != null && file.isDirectory() ? file : null;
     }
 
-    public static LinkedHashSet<VirtualFile> getSourcesPathsToLookup(@Nonnull Project project, @Nullable Module module) {
+    public static LinkedHashSet<VirtualFile> getSourcesPathsToLookup(@Nonnull Project project, @Nullable Module
+            module) {
         LinkedHashSet<VirtualFile> sdkAndGoPath = newLinkedHashSet();
         ContainerUtil.addIfNotNull(sdkAndGoPath, getSdkSrcDir(project, module));
         //        ContainerUtil.addAllNotNull(sdkAndGoPath, getSiddhiPathSources(project, module));

@@ -22,8 +22,12 @@ import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
 import com.intellij.openapi.components.ApplicationComponent;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
+
 import javax.annotation.Nonnull;
 
+/**
+ * Provides notifications.
+ */
 public class SiddhiNotification implements ApplicationComponent {
 
     private static final String SIDDHI_PROJECT_TUTORIAL_NOTIFICATION_SHOWN =

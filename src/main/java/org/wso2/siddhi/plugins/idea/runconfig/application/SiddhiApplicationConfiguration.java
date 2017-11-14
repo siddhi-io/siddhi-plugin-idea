@@ -16,7 +16,11 @@
 
 package org.wso2.siddhi.plugins.idea.runconfig.application;
 
-import com.intellij.execution.configurations.*;
+import com.intellij.execution.configurations.ConfigurationType;
+import com.intellij.execution.configurations.ModuleBasedConfiguration;
+import com.intellij.execution.configurations.RunConfiguration;
+import com.intellij.execution.configurations.RuntimeConfigurationError;
+import com.intellij.execution.configurations.RuntimeConfigurationException;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.SettingsEditor;
@@ -26,12 +30,16 @@ import com.intellij.openapi.util.JDOMExternalizerUtil;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.util.text.StringUtil;
 import org.jdom.Element;
-import javax.annotation.Nonnull;
 import org.wso2.siddhi.plugins.idea.runconfig.RunConfigurationKind;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiModuleBasedConfiguration;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfigurationWithMain;
 import org.wso2.siddhi.plugins.idea.runconfig.ui.SiddhiApplicationSettingsEditor;
 
+import javax.annotation.Nonnull;
+
+/**
+ * Defines siddhi application configuration.
+ */
 public class SiddhiApplicationConfiguration
         extends SiddhiRunConfigurationWithMain<SiddhiApplicationRunningState> {
 

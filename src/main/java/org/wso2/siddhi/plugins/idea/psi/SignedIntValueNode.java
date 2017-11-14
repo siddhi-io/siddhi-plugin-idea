@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents signed_int_value rule in parser.
+ */
 public class SignedIntValueNode extends ANTLRPsiNode {
     public SignedIntValueNode(@Nonnull ASTNode node) {
         super(node);

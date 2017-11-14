@@ -16,6 +16,9 @@
 
 package org.wso2.siddhi.plugins.idea.debugger.protocol;
 
+/**
+ * Defines response protocol.
+ */
 public enum Response {
 
     DEBUG_HIT("DEBUG_HIT"), COMPLETE("COMPLETE"), EXIT("EXIT");

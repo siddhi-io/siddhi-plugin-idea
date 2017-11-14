@@ -26,15 +26,21 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.ListCellRendererWrapper;
 import com.intellij.ui.RawCommandLineEditor;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.runconfig.RunConfigurationKind;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunUtil;
 import org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
 
-import javax.swing.*;
 import java.util.Locale;
+import javax.annotation.Nonnull;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JList;
+import javax.swing.JPanel;
 
+/**
+ * Ui for siddhi application settings editor.
+ */
 public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplicationConfiguration> {
 
     private JPanel myPanel;

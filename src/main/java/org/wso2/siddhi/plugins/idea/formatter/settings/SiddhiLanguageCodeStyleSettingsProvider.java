@@ -22,8 +22,12 @@ import com.intellij.lang.Language;
 import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
+
 import javax.annotation.Nonnull;
 
+/**
+ * Defines code styles for siddhi.
+ */
 public class SiddhiLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSettingsProvider {
 
     private static final String DEFAULT_CODE_SAMPLE =

@@ -25,12 +25,10 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
-import org.antlr.jetbrains.adaptor.lexer.RuleIElementType;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiLeafNode;
 import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
 import org.antlr.jetbrains.adaptor.psi.Trees;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
@@ -38,8 +36,11 @@ import org.wso2.siddhi.plugins.idea.psi.references.AttributeNameReference;
 import org.wso2.siddhi.plugins.idea.psi.references.StreamIdReference;
 import org.wso2.siddhi.plugins.idea.psi.references.TargetReference;
 
-import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_stream_id;
+import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents identifiers in siddhi file.
+ */
 public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedElement, PsiNameIdentifierOwner {
 
     public IdentifierPSINode(IElementType type, CharSequence text) {
@@ -96,8 +97,8 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
             //"INTO" keyword can be found in the "update or insert into" and in the normal "inset into" clause. In
             // here we need to give all stream ids only to normal "insert into" clause. So we check whether the
             // element is not a child of the parent type UpdateOrInsertInto node.
-            if (PsiTreeUtil.getParentOfType(parent, TargetNode.class) != null && preVisibleSiblingType == SiddhiTypes.INTO
-                    && PsiTreeUtil.getParentOfType(parent, UpdateOrInsertIntoNode.class) == null) {
+            if (PsiTreeUtil.getParentOfType(parent, TargetNode.class) != null && preVisibleSiblingType == SiddhiTypes
+                    .INTO && PsiTreeUtil.getParentOfType(parent, UpdateOrInsertIntoNode.class) == null) {
                 return new StreamIdReference(this);
             }
         }
@@ -130,6 +131,7 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
 
     @Override
     public int hashCode() {
-        throw new UnsupportedOperationException( "contract violation: calling hashCode() on such an object makes no sense" );
+        throw new UnsupportedOperationException("contract violation: calling hashCode() on such an object makes no " +
+                "sense");
     }
 }

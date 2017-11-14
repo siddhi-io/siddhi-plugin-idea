@@ -18,8 +18,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
+
 import javax.annotation.Nonnull;
 
+/**
+ * ANTLRPsiNode which represents post_window_handler rule in parser.
+ */
 public class PostWindowHandlerNode extends ANTLRPsiNode {
     public PostWindowHandlerNode(@Nonnull ASTNode node) {
         super(node);
