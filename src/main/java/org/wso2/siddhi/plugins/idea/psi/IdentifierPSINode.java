@@ -128,10 +128,4 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
     public PsiElement getNameIdentifier() {
         return null;
     }
-
-    @Override
-    public int hashCode() {
-        throw new UnsupportedOperationException("contract violation: calling hashCode() on such an object makes no " +
-                "sense");
-    }
 }

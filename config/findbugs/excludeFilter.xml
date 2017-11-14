@@ -34,4 +34,12 @@
         <Field name="ICON" />
         <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
     </Match>
+    <Match>
+        <Class name="org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode"/>
+        <Bug pattern="HE_INHERITS_EQUALS_USE_HASHCODE"/>
+    </Match>
+    <Match>
+        <Class name="org.wso2.siddhi.plugins.idea.SiddhiModuleBuilder"/>
+        <Bug pattern="HE_INHERITS_EQUALS_USE_HASHCODE"/>
+    </Match>
 </FindBugsFilter>

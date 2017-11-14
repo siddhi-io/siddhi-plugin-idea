@@ -67,10 +67,4 @@ public class SiddhiModuleBuilder extends JavaModuleBuilder implements SourcePath
     public void moduleCreated(@Nonnull Module module) {
         CompilerWorkspaceConfiguration.getInstance(module.getProject()).CLEAR_OUTPUT_DIRECTORY = false;
     }
-
-    @Override
-    public int hashCode() {
-        throw new UnsupportedOperationException("contract violation: calling hashCode() on such an object makes no " +
-                "sense");
-    }
 }
