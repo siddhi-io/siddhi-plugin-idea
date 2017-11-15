@@ -64,6 +64,7 @@ public class SiddhiFindUsageProvider implements FindUsagesProvider {
         }
         ANTLRPsiNode parent = (ANTLRPsiNode) element.getParent();
         RuleIElementType elType = (RuleIElementType) parent.getNode().getElementType();
+        // Todo - Add more types
         switch (elType.getRuleIndex()) {
             case RULE_definition_aggregation:
                 return "Aggregation";

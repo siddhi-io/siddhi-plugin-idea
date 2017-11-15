@@ -37,6 +37,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.xdebugger.XDebugProcess;
@@ -62,7 +63,11 @@ import org.wso2.siddhi.plugins.idea.debugger.dto.BreakPoint;
 import org.wso2.siddhi.plugins.idea.debugger.dto.Message;
 import org.wso2.siddhi.plugins.idea.debugger.protocol.Command;
 import org.wso2.siddhi.plugins.idea.debugger.protocol.Response;
+import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
+import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.PartitionNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
+import org.wso2.siddhi.plugins.idea.psi.QueryNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 
 import java.io.File;
@@ -72,6 +77,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.Nonnull;
 import javax.swing.event.HyperlinkListener;
+
+import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getNextVisibleSiblingSkippingComments;
 
 /**
  * Provide debugging capabilities for siddhi language.
@@ -457,7 +464,20 @@ public class SiddhiDebugProcess extends XDebugProcess {
             if (psiFile != null) {
                 element = psiFile.findElementAt(offset);
             }
-            if (!((element != null) && (((LeafPsiElement) element).getElementType().equals(SiddhiTypes.FROM)))) {
+//            if (!((element != null) && (((LeafPsiElement) element).getElementType().equals(SiddhiTypes.FROM)))) {
+//                return;
+//            }
+            if(element == null){
+                return;
+            }
+            PsiElement nextVisibleSibling = getNextVisibleSiblingSkippingComments(element);
+            if (!(((LeafPsiElement) element).getElementType() == SiddhiTypes.FROM
+                    //TODO:once the antlr tree collapsing issue fixed remove one getParent() from below
+                    && element.getParent().getParent().getParent() instanceof ExecutionElementNode
+                    && PsiTreeUtil.getParentOfType(element, QueryNode.class) != null
+                    && PsiTreeUtil.getParentOfType(element, PartitionNode.class) == null
+                    && PsiTreeUtil.getParentOfType(element, AnonymousStreamNode.class) == null
+                    && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryInputNode.class) != null)) {
                 return;
             }
             inBreakpoints.add(breakpoint);
@@ -565,12 +585,26 @@ public class SiddhiDebugProcess extends XDebugProcess {
             if (psiFile != null) {
                 element = psiFile.findElementAt(offset);
             }
-            if (!(element != null && ((LeafPsiElement) element).getElementType().equals(SiddhiTypes.INSERT))) {
+            if ((element == null )) {
+                return;
+            }
+            PsiElement nextVisibleSibling = getNextVisibleSiblingSkippingComments(element);
+            if (!(isAQueryOutputBeginningKeyword(((LeafPsiElement) element).getElementType())
+                    //TODO:once the antlr tree collapsing issue fixed remove one getParent() from below
+                    && element.getParent().getParent().getParent().getParent() instanceof ExecutionElementNode
+                    && PsiTreeUtil.getParentOfType(element, QueryOutputNode.class) != null
+                    && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryOutputNode.class) != null
+                    && PsiTreeUtil.getParentOfType(element, PartitionNode.class) == null)) {
                 return;
             }
             outBreakpoints.add(breakpoint);
             sendBreakpoints();
             getSession().updateBreakpointPresentation(breakpoint, AllIcons.Debugger.Db_verified_breakpoint, null);
+        }
+
+        private boolean isAQueryOutputBeginningKeyword(IElementType elementType) {
+            return elementType == SiddhiTypes.INSERT || elementType == SiddhiTypes.UPDATE
+                    || elementType == SiddhiTypes.DELETE || elementType == SiddhiTypes.RETURN;
         }
 
         @Override

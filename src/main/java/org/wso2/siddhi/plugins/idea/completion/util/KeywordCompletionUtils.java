@@ -49,6 +49,18 @@ public class KeywordCompletionUtils {
         return prevVisibleSibling;
     }
 
+    @Nullable
+    public static PsiElement getNextVisibleSiblingSkippingComments(@Nonnull PsiElement currentElement) {
+        PsiElement prevVisibleSibling = PsiTreeUtil.nextVisibleLeaf(currentElement);
+        if (prevVisibleSibling instanceof PsiComment) {
+            prevVisibleSibling = getNextVisibleSiblingSkippingComments(prevVisibleSibling);
+        }
+        if (prevVisibleSibling == null) {
+            return null;
+        }
+        return prevVisibleSibling;
+    }
+
     public static Boolean isExpression(@Nonnull PsiElement element) {
         if (PsiTreeUtil.getParentOfType(element, ExpressionNode.class) != null) {
             return isMathOperation(element);

@@ -30,9 +30,12 @@ import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.PartitionNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 
 import javax.annotation.Nonnull;
+
+import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getNextVisibleSiblingSkippingComments;
 
 /**
  * Implements a new breakpoint type named OUT.
@@ -76,11 +79,15 @@ public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpoin
         @Override
         public boolean process(@Nonnull PsiElement element) {
             if (PsiTreeUtil.nextVisibleLeaf(element) != null) {
-                PsiElement nextVisibleSibling = PsiTreeUtil.nextVisibleLeaf(element);
+                PsiElement nextVisibleSibling = getNextVisibleSiblingSkippingComments(element);
                 IElementType elementType = element.getNode().getElementType();
-                if (elementType == SiddhiTypes.INSERT && element.getParent().getParent().getParent() instanceof
-                        ExecutionElementNode && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryOutputNode
-                        .class) != null) {
+                if (isAQueryOutputBeginningKeyword(elementType)
+                        //TODO:once the antlr tree collapsing issue fixed remove one getParent() from below
+                        && element.getParent().getParent().getParent().getParent() instanceof ExecutionElementNode
+                        && PsiTreeUtil.getParentOfType(element, QueryOutputNode.class) != null
+                        && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryOutputNode.class) != null
+                        && PsiTreeUtil.getParentOfType(element, PartitionNode.class) == null) {
+                    //TODO:check whether the return keyword is used anymore
                     counter = 1;
                     myIsLineBreakpointAvailable = true;
                 } else {
@@ -92,6 +99,11 @@ public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpoin
 
         public boolean isLineBreakpointAvailable() {
             return myIsLineBreakpointAvailable;
+        }
+
+        private boolean isAQueryOutputBeginningKeyword(IElementType elementType) {
+            return elementType == SiddhiTypes.INSERT || elementType == SiddhiTypes.UPDATE
+                    || elementType == SiddhiTypes.DELETE || elementType == SiddhiTypes.RETURN;
         }
     }
 }

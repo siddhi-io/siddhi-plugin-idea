@@ -29,10 +29,15 @@ import com.intellij.xdebugger.breakpoints.XLineBreakpointType;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
+import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
+import org.wso2.siddhi.plugins.idea.psi.PartitionNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
+import org.wso2.siddhi.plugins.idea.psi.QueryNode;
 
 import javax.annotation.Nonnull;
+
+import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getNextVisibleSiblingSkippingComments;
 
 /**
  * Implements a new breakpoint type named IN.
@@ -76,9 +81,14 @@ public class SiddhiBreakPointTypeIN extends XLineBreakpointType<SiddhiBreakpoint
         @Override
         public boolean process(@Nonnull PsiElement element) {
             if (PsiTreeUtil.nextVisibleLeaf(element) != null) {
-                PsiElement nextVisibleSibling = PsiTreeUtil.nextVisibleLeaf(element);
+                PsiElement nextVisibleSibling = getNextVisibleSiblingSkippingComments(element);
                 IElementType elementType = element.getNode().getElementType();
-                if (elementType == SiddhiTypes.FROM && element.getParent().getParent() instanceof ExecutionElementNode
+                if (elementType == SiddhiTypes.FROM
+                        //TODO:once the antlr tree collapsing issue fixed remove one getParent() from below
+                        && element.getParent().getParent().getParent() instanceof ExecutionElementNode
+                        && PsiTreeUtil.getParentOfType(element, QueryNode.class) != null
+                        && PsiTreeUtil.getParentOfType(element, PartitionNode.class) == null
+                        && PsiTreeUtil.getParentOfType(element, AnonymousStreamNode.class) == null
                         && PsiTreeUtil.getParentOfType(nextVisibleSibling, QueryInputNode.class) != null) {
                     counter = 1;
                     myIsLineBreakpointAvailable = true;
