@@ -670,6 +670,15 @@ public class SiddhiCompletionUtils {
     }
 
     /**
+     * Adds query sniipet as a lookup.
+     *
+     * @param resultSet result list which is used to add lookups
+     */
+    public static void addQuerySnippetAsLookup(@Nonnull CompletionResultSet resultSet) {
+        resultSet.addElement(PrioritizedLookupElement.withPriority(QUERY_SNIIP, VALUE_TYPES_PRIORITY));
+    }
+
+    /**
      * Adds suggestions after @ symbol as lookups.
      *
      * @param resultSet result list which is used to add lookups

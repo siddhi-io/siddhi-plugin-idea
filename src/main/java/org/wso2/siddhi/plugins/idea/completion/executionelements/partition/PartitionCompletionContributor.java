@@ -42,6 +42,7 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addF
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOfKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOrKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
+import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addQuerySnippetAsLookup;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSemicolon;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWithKeywordAndParentheses;
 import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getPreviousVisibleSiblingSkippingComments;
@@ -104,6 +105,7 @@ public class PartitionCompletionContributor {
                 PsiElement prevPrevPrevSibling = getPreviousVisibleSiblingSkippingComments(prevPrevVisibleSibling);
                 if (PsiTreeUtil.getParentOfType(prevPrevPrevSibling, StreamIdNode.class) != null) {
                     addFromKeyword(result);
+                    addQuerySnippetAsLookup(result);
                     return;
                 }
             }
