@@ -711,7 +711,6 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, DELETE);
         addKeywordAsLookup(resultSet, UPDATE_OR_INSERT_INTO);
         addKeywordAsLookup(resultSet, UPDATE);
-        addKeywordAsLookup(resultSet, RETURN);
     }
 
     /**
@@ -726,8 +725,6 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, DELETE);
         addKeywordAsLookup(resultSet, UPDATE_OR_INSERT_INTO);
         addKeywordAsLookup(resultSet, UPDATE);
-        addKeywordAsLookup(resultSet, RETURN);
-
     }
 
     /**

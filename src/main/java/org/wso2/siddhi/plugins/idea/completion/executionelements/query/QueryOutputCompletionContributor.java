@@ -126,11 +126,6 @@ public class QueryOutputCompletionContributor {
                     return;
                 }
             }
-            //Suggesting  output event types after RETURN keyword in the QueryOutputNode
-            if (prevVisibleSiblingElementType == SiddhiTypes.RETURN) {
-                addOutputEventTypeKeywords(result);
-                return;
-            }
         }
     }
 }

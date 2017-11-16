@@ -99,11 +99,6 @@ public class QueryInputCompletionContributor {
         * */
         //suggestions related to a anonymous stream node
         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AnonymousStreamNode.class) != null) {
-            //Suggesting  output event types after RETURN keyword in the QueryOutputNode
-            if (prevVisibleSiblingElementType == SiddhiTypes.RETURN) {
-                addOutputEventTypeKeywords(result);
-                return;
-            }
             if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputEventTypeNode.class) != null) {
                 addSuggestionsAfterQueryInput(result);
                 return;

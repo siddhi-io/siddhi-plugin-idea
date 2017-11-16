@@ -478,7 +478,6 @@ query_output
     |delete_from_table
     |update_or_insert_into
     |update_table
-    |RETURN output_event_type?
     ;
 
 //Newly added rule to help to recognize that the user is typing a 'update or insert into' clause

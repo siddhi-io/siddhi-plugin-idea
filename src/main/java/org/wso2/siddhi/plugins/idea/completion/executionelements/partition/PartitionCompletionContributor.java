@@ -25,7 +25,6 @@ import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.DeleteFromTableNode;
 import org.wso2.siddhi.plugins.idea.psi.ExpressionNode;
 import org.wso2.siddhi.plugins.idea.psi.MathOperationNode;
-import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.PartitionNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 import org.wso2.siddhi.plugins.idea.psi.StringValueNode;
@@ -41,7 +40,6 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addE
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addFromKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOfKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOrKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addQuerySnippetAsLookup;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSemicolon;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWithKeywordAndParentheses;
@@ -143,19 +141,6 @@ public class PartitionCompletionContributor {
                     && (PsiTreeUtil.getParentOfType(prevSibling, DeleteFromTableNode.class) != null
                     || PsiTreeUtil.getParentOfType(prevSibling, UpdateOrInsertIntoNode.class) != null
                     || PsiTreeUtil.getParentOfType(prevSibling, UpdateTableNode.class) != null)) {
-                return true;
-            }
-        }
-        if (prevVisibleSiblingElementType == SiddhiTypes.RETURN) {
-            if (result != null) {
-                addOutputEventTypeKeywords(result);
-            }
-            return true;
-        }
-        if (PsiTreeUtil.getParentOfType(prevSibling, OutputEventTypeNode.class) != null) {
-            IElementType prevSiblingOfOutputEventTypeNodeElementType =
-                    getElementTypeOfPreviousVisibleSiblingOfGivenNode(prevSibling, OutputEventTypeNode.class);
-            if (prevSiblingOfOutputEventTypeNodeElementType == SiddhiTypes.RETURN) {
                 return true;
             }
         }
