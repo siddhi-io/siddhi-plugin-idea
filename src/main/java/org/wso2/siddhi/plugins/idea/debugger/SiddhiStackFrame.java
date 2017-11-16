@@ -72,18 +72,27 @@ public class SiddhiStackFrame extends XStackFrame {
 
     @Nullable
     private VirtualFile findFile() {
-        String relativePath = myFrame.getFileName();
-        Project project = myProcess.getSession().getProject();
-        VirtualFile[] contentRoots = ProjectRootManager.getInstance(project).getContentRoots();
-        VirtualFile file = null;
-        for (VirtualFile contentRoot : contentRoots) {
-            String absolutePath = contentRoot.getPath() + Matcher.quoteReplacement(File.separator) + relativePath;
-            file = LocalFileSystem.getInstance().findFileByPath(absolutePath);
-            if (file != null) {
-                break;
-            }
+        String fileName = myFrame.getFileName();
+        // First try to find the matching file locally.
+        VirtualFile file = LocalFileSystem.getInstance().findFileByPath(fileName);
+        if (file != null) {
+            return file;
         }
-        return file;
+        Project project = myProcess.getSession().getProject();
+        String projectBasePath = project.getBaseDir().getPath();
+        if (fileName.contains("/")) {
+            String filePath = constructFilePath(projectBasePath,  fileName.substring(fileName.lastIndexOf("/")));
+            return LocalFileSystem.getInstance().findFileByPath(filePath);
+        } else {
+            String filePath = constructFilePath(projectBasePath, fileName);
+            return LocalFileSystem.getInstance().findFileByPath(filePath);
+        }
+    }
+
+    private String constructFilePath(@Nonnull String projectBasePath, @Nonnull String fileName) {
+        StringBuilder stringBuilder = new StringBuilder(projectBasePath).append("/");
+        stringBuilder = stringBuilder.append(fileName);
+        return stringBuilder.toString();
     }
 
     /**

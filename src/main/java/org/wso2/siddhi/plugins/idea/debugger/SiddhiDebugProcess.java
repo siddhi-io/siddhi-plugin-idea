@@ -75,6 +75,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Matcher;
 import javax.annotation.Nonnull;
 import javax.swing.event.HyperlinkListener;
 
@@ -455,7 +456,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
                 return;
             }
             VirtualFile file = breakpointPosition.getFile();
-            if (!file.getPath().equalsIgnoreCase(myDebugFilePath)) {
+            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase(myDebugFilePath)) {
                 return;
             }
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
@@ -502,7 +503,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
                 return;
             }
             VirtualFile file = breakpointPosition.getFile();
-            if (!file.getPath().equalsIgnoreCase(myDebugFilePath)) {
+            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase(myDebugFilePath)) {
                 return;
             }
             int line = breakpointPosition.getLine();
@@ -575,7 +576,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             }
 
             VirtualFile file = breakpointPosition.getFile();
-            if (!file.getPath().equalsIgnoreCase(myDebugFilePath)) {
+            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase(myDebugFilePath)) {
                 return;
             }
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
@@ -624,7 +625,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
                 return;
             }
             VirtualFile file = breakpointPosition.getFile();
-            if (!file.getPath().equalsIgnoreCase(myDebugFilePath)) {
+            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase(myDebugFilePath)) {
                 return;
             }
             int line = breakpointPosition.getLine();
