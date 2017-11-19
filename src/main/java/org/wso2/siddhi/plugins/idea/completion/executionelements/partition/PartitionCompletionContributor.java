@@ -20,7 +20,6 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.DeleteFromTableNode;
 import org.wso2.siddhi.plugins.idea.psi.ExpressionNode;
@@ -108,14 +107,14 @@ public class PartitionCompletionContributor {
                 }
             }
             //suggesting end keyword after a query(which is inside the partition)
-            if (isEndOfAQueryOutput(prevVisibleSibling, prevPrevVisibleSibling, result)) {
+            if (isEndOfAQueryOutput(prevVisibleSibling, prevPrevVisibleSibling)) {
                 addEndKeyword(result);
                 addSemicolon(result);
                 return;
             }
             PsiElement prevPrevPrevVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevPrevVisibleSibling);
             if (prevVisibleSiblingElementType == SiddhiTypes.SCOL
-                    && isEndOfAQueryOutput(prevPrevVisibleSibling, prevPrevPrevVisibleSibling, result)) {
+                    && isEndOfAQueryOutput(prevPrevVisibleSibling, prevPrevPrevVisibleSibling)) {
                 addFromKeyword(result);
                 addEndKeyword(result);
                 return;
@@ -126,9 +125,7 @@ public class PartitionCompletionContributor {
     /**
      * Checks whether the elements are in the end of a Query Output rule.
      */
-    public static boolean isEndOfAQueryOutput(PsiElement prevSibling, PsiElement prevPrevSibling, @Nullable
-            CompletionResultSet result) {
-        IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevSibling).getElementType();
+    public static boolean isEndOfAQueryOutput(PsiElement prevSibling, PsiElement prevPrevSibling) {
         IElementType prevPrevVisibleSiblingElementType = ((LeafPsiElement) prevPrevSibling).getElementType();
         if (PsiTreeUtil.getParentOfType(prevSibling, TargetNode.class) != null
                 && prevPrevVisibleSiblingElementType == SiddhiTypes.INTO) {

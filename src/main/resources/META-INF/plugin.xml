@@ -77,7 +77,7 @@
                               implementationClass="org.wso2.siddhi.plugins.idea.spellchecker.SiddhiSpellcheckingStrategy"/>
 
         <!--find usage-->
-        <lang.findUsagesProvider language="Siddhi"
+        <!--<lang.findUsagesProvider language="Siddhi"-->
                                  implementationClass="org.wso2.siddhi.plugins.idea.usage.SiddhiFindUsageProvider"/>
 
         <!-- sdk -->

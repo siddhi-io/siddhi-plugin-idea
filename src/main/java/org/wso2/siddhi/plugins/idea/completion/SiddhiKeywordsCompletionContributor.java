@@ -101,7 +101,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                             && prevPreVisibleSibling != null
                             && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, PartitionNode.class) != null
                             && prevPrePreVisibleSibling != null
-                            && isEndOfAQueryOutput(prevPreVisibleSibling, prevPrePreVisibleSibling, null)) {
+                            && isEndOfAQueryOutput(prevPreVisibleSibling, prevPrePreVisibleSibling)) {
                         addFromKeyword(result);
                         return;
                     }

@@ -50,7 +50,6 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addE
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addEveryKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addFilterSuggestion;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addFromKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addPerKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addStreamFunctions;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addSuggestionsAfterQueryInput;

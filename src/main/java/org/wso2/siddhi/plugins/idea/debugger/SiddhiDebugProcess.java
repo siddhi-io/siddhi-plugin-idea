@@ -83,7 +83,6 @@ import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtil
 
 /**
  * Provide debugging capabilities for siddhi language.
- *
  */
 public class SiddhiDebugProcess extends XDebugProcess {
 
@@ -456,7 +455,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
                 return;
             }
             VirtualFile file = breakpointPosition.getFile();
-            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase(myDebugFilePath)) {
+            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase
+                    (myDebugFilePath)) {
                 return;
             }
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
@@ -465,10 +465,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             if (psiFile != null) {
                 element = psiFile.findElementAt(offset);
             }
-//            if (!((element != null) && (((LeafPsiElement) element).getElementType().equals(SiddhiTypes.FROM)))) {
-//                return;
-//            }
-            if(element == null){
+            if (element == null) {
                 return;
             }
             PsiElement nextVisibleSibling = getNextVisibleSiblingSkippingComments(element);
@@ -503,7 +500,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
                 return;
             }
             VirtualFile file = breakpointPosition.getFile();
-            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase(myDebugFilePath)) {
+            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase
+                    (myDebugFilePath)) {
                 return;
             }
             int line = breakpointPosition.getLine();
@@ -576,7 +574,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
             }
 
             VirtualFile file = breakpointPosition.getFile();
-            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase(myDebugFilePath)) {
+            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase
+                    (myDebugFilePath)) {
                 return;
             }
             PsiFile psiFile = PsiManager.getInstance(getSession().getProject()).findFile(file);
@@ -586,7 +585,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
             if (psiFile != null) {
                 element = psiFile.findElementAt(offset);
             }
-            if ((element == null )) {
+            if ((element == null)) {
                 return;
             }
             PsiElement nextVisibleSibling = getNextVisibleSiblingSkippingComments(element);
@@ -625,7 +624,8 @@ public class SiddhiDebugProcess extends XDebugProcess {
                 return;
             }
             VirtualFile file = breakpointPosition.getFile();
-            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase(myDebugFilePath)) {
+            if (!file.getPath().replaceAll("/", Matcher.quoteReplacement(File.separator)).equalsIgnoreCase
+                    (myDebugFilePath)) {
                 return;
             }
             int line = breakpointPosition.getLine();

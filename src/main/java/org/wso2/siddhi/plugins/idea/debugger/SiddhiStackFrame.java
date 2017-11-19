@@ -19,7 +19,6 @@ package org.wso2.siddhi.plugins.idea.debugger;
 import com.google.gson.Gson;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.ColoredTextContainer;
@@ -34,10 +33,8 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 import org.wso2.siddhi.plugins.idea.debugger.dto.Frame;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
 import javax.annotation.Nonnull;
 
 /**
