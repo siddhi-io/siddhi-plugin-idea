@@ -1,37 +1,45 @@
 
-# Siddhi-plugin-idea
+# Siddhi plugin for Intellij IDEA
 
-### Building from the source
+## Building from the source
 
-1) Clone the siddi-sdk using 
-```
-git clone https://github.com/wso2/siddhi-sdk.git
-```
-
-2) Build the siddhi-sdk using 
-```
-mvn clean install
-```
-
-Now the siddhi-sdk-1.0.0-SNAPSHOT.zip zip file will be created in the siddhi-sdk/modules/siddhi-launcher/target path. Unzip it. 
-
-3) Clone the plugin using 
+1) Clone the plugin using 
 ```
 git clone --recursive https://github.com/wso2/siddhi-plugin-idea.git
 ```
+2. Install latest version of [Gradle](https://gradle.org/) if you don't have it installed already.
 
-4) Install latest version of Gradle if you don't have it installed already.
+3. Navigate into the cloned repository and run `gradle buildPlugin`. In the **build/distributions** directory, **Siddhi-Intellij-Plugin.zip** will be created.
 
-5) Navigate into the cloned repository and run gradle buildPlugin. In the build/distributions directory, Siddhi-Intellij-Plugin.zip will be created.
-Installing the plugin to IDEA
+## Installing the plugin to IDEA
+
+### From Jetbrains plugin repository
+1. Go to **Settings** (**Preferences** in **MacOS**)-> **Plugins**. 
+2. Select **Browse Repositories** button at the bottom. 
+3. Search for **Siddhi** using the search box. Siddhi plugin will show up. Then you can install the plugin using the 
+Install button.
+4. Restart IDEA.
+
+**Note:** Refer the [Getting Started](https://github.com/wso2/siddhi-plugin-idea#getting-started) section to view 
+details about setting up the Siddhi SDK.
 
 ### From a local build
+1. Go to **File -> Settings** (**IntelliJ IDEA -> Preferences** in **macOS**) and select **Plugins**.
+2. Click **Install plugin from disc** button and select the deployed **plugin zip** file. Please make sure to install the Zip file, not the extracted Jar files. This zip contains an additional library as well. Without this library, the plugin will not work properly.
+3. Restart IDEA.
 
-1) Go to File -> Settings (IntelliJ IDEA -> Preferences in macOS) and select Plugins.
+## Release versions schema
 
-2) Click Install plugin from disc button and select the deployed plugin zip file. Please make sure to install the Zip file, not the extracted Jar files.
+Below you can see the versions of the plugin which correspond to the versions of the 
+IntelliJ Platfom.
 
-3) Restart IDEA
+| Plugin Version | Platform Version |
+| --- | --- |
+| 0.5+ | IntelliJ IDEA 2017.2.5+ |
+
+## Getting started
+
+Please refer the [Getting Started](getting-started) section.
 
 ### Running siddhi files in IDEA
 
