@@ -25,7 +25,7 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiModuleBasedConfiguration;
-import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfigurationWithMain;
+import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfiguration;
 import org.wso2.siddhi.plugins.idea.runconfig.ui.SiddhiRemoteSettingsEditor;
 
 import java.util.regex.Matcher;
@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
 /**
  * Defines siddhi remote configuration.
  */
-public class SiddhiRemoteConfiguration extends SiddhiRunConfigurationWithMain<SiddhiRemoteRunningState> {
+public class SiddhiRemoteConfiguration extends SiddhiRunConfiguration<SiddhiRemoteRunningState> {
 
     private static final String IP_REGEX = "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$";
     private static final Pattern IP_PATTERN = Pattern.compile(IP_REGEX);

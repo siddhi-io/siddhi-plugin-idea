@@ -52,73 +52,74 @@ import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtil
 public class PartitionCompletionContributor {
 
     public static void partitionCompletion(@Nonnull CompletionResultSet result, PsiElement element,
-                                           PsiElement prevVisibleSibling, IElementType
-                                                   prevVisibleSiblingElementType, PsiElement
-                                                   prevPrevVisibleSibling) {
-        //keyword completion related to partitions
-        //suggestions after 'partition' keyword
-        if (PsiTreeUtil.getParentOfType(element, PartitionNode.class) != null) {
-            if (prevVisibleSiblingElementType == SiddhiTypes.PARTITION) {
-                addWithKeywordAndParentheses(result);
-                return;
-            }
-            //suggestions after open parentheses'(' of partition and
-            //suggestions after "partition_with_stream , expression" clause
-            if (isMathOperation(prevVisibleSibling)) {
-                IElementType prevSiblingOfMathOperationNodeElementType =
-                        getElementTypeOfPreviousVisibleSiblingOfGivenNode(prevVisibleSibling, MathOperationNode.class);
-                if (prevSiblingOfMathOperationNodeElementType == SiddhiTypes.OPEN_PAR
-                        || prevSiblingOfMathOperationNodeElementType == SiddhiTypes.COMMA) {
-                    addAsKeyword(result);
-                    addOfKeyword(result);
-                    return;
-                }
-            }
-            //suggestions after 'AS string_value'
-            IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPrevVisibleSibling).getElementType();
-            if (PsiTreeUtil.getParentOfType(prevVisibleSibling, StringValueNode.class) != null
-                    && prevPreVisibleSiblingElementType == SiddhiTypes.AS) {
-                addOrKeyword(result);
+                                           PsiElement prevVisibleSibling,
+                                           IElementType prevVisibleSiblingElementType,
+                                           PsiElement prevPrevVisibleSibling) {
+        // keyword completion related to partitions
+        // suggestions after 'partition' keyword
+        if (PsiTreeUtil.getParentOfType(element, PartitionNode.class) == null) {
+            return;
+        }
+        if (prevVisibleSiblingElementType == SiddhiTypes.PARTITION) {
+            addWithKeywordAndParentheses(result);
+            return;
+        }
+        // suggestions after open parentheses'(' of partition and
+        // suggestions after "partition_with_stream , expression" clause
+        if (isMathOperation(prevVisibleSibling)) {
+            IElementType prevSiblingOfMathOperationNodeElementType =
+                    getElementTypeOfPreviousVisibleSiblingOfGivenNode(prevVisibleSibling, MathOperationNode.class);
+            if (prevSiblingOfMathOperationNodeElementType == SiddhiTypes.OPEN_PAR
+                    || prevSiblingOfMathOperationNodeElementType == SiddhiTypes.COMMA) {
+                addAsKeyword(result);
                 addOfKeyword(result);
                 return;
             }
-            //suggestions after 'OR expression' clause
-            if (isExpression(prevVisibleSibling)) {
-                IElementType prevSiblingOfExpressionNodeElementType =
-                        getElementTypeOfPreviousVisibleSiblingOfGivenNode(prevVisibleSibling, ExpressionNode.class);
-                if (prevSiblingOfExpressionNodeElementType == SiddhiTypes.OR) {
-                    addAsKeyword(result);
-                    return;
-                }
-            }
-            if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR
-                    && PsiTreeUtil.getParentOfType(prevPrevVisibleSibling, StreamIdNode.class) != null) {
-                addBeginKeyword(result);
+        }
+        // suggestions after 'AS string_value'
+        IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPrevVisibleSibling).getElementType();
+        if (PsiTreeUtil.getParentOfType(prevVisibleSibling, StringValueNode.class) != null
+                && prevPreVisibleSiblingElementType == SiddhiTypes.AS) {
+            addOrKeyword(result);
+            addOfKeyword(result);
+            return;
+        }
+        // suggestions after 'OR expression' clause
+        if (isExpression(prevVisibleSibling)) {
+            IElementType prevSiblingOfExpressionNodeElementType =
+                    getElementTypeOfPreviousVisibleSiblingOfGivenNode(prevVisibleSibling, ExpressionNode.class);
+            if (prevSiblingOfExpressionNodeElementType == SiddhiTypes.OR) {
+                addAsKeyword(result);
                 return;
             }
+        }
+        if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR
+                && PsiTreeUtil.getParentOfType(prevPrevVisibleSibling, StreamIdNode.class) != null) {
+            addBeginKeyword(result);
+            return;
+        }
 
-            if (prevVisibleSiblingElementType == SiddhiTypes.BEGIN
-                    && prevPreVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR) {
-                PsiElement prevPrevPrevSibling = getPreviousVisibleSiblingSkippingComments(prevPrevVisibleSibling);
-                if (PsiTreeUtil.getParentOfType(prevPrevPrevSibling, StreamIdNode.class) != null) {
-                    addFromKeyword(result);
-                    addQuerySnippetAsLookup(result);
-                    return;
-                }
-            }
-            //suggesting end keyword after a query(which is inside the partition)
-            if (isEndOfAQueryOutput(prevVisibleSibling, prevPrevVisibleSibling)) {
-                addEndKeyword(result);
-                addSemicolon(result);
-                return;
-            }
-            PsiElement prevPrevPrevVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevPrevVisibleSibling);
-            if (prevVisibleSiblingElementType == SiddhiTypes.SCOL
-                    && isEndOfAQueryOutput(prevPrevVisibleSibling, prevPrevPrevVisibleSibling)) {
+        if (prevVisibleSiblingElementType == SiddhiTypes.BEGIN
+                && prevPreVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR) {
+            PsiElement prevPrevPrevSibling = getPreviousVisibleSiblingSkippingComments(prevPrevVisibleSibling);
+            if (PsiTreeUtil.getParentOfType(prevPrevPrevSibling, StreamIdNode.class) != null) {
                 addFromKeyword(result);
-                addEndKeyword(result);
+                addQuerySnippetAsLookup(result);
                 return;
             }
+        }
+        // suggesting end keyword after a query(which is inside the partition)
+        if (isEndOfAQueryOutput(prevVisibleSibling, prevPrevVisibleSibling)) {
+            addEndKeyword(result);
+            addSemicolon(result);
+            return;
+        }
+        PsiElement prevPrevPrevVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevPrevVisibleSibling);
+        if (prevVisibleSiblingElementType == SiddhiTypes.SCOL
+                && isEndOfAQueryOutput(prevPrevVisibleSibling, prevPrevPrevVisibleSibling)) {
+            addFromKeyword(result);
+            addEndKeyword(result);
+            return;
         }
     }
 
@@ -144,13 +145,12 @@ public class PartitionCompletionContributor {
         return false;
     }
 
-    public static IElementType getElementTypeOfPreviousVisibleSiblingOfGivenNode(PsiElement element, @Nonnull Class
-            aClass) {
+    public static IElementType getElementTypeOfPreviousVisibleSiblingOfGivenNode(PsiElement element,
+                                                                                 @Nonnull Class aClass) {
         PsiElement prevSiblingOfGivenNode = getPrevSiblingOfGivenType(element, aClass);
         IElementType prevSiblingOfExpressionNodeElementType = null;
         if (prevSiblingOfGivenNode != null) {
-            prevSiblingOfExpressionNodeElementType = ((LeafPsiElement) prevSiblingOfGivenNode)
-                    .getElementType();
+            prevSiblingOfExpressionNodeElementType = ((LeafPsiElement) prevSiblingOfGivenNode).getElementType();
         }
         return prevSiblingOfExpressionNodeElementType;
     }

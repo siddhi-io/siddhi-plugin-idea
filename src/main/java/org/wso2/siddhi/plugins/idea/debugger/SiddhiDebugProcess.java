@@ -103,8 +103,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     private final AtomicBoolean breakpointsInitiated = new AtomicBoolean();
 
     public SiddhiDebugProcess(@Nonnull XDebugSession session, @Nonnull String debugFilePath, @Nonnull
-            SiddhiWebSocketConnector connector,
-                              @Nullable ExecutionResult executionResult) {
+            SiddhiWebSocketConnector connector, @Nullable ExecutionResult executionResult) {
         super(session);
         mySession = session;
         myDebugFilePath = debugFilePath;
@@ -441,8 +440,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
     private final List<XBreakpoint<SiddhiBreakpointProperties>> inBreakpoints = ContainerUtil.createConcurrentList();
     private final List<XBreakpoint<SiddhiBreakpointProperties>> outBreakpoints = ContainerUtil.createConcurrentList();
 
-    private class SiddhiInBreakpointHandler extends
-            XBreakpointHandler<XLineBreakpoint<SiddhiBreakpointProperties>> {
+    private class SiddhiInBreakpointHandler extends XBreakpointHandler<XLineBreakpoint<SiddhiBreakpointProperties>> {
 
         SiddhiInBreakpointHandler() {
             super(SiddhiBreakPointTypeIN.class);
@@ -514,13 +512,13 @@ public class SiddhiDebugProcess extends XDebugProcess {
                     break;
                 }
             }
-            String stringBuilder = "{\"command\":\"" + Command.REMOVE_BREAKPOINT +
+            String string = "{\"command\":\"" + Command.REMOVE_BREAKPOINT +
                     "\", \"points\": [" +
                     "{\"fileName\":\"" + name + "\", " +
                     "\"queryIndex\":" + queryIndex + ", " +
                     "\"queryTerminal\":\"" + terminal + "\"}" +
                     "]}";
-            myConnector.send(stringBuilder);
+            myConnector.send(string);
         }
 
         void sendBreakpoints() {
@@ -559,8 +557,7 @@ public class SiddhiDebugProcess extends XDebugProcess {
         }
     }
 
-    private class SiddhiOutBreakpointHandler extends
-            XBreakpointHandler<XLineBreakpoint<SiddhiBreakpointProperties>> {
+    private class SiddhiOutBreakpointHandler extends XBreakpointHandler<XLineBreakpoint<SiddhiBreakpointProperties>> {
 
         SiddhiOutBreakpointHandler() {
             super(SiddhiBreakPointTypeOUT.class);
@@ -638,13 +635,13 @@ public class SiddhiDebugProcess extends XDebugProcess {
                     break;
                 }
             }
-            String stringBuilder = "{\"command\":\"" + Command.REMOVE_BREAKPOINT +
+            String string = "{\"command\":\"" + Command.REMOVE_BREAKPOINT +
                     "\", \"points\": [" +
                     "{\"fileName\":\"" + name + "\", " +
                     "\"queryIndex\":" + queryIndex + ", " +
                     "\"queryTerminal\":\"" + terminal + "\"}" +
                     "]}";
-            myConnector.send(stringBuilder);
+            myConnector.send(string);
         }
 
         void sendBreakpoints() {

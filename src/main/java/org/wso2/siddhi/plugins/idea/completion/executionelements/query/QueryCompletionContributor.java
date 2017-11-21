@@ -50,11 +50,11 @@ import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtil
 public class QueryCompletionContributor {
 
     public static void queryCompletion(@Nonnull CompletionResultSet result, PsiElement element,
-                                       PsiElement prevVisibleSibling, IElementType
-                                               prevVisibleSiblingElementType, PsiElement
-                                               prevPreVisibleSibling) {
+                                       PsiElement prevVisibleSibling,
+                                       IElementType prevVisibleSiblingElementType,
+                                       PsiElement prevPreVisibleSibling) {
 
-        //Suggestions related to QueryInputNode
+        // Suggestions related to QueryInputNode
         if (PsiTreeUtil.getParentOfType(element, QueryInputNode.class) != null) {
             queryInputCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType,
                     prevPreVisibleSibling);
@@ -75,15 +75,15 @@ public class QueryCompletionContributor {
                 return;
             }
         }
-        //Suggestions related to QuerySectionNode
+        // Suggestions related to QuerySectionNode
         if (PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
             querySectionCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType);
             return;
         }
-        //suggesting keywords in the beginning of a query_output rule
+        // suggesting keywords in the beginning of a query_output rule
 
-        //This provides suggestions after ->OUTPUT output_rate_type? EVERY ( time_value) | OUTPUT SNAPSHOT EVERY
-        //time_value  in output_rate rule//TODO:check output related keyword suggestions
+        // This provides suggestions after ->OUTPUT output_rate_type? EVERY ( time_value) | OUTPUT SNAPSHOT EVERY
+        // time_value  in output_rate rule//TODO:check output related keyword suggestions
         IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling).getElementType();
         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null
                 && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class) != null) {
@@ -102,21 +102,21 @@ public class QueryCompletionContributor {
                 return;
             }
         }
-        //This provides suggestions after ->OUTPUT output_rate_type? EVERY INT_LITERAL EVENTS in output_rate rule
+        // This provides suggestions after ->OUTPUT output_rate_type? EVERY INT_LITERAL EVENTS in output_rate rule
         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null
                 && prevVisibleSiblingElementType == SiddhiTypes.EVENTS
                 && prevPreVisibleSiblingElementType == SiddhiTypes.INT_LITERAL) {
             addBeginingOfQueryOutputKeywords(result);
             return;
         }
-        //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) having in
+        // This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) having in
         // query_section1 rule
         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, ExpressionNode.class) != null
                 && PsiTreeUtil.getParentOfType(element, HavingNode.class) != null) {
             addBeginingOfQueryOutputKeywords(result);
             return;
         }
-        //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) group_by in
+        // This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) group_by in
         // query_section1 rule
         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeReferenceNode.class) != null
                 && PsiTreeUtil.getParentOfType(element, GroupByNode.class) != null) {
@@ -124,9 +124,9 @@ public class QueryCompletionContributor {
             addHavingKeyword(result);
             return;
         }
-        //Suggestions related to QueryOutputNode
+        // Suggestions related to QueryOutputNode
 
-        //suggestions after INSERT keyword
+        // suggestions after INSERT keyword
         if (prevVisibleSiblingElementType == SiddhiTypes.INSERT && (PsiTreeUtil.getParentOfType
                 (prevPreVisibleSibling, OutputRateNode.class) != null || PsiTreeUtil.getParentOfType
                 (prevPreVisibleSibling, QuerySectionNode.class) != null || PsiTreeUtil.getParentOfType
@@ -135,7 +135,7 @@ public class QueryCompletionContributor {
             addIntoKeyword(result);
             return;
         }
-        //suggesting INTO keyword after a output event type in a query
+        // suggesting INTO keyword after a output event type in a query
         PsiElement parentOfPrevVisSibling = prevVisibleSibling.getParent();
         if (parentOfPrevVisSibling instanceof OutputEventTypeNode) {
             PsiElement prevVisibleSiblingOfParent = getPreviousVisibleSiblingSkippingComments(parentOfPrevVisSibling);
@@ -149,7 +149,7 @@ public class QueryCompletionContributor {
                 return;
             }
         }
-        //Suggestions inside a QueryOutputNode
+        // Suggestions inside a QueryOutputNode
         queryOutputCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType,
                 prevPreVisibleSibling);
     }

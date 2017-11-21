@@ -55,10 +55,6 @@ public class SiddhiTypes {
     public static final TokenIElementType TRIPLE_DOT = tokenIElementTypes.get(SiddhiQLLexer.TRIPLE_DOT);
     public static final TokenIElementType OPEN_PAR = tokenIElementTypes.get(SiddhiQLLexer.OPEN_PAR);
     public static final TokenIElementType CLOSE_PAR = tokenIElementTypes.get(SiddhiQLLexer.CLOSE_PAR);
-    public static final TokenIElementType OPEN_SQUARE_BRACKETS = tokenIElementTypes.get(SiddhiQLLexer
-            .OPEN_SQUARE_BRACKETS);
-    public static final TokenIElementType CLOSE_SQUARE_BRACKETS = tokenIElementTypes.get(SiddhiQLLexer
-            .CLOSE_SQUARE_BRACKETS);
     public static final TokenIElementType COMMA = tokenIElementTypes.get(SiddhiQLLexer.COMMA);
     public static final TokenIElementType ASSIGN = tokenIElementTypes.get(SiddhiQLLexer.ASSIGN);
     public static final TokenIElementType STAR = tokenIElementTypes.get(SiddhiQLLexer.STAR);
@@ -149,13 +145,17 @@ public class SiddhiTypes {
     public static final TokenIElementType PER = tokenIElementTypes.get(SiddhiQLLexer.PER);
     public static final TokenIElementType ID_QUOTES = tokenIElementTypes.get(SiddhiQLLexer.ID_QUOTES);
     public static final TokenIElementType STRING_LITERAL = tokenIElementTypes.get(SiddhiQLLexer.STRING_LITERAL);
-    public static final TokenIElementType SINGLE_LINE_COMMENT = tokenIElementTypes.get(SiddhiQLLexer
-            .SINGLE_LINE_COMMENT);
     public static final TokenIElementType MULTILINE_COMMENT = tokenIElementTypes.get(SiddhiQLLexer.MULTILINE_COMMENT);
     public static final TokenIElementType SPACES = tokenIElementTypes.get(SiddhiQLLexer.SPACES);
     public static final TokenIElementType UNEXPECTED_CHAR = tokenIElementTypes.get(SiddhiQLLexer.UNEXPECTED_CHAR);
     public static final TokenIElementType SCRIPT = tokenIElementTypes.get(SiddhiQLLexer.SCRIPT);
+    public static final TokenIElementType OPEN_SQUARE_BRACKETS =
+            tokenIElementTypes.get(SiddhiQLLexer.OPEN_SQUARE_BRACKETS);
+    public static final TokenIElementType CLOSE_SQUARE_BRACKETS =
+            tokenIElementTypes.get(SiddhiQLLexer.CLOSE_SQUARE_BRACKETS);
+    public static final TokenIElementType SINGLE_LINE_COMMENT =
+            tokenIElementTypes.get(SiddhiQLLexer.SINGLE_LINE_COMMENT);
 
-    public static final TokenSet OPERATORS = TokenSet.create(ASSIGN, STAR, PLUS, MINUS, DIV, MOD, LT, LT_EQ, GT, GT_EQ,
-            EQ, NOT_EQ);
+    public static final TokenSet OPERATORS =
+            TokenSet.create(ASSIGN, STAR, PLUS, MINUS, DIV, MOD, LT, LT_EQ, GT, GT_EQ, EQ, NOT_EQ);
 }

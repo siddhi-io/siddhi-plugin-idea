@@ -20,22 +20,14 @@ import com.intellij.application.options.ModulesComboBox;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.ui.ListCellRendererWrapper;
 import com.intellij.ui.RawCommandLineEditor;
-import org.jetbrains.annotations.Nullable;
-import org.wso2.siddhi.plugins.idea.runconfig.RunConfigurationKind;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunUtil;
 import org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
 
-import java.util.Locale;
 import javax.annotation.Nonnull;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JList;
 import javax.swing.JPanel;
 
 /**
@@ -44,7 +36,6 @@ import javax.swing.JPanel;
 public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplicationConfiguration> {
 
     private JPanel myPanel;
-    private LabeledComponent<JComboBox<RunConfigurationKind>> myRunKindComboBox;
     private LabeledComponent<TextFieldWithBrowseButton> myFileField;
     private LabeledComponent<RawCommandLineEditor> myParamsField;
     private LabeledComponent<TextFieldWithBrowseButton> myWorkingDirectoryField;
@@ -54,7 +45,6 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
 
     public SiddhiApplicationSettingsEditor(Project project) {
         this.myProject = project;
-        installRunKindComboBox();
         SiddhiRunUtil.installSiddhiWithSiddhiFileChooser(project, myFileField.getComponent());
         SiddhiRunUtil.installSiddhiWithWorkingDirectoryChooser(project, myWorkingDirectoryField.getComponent());
         SiddhiRunUtil.installSiddhiWithFileChooser(project, myEventInputFile.getComponent());
@@ -66,8 +56,6 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
 
         myEventInputFile.getComponent().setText(configuration.getInputFilePath());
 
-        myRunKindComboBox.getComponent().setSelectedItem(configuration.getRunKind());
-
         myModulesComboBox.getComponent().setModules(configuration.getValidModules());
         myModulesComboBox.getComponent().setSelectedModule(configuration.getConfigurationModule().getModule());
 
@@ -78,8 +66,6 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     @Override
     protected void applyEditorTo(@Nonnull SiddhiApplicationConfiguration configuration)
             throws ConfigurationException {
-        RunConfigurationKind runKind = (RunConfigurationKind) myRunKindComboBox.getComponent().getSelectedItem();
-        configuration.setRunKind(runKind);
         configuration.setFilePath(myFileField.getComponent().getText());
         configuration.setInputFilePath(myEventInputFile.getComponent().getText());
         configuration.setModule(myModulesComboBox.getComponent().getSelectedModule());
@@ -98,8 +84,6 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     }
 
     private void createUIComponents() {
-        myRunKindComboBox = new LabeledComponent<>();
-        myRunKindComboBox.setComponent(new ComboBox<>());
 
         myFileField = new LabeledComponent<>();
         myFileField.setComponent(new TextFieldWithBrowseButton());
@@ -115,36 +99,5 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
 
         myModulesComboBox = new LabeledComponent<>();
         myModulesComboBox.setComponent(new ModulesComboBox());
-    }
-
-    private static ListCellRendererWrapper<RunConfigurationKind> getRunKindListCellRendererWrapper() {
-        return new ListCellRendererWrapper<RunConfigurationKind>() {
-            @Override
-            public void customize(JList list, @Nullable RunConfigurationKind kind, int index,
-                                  boolean selected, boolean hasFocus) {
-                if (kind != null) {
-                    String kindName = StringUtil.capitalize(kind.toString().toLowerCase(Locale.US));
-                    setText(kindName);
-                }
-            }
-        };
-    }
-
-    private void installRunKindComboBox() {
-        myRunKindComboBox.getComponent().removeAllItems();
-        myRunKindComboBox.getComponent().setRenderer(getRunKindListCellRendererWrapper());
-        for (RunConfigurationKind kind : RunConfigurationKind.values()) {
-            myRunKindComboBox.getComponent().addItem(kind);
-        }
-        myRunKindComboBox.getComponent().addActionListener(e -> onRunKindChanged());
-    }
-
-    private void onRunKindChanged() {
-        RunConfigurationKind selectedKind = (RunConfigurationKind) myRunKindComboBox.getComponent().getSelectedItem();
-        if (selectedKind == null) {
-            selectedKind = RunConfigurationKind.MAIN;
-        }
-        boolean isMainSelected = selectedKind == RunConfigurationKind.MAIN;
-        myParamsField.setVisible(isMainSelected);
     }
 }

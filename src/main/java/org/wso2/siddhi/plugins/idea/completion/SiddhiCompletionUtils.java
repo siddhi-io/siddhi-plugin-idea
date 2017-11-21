@@ -612,8 +612,8 @@ public class SiddhiCompletionUtils {
     @Nonnull
     private static LookupElementBuilder createLookupElementWithCustomTypeText(@Nonnull String name,
                                                                               @Nullable InsertHandler<LookupElement>
-                                                                                      insertHandler, @Nonnull String
-                                                                                      text) {
+                                                                                      insertHandler,
+                                                                              @Nonnull String text) {
         return createLookupElement(name, insertHandler).withTypeText(text);
     }
 

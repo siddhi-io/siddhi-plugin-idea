@@ -58,20 +58,21 @@ public class SiddhiProjectSdkSetupValidator implements ProjectSdkSetupValidator 
     @Override
     public String getErrorMessage(@Nonnull Project project, @Nonnull VirtualFile file) {
         final Module module = ModuleUtilCore.findModuleForFile(file, project);
-        if (module != null && !module.isDisposed()) {
-            final Sdk sdk = ModuleRootManager.getInstance(module).getSdk();
-            if (sdk == null) {
-                if (ModuleRootManager.getInstance(module).isSdkInherited()) {
-                    return ProjectBundle.message("project.sdk.not.defined");
-                } else {
-                    return ProjectBundle.message("module.sdk.not.defined");
-                }
+        if (module == null || module.isDisposed()) {
+            return null;
+        }
+        final Sdk sdk = ModuleRootManager.getInstance(module).getSdk();
+        if (sdk == null) {
+            if (ModuleRootManager.getInstance(module).isSdkInherited()) {
+                return ProjectBundle.message("project.sdk.not.defined");
             } else {
-                SiddhiSdkService.getInstance(project);
-                if (sdk.getSdkType() != SiddhiSdkType.getInstance()
-                        && SiddhiSdkService.isSiddhiModule(module)) {
-                    return "Siddhi SDK is not defined for Siddhi Module '" + module.getName() + "'";
-                }
+                return ProjectBundle.message("module.sdk.not.defined");
+            }
+        } else {
+            SiddhiSdkService.getInstance(project);
+            if (sdk.getSdkType() != SiddhiSdkType.getInstance()
+                    && SiddhiSdkService.isSiddhiModule(module)) {
+                return "Siddhi SDK is not defined for Siddhi Module '" + module.getName() + "'";
             }
         }
         return null;

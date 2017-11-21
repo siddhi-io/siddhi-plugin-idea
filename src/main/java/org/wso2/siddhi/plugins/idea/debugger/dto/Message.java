@@ -24,15 +24,10 @@ import java.util.Map;
 public class Message {
 
     private String code;
-
     private String message;
-
     private String queryName;
-
     private Object eventInfo;
-
     private Map<String, Object> queryState;
-
     private BreakPoint location;
 
     public String getCode() {
@@ -82,5 +77,4 @@ public class Message {
     public void setEventInfo(Object eventInfo) {
         this.eventInfo = eventInfo;
     }
-
 }

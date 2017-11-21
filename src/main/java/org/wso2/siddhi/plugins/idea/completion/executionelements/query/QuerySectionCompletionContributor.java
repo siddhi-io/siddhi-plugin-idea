@@ -34,11 +34,11 @@ import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addB
 public class QuerySectionCompletionContributor {
 
     public static void querySectionCompletion(@Nonnull CompletionResultSet result, PsiElement element,
-                                              PsiElement prevVisibleSibling, IElementType
-                                                      prevVisibleSiblingElementType) {
-        //Suggestions related to QuerySectionNode
+                                              PsiElement prevVisibleSibling,
+                                              IElementType prevVisibleSiblingElementType) {
+        // Suggestions related to QuerySectionNode
         if (PsiTreeUtil.getParentOfType(element, QuerySectionNode.class) != null) {
-            //This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) in
+            // This provides suggestions after ->(SELECT ('*'| (output_attribute (',' output_attribute)* ))) in
             // query_section1 rule
             if ((prevVisibleSiblingElementType != SiddhiTypes.AS && PsiTreeUtil
                     .getParentOfType(prevVisibleSibling, OutputAttributeNode.class) != null) ||
@@ -46,7 +46,7 @@ public class QuerySectionCompletionContributor {
                 addBeginingOfQueryOutputKeywords(result);
                 return;
             }
-            //suggesting 'by' keyword after 'group' keyword
+            // suggesting 'by' keyword after 'group' keyword
             if (prevVisibleSiblingElementType == SiddhiTypes.GROUP) {
                 addByKeyword(result);
             }

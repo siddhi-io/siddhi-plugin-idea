@@ -159,14 +159,6 @@ public class SiddhiSdkUtil {
         return file != null && file.isDirectory() ? file : null;
     }
 
-    public static LinkedHashSet<VirtualFile> getSourcesPathsToLookup(@Nonnull Project project, @Nullable Module
-            module) {
-        LinkedHashSet<VirtualFile> sdkAndGoPath = newLinkedHashSet();
-        ContainerUtil.addIfNotNull(sdkAndGoPath, getSdkSrcDir(project, module));
-        //        ContainerUtil.addAllNotNull(sdkAndGoPath, getSiddhiPathSources(project, module));
-        return sdkAndGoPath;
-    }
-
     @Nonnull
     private static String getSrcLocation(@Nonnull String version) {
         return "src";
@@ -229,8 +221,8 @@ public class SiddhiSdkUtil {
 
         @Override
         public VirtualFile fun(VirtualFile file) {
-            return file == null || FileUtil.namesEqual(mySubdirName, file.getName()) ? file : file.findChild
-                    (mySubdirName);
+            return file == null
+                            || FileUtil.namesEqual(mySubdirName, file.getName()) ? file : file.findChild(mySubdirName);
         }
     }
 

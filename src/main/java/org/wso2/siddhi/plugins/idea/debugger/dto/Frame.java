@@ -24,13 +24,9 @@ import java.util.Map;
 public class Frame {
 
     private String frameName, fileName;
-
     private String queryName;
-
     private Map<String, Object> queryState;
-
     private Object eventInfo;
-
     private BreakPoint location;
 
     public Frame(String frameName, String fileName) {
@@ -78,5 +74,4 @@ public class Frame {
     public void setEventInfo(Object eventInfo) {
         this.eventInfo = eventInfo;
     }
-
 }

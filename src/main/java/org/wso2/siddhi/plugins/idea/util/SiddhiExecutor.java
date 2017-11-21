@@ -351,9 +351,6 @@ public class SiddhiExecutor {
         commandLine.setExePath(ObjectUtils.notNull(myExePath, ObjectUtils.notNull(SiddhiSdkUtil
                 .getSiddhiExecutablePath(myProject, myModule))));
         commandLine.getEnvironment().putAll(myExtraEnvironment);
-        //        commandLine.getEnvironment().put(SiddhiConstants.SIDDHI_REPOSITORY,
-        //                StringUtil.notNullize(mySiddhiPath));
-
         Collection<String> paths = ContainerUtil.newArrayList();
         ContainerUtil.addIfNotNull(paths, StringUtil.nullize(commandLine.getEnvironment().get(
                 SiddhiConstants.PATH), true));

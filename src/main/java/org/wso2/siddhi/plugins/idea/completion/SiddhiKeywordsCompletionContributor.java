@@ -70,105 +70,106 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     @Override
     public void fillCompletionVariants(@Nonnull CompletionParameters parameters, @Nonnull CompletionResultSet result) {
         PsiElement element = parameters.getPosition();
-        if (element instanceof LeafPsiElement) {
-            IElementType elementType = ((LeafPsiElement) element).getElementType();
-            if (elementType == SiddhiTypes.IDENTIFIER && getPreviousVisibleSiblingSkippingComments(element) == null) {
-                // gives null in first line first character
-                //initial suggestions-suggestion for first character of the file
-                addInitialTypesAsLookups(result);
-                return;
-            }
-            if (elementType == SiddhiTypes.IDENTIFIER && getPreviousVisibleSiblingSkippingComments(element) != null) {
-                PsiElement prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(element);
-                if (prevVisibleSibling != null) {
-                    IElementType prevVisibleSiblingElementType = null;
-                    if (prevVisibleSibling instanceof LeafPsiElement) {
-                        prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();
-                    }
-                    PsiElement prevPreVisibleSibling = null;
-                    if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
+        if (!(element instanceof LeafPsiElement)) {
+            return;
+        }
+        IElementType elementType = ((LeafPsiElement) element).getElementType();
+        if (elementType == SiddhiTypes.IDENTIFIER && getPreviousVisibleSiblingSkippingComments(element) == null) {
+            // gives null in first line first character
+            // initial suggestions-suggestion for first character of the file
+            addInitialTypesAsLookups(result);
+            return;
+        }
+        if (elementType == SiddhiTypes.IDENTIFIER && getPreviousVisibleSiblingSkippingComments(element) != null) {
+            PsiElement prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(element);
+            if (prevVisibleSibling != null) {
+                IElementType prevVisibleSiblingElementType = null;
+                if (prevVisibleSibling instanceof LeafPsiElement) {
+                    prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();
+                }
+                PsiElement prevPreVisibleSibling = null;
+                if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
 
-                        prevPreVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
-                    }
-                    PsiElement prevPrePreVisibleSibling = null;
-                    if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
+                    prevPreVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
+                }
+                PsiElement prevPrePreVisibleSibling = null;
+                if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
 
-                        prevPrePreVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
-                    }
-                    //Suggestions after ';' in a partition. This means another query is going to write
-                    if (prevVisibleSiblingElementType == SiddhiTypes.SCOL
-                            && PsiTreeUtil.getParentOfType(element, ParseNode.class) != null
-                            && prevPreVisibleSibling != null
-                            && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, PartitionNode.class) != null
-                            && prevPrePreVisibleSibling != null
-                            && isEndOfAQueryOutput(prevPreVisibleSibling, prevPrePreVisibleSibling)) {
-                        addFromKeyword(result);
+                    prevPrePreVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
+                }
+                // Suggestions after ';' in a partition. This means another query is going to write
+                if (prevVisibleSiblingElementType == SiddhiTypes.SCOL
+                        && PsiTreeUtil.getParentOfType(element, ParseNode.class) != null
+                        && prevPreVisibleSibling != null
+                        && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, PartitionNode.class) != null
+                        && prevPrePreVisibleSibling != null
+                        && isEndOfAQueryOutput(prevPreVisibleSibling, prevPrePreVisibleSibling)) {
+                    addFromKeyword(result);
+                    return;
+                }
+                // Suggestions after a semicolon
+                if (prevVisibleSiblingElementType == SiddhiTypes.SCOL) {
+                    addInitialTypesAsLookups(result);
+                    return;
+                }
+                // Suggestions after @ symbol
+                if (prevVisibleSiblingElementType == SiddhiTypes.AT_SYMBOL) {
+                    addAfterATSymbolLookups(result);
+                    return;
+                }
+                // suggestions after define keyword
+                if (prevVisibleSiblingElementType == SiddhiTypes.DEFINE) {
+                    addDefineTypesAsLookups(result);
+                    return;
+                }
+                // suggestions after an annotation
+                if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && (PsiTreeUtil.getParentOfType
+                        (prevVisibleSibling, AppAnnotationNode.class) != null ||
+                        PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationNode.class) != null)) {
+                    addInitialTypesAsLookups(result);
+                    return;
+                }
+                // suggestions after an attribute type if it is in a definition element
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeNameNode.class) != null && PsiTreeUtil
+                        .getParentOfType(prevVisibleSibling, DefinitionElementNode.class) != null) {
+                    addValueTypesAsLookups(result);
+                    return;
+                }
+                // suggestions after a trigger name node AT keyword
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TriggerNameNode.class) != null) {
+                    addAtKeyword(result);
+                    return;
+                }
+                if (prevPreVisibleSibling != null) {
+                    // Handling suggestions in a query
+                    if (PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
+                        executionElementRelatedKeywordCompletion(result, element, prevVisibleSibling,
+                                prevVisibleSiblingElementType, prevPreVisibleSibling);
                         return;
                     }
-                    //Suggestions after a semicolon
-                    if (prevVisibleSiblingElementType == SiddhiTypes.SCOL) {
-                        addInitialTypesAsLookups(result);
+                    // after AT in a Trigger definition, suggest EVERY keyword
+                    if (prevVisibleSiblingElementType == SiddhiTypes.AT && PsiTreeUtil.getParentOfType
+                            (prevPreVisibleSibling, TriggerNameNode.class) != null) {
+                        addEveryKeyword(result);
                         return;
                     }
-                    //Suggestions after @ symbol
-                    if (prevVisibleSiblingElementType == SiddhiTypes.AT_SYMBOL) {
-                        addAfterATSymbolLookups(result);
-                        return;
-                    }
-                    //suggestions after define keyword
-                    if (prevVisibleSiblingElementType == SiddhiTypes.DEFINE) {
-                        addDefineTypesAsLookups(result);
-                        return;
-                    }
-                    //suggestions after an annotation
-                    if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && (PsiTreeUtil.getParentOfType
-                            (prevVisibleSibling, AppAnnotationNode.class) != null ||
-                            PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationNode.class) != null)) {
-                        addInitialTypesAsLookups(result);
-                        return;
-                    }
-                    //suggestions after an attribute type if it is in a definition element
-                    if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeNameNode.class) != null && PsiTreeUtil
-                            .getParentOfType(prevVisibleSibling, DefinitionElementNode.class) != null) {
-                        addValueTypesAsLookups(result);
-                        return;
-                    }
-                    //suggestions after a trigger name node AT keyword
-                    if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TriggerNameNode.class) != null) {
-                        addAtKeyword(result);
-                        return;
-                    }
-                    if (prevPreVisibleSibling != null) {
-                        //Handling suggestions in a query
-                        if (PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
-                            executionElementRelatedKeywordCompletion(result, element, prevVisibleSibling,
-                                    prevVisibleSiblingElementType, prevPreVisibleSibling);
-                            return;
-                        }
-                        //after AT in a Trigger definition, suggest EVERY keyword
-                        if (prevVisibleSiblingElementType == SiddhiTypes.AT && PsiTreeUtil.getParentOfType
-                                (prevPreVisibleSibling, TriggerNameNode.class) != null) {
-                            addEveryKeyword(result);
-                            return;
-                        }
-                        //Window definitions suggestions
-                        if (PsiTreeUtil.getParentOfType(element, WindowDefinitionNode.class) != null) {
-                            windowDefinitionRelatedKeywordCompletion(result, element, prevVisibleSibling,
-                                    prevVisibleSiblingElementType);
-                        }
-                        //suggestions related to function definition
-                        functionDefinitionRelatedKeywordCompletion(result, element, prevPreVisibleSibling,
+                    // Window definitions suggestions
+                    if (PsiTreeUtil.getParentOfType(element, WindowDefinitionNode.class) != null) {
+                        windowDefinitionRelatedKeywordCompletion(result, element, prevVisibleSibling,
                                 prevVisibleSiblingElementType);
-                        //TODO: add aggregation definition
                     }
-                    //Adding suggestions after a comment
-                    if (prevVisibleSibling instanceof PsiComment && (prevVisibleSibling.getParent() instanceof
-                            SiddhiFile
-                            || prevVisibleSibling.getParent() instanceof ParseNode
-                            || prevVisibleSibling.getParent().getParent() instanceof ParseNode
-                            || prevVisibleSibling.getParent() instanceof SiddhiAppNode)) {
-                        addInitialTypesAsLookups(result);
-                    }
+                    // suggestions related to function definition
+                    functionDefinitionRelatedKeywordCompletion(result, element, prevPreVisibleSibling,
+                            prevVisibleSiblingElementType);
+                    //TODO: add aggregation definition
+                }
+                // Adding suggestions after a comment
+                if (prevVisibleSibling instanceof PsiComment && (prevVisibleSibling.getParent() instanceof
+                        SiddhiFile
+                        || prevVisibleSibling.getParent() instanceof ParseNode
+                        || prevVisibleSibling.getParent().getParent() instanceof ParseNode
+                        || prevVisibleSibling.getParent() instanceof SiddhiAppNode)) {
+                    addInitialTypesAsLookups(result);
                 }
             }
         }
@@ -176,8 +177,8 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 
     //TODO: Restructure definition related completions
     private void windowDefinitionRelatedKeywordCompletion(@Nonnull CompletionResultSet result, PsiElement element,
-                                                          PsiElement prevVisibleSibling, IElementType
-                                                                  prevVisibleSiblingElementType) {
+                                                          PsiElement prevVisibleSibling,
+                                                          IElementType prevVisibleSiblingElementType) {
         if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
             PsiElement prevPrevVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
             if (element.getParent().getParent().getPrevSibling() != null) {
@@ -224,18 +225,18 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     }
 
     private void executionElementRelatedKeywordCompletion(@Nonnull CompletionResultSet result, PsiElement element,
-                                                          PsiElement prevVisibleSibling, IElementType
-                                                                  prevVisibleSiblingElementType, PsiElement
-                                                                  prevPreVisibleSibling) {
-        //keyword completion related to partitions
+                                                          PsiElement prevVisibleSibling,
+                                                          IElementType prevVisibleSiblingElementType,
+                                                          PsiElement prevPreVisibleSibling) {
+        // keyword completion related to partitions
         if (PsiTreeUtil.getParentOfType(element, PartitionNode.class) != null) {
             PartitionCompletionContributor.partitionCompletion(result, element, prevVisibleSibling,
                     prevVisibleSiblingElementType,
                     prevPreVisibleSibling);
-            //Don't use 'return' here. Because inside a partition there can be queries as well. So if we return from
+            // Don't use 'return' here. Because inside a partition there can be queries as well. So if we return from
             // here then those code suggestions for queries will not work.
         }
-        //keyword completion related to queries
+        // keyword completion related to queries
         if (PsiTreeUtil.getParentOfType(element, QueryNode.class) != null) {
             QueryCompletionContributor.queryCompletion(result, element, prevVisibleSibling,
                     prevVisibleSiblingElementType, prevPreVisibleSibling);

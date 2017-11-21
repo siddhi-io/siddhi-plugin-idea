@@ -36,7 +36,7 @@ import javax.annotation.Nonnull;
  * Provides run configuration producer base for siddhi.
  * @param <T>
  */
-public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConfigurationWithMain>
+public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConfiguration>
         extends RunConfigurationProducer<T> implements Cloneable {
 
     protected SiddhiRunConfigurationProducerBase(@Nonnull ConfigurationType configurationType) {
@@ -57,8 +57,6 @@ public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConf
             RunConfiguration existingConfiguration = existingConfigurations.getConfiguration();
             // Run configuration might be an application configuration. So we need to check the type.
             if (existingConfiguration instanceof SiddhiApplicationConfiguration) {
-                // Set other configurations.
-                setConfigurations((SiddhiApplicationConfiguration) existingConfiguration);
                 return true;
             }
         } else if (configuration instanceof SiddhiApplicationConfiguration) {
@@ -75,17 +73,10 @@ public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConf
             if (module != null) {
                 configuration.setModule(module);
             }
-            // Set other configurations.
-            setConfigurations((SiddhiApplicationConfiguration) configuration);
             return true;
         }
         // Return false if the provided configuration type cannot be applied.
         return false;
-    }
-
-    private void setConfigurations(@Nonnull SiddhiApplicationConfiguration configuration) {
-        // Set the kind to MAIN.
-        configuration.setRunKind(RunConfigurationKind.MAIN);
     }
 
     @Nonnull

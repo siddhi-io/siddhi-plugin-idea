@@ -33,8 +33,7 @@ import com.intellij.psi.PsiDocumentManager;
 public class ParenthesisInsertHandler implements InsertHandler<LookupElement> {
 
     public static final InsertHandler<LookupElement> INSTANCE = new ParenthesisInsertHandler(false);
-    public static final InsertHandler<LookupElement> INSTANCE_WITH_AUTO_POPUP =
-            new ParenthesisInsertHandler(true);
+    public static final InsertHandler<LookupElement> INSTANCE_WITH_AUTO_POPUP = new ParenthesisInsertHandler(true);
 
     private final String myIgnoreOnChars;
     private final boolean myTriggerAutoPopup;

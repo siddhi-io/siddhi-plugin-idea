@@ -26,13 +26,11 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.InvalidDataException;
-import com.intellij.openapi.util.JDOMExternalizerUtil;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.util.text.StringUtil;
 import org.jdom.Element;
-import org.wso2.siddhi.plugins.idea.runconfig.RunConfigurationKind;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiModuleBasedConfiguration;
-import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfigurationWithMain;
+import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfiguration;
 import org.wso2.siddhi.plugins.idea.runconfig.ui.SiddhiApplicationSettingsEditor;
 
 import javax.annotation.Nonnull;
@@ -41,9 +39,7 @@ import javax.annotation.Nonnull;
  * Defines siddhi application configuration.
  */
 public class SiddhiApplicationConfiguration
-        extends SiddhiRunConfigurationWithMain<SiddhiApplicationRunningState> {
-
-    private static final String KIND_ATTRIBUTE_NAME = "kind";
+        extends SiddhiRunConfiguration<SiddhiApplicationRunningState> {
 
     public SiddhiApplicationConfiguration(Project project, String name,
                                           @Nonnull ConfigurationType configurationType) {
@@ -53,18 +49,11 @@ public class SiddhiApplicationConfiguration
     @Override
     public void readExternal(@Nonnull Element element) throws InvalidDataException {
         super.readExternal(element);
-        try {
-            String kindName = JDOMExternalizerUtil.getFirstChildValueAttribute(element, KIND_ATTRIBUTE_NAME);
-            myRunKind = kindName != null ? RunConfigurationKind.valueOf(kindName) : RunConfigurationKind.MAIN;
-        } catch (IllegalArgumentException e) {
-            myRunKind = RunConfigurationKind.MAIN;
-        }
     }
 
     @Override
     public void writeExternal(Element element) throws WriteExternalException {
         super.writeExternal(element);
-        JDOMExternalizerUtil.addElementWithValueAttribute(element, KIND_ATTRIBUTE_NAME, myRunKind.name());
     }
 
     @Nonnull

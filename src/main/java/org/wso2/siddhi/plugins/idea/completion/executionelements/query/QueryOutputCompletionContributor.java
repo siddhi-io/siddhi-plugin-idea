@@ -46,10 +46,10 @@ import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtil
 public class QueryOutputCompletionContributor {
 
     public static void queryOutputCompletion(@Nonnull CompletionResultSet result, PsiElement element,
-                                             PsiElement prevVisibleSibling, IElementType
-                                                     prevVisibleSiblingElementType, PsiElement
-                                                     prevPreVisibleSibling) {
-        //suggestions after INSERT keyword
+                                             PsiElement prevVisibleSibling,
+                                             IElementType prevVisibleSiblingElementType,
+                                             PsiElement prevPreVisibleSibling) {
+        // suggestions after INSERT keyword
         if (prevVisibleSiblingElementType == SiddhiTypes.INSERT && (PsiTreeUtil.getParentOfType
                 (prevPreVisibleSibling, OutputRateNode.class) != null || PsiTreeUtil.getParentOfType
                 (prevPreVisibleSibling, QuerySectionNode.class) != null || PsiTreeUtil.getParentOfType
@@ -58,7 +58,7 @@ public class QueryOutputCompletionContributor {
             addIntoKeyword(result);
             return;
         }
-        //suggesting INTO keyword after a output event type in a query
+        // suggesting INTO keyword after a output event type in a query
         PsiElement parentOfPrevVisSibling = prevVisibleSibling.getParent();
         if (parentOfPrevVisSibling instanceof OutputEventTypeNode) {
             PsiElement prevVisibleSiblingOfParent = getPreviousVisibleSiblingSkippingComments(parentOfPrevVisSibling);
@@ -72,9 +72,9 @@ public class QueryOutputCompletionContributor {
                 return;
             }
         }
-        //Suggestions inside a QueryOutputNode
+        // Suggestions inside a QueryOutputNode
         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, QueryOutputNode.class) != null) {
-            //Suggesting keywords related to "delete" in query
+            // Suggesting keywords related to "delete" in query
             if (PsiTreeUtil.getParentOfType(element, DeleteFromTableNode.class) != null) {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
                     addForKeyword(result);
@@ -90,7 +90,7 @@ public class QueryOutputCompletionContributor {
                     return;
                 }
             }
-            //suggesting keywords related to "update or insert into" in query
+            // suggesting keywords related to "update or insert into" in query
             if (PsiTreeUtil.getParentOfType(element, UpdateOrInsertIntoNode.class) != null) {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
                     addForKeyword(result);
@@ -108,7 +108,7 @@ public class QueryOutputCompletionContributor {
                     return;
                 }
             }
-            //suggesting keywords related to "update" in query
+            // suggesting keywords related to "update" in query
             if (PsiTreeUtil.getParentOfType(element, UpdateTableNode.class) != null) {
                 if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TargetNode.class) != null) {
                     addForKeyword(result);

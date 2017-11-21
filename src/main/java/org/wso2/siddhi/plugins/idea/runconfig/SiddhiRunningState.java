@@ -59,16 +59,7 @@ public abstract class SiddhiRunningState<T extends SiddhiRunConfigurationBase<?>
         SiddhiExecutor executor = patchExecutor(createCommonExecutor());
         // We only need to set
         GeneralCommandLine commandLine;
-        if (myConfiguration instanceof SiddhiRunConfigurationWithMain) {
-            RunConfigurationKind runKind = ((SiddhiRunConfigurationWithMain) myConfiguration).getRunKind();
-            if (runKind == RunConfigurationKind.MAIN) {
-                commandLine = executor.withParameterString(myConfiguration.getParams()).createCommandLine();
-            } else {
-                commandLine = executor.createCommandLine();
-            }
-        } else {
-            commandLine = executor.withParameterString(myConfiguration.getParams()).createCommandLine();
-        }
+        commandLine = executor.withParameterString(myConfiguration.getParams()).createCommandLine();
         KillableColoredProcessHandler handler = new KillableColoredProcessHandler(commandLine, true);
         ProcessTerminatedListener.attach(handler);
         return handler;

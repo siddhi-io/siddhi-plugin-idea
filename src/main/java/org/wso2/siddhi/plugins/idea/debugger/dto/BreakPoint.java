@@ -22,11 +22,8 @@ package org.wso2.siddhi.plugins.idea.debugger.dto;
 public class BreakPoint {
 
     private int queryIndex;
-
     private String queryTerminal;
-
     private String fileName;
-
     private int lineNumber;
 
     public Integer getQueryIndex() {
@@ -66,5 +63,4 @@ public class BreakPoint {
         this.queryIndex = queryIndex;
         this.queryTerminal = queryTerminal;
     }
-
 }

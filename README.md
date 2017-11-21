@@ -35,7 +35,7 @@ IntelliJ Platfom.
 
 | Plugin Version | Platform Version |
 | --- | --- |
-| 0.5+ | IntelliJ IDEA 2017.2.5+ |
+| 1.0.0+ | IntelliJ IDEA 2017.2.5+ |
 
 ## Getting started
 

@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  */
 public class SiddhiConsoleFolding extends ConsoleFolding {
 
-    private static final String REGEX = "siddhi(.bat)? (run|build) (main) .+";
+    private static final String REGEX = "siddhi(.bat)? (run) (main) .+";
     private static final Pattern PATTERN = Pattern.compile(REGEX);
 
     @Override

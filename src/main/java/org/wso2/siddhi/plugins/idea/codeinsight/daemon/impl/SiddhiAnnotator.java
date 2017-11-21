@@ -59,40 +59,41 @@ public class SiddhiAnnotator implements Annotator {
 
     private void annotateLeafPsiElementNodes(@Nonnull PsiElement element, @Nonnull AnnotationHolder holder) {
         IElementType elementType = ((LeafPsiElement) element).getElementType();
-        if (elementType == SiddhiTypes.STRING_LITERAL) {
-            // In here, we annotate valid escape characters.
-            String text = element.getText();
-            Matcher matcher = VALID_ESCAPE_CHAR_PATTERN.matcher(text);
-            // Get the start offset of the element.
-            int startOffset = ((LeafPsiElement) element).getStartOffset();
-            // Iterate through each match.
-            while (matcher.find()) {
-                // Get the matching group.
-                String group = matcher.group(0);
-                // Calculate the start and end offsets and create the range.
-                TextRange range = new TextRange(startOffset + matcher.start(),
-                        startOffset + matcher.start() + group.length());
-                // Create the annotation.
-                Annotation annotation = holder.createInfoAnnotation(range, null);
-                annotation.setTextAttributes(SiddhiSyntaxHighlightingColors.VALID_STRING_ESCAPE);
-            }
+        if (elementType != SiddhiTypes.STRING_LITERAL) {
+            return;
+        }
+        // In here, we annotate valid escape characters.
+        String text = element.getText();
+        Matcher matcher = VALID_ESCAPE_CHAR_PATTERN.matcher(text);
+        // Get the start offset of the element.
+        int startOffset = ((LeafPsiElement) element).getStartOffset();
+        // Iterate through each match.
+        while (matcher.find()) {
+            // Get the matching group.
+            String group = matcher.group(0);
+            // Calculate the start and end offsets and create the range.
+            TextRange range = new TextRange(startOffset + matcher.start(),
+                    startOffset + matcher.start() + group.length());
+            // Create the annotation.
+            Annotation annotation = holder.createInfoAnnotation(range, null);
+            annotation.setTextAttributes(SiddhiSyntaxHighlightingColors.VALID_STRING_ESCAPE);
+        }
 
-            // Annotate invalid escape characters.
-            matcher = INVALID_ESCAPE_CHAR_PATTERN.matcher(text);
-            // Get the start offset of the element.
-            startOffset = ((LeafPsiElement) element).getStartOffset();
-            // Iterate through each match.
-            while (matcher.find()) {
-                // Get the matching group.
-                String group = matcher.group(3);
-                if (group != null) {
-                    // Calculate the start and end offsets and create the range.
-                    TextRange range = new TextRange(startOffset + matcher.start(3),
-                            startOffset + matcher.start(3) + group.length());
-                    // Create the annotation.
-                    Annotation annotation = holder.createInfoAnnotation(range, "Invalid string escape");
-                    annotation.setTextAttributes(SiddhiSyntaxHighlightingColors.INVALID_STRING_ESCAPE);
-                }
+        // Annotate invalid escape characters.
+        matcher = INVALID_ESCAPE_CHAR_PATTERN.matcher(text);
+        // Get the start offset of the element.
+        startOffset = ((LeafPsiElement) element).getStartOffset();
+        // Iterate through each match.
+        while (matcher.find()) {
+            // Get the matching group.
+            String group = matcher.group(3);
+            if (group != null) {
+                // Calculate the start and end offsets and create the range.
+                TextRange range = new TextRange(startOffset + matcher.start(3),
+                        startOffset + matcher.start(3) + group.length());
+                // Create the annotation.
+                Annotation annotation = holder.createInfoAnnotation(range, "Invalid string escape");
+                annotation.setTextAttributes(SiddhiSyntaxHighlightingColors.INVALID_STRING_ESCAPE);
             }
         }
     }

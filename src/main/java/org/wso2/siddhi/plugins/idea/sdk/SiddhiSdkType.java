@@ -64,7 +64,6 @@ public class SiddhiSdkType extends SdkType {
     public String suggestHomePath() {
         VirtualFile suggestSdkDirectory = SiddhiSdkUtil.suggestSdkDirectory();
         return suggestSdkDirectory != null ? suggestSdkDirectory.getPath() : null;
-        //        return null;
     }
 
     @Override

@@ -35,12 +35,11 @@ import javax.annotation.Nonnull;
  * Defines run configuration with main.
  * @param <T>
  */
-public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningState> extends
+public abstract class SiddhiRunConfiguration<T extends SiddhiRunningState> extends
         SiddhiRunConfigurationBase<T> {
 
     private static final String FILE_PATH_ATTRIBUTE_NAME = "filePath";
     private static final String INPUT_FILE_PATH_ATTRIBUTE_NAME = "inputFilePath";
-    private static final String KIND_ATTRIBUTE_NAME = "myRunKind";
     private static final String REMOTE_DEBUGGING_HOST_ATTRIBUTE_NAME = "remoteDebuggingHost";
     private static final String REMOTE_DEBUGGING_PORT_ATTRIBUTE_NAME = "remoteDebuggingPort";
 
@@ -48,14 +47,12 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
     private String myFilePath = "";
     private String myInputFilePath = "";
     @Nonnull
-    protected RunConfigurationKind myRunKind = RunConfigurationKind.MAIN;
-    @Nonnull
     private String remoteDebugHost = "";
     @Nonnull
     private String remoteDebugPort = "";
 
-    public SiddhiRunConfigurationWithMain(String name, SiddhiModuleBasedConfiguration configurationModule,
-                                          ConfigurationFactory factory) {
+    public SiddhiRunConfiguration(String name, SiddhiModuleBasedConfiguration configurationModule,
+                                  ConfigurationFactory factory) {
         super(name, configurationModule, factory);
         myFilePath = getFilePath();
     }
@@ -67,8 +64,6 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
                 FILE_PATH_ATTRIBUTE_NAME));
         myInputFilePath = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
                 INPUT_FILE_PATH_ATTRIBUTE_NAME));
-        myRunKind = RunConfigurationKind.valueOf(StringUtil.notNullize(
-                JDOMExternalizerUtil.getFirstChildValueAttribute(element, KIND_ATTRIBUTE_NAME)));
         remoteDebugHost = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
                 REMOTE_DEBUGGING_HOST_ATTRIBUTE_NAME));
         remoteDebugPort = StringUtil.notNullize(JDOMExternalizerUtil.getFirstChildValueAttribute(element,
@@ -80,7 +75,6 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
         super.writeExternal(element);
         addNonEmptyElement(element, FILE_PATH_ATTRIBUTE_NAME, myFilePath);
         addNonEmptyElement(element, INPUT_FILE_PATH_ATTRIBUTE_NAME, myInputFilePath);
-        addNonEmptyElement(element, KIND_ATTRIBUTE_NAME, myRunKind.toString());
         addNonEmptyElement(element, REMOTE_DEBUGGING_HOST_ATTRIBUTE_NAME, remoteDebugHost);
         addNonEmptyElement(element, REMOTE_DEBUGGING_PORT_ATTRIBUTE_NAME, remoteDebugPort);
     }
@@ -115,14 +109,6 @@ public abstract class SiddhiRunConfigurationWithMain<T extends SiddhiRunningStat
 
     public void setInputFilePath(@Nonnull String inputFilePath) {
         myInputFilePath = inputFilePath;
-    }
-
-    public RunConfigurationKind getRunKind() {
-        return myRunKind;
-    }
-
-    public void setRunKind(RunConfigurationKind runKind) {
-        this.myRunKind = runKind;
     }
 
     @Nonnull

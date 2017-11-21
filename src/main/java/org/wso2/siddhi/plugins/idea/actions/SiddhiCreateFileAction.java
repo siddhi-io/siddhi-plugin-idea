@@ -65,7 +65,6 @@ public class SiddhiCreateFileAction extends CreateFileFromTemplateAction impleme
         return NEW_SIDDHI_FILE;
     }
 
-
     @Override
     protected void postProcess(PsiFile createdElement, String templateName, Map<String, String> customProperties) {
         if (createdElement instanceof SiddhiFile) {
