@@ -286,20 +286,22 @@ public class SiddhiParserDefinition implements ParserDefinition {
             FULL, UNIDIRECTIONAL, YEARS, MONTHS, WEEKS, DAYS, HOURS, MINUTES, SECONDS, MILLISECONDS, FALSE, TRUE,
             STRING, INT, LONG, FLOAT, DOUBLE, BOOL, OBJECT, AGGREGATION, AGGREGATE, PER);
 
-    public static final TokenSet COMMENTS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            SINGLE_LINE_COMMENT, MULTILINE_COMMENT);
-    public static final TokenSet WHITESPACE = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, SPACES);
-    public static final TokenSet STRING_LITERALS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            STRING_LITERAL);
-    public static final TokenSet BAD_CHARACTER = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            UNEXPECTED_CHAR);
-    public static final TokenSet SEMICOLON = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, SCOL);
-    public static final TokenSet COLON = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            SiddhiQLParser.COL);
-    public static final TokenSet COMMA = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            SiddhiQLParser.COMMA);
-    public static final TokenSet SYMBOLS = PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE,
-            AT_SYMBOL, HASH);
+    public static final TokenSet COMMENTS =
+            PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, SINGLE_LINE_COMMENT, MULTILINE_COMMENT);
+    public static final TokenSet WHITESPACE =
+            PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, SPACES);
+    public static final TokenSet STRING_LITERALS =
+            PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, STRING_LITERAL);
+    public static final TokenSet BAD_CHARACTER =
+            PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, UNEXPECTED_CHAR);
+    public static final TokenSet SEMICOLON =
+            PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, SCOL);
+    public static final TokenSet COLON =
+            PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, SiddhiQLParser.COL);
+    public static final TokenSet COMMA =
+            PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, SiddhiQLParser.COMMA);
+    public static final TokenSet SYMBOLS =
+            PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, AT_SYMBOL, HASH);
 
     @Nonnull
     @Override

@@ -123,15 +123,15 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     return;
                 }
                 // suggestions after an annotation
-                if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && (PsiTreeUtil.getParentOfType
-                        (prevVisibleSibling, AppAnnotationNode.class) != null ||
-                        PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationNode.class) != null)) {
+                if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR
+                        && (PsiTreeUtil.getParentOfType(prevVisibleSibling, AppAnnotationNode.class) != null
+                        || PsiTreeUtil.getParentOfType(prevVisibleSibling, AnnotationNode.class) != null)) {
                     addInitialTypesAsLookups(result);
                     return;
                 }
                 // suggestions after an attribute type if it is in a definition element
-                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeNameNode.class) != null && PsiTreeUtil
-                        .getParentOfType(prevVisibleSibling, DefinitionElementNode.class) != null) {
+                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeNameNode.class) != null
+                        && PsiTreeUtil.getParentOfType(prevVisibleSibling, DefinitionElementNode.class) != null) {
                     addValueTypesAsLookups(result);
                     return;
                 }
@@ -198,16 +198,16 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     private void functionDefinitionRelatedKeywordCompletion(@Nonnull CompletionResultSet result, PsiElement element,
                                                             PsiElement prevPreVisibleSibling,
                                                             IElementType prevVisibleSiblingElementType) {
-        if (PsiTreeUtil.getParentOfType(element, LanguageNameNode.class) != null && PsiTreeUtil
-                .getParentOfType(prevPreVisibleSibling, FunctionNameNode.class) != null
+        if (PsiTreeUtil.getParentOfType(element, LanguageNameNode.class) != null
+                && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, FunctionNameNode.class) != null
                 && prevVisibleSiblingElementType == SiddhiTypes.OPEN_SQUARE_BRACKETS) {
             addLanguageTypesKeywords(result);
             return;
         }
         if (element.getParent().getPrevSibling() != null) {
-            if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_SQUARE_BRACKETS && PsiTreeUtil
-                    .getParentOfType(prevPreVisibleSibling, LanguageNameNode.class) != null &&
-                    element.getParent().getPrevSibling() instanceof PsiWhiteSpace) {
+            if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_SQUARE_BRACKETS
+                    && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, LanguageNameNode.class) != null
+                    && element.getParent().getPrevSibling() instanceof PsiWhiteSpace) {
                 addReturnKeyword(result);
                 return;
             }
@@ -217,9 +217,9 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
             prevPrevVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling)
                     .getElementType();
         }
-        if (PsiTreeUtil.getParentOfType(element, FunctionDefinitionNode.class) != null &&
-                prevVisibleSiblingElementType == SiddhiTypes.RETURN &&
-                prevPrevVisibleSiblingElementType == SiddhiTypes.CLOSE_SQUARE_BRACKETS) {
+        if (PsiTreeUtil.getParentOfType(element, FunctionDefinitionNode.class) != null
+                && prevVisibleSiblingElementType == SiddhiTypes.RETURN
+                && prevPrevVisibleSiblingElementType == SiddhiTypes.CLOSE_SQUARE_BRACKETS) {
             addValueTypesAsLookups(result);
         }
     }

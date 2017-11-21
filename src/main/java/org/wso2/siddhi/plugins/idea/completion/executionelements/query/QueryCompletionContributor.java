@@ -83,7 +83,8 @@ public class QueryCompletionContributor {
         // suggesting keywords in the beginning of a query_output rule
 
         // This provides suggestions after ->OUTPUT output_rate_type? EVERY ( time_value) | OUTPUT SNAPSHOT EVERY
-        // time_value  in output_rate rule//TODO:check output related keyword suggestions
+        // time_value  in output_rate rule
+        // TODO:check output related keyword suggestions
         IElementType prevPreVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling).getElementType();
         if (PsiTreeUtil.getParentOfType(prevVisibleSibling, OutputRateNode.class) != null
                 && PsiTreeUtil.getParentOfType(prevVisibleSibling, TimeValueNode.class) != null) {

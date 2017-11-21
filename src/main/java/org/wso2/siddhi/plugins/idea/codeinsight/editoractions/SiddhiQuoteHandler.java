@@ -26,7 +26,7 @@ import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 public class SiddhiQuoteHandler extends SimpleTokenSetQuoteHandler {
 
     public SiddhiQuoteHandler() {
-        super(SiddhiTypes.STRING_LITERAL); //Need to identify ending tokens
+        super(SiddhiTypes.STRING_LITERAL); // Need to identify ending tokens
     }
 
     @Override

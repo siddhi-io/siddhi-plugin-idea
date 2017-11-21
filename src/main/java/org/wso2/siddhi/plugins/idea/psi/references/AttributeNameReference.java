@@ -55,14 +55,14 @@ public class AttributeNameReference extends SiddhiElementReference {
     @Nonnull
     @Override
     public Object[] getVariants() {
-        //TODO: resolve attribute types for streams created in the output stream in query output
-        //TODO:restrict attribute name suggestions to only used in the select phrase for group by clause
-        //TODO:restrict attribute name suggestions to only used in the select phrase
-        //TODO:restrict attribute suggestions in delete,update or insert,update in query output
-        //TODO: add attribute suggestions after on in queries ex: on Table.roomNo == Rstream.roomNo
+        // TODO: resolve attribute types for streams created in the output stream in query output
+        // TODO:restrict attribute name suggestions to only used in the select phrase for group by clause
+        // TODO:restrict attribute name suggestions to only used in the select phrase
+        // TODO:restrict attribute suggestions in delete,update or insert,update in query output
+        // TODO: add attribute suggestions after on in queries ex: on Table.roomNo == Rstream.roomNo
         IdentifierPSINode identifier = getElement();
         PsiFile psiFile = identifier.getContainingFile();
-        //Avoiding suggesting attributes after group keyword
+        // Avoiding suggesting attributes after group keyword
         PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(identifier);
         if (prevVisibleSibling != null) {
             IElementType prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();
@@ -75,7 +75,7 @@ public class AttributeNameReference extends SiddhiElementReference {
         if (PsiTreeUtil.getParentOfType(identifier, QueryNode.class) != null) {
             PsiElement queryNodeElement = PsiTreeUtil.getParentOfType(identifier, QueryNode.class);
             PsiElement queryInputNodeElement = PsiTreeUtil.getChildOfType(queryNodeElement, QueryInputNode.class);
-            //suggestions for Standard stream query input
+            // suggestions for Standard stream query input
             PsiElement standardStreamNode = PsiTreeUtil.getChildOfType(queryInputNodeElement, StandardStreamNode.class);
             PsiElement deepestVisibleLastElement;
             if (standardStreamNode != null) {
@@ -96,8 +96,9 @@ public class AttributeNameReference extends SiddhiElementReference {
             List streamNodes = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode.class).toArray()));
             for (Object streamNode : streamNodes) {
                 PsiElement element = (StreamIdNode) streamNode;
-                if (!streamName.equalsIgnoreCase("") && element.getText().equalsIgnoreCase(streamName) && PsiTreeUtil
-                        .getParentOfType(element, StreamDefinitionNode.class) != null) {
+                if (!streamName.equalsIgnoreCase("")
+                        && element.getText().equalsIgnoreCase(streamName)
+                        && PsiTreeUtil.getParentOfType(element, StreamDefinitionNode.class) != null) {
                     StreamDefinitionNode streamDefinitionNode = PsiTreeUtil.getParentOfType(element,
                             StreamDefinitionNode.class);
                     attributeNameNodes = Arrays.asList((PsiTreeUtil.findChildrenOfType(streamDefinitionNode,

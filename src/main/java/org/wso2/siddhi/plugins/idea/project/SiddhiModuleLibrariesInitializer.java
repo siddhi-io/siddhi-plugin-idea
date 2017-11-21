@@ -215,7 +215,7 @@ public class SiddhiModuleLibrariesInitializer implements ModuleComponent {
         PropertiesComponent propertiesComponent = PropertiesComponent.getInstance();
         PropertiesComponent projectPropertiesComponent = PropertiesComponent.getInstance(project);
         boolean shownAlready;
-        //noinspection SynchronizationOnLocalVariableOrMethodParameter
+        // noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (propertiesComponent) {
             shownAlready = propertiesComponent.getBoolean(SIDDHI_LIBRARIES_NOTIFICATION_HAD_BEEN_SHOWN, false)
                     || projectPropertiesComponent.getBoolean(SIDDHI_LIBRARIES_NOTIFICATION_HAD_BEEN_SHOWN, false);

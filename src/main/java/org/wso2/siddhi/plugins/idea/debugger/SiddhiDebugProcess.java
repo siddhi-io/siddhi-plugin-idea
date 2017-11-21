@@ -239,7 +239,6 @@ public class SiddhiDebugProcess extends XDebugProcess {
     }
 
     @Nullable
-
     private String getThreadId(@Nullable XSuspendContext context) {
         if (context != null) {
             XExecutionStack activeExecutionStack = context.getActiveExecutionStack();
@@ -398,9 +397,9 @@ public class SiddhiDebugProcess extends XDebugProcess {
         leftToolbar.remove(ActionManager.getInstance().getAction(XDebuggerActions.PAUSE));
     }
 
-    //arrayList Index=>queryIndex value=>Line number
+    // arrayList Index=>queryIndex value=>Line number
     private final List<Integer> queryInLinePositions = new ArrayList<>();
-    //arrayList Index=>queryIndex value=>Line number
+    // arrayList Index=>queryIndex value=>Line number
     private final List<Integer> queryOutLinePositions = new ArrayList<>();
 
     private void setQueryInOutPositions() {

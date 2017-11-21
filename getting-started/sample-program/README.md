@@ -52,7 +52,7 @@ Now you should have a new Siddhi file with the default app annotation.
 
 ![alt text](images/Figure-3-3.png)
 
-4. Click **+** button and select **Siddhi** to add a siddhi run/debug configuration.
+4. Click **+** button and select **Siddhi** to add a siddhi ***run/debug configuration***.
 
 ![alt text](images/Figure-3-4.png)
 

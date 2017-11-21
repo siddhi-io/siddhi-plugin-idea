@@ -30,8 +30,7 @@ import javax.annotation.Nonnull;
  */
 public class SiddhiNotification implements ApplicationComponent {
 
-    private static final String SIDDHI_PROJECT_TUTORIAL_NOTIFICATION_SHOWN =
-            "learn.siddhi.notification.shown";
+    private static final String SIDDHI_PROJECT_TUTORIAL_NOTIFICATION_SHOWN = "learn.siddhi.notification.shown";
 
     @Override
     public void initComponent() {

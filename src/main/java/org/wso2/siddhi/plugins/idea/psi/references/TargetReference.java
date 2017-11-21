@@ -64,13 +64,11 @@ public class TargetReference extends SiddhiElementReference {
             }
         }
         PsiFile psiFile = identifier.getContainingFile();
-        List streamIdNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile, StreamIdNode
-                .class).toArray()));
+        List streamIdNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile,
+                StreamIdNode.class).toArray()));
         List<StreamIdNode> tableDefinitionNodesWithoutDuplicates = new ArrayList<>();
         for (Object streamIdNode : streamIdNodesWithDuplicates) {
-
             PsiElement streamIdNodeIdentifier = (StreamIdNode) streamIdNode;
-
             if (streamIdNodeIdentifier != null
                     && PsiTreeUtil.getParentOfType(streamIdNodeIdentifier, TableDefinitionNode.class) != null
                     && streamIdNodeIdentifier.getTextOffset() < caretOffSet) {

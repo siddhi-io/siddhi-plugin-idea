@@ -171,7 +171,7 @@ public class SiddhiSdkUtil {
         if (moduleSdk != null && moduleSdk.getSdkType() == SiddhiSdkType.getInstance()) {
             return moduleSdk.getHomePath();
         }
-        // Ge the project SDK.
+        // Get the project SDK.
         Sdk projectSdk = ProjectRootManager.getInstance(project).getProjectSdk();
         // If the SDK is Siddhi SDK, return the home path.
         if (projectSdk != null && projectSdk.getSdkType() == SiddhiSdkType.getInstance()) {

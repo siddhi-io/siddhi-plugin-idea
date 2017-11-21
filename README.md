@@ -41,21 +41,6 @@ IntelliJ Platfom.
 
 Please refer the [Getting Started](getting-started) section.
 
-### Running siddhi files in IDEA
-
-1) Go to Create New Project ->select Siddhi and click Next.
-
-2) Click configure and select Home Directory for Siddhi SDK. Siddhi sdk is located in 
-siddhi-sdk/modules/siddhi-launcher/target.
-
-3) Click Next and give a project name.
-
-4) Then create a new file (ex: Test.siddhi) and run the file using Edit Configurations->Defaults->Siddhi and choose the location of the siddhi file and press OK.
-
-If you want to use an extension with the siddhi it can be done by adding the necessary dependency jar files into 
-siddhi-sdk/modules/siddhi-launcher/target/siddhi-sdk-1.0.0-SNAPSHOT/lib/ directory. 
-(Most of the extensions' dependency jars are packed in default)
-
 ## How to Contribute
  
   * Please report issues at <a target="_blank" href="https://github.com/wso2/siddhi-plugin-idea/issues">GitHub Issue 
@@ -78,5 +63,3 @@ siddhi-sdk/modules/siddhi-launcher/target/siddhi-sdk-1.0.0-SNAPSHOT/lib/ directo
 * We are committed to ensuring support for this extension in production. Our unique approach ensures that all support leverages our open development methodology and is provided by the very same engineers who build the technology. 
 
 * For more details and to take advantage of this unique opportunity contact us via <a target="_blank" href="http://wso2.com/support?utm_source=gitanalytics&utm_campaign=gitanalytics_Jul17">http://wso2.com/support/</a>.
-
-

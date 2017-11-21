@@ -57,7 +57,7 @@ public class StreamIdReference extends SiddhiElementReference {
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
         int caretOffSet = identifier.getTextOffset();
-        //TODO:check(with the grammar file) the actual place that can be applied these stream name
+        // TODO:check(with the grammar file) the actual place that can be applied these stream name
         /*
           We suggest stream ids in the following places
           1. after "from" in a Standard Stream node
@@ -75,8 +75,8 @@ public class StreamIdReference extends SiddhiElementReference {
                 || PsiTreeUtil.getParentOfType(identifier, QueryOutputNode.class) != null) {
             try {
                 if ((PsiTreeUtil.getParentOfType(identifier, RightSourceNode.class) != null
-                        && ((LeafPsiElement) PsiTreeUtil.prevVisibleLeaf(identifier)).getElementType() == SiddhiTypes
-                        .UNIDIRECTIONAL)) {
+                        && ((LeafPsiElement) PsiTreeUtil.prevVisibleLeaf(identifier)).getElementType() ==
+                        SiddhiTypes.UNIDIRECTIONAL)) {
                     return new LookupElement[0];
                 }
             } catch (NullPointerException e) {
@@ -88,8 +88,8 @@ public class StreamIdReference extends SiddhiElementReference {
             List<StreamIdNode> streamDefinitionNodesWithoutDuplicates = new ArrayList<>();
             for (Object streamDefinitionNode : streamDefinitionNodesWithDuplicates) {
                 PsiElement streamDefinitionNodeIdentifier = ((StreamIdNode) streamDefinitionNode);
-                if (streamDefinitionNodeIdentifier != null && streamDefinitionNodeIdentifier.getTextOffset() <
-                        caretOffSet) {
+                if (streamDefinitionNodeIdentifier != null
+                        && streamDefinitionNodeIdentifier.getTextOffset() < caretOffSet) {
                     streamDefinitionNodesWithoutDuplicates.add((StreamIdNode) streamDefinitionNodeIdentifier);
                 }
             }

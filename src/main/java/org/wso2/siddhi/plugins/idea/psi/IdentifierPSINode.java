@@ -88,13 +88,13 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
     @Override
     public PsiReference getReference() {
         PsiElement parent = getParent();
-        //Returning all the stream ids after the insert into clause in a query
-        //In here we are  explicitly suggesting all the stream ids even though we have checked for the parent type
+        // Returning all the stream ids after the insert into clause in a query
+        // In here we are  explicitly suggesting all the stream ids even though we have checked for the parent type
         // target
         PsiElement prevVisSibling = PsiTreeUtil.prevVisibleLeaf(this);
         if (prevVisSibling != null) {
             IElementType preVisibleSiblingType = ((LeafPsiElement) prevVisSibling).getElementType();
-            //"INTO" keyword can be found in the "update or insert into" and in the normal "inset into" clause. In
+            // "INTO" keyword can be found in the "update or insert into" and in the normal "inset into" clause. In
             // here we need to give all stream ids only to normal "insert into" clause. So we check whether the
             // element is not a child of the parent type UpdateOrInsertInto node.
             if (PsiTreeUtil.getParentOfType(parent, TargetNode.class) != null && preVisibleSiblingType == SiddhiTypes
@@ -102,7 +102,7 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
                 return new StreamIdReference(this);
             }
         }
-        //Do not change the order of the if statements. This order is aligned with the psi tree hierarchy
+        // Do not change the order of the if statements. This order is aligned with the psi tree hierarchy
         if (PsiTreeUtil.getParentOfType(parent, TargetNode.class) != null) {
             return new TargetReference(this);
         } else if (PsiTreeUtil.getParentOfType(parent, AttributeNameNode.class) != null && PsiTreeUtil.getParentOfType

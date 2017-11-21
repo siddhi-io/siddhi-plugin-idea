@@ -34,9 +34,7 @@ public class SiddhiApplicationRunConfigurationType extends ConfigurationTypeBase
     public SiddhiApplicationRunConfigurationType() {
         super("SiddhiApplicationRunConfiguration", "Siddhi",
                 "Siddhi Application Run Configuration", SiddhiIcons.APPLICATION_RUN);
-
         addFactory(new SiddhiConfigurationFactoryBase(this) {
-
             @Override
             @Nonnull
             public RunConfiguration createTemplateConfiguration(@Nonnull Project project) {

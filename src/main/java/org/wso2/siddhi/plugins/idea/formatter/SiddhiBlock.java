@@ -58,8 +58,8 @@ public class SiddhiBlock extends AbstractBlock {
     private List<Block> mySubBlocks;
 
 
-    protected SiddhiBlock(@Nonnull ASTNode node, @Nullable Alignment alignment, @Nullable Indent indent, @Nullable
-            Wrap wrap, @Nonnull CodeStyleSettings settings, SpacingBuilder spacingBuilder) {
+    protected SiddhiBlock(@Nonnull ASTNode node, @Nullable Alignment alignment, @Nullable Indent indent,
+                          @Nullable Wrap wrap, @Nonnull CodeStyleSettings settings, SpacingBuilder spacingBuilder) {
         super(node, wrap, alignment);
 
         this.node = node;
