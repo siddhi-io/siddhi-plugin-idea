@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents right_unidirectional_or_normal_join rule in parser.
  */
 public class RightUnidirectionalOrNormalJoinNode extends ANTLRPsiNode {
-    public RightUnidirectionalOrNormalJoinNode(@Nonnull ASTNode node) {
+    public RightUnidirectionalOrNormalJoinNode(@NotNull ASTNode node) {
         super(node);
     }
 }

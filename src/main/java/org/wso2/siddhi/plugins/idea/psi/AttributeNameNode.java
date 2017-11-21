@@ -19,12 +19,12 @@ package org.wso2.siddhi.plugins.idea.psi;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.impl.SiddhiItemPresentation;
 
-import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 /**
@@ -32,7 +32,7 @@ import javax.swing.Icon;
  */
 public class AttributeNameNode extends IdentifierDefSubtree {
 
-    public AttributeNameNode(@Nonnull ASTNode node) {
+    public AttributeNameNode(@NotNull ASTNode node) {
         super(node, SiddhiTypes.IDENTIFIER);
     }
 

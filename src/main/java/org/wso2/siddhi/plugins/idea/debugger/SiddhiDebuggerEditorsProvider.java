@@ -21,10 +21,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProviderBase;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
-
-import javax.annotation.Nonnull;
 
 /**
  * Provides a debugger editor for siddhi.
@@ -32,12 +31,12 @@ import javax.annotation.Nonnull;
 public class SiddhiDebuggerEditorsProvider extends XDebuggerEditorsProviderBase {
 
     @Override
-    protected PsiFile createExpressionCodeFragment(@Nonnull Project project, @Nonnull String text,
+    protected PsiFile createExpressionCodeFragment(@NotNull Project project, @NotNull String text,
                                                    @Nullable PsiElement context, boolean isPhysical) {
         return null;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public FileType getFileType() {
         return SiddhiFileType.INSTANCE;

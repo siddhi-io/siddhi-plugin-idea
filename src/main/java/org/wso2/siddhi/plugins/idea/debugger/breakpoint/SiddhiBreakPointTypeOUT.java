@@ -26,14 +26,13 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Processor;
 import com.intellij.xdebugger.XDebuggerUtil;
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.PartitionNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
-
-import javax.annotation.Nonnull;
 
 import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getNextVisibleSiblingSkippingComments;
 
@@ -51,17 +50,17 @@ public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpoin
 
     @Nullable
     @Override
-    public SiddhiBreakpointProperties createBreakpointProperties(@Nonnull VirtualFile file, int line) {
+    public SiddhiBreakpointProperties createBreakpointProperties(@NotNull VirtualFile file, int line) {
         return new SiddhiBreakpointProperties();
     }
 
     @Override
-    public boolean canPutAt(@Nonnull VirtualFile file, int line, @Nonnull Project project) {
+    public boolean canPutAt(@NotNull VirtualFile file, int line, @NotNull Project project) {
         return line >= 0 && file.getFileType() == SiddhiFileType.INSTANCE && isLineBreakpointAvailable(file, line,
                 project);
     }
 
-    private static boolean isLineBreakpointAvailable(@Nonnull VirtualFile file, int line, @Nonnull Project project) {
+    private static boolean isLineBreakpointAvailable(@NotNull VirtualFile file, int line, @NotNull Project project) {
         Document document = FileDocumentManager.getInstance().getDocument(file);
         if (document == null || document.getLineEndOffset(line) == document.getLineStartOffset(line)) {
             return false;
@@ -77,7 +76,7 @@ public class SiddhiBreakPointTypeOUT extends XLineBreakpointType<SiddhiBreakpoin
         private int counter = 0;
 
         @Override
-        public boolean process(@Nonnull PsiElement element) {
+        public boolean process(@NotNull PsiElement element) {
             if (PsiTreeUtil.nextVisibleLeaf(element) != null) {
                 PsiElement nextVisibleSibling = getNextVisibleSiblingSkippingComments(element);
                 IElementType elementType = element.getNode().getElementType();

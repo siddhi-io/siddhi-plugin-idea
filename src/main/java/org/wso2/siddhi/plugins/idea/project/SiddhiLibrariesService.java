@@ -27,12 +27,12 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.messages.Topic;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
-import javax.annotation.Nonnull;
 
 /**
  * Defines siddhi library service.
@@ -45,7 +45,7 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
             LibrariesListener.class);
     protected final T myState = createState();
 
-    @Nonnull
+    @NotNull
     @Override
     public T getState() {
         return myState;
@@ -56,21 +56,21 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
         XmlSerializerUtil.copyBean(state, myState);
     }
 
-    @Nonnull
+    @NotNull
     protected T createState() {
         //noinspection unchecked
         return (T) new SiddhiLibraryState();
     }
 
-    @Nonnull
-    public static Collection<? extends VirtualFile> getUserDefinedLibraries(@Nonnull Module module) {
+    @NotNull
+    public static Collection<? extends VirtualFile> getUserDefinedLibraries(@NotNull Module module) {
         Set<VirtualFile> result = ContainerUtil.newLinkedHashSet();
         result.addAll(getUserDefinedLibraries(module.getProject()));
         return result;
     }
 
-    @Nonnull
-    public static Collection<? extends VirtualFile> getUserDefinedLibraries(@Nonnull Project project) {
+    @NotNull
+    public static Collection<? extends VirtualFile> getUserDefinedLibraries(@NotNull Project project) {
         Set<VirtualFile> result = ContainerUtil.newLinkedHashSet();
         result.addAll(siddhiRootsFromUrls(SiddhiProjectLibrariesService.getInstance(project)
                 .getLibraryRootUrls()));
@@ -78,23 +78,23 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
         return result;
     }
 
-    @Nonnull
+    @NotNull
     private static Collection<? extends VirtualFile> getUserDefinedLibraries() {
         return siddhiRootsFromUrls(SiddhiApplicationLibrariesService.getInstance().getLibraryRootUrls());
     }
 
-    @Nonnull
-    public static ModificationTracker[] getModificationTrackers(@Nonnull Project project, @Nullable Module module) {
+    @NotNull
+    public static ModificationTracker[] getModificationTrackers(@NotNull Project project, @Nullable Module module) {
         assert module != null;
         return new ModificationTracker[]{SiddhiProjectLibrariesService.getInstance(module.getProject()),
                 SiddhiApplicationLibrariesService.getInstance()};
     }
 
-    public void setLibraryRootUrls(@Nonnull String... libraryRootUrls) {
+    public void setLibraryRootUrls(@NotNull String... libraryRootUrls) {
         setLibraryRootUrls(Arrays.asList(libraryRootUrls));
     }
 
-    public void setLibraryRootUrls(@Nonnull Collection<String> libraryRootUrls) {
+    public void setLibraryRootUrls(@NotNull Collection<String> libraryRootUrls) {
         if (!myState.getUrls().equals(libraryRootUrls)) {
             myState.setUrls(libraryRootUrls);
             incModificationCount();
@@ -103,13 +103,13 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
         }
     }
 
-    @Nonnull
+    @NotNull
     public Collection<String> getLibraryRootUrls() {
         return myState.getUrls();
     }
 
-    @Nonnull
-    private static Collection<? extends VirtualFile> siddhiRootsFromUrls(@Nonnull Collection<String> urls) {
+    @NotNull
+    private static Collection<? extends VirtualFile> siddhiRootsFromUrls(@NotNull Collection<String> urls) {
         return ContainerUtil.mapNotNull(urls, url -> VirtualFileManager.getInstance().findFileByUrl(url));
     }
 
@@ -117,6 +117,6 @@ public class SiddhiLibrariesService<T extends SiddhiLibraryState> extends Simple
      * Interface for libraries listener.
      */
     public interface LibrariesListener {
-        void librariesChanged(@Nonnull Collection<String> newRootUrls);
+        void librariesChanged(@NotNull Collection<String> newRootUrls);
     }
 }

@@ -22,22 +22,21 @@ import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import org.antlr.jetbrains.adaptor.psi.ScopeNode;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
-
-import javax.annotation.Nonnull;
 
 /**
  * PsiFileBase which represents Siddhi File.
  */
 public class SiddhiFile extends PsiFileBase implements ScopeNode {
 
-    public SiddhiFile(@Nonnull FileViewProvider viewProvider) {
+    public SiddhiFile(@NotNull FileViewProvider viewProvider) {
         super(viewProvider, SiddhiLanguage.INSTANCE);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public FileType getFileType() {
         return SiddhiFileType.INSTANCE;

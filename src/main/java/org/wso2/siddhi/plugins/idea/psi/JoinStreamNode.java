@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents join_stream rule in parser.
  */
 public class JoinStreamNode extends ANTLRPsiNode {
-    public JoinStreamNode(@Nonnull ASTNode node) {
+    public JoinStreamNode(@NotNull ASTNode node) {
         super(node);
     }
 }

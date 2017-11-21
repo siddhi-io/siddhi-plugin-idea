@@ -20,18 +20,17 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.scopes.ParameterContainer;
 import org.wso2.siddhi.plugins.idea.psi.scopes.TopLevelDefinition;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents aggregation_definition rule in parser.
  */
 public class AggregationDefinitionNode extends IdentifierDefSubtree implements TopLevelDefinition, ParameterContainer {
-    public AggregationDefinitionNode(@Nonnull ASTNode node) {
+    public AggregationDefinitionNode(@NotNull ASTNode node) {
         super(node, SiddhiTypes.IDENTIFIER);
     }
 

@@ -18,9 +18,8 @@ package org.wso2.siddhi.plugins.idea.configuration;
 
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.ConfigurableBase;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.project.SiddhiModuleSettings;
-
-import javax.annotation.Nonnull;
 
 /**
  * Provide module items for "Project Settings" and "IDE Settings" groups correspondingly in the "Settings" dialog.
@@ -28,17 +27,17 @@ import javax.annotation.Nonnull;
 public class SiddhiModuleSettingsConfigurable extends
         ConfigurableBase<SiddhiModuleSettingsUI, SiddhiModuleSettings> {
 
-    @Nonnull
+    @NotNull
     private final Module myModule;
     private final boolean myDialogMode;
 
-    public SiddhiModuleSettingsConfigurable(@Nonnull Module module, boolean dialogMode) {
+    public SiddhiModuleSettingsConfigurable(@NotNull Module module, boolean dialogMode) {
         super("Siddhi.project.settings", "Siddhi Project Settings", null);
         myModule = module;
         myDialogMode = dialogMode;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     protected SiddhiModuleSettings getSettings() {
         return SiddhiModuleSettings.getInstance(myModule);

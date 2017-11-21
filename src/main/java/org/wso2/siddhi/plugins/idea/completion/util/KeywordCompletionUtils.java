@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.AttributeReferenceNode;
@@ -30,15 +31,13 @@ import org.wso2.siddhi.plugins.idea.psi.MathOperationNode;
 import org.wso2.siddhi.plugins.idea.psi.NameNode;
 import org.wso2.siddhi.plugins.idea.psi.NullCheckNode;
 
-import javax.annotation.Nonnull;
-
 /**
  * Defines utility methods used for code completions.
  */
 public class KeywordCompletionUtils {
 
     @Nullable
-    public static PsiElement getPreviousVisibleSiblingSkippingComments(@Nonnull PsiElement currentElement) {
+    public static PsiElement getPreviousVisibleSiblingSkippingComments(@NotNull PsiElement currentElement) {
         PsiElement prevVisibleSibling = PsiTreeUtil.prevVisibleLeaf(currentElement);
         if (prevVisibleSibling instanceof PsiComment) {
             prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
@@ -50,7 +49,7 @@ public class KeywordCompletionUtils {
     }
 
     @Nullable
-    public static PsiElement getNextVisibleSiblingSkippingComments(@Nonnull PsiElement currentElement) {
+    public static PsiElement getNextVisibleSiblingSkippingComments(@NotNull PsiElement currentElement) {
         PsiElement prevVisibleSibling = PsiTreeUtil.nextVisibleLeaf(currentElement);
         if (prevVisibleSibling instanceof PsiComment) {
             prevVisibleSibling = getNextVisibleSiblingSkippingComments(prevVisibleSibling);
@@ -61,14 +60,14 @@ public class KeywordCompletionUtils {
         return prevVisibleSibling;
     }
 
-    public static Boolean isExpression(@Nonnull PsiElement element) {
+    public static Boolean isExpression(@NotNull PsiElement element) {
         if (PsiTreeUtil.getParentOfType(element, ExpressionNode.class) != null) {
             return isMathOperation(element);
         }
         return false;
     }
 
-    public static Boolean isMathOperation(@Nonnull PsiElement element) {
+    public static Boolean isMathOperation(@NotNull PsiElement element) {
         if (PsiTreeUtil.getParentOfType(element, MathOperationNode.class) != null ||
                 PsiTreeUtil.getParentOfType(element, NullCheckNode.class) != null ||
                 PsiTreeUtil.getParentOfType(element, NameNode.class) != null ||

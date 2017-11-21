@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents basic_stream_handlers rule in parser.
  */
 public class BasicSourceStreamHandlersNode extends ANTLRPsiNode {
-    public BasicSourceStreamHandlersNode(@Nonnull ASTNode node) {
+    public BasicSourceStreamHandlersNode(@NotNull ASTNode node) {
         super(node);
     }
 }

@@ -29,14 +29,13 @@ import org.antlr.jetbrains.adaptor.psi.ANTLRPsiLeafNode;
 import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
 import org.antlr.jetbrains.adaptor.psi.Trees;
 import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.references.AttributeNameReference;
 import org.wso2.siddhi.plugins.idea.psi.references.StreamIdReference;
 import org.wso2.siddhi.plugins.idea.psi.references.TargetReference;
-
-import javax.annotation.Nonnull;
 
 /**
  * ANTLRPsiNode which represents identifiers in siddhi file.
@@ -58,7 +57,7 @@ public class IdentifierPSINode extends ANTLRPsiLeafNode implements PsiNamedEleme
      * replace.
      */
     @Override
-    public PsiElement setName(@NonNls @Nonnull String name) throws IncorrectOperationException {
+    public PsiElement setName(@NonNls @NotNull String name) throws IncorrectOperationException {
         if (getParent() == null) {
             return this;
         }

@@ -17,11 +17,11 @@
 package org.wso2.siddhi.plugins.idea.debugger;
 
 import com.intellij.openapi.diagnostic.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.debugger.client.WebSocketClient;
 import org.wso2.siddhi.plugins.idea.debugger.protocol.Command;
 
 import java.net.URISyntaxException;
-import javax.annotation.Nonnull;
 import javax.net.ssl.SSLException;
 
 /**
@@ -38,7 +38,7 @@ public class SiddhiWebSocketConnector {
     private String myAddress;
     private ConnectionState myConnectionState;
 
-    public SiddhiWebSocketConnector(@Nonnull String address) {
+    public SiddhiWebSocketConnector(@NotNull String address) {
         myAddress = address;
         myConnectionState = ConnectionState.NOT_CONNECTED;
     }
@@ -53,12 +53,12 @@ public class SiddhiWebSocketConnector {
         }
     }
 
-    @Nonnull
+    @NotNull
     private String getUri() {
         return DEBUG_PROTOCOL + myAddress + DEBUG_WEB_SOCKET_PATH;
     }
 
-    @Nonnull
+    @NotNull
     public String getDebugServerAddress() {
         return myAddress;
     }

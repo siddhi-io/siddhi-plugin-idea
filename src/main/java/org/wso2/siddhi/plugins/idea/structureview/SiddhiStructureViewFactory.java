@@ -22,10 +22,9 @@ import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
 import com.intellij.lang.PsiStructureViewFactory;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.psi.PsiFile;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines structure view factory for siddhi.
@@ -37,7 +36,7 @@ public class SiddhiStructureViewFactory implements PsiStructureViewFactory {
     public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile) {
         return new TreeBasedStructureViewBuilder() {
 
-            @Nonnull
+            @NotNull
             @Override
             public StructureViewModel createStructureViewModel(@Nullable Editor editor) {
                 return new SiddhiStructureViewModel((SiddhiFile) psiFile);

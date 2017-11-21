@@ -49,6 +49,7 @@ import com.intellij.util.Consumer;
 import com.intellij.util.EnvironmentUtil;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.containers.ContainerUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiConsoleFilter;
@@ -59,7 +60,6 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
-import javax.annotation.Nonnull;
 
 /**
  * Defines an executor for siddhi.
@@ -67,13 +67,13 @@ import javax.annotation.Nonnull;
 public class SiddhiExecutor {
 
     private static final Logger LOGGER = Logger.getInstance(SiddhiExecutor.class);
-    @Nonnull
+    @NotNull
     private final Map<String, String> myExtraEnvironment = ContainerUtil.newHashMap();
-    @Nonnull
+    @NotNull
     private final ParametersList myParameterList = new ParametersList();
-    @Nonnull
+    @NotNull
     private final ProcessOutput myProcessOutput = new ProcessOutput();
-    @Nonnull
+    @NotNull
     private final Project myProject;
     @Nullable
     private final Module myModule;
@@ -97,83 +97,83 @@ public class SiddhiExecutor {
     private OSProcessHandler myProcessHandler;
     private final Collection<ProcessListener> myProcessListeners = ContainerUtil.newArrayList();
 
-    private SiddhiExecutor(@Nonnull Project project, @Nullable Module module) {
+    private SiddhiExecutor(@NotNull Project project, @Nullable Module module) {
         myProject = project;
         myModule = module;
     }
 
-    public static SiddhiExecutor in(@Nonnull Project project, @Nullable Module module) {
+    public static SiddhiExecutor in(@NotNull Project project, @Nullable Module module) {
         return module != null ? in(module) : in(project);
     }
 
-    @Nonnull
-    private static SiddhiExecutor in(@Nonnull Project project) {
+    @NotNull
+    private static SiddhiExecutor in(@NotNull Project project) {
         return new SiddhiExecutor(project, null);
     }
 
-    @Nonnull
-    public static SiddhiExecutor in(@Nonnull Module module) {
+    @NotNull
+    public static SiddhiExecutor in(@NotNull Module module) {
         Project project = module.getProject();
         return new SiddhiExecutor(project, module);
     }
 
-    @Nonnull
+    @NotNull
     public SiddhiExecutor withPresentableName(@Nullable String presentableName) {
         myPresentableName = presentableName;
         return this;
     }
 
-    @Nonnull
+    @NotNull
     public SiddhiExecutor withExePath(@Nullable String exePath) {
         myExePath = exePath;
         return this;
     }
 
-    @Nonnull
+    @NotNull
     public SiddhiExecutor withWorkDirectory(@Nullable String workDirectory) {
         myWorkDirectory = workDirectory;
         return this;
     }
 
 
-    @Nonnull
+    @NotNull
     public SiddhiExecutor withSiddhiPath(@Nullable String siddhiPath) {
         mySiddhiPath = siddhiPath;
         return this;
     }
 
-    @Nonnull
+    @NotNull
     public SiddhiExecutor withEnvPath(@Nullable String envPath) {
         myEnvPath = envPath;
         return this;
     }
 
-    public SiddhiExecutor withProcessListener(@Nonnull ProcessListener listener) {
+    public SiddhiExecutor withProcessListener(@NotNull ProcessListener listener) {
         myProcessListeners.add(listener);
         return this;
     }
 
-    @Nonnull
-    public SiddhiExecutor withExtraEnvironment(@Nonnull Map<String, String> environment) {
+    @NotNull
+    public SiddhiExecutor withExtraEnvironment(@NotNull Map<String, String> environment) {
         myExtraEnvironment.putAll(environment);
         return this;
     }
 
-    @Nonnull
+    @NotNull
     public SiddhiExecutor withPassParentEnvironment(boolean passParentEnvironment) {
         myParentEnvironmentType = passParentEnvironment ? GeneralCommandLine.ParentEnvironmentType.CONSOLE
                 : GeneralCommandLine.ParentEnvironmentType.NONE;
         return this;
     }
 
-    @Nonnull
-    public SiddhiExecutor withParameterString(@Nonnull String parameterString) {
+    @NotNull
+    public SiddhiExecutor withParameterString(@NotNull String parameterString) {
         myParameterList.addParametersString(parameterString);
         return this;
     }
 
-    @Nonnull
-    public SiddhiExecutor withParameters(@Nonnull String... parameters) {
+    @NotNull
+    public SiddhiExecutor withParameters(@NotNull String... parameters) {
         myParameterList.addAll(parameters);
         return this;
     }
@@ -183,19 +183,19 @@ public class SiddhiExecutor {
         return this;
     }
 
-    @Nonnull
+    @NotNull
     public SiddhiExecutor showOutputOnError() {
         myShowOutputOnError = true;
         return this;
     }
 
-    @Nonnull
+    @NotNull
     public SiddhiExecutor disablePty() {
         myPtyDisabled = true;
         return this;
     }
 
-    @Nonnull
+    @NotNull
     public SiddhiExecutor showNotifications(boolean onError, boolean onSuccess) {
         myShowNotificationsOnError = onError;
         myShowNotificationsOnSuccess = onSuccess;
@@ -229,7 +229,7 @@ public class SiddhiExecutor {
 
             CapturingProcessAdapter processAdapter = new CapturingProcessAdapter(myProcessOutput) {
                 @Override
-                public void processTerminated(@Nonnull ProcessEvent event) {
+                public void processTerminated(@NotNull ProcessEvent event) {
                     super.processTerminated(event);
                     boolean success = event.getExitCode() == 0 && myProcessOutput.getStderr().isEmpty();
                     boolean nothingToShow = myProcessOutput.getStdout().isEmpty()
@@ -278,7 +278,7 @@ public class SiddhiExecutor {
         executeWithProgress(modal, Consumer.EMPTY_CONSUMER);
     }
 
-    private void executeWithProgress(boolean modal, @Nonnull Consumer<Boolean> consumer) {
+    private void executeWithProgress(boolean modal, @NotNull Consumer<Boolean> consumer) {
         ProgressManager.getInstance().run(new Task.Backgroundable(myProject, getPresentableName(), true) {
 
             private boolean doNotStart;
@@ -303,7 +303,7 @@ public class SiddhiExecutor {
             }
 
             @Override
-            public void run(@Nonnull ProgressIndicator indicator) {
+            public void run(@NotNull ProgressIndicator indicator) {
                 if (doNotStart || myProject == null || myProject.isDisposed()) {
                     return;
                 }
@@ -318,7 +318,7 @@ public class SiddhiExecutor {
         return myProcessHandler;
     }
 
-    private void showNotification(@Nonnull String message, NotificationType type) {
+    private void showNotification(@NotNull String message, NotificationType type) {
         ApplicationManager.getApplication().invokeLater(() -> {
             String title = getPresentableName();
             Notifications.Bus.notify(SiddhiConstants.SIDDHI_EXECUTION_NOTIFICATION_GROUP
@@ -326,8 +326,8 @@ public class SiddhiExecutor {
         });
     }
 
-    private void showOutput(@Nonnull OSProcessHandler originalHandler,
-                            @Nonnull SiddhiHistoryProcessListener historyProcessListener) {
+    private void showOutput(@NotNull OSProcessHandler originalHandler,
+                            @NotNull SiddhiHistoryProcessListener historyProcessListener) {
         if (myShowOutputOnError) {
             BaseOSProcessHandler outputHandler = new KillableColoredProcessHandler(originalHandler.getProcess(), null);
             RunContentExecutor runContentExecutor = new RunContentExecutor(myProject, outputHandler)
@@ -344,7 +344,7 @@ public class SiddhiExecutor {
         }
     }
 
-    @Nonnull
+    @NotNull
     public GeneralCommandLine createCommandLine() throws ExecutionException {
         GeneralCommandLine commandLine = !myPtyDisabled && PtyCommandLine.isEnabled() ?
                 new PtyCommandLine() : new GeneralCommandLine();
@@ -365,7 +365,7 @@ public class SiddhiExecutor {
         return commandLine;
     }
 
-    @Nonnull
+    @NotNull
     private String getPresentableName() {
         return ObjectUtils.notNull(myPresentableName, "Siddhi Executor");
     }

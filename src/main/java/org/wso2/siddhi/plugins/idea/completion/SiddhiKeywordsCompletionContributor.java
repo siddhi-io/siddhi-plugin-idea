@@ -25,6 +25,7 @@ import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.executionelements.partition.PartitionCompletionContributor;
 import org.wso2.siddhi.plugins.idea.completion.executionelements.query.QueryCompletionContributor;
@@ -46,8 +47,6 @@ import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.psi.TriggerNameNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
-import javax.annotation.Nonnull;
-
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAfterATSymbolLookups;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAtKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addDefineTypesAsLookups;
@@ -68,7 +67,7 @@ import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtil
 public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
 
     @Override
-    public void fillCompletionVariants(@Nonnull CompletionParameters parameters, @Nonnull CompletionResultSet result) {
+    public void fillCompletionVariants(@NotNull CompletionParameters parameters, @NotNull CompletionResultSet result) {
         PsiElement element = parameters.getPosition();
         if (!(element instanceof LeafPsiElement)) {
             return;
@@ -176,7 +175,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
     }
 
     //TODO: Restructure definition related completions
-    private void windowDefinitionRelatedKeywordCompletion(@Nonnull CompletionResultSet result, PsiElement element,
+    private void windowDefinitionRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
                                                           PsiElement prevVisibleSibling,
                                                           IElementType prevVisibleSiblingElementType) {
         if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
@@ -195,7 +194,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         }
     }
 
-    private void functionDefinitionRelatedKeywordCompletion(@Nonnull CompletionResultSet result, PsiElement element,
+    private void functionDefinitionRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
                                                             PsiElement prevPreVisibleSibling,
                                                             IElementType prevVisibleSiblingElementType) {
         if (PsiTreeUtil.getParentOfType(element, LanguageNameNode.class) != null
@@ -224,7 +223,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         }
     }
 
-    private void executionElementRelatedKeywordCompletion(@Nonnull CompletionResultSet result, PsiElement element,
+    private void executionElementRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
                                                           PsiElement prevVisibleSibling,
                                                           IElementType prevVisibleSiblingElementType,
                                                           PsiElement prevPreVisibleSibling) {

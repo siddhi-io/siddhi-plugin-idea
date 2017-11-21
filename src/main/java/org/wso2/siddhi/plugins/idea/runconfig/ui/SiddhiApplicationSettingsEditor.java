@@ -23,10 +23,10 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.ui.RawCommandLineEditor;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunUtil;
 import org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
 
-import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -51,7 +51,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     }
 
     @Override
-    protected void resetEditorFrom(@Nonnull SiddhiApplicationConfiguration configuration) {
+    protected void resetEditorFrom(@NotNull SiddhiApplicationConfiguration configuration) {
         myFileField.getComponent().setText(configuration.getFilePath());
 
         myEventInputFile.getComponent().setText(configuration.getInputFilePath());
@@ -64,7 +64,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
     }
 
     @Override
-    protected void applyEditorTo(@Nonnull SiddhiApplicationConfiguration configuration)
+    protected void applyEditorTo(@NotNull SiddhiApplicationConfiguration configuration)
             throws ConfigurationException {
         configuration.setFilePath(myFileField.getComponent().getText());
         configuration.setInputFilePath(myEventInputFile.getComponent().getText());
@@ -77,7 +77,7 @@ public class SiddhiApplicationSettingsEditor extends SettingsEditor<SiddhiApplic
         myWorkingDirectoryField.setVisible(true);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     protected JComponent createEditor() {
         return myPanel;

@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents within_time_range rule in parser.
  */
 public class WithinTimeRangeNode extends ANTLRPsiNode {
-    public WithinTimeRangeNode(@Nonnull ASTNode node) {
+    public WithinTimeRangeNode(@NotNull ASTNode node) {
         super(node);
     }
 }

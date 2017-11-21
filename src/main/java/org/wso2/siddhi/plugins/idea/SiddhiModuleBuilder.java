@@ -27,11 +27,11 @@ import com.intellij.openapi.projectRoots.SdkTypeId;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import com.intellij.openapi.util.Pair;
 import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
 
 /**
  * Module builder for siddhi.
@@ -52,7 +52,7 @@ public class SiddhiModuleBuilder extends JavaModuleBuilder implements SourcePath
         return paths;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ModuleType getModuleType() {
         return SiddhiModuleType.getInstance();
@@ -64,7 +64,7 @@ public class SiddhiModuleBuilder extends JavaModuleBuilder implements SourcePath
     }
 
     @Override
-    public void moduleCreated(@Nonnull Module module) {
+    public void moduleCreated(@NotNull Module module) {
         CompilerWorkspaceConfiguration.getInstance(module.getProject()).CLEAR_OUTPUT_DIRECTORY = false;
     }
 }

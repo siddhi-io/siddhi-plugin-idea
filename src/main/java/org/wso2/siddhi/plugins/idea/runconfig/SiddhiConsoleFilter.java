@@ -33,13 +33,13 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.PathUtil;
 import com.intellij.util.containers.ContainerUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.annotation.Nonnull;
 
 /**
  * Defines console filter for siddhi.
@@ -50,7 +50,7 @@ public class SiddhiConsoleFilter implements Filter {
             "(?=[:\\s]|$).*");
     private static final Pattern SIDDHI_FILE_PATTERN = Pattern.compile("\\((\\w+\\.siddhi)\\)");
 
-    @Nonnull
+    @NotNull
     private final Project myProject;
     @Nullable
     private final Module myModule;
@@ -58,11 +58,11 @@ public class SiddhiConsoleFilter implements Filter {
     private final String myWorkingDirectoryUrl;
 
     @SuppressWarnings("unused") //used by pico container
-    public SiddhiConsoleFilter(@Nonnull Project project) {
+    public SiddhiConsoleFilter(@NotNull Project project) {
         this(project, null, null);
     }
 
-    public SiddhiConsoleFilter(@Nonnull Project project, @Nullable Module module,
+    public SiddhiConsoleFilter(@NotNull Project project, @Nullable Module module,
                                @Nullable String workingDirectoryUrl) {
         myProject = project;
         myModule = module;
@@ -71,7 +71,7 @@ public class SiddhiConsoleFilter implements Filter {
     }
 
     @Override
-    public Result applyFilter(@Nonnull String line, int entireLength) {
+    public Result applyFilter(@NotNull String line, int entireLength) {
         Matcher matcher = MESSAGE_PATTERN.matcher(line);
         if (!matcher.find()) {
             Matcher fileMatcher = SIDDHI_FILE_PATTERN.matcher(line);
@@ -137,16 +137,16 @@ public class SiddhiConsoleFilter implements Filter {
         return createResult(line, entireLength, startOffset, endOffset, lineNumber, columnNumber, virtualFile);
     }
 
-    @Nonnull
-    private Result createResult(@Nonnull String line, int entireLength, int startOffset, int endOffset, int lineNumber,
-                                int columnNumber, @Nonnull VirtualFile virtualFile) {
+    @NotNull
+    private Result createResult(@NotNull String line, int entireLength, int startOffset, int endOffset, int lineNumber,
+                                int columnNumber, @NotNull VirtualFile virtualFile) {
         HyperlinkInfo hyperlinkInfo = new OpenFileHyperlinkInfo(myProject, virtualFile, lineNumber, columnNumber);
         int lineStart = entireLength - line.length();
         return new Result(lineStart + startOffset, lineStart + endOffset, hyperlinkInfo);
     }
 
     @Nullable
-    private VirtualFile findSingleFile(@Nonnull String fileName) {
+    private VirtualFile findSingleFile(@NotNull String fileName) {
         if (PathUtil.isValidFileName(fileName)) {
             Collection<VirtualFile> files = FilenameIndex.getVirtualFilesByName(myProject, fileName,
                     GlobalSearchScope.allScope(myProject));
@@ -158,7 +158,7 @@ public class SiddhiConsoleFilter implements Filter {
     }
 
     @Nullable
-    private VirtualFile findInSiddhiPath(@Nonnull String fileName) {
+    private VirtualFile findInSiddhiPath(@NotNull String fileName) {
         return null;
     }
 
@@ -170,12 +170,12 @@ public class SiddhiConsoleFilter implements Filter {
         private final String myPackageName;
         private final Module myModule;
 
-        public SiddhiGetHyperlinkInfo(@Nonnull String packageName, @Nonnull Module module) {
+        public SiddhiGetHyperlinkInfo(@NotNull String packageName, @NotNull Module module) {
             myPackageName = packageName;
             myModule = module;
         }
 
-        @Nonnull
+        @NotNull
         public String getPackageName() {
             return myPackageName;
         }

@@ -34,13 +34,13 @@ import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.containers.ContainerUtil;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.SiddhiModuleType;
 
 import java.io.File;
 import java.util.Set;
-import javax.annotation.Nonnull;
 
 /**
  * Defines sdk service for siddhi.
@@ -52,11 +52,11 @@ public class SiddhiSdkService extends SimpleModificationTracker {
             "linux_arm");
     private Project myProject;
 
-    protected SiddhiSdkService(@Nonnull Project project) {
+    protected SiddhiSdkService(@NotNull Project project) {
         myProject = project;
     }
 
-    public static SiddhiSdkService getInstance(@Nonnull Project project) {
+    public static SiddhiSdkService getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, SiddhiSdkService.class);
     }
 

@@ -27,11 +27,11 @@ import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.openapi.vfs.VirtualFileMoveEvent;
 import com.intellij.util.SystemProperties;
 import com.intellij.util.containers.ContainerUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Collection;
 import java.util.Set;
-import javax.annotation.Nonnull;
 
 /**
  * Defines a path modification tracker for siddhi.
@@ -56,22 +56,22 @@ public class SiddhiPathModificationTracker {
 
         VirtualFileManager.getInstance().addVirtualFileListener(new VirtualFileAdapter() {
             @Override
-            public void fileCreated(@Nonnull VirtualFileEvent event) {
+            public void fileCreated(@NotNull VirtualFileEvent event) {
                 handleEvent(event);
             }
 
             @Override
-            public void fileDeleted(@Nonnull VirtualFileEvent event) {
+            public void fileDeleted(@NotNull VirtualFileEvent event) {
                 handleEvent(event);
             }
 
             @Override
-            public void fileMoved(@Nonnull VirtualFileMoveEvent event) {
+            public void fileMoved(@NotNull VirtualFileMoveEvent event) {
                 handleEvent(event);
             }
 
             @Override
-            public void fileCopied(@Nonnull VirtualFileCopyEvent event) {
+            public void fileCopied(@NotNull VirtualFileCopyEvent event) {
                 handleEvent(event);
             }
 

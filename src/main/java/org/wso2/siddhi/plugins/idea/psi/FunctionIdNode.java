@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents function_id rule in parser.
  */
 public class FunctionIdNode extends ANTLRPsiNode {
-    public FunctionIdNode(@Nonnull ASTNode node) {
+    public FunctionIdNode(@NotNull ASTNode node) {
         super(node);
     }
 }

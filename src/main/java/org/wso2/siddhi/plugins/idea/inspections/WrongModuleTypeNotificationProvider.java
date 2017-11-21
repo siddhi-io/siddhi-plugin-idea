@@ -28,11 +28,11 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.EditorNotificationPanel;
 import com.intellij.ui.EditorNotifications;
 import com.intellij.util.containers.ContainerUtil;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiFileType;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkService;
 
 import java.util.Set;
-import javax.annotation.Nonnull;
 
 /**
  * Defines the notifications for the wrong module type.
@@ -45,18 +45,18 @@ public class WrongModuleTypeNotificationProvider extends EditorNotifications.Pro
 
     private final Project myProject;
 
-    public WrongModuleTypeNotificationProvider(@Nonnull Project project) {
+    public WrongModuleTypeNotificationProvider(@NotNull Project project) {
         myProject = project;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Key<EditorNotificationPanel> getKey() {
         return KEY;
     }
 
     @Override
-    public EditorNotificationPanel createNotificationPanel(@Nonnull VirtualFile file, @Nonnull FileEditor fileEditor) {
+    public EditorNotificationPanel createNotificationPanel(@NotNull VirtualFile file, @NotNull FileEditor fileEditor) {
         if (file.getFileType() != SiddhiFileType.INSTANCE) {
             return null;
         }
@@ -66,15 +66,15 @@ public class WrongModuleTypeNotificationProvider extends EditorNotifications.Pro
                 || getIgnoredModules(myProject).contains(module.getName()) ? null : createPanel(myProject, module);
     }
 
-    @Nonnull
-    private static EditorNotificationPanel createPanel(@Nonnull Project project, @Nonnull Module module) {
+    @NotNull
+    private static EditorNotificationPanel createPanel(@NotNull Project project, @NotNull Module module) {
         EditorNotificationPanel panel = new EditorNotificationPanel();
         panel.setText("'" + module.getName() + "' is not a Siddhi Module, some code insight might not work here");
         return panel;
     }
 
-    @Nonnull
-    private static Set<String> getIgnoredModules(@Nonnull Project project) {
+    @NotNull
+    private static Set<String> getIgnoredModules(@NotNull Project project) {
         String value = PropertiesComponent.getInstance(project).getValue(DONT_ASK_TO_CHANGE_MODULE_TYPE_KEY, "");
         return ContainerUtil.newLinkedHashSet(StringUtil.split(value, ","));
     }

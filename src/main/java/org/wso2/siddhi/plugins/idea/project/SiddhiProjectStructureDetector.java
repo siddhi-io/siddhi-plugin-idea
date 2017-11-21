@@ -24,6 +24,7 @@ import com.intellij.ide.util.projectWizard.importSources.DetectedProjectRoot;
 import com.intellij.ide.util.projectWizard.importSources.DetectedSourceRoot;
 import com.intellij.ide.util.projectWizard.importSources.ProjectFromSourcesBuilder;
 import com.intellij.ide.util.projectWizard.importSources.ProjectStructureDetector;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiModuleType;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType;
 
@@ -32,7 +33,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 /**
@@ -41,14 +41,14 @@ import javax.swing.Icon;
  */
 public class SiddhiProjectStructureDetector extends ProjectStructureDetector {
 
-    @Nonnull
+    @NotNull
     @Override
-    public DirectoryProcessingResult detectRoots(@Nonnull File dir, @Nonnull File[] children, @Nonnull File base,
-                                                 @Nonnull List<DetectedProjectRoot> result) {
+    public DirectoryProcessingResult detectRoots(@NotNull File dir, @NotNull File[] children, @NotNull File base,
+                                                 @NotNull List<DetectedProjectRoot> result) {
         // There can be only one project root, it is the directory that the user selects.
         result.add(new DetectedProjectRoot(base) {
 
-            @Nonnull
+            @NotNull
             @Override
             public String getRootTypeName() {
                 return "Siddhi";
@@ -58,9 +58,9 @@ public class SiddhiProjectStructureDetector extends ProjectStructureDetector {
     }
 
     @Override
-    public void setupProjectStructure(@Nonnull Collection<DetectedProjectRoot> roots,
-                                      @Nonnull ProjectDescriptor projectDescriptor,
-                                      @Nonnull ProjectFromSourcesBuilder builder) {
+    public void setupProjectStructure(@NotNull Collection<DetectedProjectRoot> roots,
+                                      @NotNull ProjectDescriptor projectDescriptor,
+                                      @NotNull ProjectFromSourcesBuilder builder) {
         // If there are no roots detected, we don't need to process anything.
         if (roots.isEmpty()) {
             return;
@@ -71,7 +71,7 @@ public class SiddhiProjectStructureDetector extends ProjectStructureDetector {
         // We need to create a source root element as well. This is used when we create the module descriptor.
         DetectedSourceRoot detectedSourceRoot = new DetectedSourceRoot(projectRoot.getDirectory(), "") {
 
-            @Nonnull
+            @NotNull
             @Override
             public String getRootTypeName() {
                 return "Siddhi";
@@ -87,9 +87,9 @@ public class SiddhiProjectStructureDetector extends ProjectStructureDetector {
         projectDescriptor.setModules(moduleDescriptors);
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public List<ModuleWizardStep> createWizardSteps(@Nonnull ProjectFromSourcesBuilder builder,
+    public List<ModuleWizardStep> createWizardSteps(@NotNull ProjectFromSourcesBuilder builder,
                                                     ProjectDescriptor projectDescriptor, Icon stepIcon) {
         ProjectJdkForModuleStep projectJdkForModuleStep = new ProjectJdkForModuleStep(builder.getContext(),
                 SiddhiSdkType.getInstance());

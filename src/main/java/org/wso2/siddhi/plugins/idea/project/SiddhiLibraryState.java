@@ -17,24 +17,24 @@
 package org.wso2.siddhi.plugins.idea.project;
 
 import com.intellij.util.containers.ContainerUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
-import javax.annotation.Nonnull;
 
 /**
  * Defines siddhi library state.
  */
 public class SiddhiLibraryState {
 
-    @Nonnull
+    @NotNull
     private Collection<String> myUrls = ContainerUtil.newArrayList();
 
-    @Nonnull
+    @NotNull
     public Collection<String> getUrls() {
         return myUrls;
     }
 
-    public void setUrls(@Nonnull Collection<String> urls) {
+    public void setUrls(@NotNull Collection<String> urls) {
         myUrls = urls;
     }
 }

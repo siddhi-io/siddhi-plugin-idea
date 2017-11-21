@@ -20,11 +20,11 @@ import com.intellij.openapi.roots.libraries.DummyLibraryProperties;
 import com.intellij.openapi.roots.libraries.LibraryKind;
 import com.intellij.openapi.roots.libraries.LibraryPresentationProvider;
 import com.intellij.openapi.vfs.VirtualFile;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 
 import java.util.List;
-import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 /**
@@ -46,7 +46,7 @@ public class SiddhiSdkLibraryPresentationProvider extends LibraryPresentationPro
 
     @Override
     @Nullable
-    public DummyLibraryProperties detect(@Nonnull List<VirtualFile> classesRoots) {
+    public DummyLibraryProperties detect(@NotNull List<VirtualFile> classesRoots) {
         return null;
     }
 }

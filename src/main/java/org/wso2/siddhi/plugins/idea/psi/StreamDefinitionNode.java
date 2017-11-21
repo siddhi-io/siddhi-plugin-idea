@@ -20,19 +20,18 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiNamedElement;
 import org.antlr.jetbrains.adaptor.psi.IdentifierDefSubtree;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.scopes.ParameterContainer;
 import org.wso2.siddhi.plugins.idea.psi.scopes.TopLevelDefinition;
-
-import javax.annotation.Nonnull;
 
 /**
  * Represents stream_definition rule in parser.
  */
 public class StreamDefinitionNode extends IdentifierDefSubtree implements TopLevelDefinition, ParameterContainer {
 
-    public StreamDefinitionNode(@Nonnull ASTNode node) {
+    public StreamDefinitionNode(@NotNull ASTNode node) {
         super(node, SiddhiTypes.IDENTIFIER);
     }
 

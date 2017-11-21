@@ -31,11 +31,10 @@ import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
-import com.intellij.psi.util.CachedValueProvider;
-import com.intellij.psi.util.CachedValuesManager;
 import com.intellij.util.Function;
 import com.intellij.util.ObjectUtils;
 import com.intellij.util.containers.ContainerUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.project.SiddhiApplicationLibrariesService;
@@ -45,13 +44,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.annotation.Nonnull;
-
-import static com.intellij.util.containers.ContainerUtil.newLinkedHashSet;
 
 /**
  * Defines utility methods for sdk.
@@ -106,7 +101,7 @@ public class SiddhiSdkUtil {
     }
 
     @Nullable
-    public static String retrieveSiddhiVersion(@Nonnull String sdkPath) {
+    public static String retrieveSiddhiVersion(@NotNull String sdkPath) {
         try {
             VirtualFile sdkRoot = VirtualFileManager.getInstance().findFileByUrl(VfsUtilCore.pathToUrl(sdkPath));
             if (sdkRoot != null) {
@@ -137,7 +132,7 @@ public class SiddhiSdkUtil {
     }
 
     @Nullable
-    private static String parseSiddhiVersion(@Nonnull String text) {
+    private static String parseSiddhiVersion(@NotNull String text) {
         Matcher matcher = SIDDHI_VERSION_PATTERN.matcher(text);
         if (matcher.find()) {
             return matcher.group(1);
@@ -145,22 +140,22 @@ public class SiddhiSdkUtil {
         return null;
     }
 
-    @Nonnull
-    public static Collection<VirtualFile> getSdkDirectoriesToAttach(@Nonnull String sdkPath, @Nonnull String
+    @NotNull
+    public static Collection<VirtualFile> getSdkDirectoriesToAttach(@NotNull String sdkPath, @NotNull String
             versionString) {
         return ContainerUtil.createMaybeSingletonList(getSdkSrcDir(sdkPath, versionString));
     }
 
     @Nullable
-    private static VirtualFile getSdkSrcDir(@Nonnull String sdkPath, @Nonnull String sdkVersion) {
+    private static VirtualFile getSdkSrcDir(@NotNull String sdkPath, @NotNull String sdkVersion) {
         String srcPath = getSrcLocation(sdkVersion);
         VirtualFile file = VirtualFileManager.getInstance().findFileByUrl(
                 VfsUtilCore.pathToUrl(FileUtil.join(sdkPath, srcPath)));
         return file != null && file.isDirectory() ? file : null;
     }
 
-    @Nonnull
-    private static String getSrcLocation(@Nonnull String version) {
+    @NotNull
+    private static String getSrcLocation(@NotNull String version) {
         return "src";
     }
 
@@ -189,19 +184,19 @@ public class SiddhiSdkUtil {
         return "";
     }
 
-    @Nonnull
+    @NotNull
     public static Collection<VirtualFile> getSiddhiPathsRootsFromEnvironment() {
         return SiddhiPathModificationTracker.getSiddhiEnvironmentPathRoots();
     }
 
-    @Nonnull
-    private static List<VirtualFile> getInnerSiddhiPathSources(@Nonnull Project project, @Nullable Module module) {
+    @NotNull
+    private static List<VirtualFile> getInnerSiddhiPathSources(@NotNull Project project, @Nullable Module module) {
         return ContainerUtil.mapNotNull(getSiddhiPathRoots(project, module), new
                 RetrieveSubDirectoryOrSelfFunction("src"));
     }
 
-    @Nonnull
-    public static Collection<VirtualFile> getSiddhiPathRoots(@Nonnull Project project, @Nullable Module module) {
+    @NotNull
+    public static Collection<VirtualFile> getSiddhiPathRoots(@NotNull Project project, @Nullable Module module) {
         Collection<VirtualFile> roots = ContainerUtil.newArrayList();
         if (SiddhiApplicationLibrariesService.getInstance().isUseSiddhiPathFromSystemEnvironment()) {
             roots.addAll(getSiddhiPathsRootsFromEnvironment());
@@ -212,10 +207,10 @@ public class SiddhiSdkUtil {
     }
 
     private static class RetrieveSubDirectoryOrSelfFunction implements Function<VirtualFile, VirtualFile> {
-        @Nonnull
+        @NotNull
         private final String mySubdirName;
 
-        public RetrieveSubDirectoryOrSelfFunction(@Nonnull String subdirName) {
+        public RetrieveSubDirectoryOrSelfFunction(@NotNull String subdirName) {
             mySubdirName = subdirName;
         }
 
@@ -226,8 +221,8 @@ public class SiddhiSdkUtil {
         }
     }
 
-    @Nonnull
-    public static Collection<Module> getSiddhiModules(@Nonnull Project project) {
+    @NotNull
+    public static Collection<Module> getSiddhiModules(@NotNull Project project) {
         if (project.isDefault()) {
             return Collections.emptyList();
         }
@@ -236,21 +231,7 @@ public class SiddhiSdkUtil {
     }
 
     @Nullable
-    private static VirtualFile getSdkSrcDir(@Nonnull Project project, @Nullable Module module) {
-        if (module != null) {
-            return CachedValuesManager.getManager(project).getCachedValue(module, () -> {
-                SiddhiSdkService sdkService = SiddhiSdkService.getInstance(module.getProject());
-                return CachedValueProvider.Result.create(getInnerSdkSrcDir(sdkService, module), sdkService);
-            });
-        }
-        return CachedValuesManager.getManager(project).getCachedValue(project, () -> {
-            SiddhiSdkService sdkService = SiddhiSdkService.getInstance(project);
-            return CachedValueProvider.Result.create(getInnerSdkSrcDir(sdkService, null), sdkService);
-        });
-    }
-
-    @Nullable
-    private static VirtualFile getInnerSdkSrcDir(@Nonnull SiddhiSdkService sdkService, @Nullable Module module) {
+    private static VirtualFile getInnerSdkSrcDir(@NotNull SiddhiSdkService sdkService, @Nullable Module module) {
         String sdkHomePath = sdkService.getSdkHomePath(module);
         String sdkVersionString = sdkService.getSdkVersion(module);
         return sdkHomePath != null && sdkVersionString != null ? getSdkSrcDir(sdkHomePath, sdkVersionString) : null;

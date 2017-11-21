@@ -23,12 +23,11 @@ import com.intellij.execution.process.ProcessEvent;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunningState;
 import org.wso2.siddhi.plugins.idea.util.SiddhiExecutor;
 import org.wso2.siddhi.plugins.idea.util.SiddhiHistoryProcessListener;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines siddhi application running state.
@@ -39,12 +38,12 @@ public class SiddhiApplicationRunningState extends SiddhiRunningState<SiddhiAppl
     @Nullable
     private SiddhiHistoryProcessListener myHistoryProcessHandler;
 
-    SiddhiApplicationRunningState(@Nonnull ExecutionEnvironment env, @Nonnull Module module,
-                                  @Nonnull SiddhiApplicationConfiguration configuration) {
+    SiddhiApplicationRunningState(@NotNull ExecutionEnvironment env, @NotNull Module module,
+                                  @NotNull SiddhiApplicationConfiguration configuration) {
         super(env, module, configuration);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     protected ProcessHandler startProcess() throws ExecutionException {
         ProcessHandler processHandler = super.startProcess();
@@ -60,7 +59,7 @@ public class SiddhiApplicationRunningState extends SiddhiRunningState<SiddhiAppl
     }
 
     @Override
-    protected SiddhiExecutor patchExecutor(@Nonnull SiddhiExecutor executor) throws ExecutionException {
+    protected SiddhiExecutor patchExecutor(@NotNull SiddhiExecutor executor) throws ExecutionException {
         String parameters = myConfiguration.getFilePath();
         String inputFile = myConfiguration.getInputFilePath();
         SiddhiExecutor siddhiExecutor = executor.withParameters("run")

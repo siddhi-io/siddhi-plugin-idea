@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents query_input rule in parser.
  */
 public class QueryInputNode extends ANTLRPsiNode {
-    public QueryInputNode(@Nonnull ASTNode node) {
+    public QueryInputNode(@NotNull ASTNode node) {
         super(node);
     }
 }

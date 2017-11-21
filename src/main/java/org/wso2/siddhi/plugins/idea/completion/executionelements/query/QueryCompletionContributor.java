@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.AnonymousStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.AttributeReferenceNode;
@@ -31,8 +32,6 @@ import org.wso2.siddhi.plugins.idea.psi.OutputRateNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
 import org.wso2.siddhi.plugins.idea.psi.QuerySectionNode;
 import org.wso2.siddhi.plugins.idea.psi.TimeValueNode;
-
-import javax.annotation.Nonnull;
 
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addBeginingOfQueryOutputKeywords;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addHavingKeyword;
@@ -49,7 +48,7 @@ import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtil
  */
 public class QueryCompletionContributor {
 
-    public static void queryCompletion(@Nonnull CompletionResultSet result, PsiElement element,
+    public static void queryCompletion(@NotNull CompletionResultSet result, PsiElement element,
                                        PsiElement prevVisibleSibling,
                                        IElementType prevVisibleSiblingElementType,
                                        PsiElement prevPreVisibleSibling) {

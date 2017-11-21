@@ -18,8 +18,7 @@ package org.wso2.siddhi.plugins.idea.structureview;
 
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiFile;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines structure view root element for siddhi.
@@ -30,7 +29,7 @@ public class SiddhiStructureViewRootElement extends SiddhiStructureViewElement {
         super(element);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public ItemPresentation getPresentation() {
         return new SiddhiRootPresentation((PsiFile) element);

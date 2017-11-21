@@ -36,6 +36,7 @@ import org.antlr.jetbrains.adaptor.parser.ANTLRParserAdaptor;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser;
 import org.wso2.siddhi.plugins.idea.psi.AggregationDefinitionNode;
@@ -112,8 +113,6 @@ import org.wso2.siddhi.plugins.idea.psi.UpdateTableNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowNode;
 import org.wso2.siddhi.plugins.idea.psi.WithinTimeRangeNode;
-
-import javax.annotation.Nonnull;
 
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.AGGREGATE;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.AGGREGATION;
@@ -303,14 +302,14 @@ public class SiddhiParserDefinition implements ParserDefinition {
     public static final TokenSet SYMBOLS =
             PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, AT_SYMBOL, HASH);
 
-    @Nonnull
+    @NotNull
     @Override
     public Lexer createLexer(Project project) {
         SiddhiQLLexer lexer = new SiddhiQLLexer(null);
         return new ANTLRLexerAdaptor(SiddhiLanguage.INSTANCE, lexer);
     }
 
-    @Nonnull
+    @NotNull
     public PsiParser createParser(final Project project) {
         final SiddhiQLParser parser = new SiddhiQLParser(null);
         return new ANTLRParserAdaptor(SiddhiLanguage.INSTANCE, parser) {
@@ -326,17 +325,17 @@ public class SiddhiParserDefinition implements ParserDefinition {
     /**
      * Tokens of those types are automatically skipped by PsiBuilder.
      */
-    @Nonnull
+    @NotNull
     public TokenSet getWhitespaceTokens() {
         return WHITESPACE;
     }
 
-    @Nonnull
+    @NotNull
     public TokenSet getCommentTokens() {
         return COMMENTS;
     }
 
-    @Nonnull
+    @NotNull
     public TokenSet getStringLiteralElements() {
         return STRING_LITERALS;
     }
@@ -386,7 +385,7 @@ public class SiddhiParserDefinition implements ParserDefinition {
      * sufficient to create a {@link ANTLRPsiNode} around
      * the parse tree node
      */
-    @Nonnull
+    @NotNull
     public PsiElement createElement(ASTNode node) {
         IElementType elementType = node.getElementType();
         if (elementType instanceof TokenIElementType) {

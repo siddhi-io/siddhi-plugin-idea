@@ -24,10 +24,9 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.impl.source.tree.PsiCoreCommentImpl;
 import com.intellij.psi.tree.IElementType;
 import org.antlr.jetbrains.adaptor.lexer.TokenIElementType;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines how to create parse tree nodes (Jetbrains calls them AST nodes). Later
@@ -41,7 +40,7 @@ public class SiddhiASTFactory extends CoreASTFactory {
      * The FileElement is a parse tree node, which is converted to a PsiFile
      * by {@link ParserDefinition#createFile}.
      */
-    @Nonnull
+    @NotNull
     @Override
     public CompositeElement createComposite(IElementType type) {
         return super.createComposite(type);
@@ -52,9 +51,9 @@ public class SiddhiASTFactory extends CoreASTFactory {
      * Does not see whitespace tokens.  Default impl makes {@link LeafPsiElement}
      * or {@link PsiCoreCommentImpl} depending on {@link ParserDefinition#getCommentTokens()}.
      */
-    @Nonnull
+    @NotNull
     @Override
-    public LeafElement createLeaf(@Nonnull IElementType type, @Nonnull CharSequence text) {
+    public LeafElement createLeaf(@NotNull IElementType type, @NotNull CharSequence text) {
         if (type instanceof TokenIElementType &&
                 ((TokenIElementType) type).getANTLRTokenType() == SiddhiQLLexer.ID) {
             // found an ID node; here we do not distinguish between definitions and references

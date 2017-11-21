@@ -20,11 +20,10 @@ import com.intellij.execution.configurations.ConfigurationTypeBase;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.project.Project;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.SiddhiIcons;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiConfigurationFactoryBase;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines siddhi remote run configuration type.
@@ -38,14 +37,14 @@ public class SiddhiRemoteRunConfigurationType extends ConfigurationTypeBase {
         addFactory(new SiddhiConfigurationFactoryBase(this) {
 
             @Override
-            @Nonnull
-            public RunConfiguration createTemplateConfiguration(@Nonnull Project project) {
+            @NotNull
+            public RunConfiguration createTemplateConfiguration(@NotNull Project project) {
                 return new SiddhiRemoteConfiguration(project, SiddhiConstants.SIDDHI, getInstance());
             }
         });
     }
 
-    @Nonnull
+    @NotNull
     public static SiddhiRemoteRunConfigurationType getInstance() {
         return Extensions.findExtension(CONFIGURATION_TYPE_EP, SiddhiRemoteRunConfigurationType.class);
     }

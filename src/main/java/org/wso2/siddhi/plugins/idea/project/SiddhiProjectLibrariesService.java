@@ -22,9 +22,8 @@ import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.components.StoragePathMacros;
 import com.intellij.openapi.components.StorageScheme;
 import com.intellij.openapi.project.Project;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
-
-import javax.annotation.Nonnull;
 
 /**
  * Provides siddhi project library service.
@@ -38,7 +37,7 @@ import javax.annotation.Nonnull;
         }
 )
 public class SiddhiProjectLibrariesService extends SiddhiLibrariesService<SiddhiLibraryState> {
-    public static SiddhiProjectLibrariesService getInstance(@Nonnull Project project) {
+    public static SiddhiProjectLibrariesService getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, SiddhiProjectLibrariesService.class);
     }
 }

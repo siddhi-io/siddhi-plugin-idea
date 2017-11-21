@@ -22,10 +22,10 @@ import com.intellij.ide.util.projectWizard.WizardContext;
 import com.intellij.openapi.module.ModuleType;
 import com.intellij.openapi.module.ModuleTypeManager;
 import com.intellij.openapi.roots.ui.configuration.ModulesProvider;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkType;
 
-import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 /**
@@ -37,24 +37,24 @@ public class SiddhiModuleType extends ModuleType<SiddhiModuleBuilder> {
         super(SiddhiConstants.MODULE_TYPE_ID);
     }
 
-    @Nonnull
+    @NotNull
     public static SiddhiModuleType getInstance() {
         return (SiddhiModuleType) ModuleTypeManager.getInstance().findByID(SiddhiConstants.MODULE_TYPE_ID);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public SiddhiModuleBuilder createModuleBuilder() {
         return new SiddhiModuleBuilder();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getName() {
         return "Siddhi Module";
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getDescription() {
         return "Siddhi modules are used for developing <b>Siddhi</b> applications.";
@@ -71,11 +71,11 @@ public class SiddhiModuleType extends ModuleType<SiddhiModuleBuilder> {
         return SiddhiIcons.ICON;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public ModuleWizardStep[] createWizardSteps(@Nonnull WizardContext wizardContext,
-                                                @Nonnull SiddhiModuleBuilder moduleBuilder,
-                                                @Nonnull ModulesProvider modulesProvider) {
+    public ModuleWizardStep[] createWizardSteps(@NotNull WizardContext wizardContext,
+                                                @NotNull SiddhiModuleBuilder moduleBuilder,
+                                                @NotNull ModulesProvider modulesProvider) {
         return new ModuleWizardStep[]{new ProjectJdkForModuleStep(wizardContext, SiddhiSdkType.getInstance()) {
             @Override
             public void updateDataModel() {

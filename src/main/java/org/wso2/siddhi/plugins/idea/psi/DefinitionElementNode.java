@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents definition_element rule in parser.
  */
 public class DefinitionElementNode extends ANTLRPsiNode {
-    public DefinitionElementNode(@Nonnull ASTNode node) {
+    public DefinitionElementNode(@NotNull ASTNode node) {
         super(node);
     }
 }

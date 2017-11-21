@@ -29,11 +29,10 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.impl.source.resolve.ResolveCache;
 import com.intellij.util.messages.Topic;
 import com.intellij.util.xmlb.XmlSerializerUtil;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
 import org.wso2.siddhi.plugins.idea.configuration.SiddhiConfigurableProvider;
 import org.wso2.siddhi.plugins.idea.configuration.SiddhiModuleSettingsConfigurable;
-
-import javax.annotation.Nonnull;
 
 /**
  * Provides siddhi module settings.
@@ -48,17 +47,17 @@ public class SiddhiModuleSettings implements
     public static final Topic<BuildTargetListener> TOPIC = Topic.create("build target changed",
             BuildTargetListener.class);
 
-    @Nonnull
+    @NotNull
     private final SiddhiModuleSettingsState myState = new SiddhiModuleSettingsState();
 
-    @Nonnull
+    @NotNull
     private final Module myModule;
 
-    public SiddhiModuleSettings(@Nonnull Module module) {
+    public SiddhiModuleSettings(@NotNull Module module) {
         myModule = module;
     }
 
-    public static SiddhiModuleSettings getInstance(@Nonnull Module module) {
+    public static SiddhiModuleSettings getInstance(@NotNull Module module) {
         return ModuleServiceManager.getService(module, SiddhiModuleSettings.class);
     }
 
@@ -70,7 +69,7 @@ public class SiddhiModuleSettings implements
         }
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public SiddhiModuleSettingsState getState() {
         return myState;
@@ -85,14 +84,14 @@ public class SiddhiModuleSettings implements
      * Interface for build target listener.
      */
     public interface BuildTargetListener {
-        void changed(@Nonnull Module module);
+        void changed(@NotNull Module module);
     }
 
     static class SiddhiModuleSettingsState {
 
     }
 
-    public static void showModulesConfigurable(@Nonnull Project project) {
+    public static void showModulesConfigurable(@NotNull Project project) {
         ApplicationManager.getApplication().assertIsDispatchThread();
         if (!project.isDisposed()) {
             ShowSettingsUtil.getInstance().editConfigurable(project, new SiddhiConfigurableProvider
@@ -100,7 +99,7 @@ public class SiddhiModuleSettings implements
         }
     }
 
-    public static void showModulesConfigurable(@Nonnull Module module) {
+    public static void showModulesConfigurable(@NotNull Module module) {
         ApplicationManager.getApplication().assertIsDispatchThread();
         if (!module.isDisposed()) {
             ShowSettingsUtil.getInstance().editConfigurable(module.getProject(),

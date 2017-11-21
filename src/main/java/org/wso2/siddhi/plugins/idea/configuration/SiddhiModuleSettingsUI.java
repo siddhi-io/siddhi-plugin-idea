@@ -21,10 +21,10 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.ConfigurableUi;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.util.ui.UIUtil;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.project.SiddhiModuleSettings;
 
 import java.awt.Dimension;
-import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -35,26 +35,26 @@ public class SiddhiModuleSettingsUI implements ConfigurableUi<SiddhiModuleSettin
 
     private JPanel myPanel;
 
-    public SiddhiModuleSettingsUI(@Nonnull Module module, boolean dialogMode) {
+    public SiddhiModuleSettingsUI(@NotNull Module module, boolean dialogMode) {
         myPanel.setPreferredSize(new Dimension(400, -1));
     }
 
     @Override
-    public void reset(@Nonnull SiddhiModuleSettings settings) {
+    public void reset(@NotNull SiddhiModuleSettings settings) {
 
     }
 
     @Override
-    public boolean isModified(@Nonnull SiddhiModuleSettings settings) {
+    public boolean isModified(@NotNull SiddhiModuleSettings settings) {
         return false;
     }
 
     @Override
-    public void apply(@Nonnull SiddhiModuleSettings settings) throws ConfigurationException {
+    public void apply(@NotNull SiddhiModuleSettings settings) throws ConfigurationException {
 
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public JComponent getComponent() {
         return myPanel;

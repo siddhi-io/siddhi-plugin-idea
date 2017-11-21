@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents delete_from_table rule in parser.
  */
 public class DeleteFromTableNode extends ANTLRPsiNode {
-    public DeleteFromTableNode(@Nonnull ASTNode node) {
+    public DeleteFromTableNode(@NotNull ASTNode node) {
         super(node);
     }
 }

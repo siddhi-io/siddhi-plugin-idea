@@ -24,10 +24,10 @@ import com.intellij.openapi.ui.LabeledComponent;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.ui.EditorTextField;
 import com.intellij.ui.RawCommandLineEditor;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunUtil;
 import org.wso2.siddhi.plugins.idea.runconfig.remote.SiddhiRemoteConfiguration;
 
-import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -54,7 +54,7 @@ public class SiddhiRemoteSettingsEditor extends SettingsEditor<SiddhiRemoteConfi
     }
 
     @Override
-    protected void resetEditorFrom(@Nonnull SiddhiRemoteConfiguration configuration) {
+    protected void resetEditorFrom(@NotNull SiddhiRemoteConfiguration configuration) {
         myFileField.getComponent().setText(configuration.getFilePath());
         myModulesComboBox.getComponent().setModules(configuration.getValidModules());
         myModulesComboBox.getComponent().setSelectedModule(configuration.getConfigurationModule().getModule());
@@ -67,7 +67,7 @@ public class SiddhiRemoteSettingsEditor extends SettingsEditor<SiddhiRemoteConfi
     }
 
     @Override
-    protected void applyEditorTo(@Nonnull SiddhiRemoteConfiguration configuration)
+    protected void applyEditorTo(@NotNull SiddhiRemoteConfiguration configuration)
             throws ConfigurationException {
         configuration.setFilePath(myFileField.getComponent().getText());
         configuration.setModule(myModulesComboBox.getComponent().getSelectedModule());
@@ -78,7 +78,7 @@ public class SiddhiRemoteSettingsEditor extends SettingsEditor<SiddhiRemoteConfi
         configuration.setRemoteDebugPort(myPort.getComponent().getText().trim());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     protected JComponent createEditor() {
         return myPanel;

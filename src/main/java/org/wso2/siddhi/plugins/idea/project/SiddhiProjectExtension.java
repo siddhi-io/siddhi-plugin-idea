@@ -28,10 +28,9 @@ import com.intellij.openapi.roots.ModuleRootModificationUtil;
 import com.intellij.openapi.roots.ProjectExtension;
 import com.intellij.openapi.util.AsyncResult;
 import org.jdom.Element;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.sdk.SiddhiSdkService;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines the extension for siddhi project.
@@ -66,12 +65,12 @@ public class SiddhiProjectExtension extends ProjectExtension {
     }
 
     @Override
-    public void readExternal(@Nonnull Element element) {
+    public void readExternal(@NotNull Element element) {
         // We don't have any use of this method at the moment.
     }
 
     @Override
-    public void writeExternal(@Nonnull Element element) {
+    public void writeExternal(@NotNull Element element) {
         // We don't have any use of this method at the moment.
     }
 }

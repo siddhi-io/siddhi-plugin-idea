@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents pre_window_handler rule in parser.
  */
 public class PreWindowHandlerNode extends ANTLRPsiNode {
-    public PreWindowHandlerNode(@Nonnull ASTNode node) {
+    public PreWindowHandlerNode(@NotNull ASTNode node) {
         super(node);
     }
 }

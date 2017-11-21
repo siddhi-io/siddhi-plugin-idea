@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.psi.DeleteFromTableNode;
 import org.wso2.siddhi.plugins.idea.psi.ExpressionNode;
@@ -30,8 +31,6 @@ import org.wso2.siddhi.plugins.idea.psi.StringValueNode;
 import org.wso2.siddhi.plugins.idea.psi.TargetNode;
 import org.wso2.siddhi.plugins.idea.psi.UpdateOrInsertIntoNode;
 import org.wso2.siddhi.plugins.idea.psi.UpdateTableNode;
-
-import javax.annotation.Nonnull;
 
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAsKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addBeginKeyword;
@@ -51,7 +50,7 @@ import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtil
  */
 public class PartitionCompletionContributor {
 
-    public static void partitionCompletion(@Nonnull CompletionResultSet result, PsiElement element,
+    public static void partitionCompletion(@NotNull CompletionResultSet result, PsiElement element,
                                            PsiElement prevVisibleSibling,
                                            IElementType prevVisibleSiblingElementType,
                                            PsiElement prevPrevVisibleSibling) {
@@ -146,7 +145,7 @@ public class PartitionCompletionContributor {
     }
 
     public static IElementType getElementTypeOfPreviousVisibleSiblingOfGivenNode(PsiElement element,
-                                                                                 @Nonnull Class aClass) {
+                                                                                 @NotNull Class aClass) {
         PsiElement prevSiblingOfGivenNode = getPrevSiblingOfGivenType(element, aClass);
         IElementType prevSiblingOfExpressionNodeElementType = null;
         if (prevSiblingOfGivenNode != null) {
@@ -155,7 +154,7 @@ public class PartitionCompletionContributor {
         return prevSiblingOfExpressionNodeElementType;
     }
 
-    public static PsiElement getPrevSiblingOfGivenType(PsiElement element, @Nonnull Class aClass) {
+    public static PsiElement getPrevSiblingOfGivenType(PsiElement element, @NotNull Class aClass) {
         PsiElement givenNodeElement = PsiTreeUtil.getParentOfType(element, aClass);
         PsiElement prevSiblingOfGivenNode = null;
         if (givenNodeElement != null) {

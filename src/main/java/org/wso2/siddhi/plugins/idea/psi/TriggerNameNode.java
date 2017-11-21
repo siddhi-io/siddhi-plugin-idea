@@ -19,14 +19,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents trigger_name rule in parser.
  */
 public class TriggerNameNode extends ANTLRPsiNode {
-    public TriggerNameNode(@Nonnull ASTNode node) {
+    public TriggerNameNode(@NotNull ASTNode node) {
         super(node);
     }
 }

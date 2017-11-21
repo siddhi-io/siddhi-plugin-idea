@@ -21,9 +21,8 @@ import com.intellij.notification.NotificationListener;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
 import com.intellij.openapi.components.ApplicationComponent;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
-
-import javax.annotation.Nonnull;
 
 /**
  * Provides notifications.
@@ -59,7 +58,7 @@ public class SiddhiNotification implements ApplicationComponent {
 
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public String getComponentName() {
         return getClass().getName();

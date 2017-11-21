@@ -24,13 +24,13 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiModuleBasedConfiguration;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfiguration;
 import org.wso2.siddhi.plugins.idea.runconfig.ui.SiddhiRemoteSettingsEditor;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.annotation.Nonnull;
 
 /**
  * Defines siddhi remote configuration.
@@ -43,26 +43,26 @@ public class SiddhiRemoteConfiguration extends SiddhiRunConfiguration<SiddhiRemo
     private static final String PORT_REGEX = "^\\d{1,5}$";
     private static final Pattern PORT_PATTERN = Pattern.compile(PORT_REGEX);
 
-    public SiddhiRemoteConfiguration(Project project, String name, @Nonnull ConfigurationType configurationType) {
+    public SiddhiRemoteConfiguration(Project project, String name, @NotNull ConfigurationType configurationType) {
         super(name, new SiddhiModuleBasedConfiguration(project), configurationType.getConfigurationFactories()[0]);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     protected ModuleBasedConfiguration createInstance() {
         return new SiddhiRemoteConfiguration(getProject(), getName(),
                 SiddhiRemoteRunConfigurationType.getInstance());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
         return new SiddhiRemoteSettingsEditor(getProject());
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    protected SiddhiRemoteRunningState newRunningState(@Nonnull ExecutionEnvironment env, @Nonnull Module module) {
+    protected SiddhiRemoteRunningState newRunningState(@NotNull ExecutionEnvironment env, @NotNull Module module) {
         return new SiddhiRemoteRunningState(env, module, this);
     }
 

@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents update_or_insert_into rule in parser.
  */
 public class UpdateOrInsertIntoNode extends ANTLRPsiNode {
-    public UpdateOrInsertIntoNode(@Nonnull ASTNode node) {
+    public UpdateOrInsertIntoNode(@NotNull ASTNode node) {
         super(node);
     }
 }

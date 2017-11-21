@@ -18,14 +18,13 @@ package org.wso2.siddhi.plugins.idea.psi;
 
 import com.intellij.lang.ASTNode;
 import org.antlr.jetbrains.adaptor.psi.ANTLRPsiNode;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ANTLRPsiNode which represents on_with_expression rule in parser.
  */
 public class OnWithExpressionNode extends ANTLRPsiNode {
-    public OnWithExpressionNode(@Nonnull ASTNode node) {
+    public OnWithExpressionNode(@NotNull ASTNode node) {
         super(node);
     }
 }

@@ -33,6 +33,7 @@ import com.intellij.uiDesigner.core.Spacer;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.ui.JBUI;
 import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.project.SiddhiApplicationLibrariesService;
 import org.wso2.siddhi.plugins.idea.project.SiddhiProjectLibrariesService;
@@ -43,7 +44,6 @@ import java.awt.Dimension;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-import javax.annotation.Nonnull;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -53,10 +53,10 @@ import javax.swing.JPanel;
  */
 public class SiddhiLibrariesConfigurableProvider extends ConfigurableProvider {
 
-    @Nonnull
+    @NotNull
     private final Project myProject;
 
-    public SiddhiLibrariesConfigurableProvider(@Nonnull Project project) {
+    public SiddhiLibrariesConfigurableProvider(@NotNull Project project) {
         myProject = project;
     }
 
@@ -111,7 +111,7 @@ public class SiddhiLibrariesConfigurableProvider extends ConfigurableProvider {
                 return rootPanel;
             }
 
-            @Nonnull
+            @NotNull
             @Override
             protected List<UnnamedConfigurable> createConfigurables() {
                 List<UnnamedConfigurable> result = ContainerUtil.newArrayList();
@@ -127,7 +127,7 @@ public class SiddhiLibrariesConfigurableProvider extends ConfigurableProvider {
                 return result;
             }
 
-            @Nonnull
+            @NotNull
             @Nls
             @Override
             public String getDisplayName() {
@@ -140,7 +140,7 @@ public class SiddhiLibrariesConfigurableProvider extends ConfigurableProvider {
                 return null;
             }
 
-            @Nonnull
+            @NotNull
             private GridConstraints configurableConstrains(int i) {
                 return new GridConstraints(i, 0, 1, 1, GridConstraints.ANCHOR_NORTHEAST, GridConstraints.FILL_BOTH,
                         GridConstraints.SIZEPOLICY_CAN_GROW | GridConstraints.SIZEPOLICY_WANT_GROW |
@@ -149,16 +149,16 @@ public class SiddhiLibrariesConfigurableProvider extends ConfigurableProvider {
                         null, null, null);
             }
 
-            private boolean isConfigurableExpanded(int index, @Nonnull Configurable configurable) {
+            private boolean isConfigurableExpanded(int index, @NotNull Configurable configurable) {
                 return PropertiesComponent.getInstance(myProject)
                         .getBoolean(configurableExpandedPropertyKey(configurable), index < 2);
             }
 
-            private void storeConfigurableExpandedProperty(@Nonnull String storeKey, @Nonnull Boolean value) {
+            private void storeConfigurableExpandedProperty(@NotNull String storeKey, @NotNull Boolean value) {
                 PropertiesComponent.getInstance(myProject).setValue(storeKey, value.toString());
             }
 
-            private String configurableExpandedPropertyKey(@Nonnull Configurable configurable) {
+            private String configurableExpandedPropertyKey(@NotNull Configurable configurable) {
                 String keyName = "configurable " + configurable.getDisplayName() +
                         " is expanded".toLowerCase(Locale.US);
                 return StringUtil.replaceChar(keyName, ' ', '.');
@@ -167,16 +167,16 @@ public class SiddhiLibrariesConfigurableProvider extends ConfigurableProvider {
             class MyHideableDecoratorListener extends ListenableHideableDecorator.MyListener {
                 private final GridLayoutManager myLayoutManager;
                 private final JPanel myHideablePanel;
-                @Nonnull
+                @NotNull
                 private final String myStoreKey;
                 private final Spacer mySpacer;
                 private final Collection<HideableDecorator> myHideableDecorators;
 
-                public MyHideableDecoratorListener(@Nonnull GridLayoutManager layoutManager,
-                                                   @Nonnull JPanel hideablePanel,
-                                                   @Nonnull Spacer spacer,
-                                                   @Nonnull Collection<HideableDecorator> hideableDecorators,
-                                                   @Nonnull String storeKey) {
+                public MyHideableDecoratorListener(@NotNull GridLayoutManager layoutManager,
+                                                   @NotNull JPanel hideablePanel,
+                                                   @NotNull Spacer spacer,
+                                                   @NotNull Collection<HideableDecorator> hideableDecorators,
+                                                   @NotNull String storeKey) {
                     myLayoutManager = layoutManager;
                     myHideablePanel = hideablePanel;
                     myStoreKey = storeKey;
@@ -223,7 +223,7 @@ public class SiddhiLibrariesConfigurableProvider extends ConfigurableProvider {
         };
     }
 
-    public static void showModulesConfigurable(@Nonnull Project project) {
+    public static void showModulesConfigurable(@NotNull Project project) {
         ApplicationManager.getApplication().assertIsDispatchThread();
         if (!project.isDisposed()) {
             Configurable configurable = new SiddhiLibrariesConfigurableProvider(project).createConfigurable(true);

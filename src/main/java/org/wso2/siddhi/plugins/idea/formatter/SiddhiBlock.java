@@ -27,11 +27,11 @@ import com.intellij.psi.TokenType;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.formatter.common.AbstractBlock;
 import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
 
 import static org.wso2.siddhi.plugins.idea.SiddhiTypes.MULTILINE_COMMENT;
 
@@ -42,7 +42,7 @@ public class SiddhiBlock extends AbstractBlock {
 
     private SpacingBuilder spacingBuilder;
 
-    @Nonnull
+    @NotNull
     private final ASTNode node;
     @Nullable
     private final Alignment alignment;
@@ -50,16 +50,16 @@ public class SiddhiBlock extends AbstractBlock {
     private final Indent indent;
     @Nullable
     private final Wrap wrap;
-    @Nonnull
+    @NotNull
     private final CodeStyleSettings mySettings;
-    @Nonnull
+    @NotNull
     private final SpacingBuilder mySpacingBuilder;
     @Nullable
     private List<Block> mySubBlocks;
 
 
-    protected SiddhiBlock(@Nonnull ASTNode node, @Nullable Alignment alignment, @Nullable Indent indent,
-                          @Nullable Wrap wrap, @Nonnull CodeStyleSettings settings, SpacingBuilder spacingBuilder) {
+    protected SiddhiBlock(@NotNull ASTNode node, @Nullable Alignment alignment, @Nullable Indent indent,
+                          @Nullable Wrap wrap, @NotNull CodeStyleSettings settings, SpacingBuilder spacingBuilder) {
         super(node, wrap, alignment);
 
         this.node = node;
@@ -111,17 +111,17 @@ public class SiddhiBlock extends AbstractBlock {
         return blocks;
     }
 
-    private static boolean isADefinitionElement(@Nonnull final IElementType parentElementType) {
+    private static boolean isADefinitionElement(@NotNull final IElementType parentElementType) {
         //TODO:provide implementation
         return false;
     }
 
-    private static boolean isInsideADefinitionElement(@Nonnull final IElementType childElementType) {
+    private static boolean isInsideADefinitionElement(@NotNull final IElementType childElementType) {
         //TODO:provide implementation
         return false;
     }
 
-    private static boolean isACodeBlock(@Nonnull final IElementType parentElementType) {
+    private static boolean isACodeBlock(@NotNull final IElementType parentElementType) {
         //TODO:provide implementation
         return false;
     }
@@ -133,7 +133,7 @@ public class SiddhiBlock extends AbstractBlock {
 
     @Nullable
     @Override
-    public Spacing getSpacing(@Nullable Block child1, @Nonnull Block child2) {
+    public Spacing getSpacing(@Nullable Block child1, @NotNull Block child2) {
         return spacingBuilder.getSpacing(this, child1, child2);
     }
 

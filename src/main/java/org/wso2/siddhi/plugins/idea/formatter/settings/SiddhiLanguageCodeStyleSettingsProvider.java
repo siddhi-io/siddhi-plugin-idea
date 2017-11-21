@@ -21,9 +21,8 @@ import com.intellij.application.options.SmartIndentOptionsEditor;
 import com.intellij.lang.Language;
 import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines code styles for siddhi.
@@ -40,15 +39,15 @@ public class SiddhiLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSe
                     "select sensorId, avg(temperature) as avgTemp\n" +
                     "insert into outputStream;";
 
-    @Nonnull
+    @NotNull
     @Override
     public Language getLanguage() {
         return SiddhiLanguage.INSTANCE;
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    public String getCodeSample(@Nonnull SettingsType settingsType) {
+    public String getCodeSample(@NotNull SettingsType settingsType) {
         return DEFAULT_CODE_SAMPLE;
     }
 

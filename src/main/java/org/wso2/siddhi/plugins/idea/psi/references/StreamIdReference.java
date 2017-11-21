@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
@@ -35,14 +36,13 @@ import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.annotation.Nonnull;
 
 /**
  * Provides element reference for stream ids.
  */
 public class StreamIdReference extends SiddhiElementReference {
 
-    public StreamIdReference(@Nonnull IdentifierPSINode element) {
+    public StreamIdReference(@NotNull IdentifierPSINode element) {
         super(element);
     }
 
@@ -52,7 +52,7 @@ public class StreamIdReference extends SiddhiElementReference {
         return super.resolve();
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();

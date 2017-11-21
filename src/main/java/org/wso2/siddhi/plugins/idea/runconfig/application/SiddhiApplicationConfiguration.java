@@ -29,11 +29,10 @@ import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.util.text.StringUtil;
 import org.jdom.Element;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiModuleBasedConfiguration;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfiguration;
 import org.wso2.siddhi.plugins.idea.runconfig.ui.SiddhiApplicationSettingsEditor;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines siddhi application configuration.
@@ -42,12 +41,12 @@ public class SiddhiApplicationConfiguration
         extends SiddhiRunConfiguration<SiddhiApplicationRunningState> {
 
     public SiddhiApplicationConfiguration(Project project, String name,
-                                          @Nonnull ConfigurationType configurationType) {
+                                          @NotNull ConfigurationType configurationType) {
         super(name, new SiddhiModuleBasedConfiguration(project), configurationType.getConfigurationFactories()[0]);
     }
 
     @Override
-    public void readExternal(@Nonnull Element element) throws InvalidDataException {
+    public void readExternal(@NotNull Element element) throws InvalidDataException {
         super.readExternal(element);
     }
 
@@ -56,23 +55,23 @@ public class SiddhiApplicationConfiguration
         super.writeExternal(element);
     }
 
-    @Nonnull
+    @NotNull
     @Override
     protected ModuleBasedConfiguration createInstance() {
         return new SiddhiApplicationConfiguration(getProject(), getName(),
                 SiddhiApplicationRunConfigurationType.getInstance());
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
         return new SiddhiApplicationSettingsEditor(getProject());
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    protected SiddhiApplicationRunningState newRunningState(@Nonnull ExecutionEnvironment env,
-                                                            @Nonnull Module module) {
+    protected SiddhiApplicationRunningState newRunningState(@NotNull ExecutionEnvironment env,
+                                                            @NotNull Module module) {
         return new SiddhiApplicationRunningState(env, module, this);
     }
 

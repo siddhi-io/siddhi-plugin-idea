@@ -25,13 +25,13 @@ import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.psi.QueryInputNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 
 import java.util.Collection;
 import java.util.List;
-import javax.annotation.Nonnull;
 
 /**
  * Builds custom folding regions.
@@ -39,15 +39,15 @@ import javax.annotation.Nonnull;
 public class SiddhiFoldingBuilder extends CustomFoldingBuilder implements DumbAware {
 
     @Override
-    protected void buildLanguageFoldRegions(@Nonnull List<FoldingDescriptor> descriptors, @Nonnull PsiElement root,
-                                            @Nonnull Document document, boolean quick) {
+    protected void buildLanguageFoldRegions(@NotNull List<FoldingDescriptor> descriptors, @NotNull PsiElement root,
+                                            @NotNull Document document, boolean quick) {
         if (!(root instanceof SiddhiFile)) {
             return;
         }
         buildQueryFoldRegions(descriptors, root);
     }
 
-    private void buildQueryFoldRegions(@Nonnull List<FoldingDescriptor> descriptors, @Nonnull PsiElement root) {
+    private void buildQueryFoldRegions(@NotNull List<FoldingDescriptor> descriptors, @NotNull PsiElement root) {
         // Get all the query input nodes.
         Collection<QueryNode> queryNodes = PsiTreeUtil.findChildrenOfType(root, QueryNode
                 .class);
@@ -63,7 +63,7 @@ public class SiddhiFoldingBuilder extends CustomFoldingBuilder implements DumbAw
         }
     }
 
-    private void addFoldingDescriptor(@Nonnull List<FoldingDescriptor> descriptors, PsiElement node,
+    private void addFoldingDescriptor(@NotNull List<FoldingDescriptor> descriptors, PsiElement node,
                                       PsiElement bodyNode) {
         // Calculate the start and end offsets.
         int startOffset = bodyNode.getTextRange().getStartOffset();
@@ -73,12 +73,12 @@ public class SiddhiFoldingBuilder extends CustomFoldingBuilder implements DumbAw
     }
 
     @Override
-    protected String getLanguagePlaceholderText(@Nonnull ASTNode node, @Nonnull TextRange range) {
+    protected String getLanguagePlaceholderText(@NotNull ASTNode node, @NotNull TextRange range) {
         return "...";
     }
 
     @Override
-    protected boolean isRegionCollapsedByDefault(@Nonnull ASTNode node) {
+    protected boolean isRegionCollapsedByDefault(@NotNull ASTNode node) {
         return false;
     }
 }

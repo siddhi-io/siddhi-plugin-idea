@@ -21,17 +21,16 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReferenceBase;
 import com.intellij.util.IncorrectOperationException;
 import org.antlr.jetbrains.adaptor.psi.ScopeNode;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
-
-import javax.annotation.Nonnull;
 
 /**
  * Provides element references.
  */
 public abstract class SiddhiElementReference extends PsiReferenceBase<IdentifierPSINode> {
 
-    public SiddhiElementReference(@Nonnull IdentifierPSINode element) {
+    public SiddhiElementReference(@NotNull IdentifierPSINode element) {
         /* WARNING: You must send up the text range or you get this error:
           "Cannot find manipulator for PsiElement(ID) in org.antlr.jetbrains.sample.SampleElementRef"...
            when you click on an identifier.  During rename you get this

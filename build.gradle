@@ -110,4 +110,4 @@ task copyPsiViewerPluginToSandBox(type: Copy) {
 
 copyPsiViewerPluginToSandBox.dependsOn downloadPsiViewerPlugin
 copyPsiViewerPluginToSandBox.mustRunAfter prepareSandbox
-runIde.dependsOn copyPsiViewerPluginToSandBox
+runIde.dependsOn copyPsiViewerPluginToSandBox,check

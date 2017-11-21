@@ -26,11 +26,10 @@ import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
 import org.wso2.siddhi.plugins.idea.runconfig.application.SiddhiApplicationConfiguration;
-
-import javax.annotation.Nonnull;
 
 /**
  * Provides run configuration producer base for siddhi.
@@ -39,12 +38,12 @@ import javax.annotation.Nonnull;
 public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConfiguration>
         extends RunConfigurationProducer<T> implements Cloneable {
 
-    protected SiddhiRunConfigurationProducerBase(@Nonnull ConfigurationType configurationType) {
+    protected SiddhiRunConfigurationProducerBase(@NotNull ConfigurationType configurationType) {
         super(configurationType);
     }
 
     @Override
-    protected boolean setupConfigurationFromContext(@Nonnull T configuration, @Nonnull ConfigurationContext context,
+    protected boolean setupConfigurationFromContext(@NotNull T configuration, @NotNull ConfigurationContext context,
                                                     Ref<PsiElement> sourceElement) {
         PsiFile file = getFileFromContext(context);
         if (file == null) {
@@ -79,11 +78,11 @@ public abstract class SiddhiRunConfigurationProducerBase<T extends SiddhiRunConf
         return false;
     }
 
-    @Nonnull
-    protected abstract String getConfigurationName(@Nonnull PsiFile file);
+    @NotNull
+    protected abstract String getConfigurationName(@NotNull PsiFile file);
 
     @Override
-    public boolean isConfigurationFromContext(@Nonnull T configuration, ConfigurationContext context) {
+    public boolean isConfigurationFromContext(@NotNull T configuration, ConfigurationContext context) {
         SiddhiFile file = getFileFromContext(context);
         return file != null && FileUtil.pathsEqual(configuration.getFilePath(), file.getVirtualFile().getPath());
     }

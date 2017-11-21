@@ -17,9 +17,8 @@
 package org.wso2.siddhi.plugins.idea.runconfig.application;
 
 import com.intellij.psi.PsiFile;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.runconfig.SiddhiRunConfigurationProducerBase;
-
-import javax.annotation.Nonnull;
 
 /**
  * Produce siddhi application run configuration.
@@ -31,9 +30,9 @@ public class SiddhiApplicationRunConfigurationProducer
         super(SiddhiApplicationRunConfigurationType.getInstance());
     }
 
-    @Nonnull
+    @NotNull
     @Override
-    protected String getConfigurationName(@Nonnull PsiFile file) {
+    protected String getConfigurationName(@NotNull PsiFile file) {
         try {
             return file.getName();
         } catch (NullPointerException e) {

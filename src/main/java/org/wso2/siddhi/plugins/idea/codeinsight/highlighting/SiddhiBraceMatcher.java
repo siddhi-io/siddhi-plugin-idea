@@ -29,10 +29,9 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiStatement;
 import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines the brace matching support required for siddhi language.
@@ -44,7 +43,7 @@ public class SiddhiBraceMatcher implements PairedBraceMatcher {
             new BracePair(SiddhiTypes.OPEN_SQUARE_BRACKETS, SiddhiTypes.CLOSE_SQUARE_BRACKETS, false)
     };
 
-    @Nonnull
+    @NotNull
     @Override
     public BracePair[] getPairs() {
         BracePair[] pairsCopy = pairs;
@@ -52,7 +51,7 @@ public class SiddhiBraceMatcher implements PairedBraceMatcher {
     }
 
     @Override
-    public boolean isPairedBracesAllowedBeforeType(@Nonnull final IElementType lbraceType,
+    public boolean isPairedBracesAllowedBeforeType(@NotNull final IElementType lbraceType,
                                                    @Nullable final IElementType contextType) {
         return true;
     }

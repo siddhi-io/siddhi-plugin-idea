@@ -20,6 +20,7 @@ import com.intellij.ide.structureView.StructureViewModel;
 import com.intellij.ide.structureView.StructureViewModelBase;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.Sorter;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.psi.AggregationDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
@@ -28,8 +29,6 @@ import org.wso2.siddhi.plugins.idea.psi.StreamDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.TableDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.TriggerDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines the model for the data displayed in the standard structure view or file structure
@@ -42,7 +41,7 @@ public class SiddhiStructureViewModel extends StructureViewModelBase
         super(root, new SiddhiStructureViewRootElement(root));
     }
 
-    @Nonnull
+    @NotNull
     public Sorter[] getSorters() {
         return new Sorter[]{Sorter.ALPHA_SORTER};
     }
@@ -62,7 +61,7 @@ public class SiddhiStructureViewModel extends StructureViewModelBase
                 || value instanceof TableDefinitionNode || value instanceof AggregationDefinitionNode;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     protected Class[] getSuitableClasses() {
         return super.getSuitableClasses();

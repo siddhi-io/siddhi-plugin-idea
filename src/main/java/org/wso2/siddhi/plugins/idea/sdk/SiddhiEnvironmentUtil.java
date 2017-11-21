@@ -21,10 +21,9 @@ import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.util.EnvironmentUtil;
 import com.intellij.util.PathUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiConstants;
-
-import javax.annotation.Nonnull;
 
 /**
  * Defines utility methods related to siddhi environment.
@@ -34,8 +33,8 @@ public class SiddhiEnvironmentUtil {
     private SiddhiEnvironmentUtil() {
     }
 
-    @Nonnull
-    public static String getBinaryFileNameForPath(@Nonnull String path) {
+    @NotNull
+    public static String getBinaryFileNameForPath(@NotNull String path) {
         String resultBinaryName = FileUtil.getNameWithoutExtension(PathUtil.getFileName(path));
         return SystemInfo.isWindows ? resultBinaryName + ".bat" : resultBinaryName;
     }

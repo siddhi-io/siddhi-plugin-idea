@@ -28,10 +28,9 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
-
-import javax.annotation.Nonnull;
 
 /**
  * Handles how to perform when the enter is pressed between braces.
@@ -39,7 +38,7 @@ import javax.annotation.Nonnull;
 public class SiddhiEnterBetweenBracesHandler extends EnterBetweenBracesHandler {
 
     @Override
-    public Result postProcessEnter(@Nonnull PsiFile file, @Nonnull Editor editor, @Nonnull DataContext dataContext) {
+    public Result postProcessEnter(@NotNull PsiFile file, @NotNull Editor editor, @NotNull DataContext dataContext) {
         if (!file.getLanguage().is(SiddhiLanguage.INSTANCE)) {
             return Result.Continue;
         }

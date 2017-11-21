@@ -20,13 +20,13 @@ import com.intellij.util.containers.ContainerUtil;
 import com.intellij.xdebugger.frame.XExecutionStack;
 import com.intellij.xdebugger.frame.XStackFrame;
 import com.intellij.xdebugger.frame.XSuspendContext;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.debugger.dto.Frame;
 import org.wso2.siddhi.plugins.idea.debugger.dto.Message;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
 
 /**
  * Represents a suspended state of a debug process.
@@ -34,10 +34,10 @@ import javax.annotation.Nonnull;
 public class SiddhiSuspendContext extends XSuspendContext {
 
     private static final String DEFAULT_THREAD_ID = "01";
-    @Nonnull
+    @NotNull
     private final SiddhiExecutionStack myStack;
 
-    public SiddhiSuspendContext(@Nonnull SiddhiDebugProcess process, @Nonnull Message message) {
+    public SiddhiSuspendContext(@NotNull SiddhiDebugProcess process, @NotNull Message message) {
 
         String fileName = message.getLocation().getFileName();
         String frameName = message.getQueryName();
@@ -58,7 +58,7 @@ public class SiddhiSuspendContext extends XSuspendContext {
         return myStack;
     }
 
-    @Nonnull
+    @NotNull
     @Override
     public XExecutionStack[] getExecutionStacks() {
         return new XExecutionStack[]{myStack};
@@ -67,12 +67,12 @@ public class SiddhiSuspendContext extends XSuspendContext {
     static class SiddhiExecutionStack extends XExecutionStack {
 
         private final String threadId;
-        @Nonnull
+        @NotNull
         private final SiddhiDebugProcess myProcess;
-        @Nonnull
+        @NotNull
         private final List<SiddhiStackFrame> myStack;
 
-        public SiddhiExecutionStack(@Nonnull SiddhiDebugProcess process, List<Frame> frames) {
+        public SiddhiExecutionStack(@NotNull SiddhiDebugProcess process, List<Frame> frames) {
             super("Thread #" + DEFAULT_THREAD_ID);
             this.threadId = DEFAULT_THREAD_ID;
             this.myProcess = process;
@@ -89,7 +89,7 @@ public class SiddhiSuspendContext extends XSuspendContext {
         }
 
         @Override
-        public void computeStackFrames(int firstFrameIndex, @Nonnull XStackFrameContainer container) {
+        public void computeStackFrames(int firstFrameIndex, @NotNull XStackFrameContainer container) {
             container.addStackFrames(myStack, true);
         }
 

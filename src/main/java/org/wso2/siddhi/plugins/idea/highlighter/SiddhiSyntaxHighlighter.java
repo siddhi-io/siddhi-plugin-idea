@@ -22,13 +22,13 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
 import org.antlr.jetbrains.adaptor.lexer.ANTLRLexerAdaptor;
 import org.antlr.jetbrains.adaptor.lexer.TokenIElementType;
+import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.SiddhiLanguage;
 import org.wso2.siddhi.plugins.idea.SiddhiParserDefinition;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nonnull;
 
 /**
  * A highlighter is really just a mapping from token type to
@@ -68,13 +68,13 @@ public class SiddhiSyntaxHighlighter extends SyntaxHighlighterBase {
         fillMap(ATTRIBUTES, SiddhiParserDefinition.SYMBOLS, SiddhiSyntaxHighlightingColors.SYMBOLS);
     }
 
-    @Nonnull
+    @NotNull
     public Lexer getHighlightingLexer() {
         SiddhiQLLexer lexer = new SiddhiQLLexer(null);
         return new ANTLRLexerAdaptor(SiddhiLanguage.INSTANCE, lexer);
     }
 
-    @Nonnull
+    @NotNull
     public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
         if (!(tokenType instanceof TokenIElementType)) {
             return EMPTY_KEYS;
