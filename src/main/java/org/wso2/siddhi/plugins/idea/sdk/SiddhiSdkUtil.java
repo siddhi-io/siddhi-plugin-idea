@@ -141,8 +141,8 @@ public class SiddhiSdkUtil {
     }
 
     @NotNull
-    public static Collection<VirtualFile> getSdkDirectoriesToAttach(@NotNull String sdkPath, @NotNull String
-            versionString) {
+    public static Collection<VirtualFile> getSdkDirectoriesToAttach(@NotNull String sdkPath,
+                                                                    @NotNull String versionString) {
         return ContainerUtil.createMaybeSingletonList(getSdkSrcDir(sdkPath, versionString));
     }
 

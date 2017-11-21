@@ -62,8 +62,8 @@ public class SiddhiXValue extends XNamedValue {
     @Nullable
     private final Icon myIcon;
 
-    SiddhiXValue(@NotNull SiddhiDebugProcess process, @NotNull String frameName, @NotNull String key, @NotNull Object
-            value, @Nullable Icon icon) {
+    SiddhiXValue(@NotNull SiddhiDebugProcess process, @NotNull String frameName, @NotNull String key,
+                 @NotNull Object value, @Nullable Icon icon) {
         super(key);
         myProcess = process;
         myFrameName = frameName;

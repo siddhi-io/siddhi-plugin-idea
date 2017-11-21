@@ -78,13 +78,13 @@ public class SiddhiRunUtil {
         return psiElement;
     }
 
-    public static void installSiddhiWithWorkingDirectoryChooser(Project project, @NotNull TextFieldWithBrowseButton
-            fileField) {
+    public static void installSiddhiWithWorkingDirectoryChooser(Project project,
+                                                                @NotNull TextFieldWithBrowseButton fileField) {
         installWorkingDirectoryChooser(project, fileField);
     }
 
-    private static void installWorkingDirectoryChooser(@NotNull Project project, @NotNull ComponentWithBrowseButton
-            field) {
+    private static void installWorkingDirectoryChooser(@NotNull Project project,
+                                                       @NotNull ComponentWithBrowseButton field) {
         FileChooserDescriptor chooseDirectoryDescriptor =
                 FileChooserDescriptorFactory.createSingleFolderDescriptor();
         chooseDirectoryDescriptor.setShowFileSystemRoots(true);
