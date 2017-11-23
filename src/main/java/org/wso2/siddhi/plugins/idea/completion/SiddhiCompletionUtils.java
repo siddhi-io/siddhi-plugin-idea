@@ -410,10 +410,10 @@ public class SiddhiCompletionUtils {
         OUTER_JOIN = createKeywordLookupElement("outer join");
         INNER_JOIN = createKeywordLookupElement("inner join");
 
-        EXPRESSION_WITH_HASH = createLookupElementWithCustomTypeText("#[\"enter your expression here\"]","expression")
-                .withPresentableText("#expression");
-        EXPRESSION_WITHOUT_HASH = createLookupElementWithCustomTypeText("[\"enter your expression here\"]","expression")
-                .withPresentableText("expression");
+        EXPRESSION_WITH_HASH = createLookupElementWithCustomTypeText("#[\"enter your expression here\"]",
+                "expression").withPresentableText("#expression");
+        EXPRESSION_WITHOUT_HASH = createLookupElementWithCustomTypeText("[\"enter your expression here\"]",
+                "expression").withPresentableText("expression");
         LOG = createLookupElementWithCustomTypeText("#log(priority, log.message, is.event.logged)",
                 "stream processor").withPresentableText("log()");
 
