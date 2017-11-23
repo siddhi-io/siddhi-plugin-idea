@@ -2,21 +2,20 @@
     <id>org.wso2.siddhi</id>
     <name>Siddhi</name>
     <version>1.0.0</version>
-    <vendor email="support@wso2.com" url="http://wso2.org">WSO2 Inc.</vendor>
+    <vendor email="support@wso2.com" url="http://wso2.com">WSO2 Inc.</vendor>
     <description><![CDATA[
-      <a href="https://wso2.github.io/siddhi/">Siddhi</a> is a java library that listens to events from data streams, detects complex conditions described via a
-      Streaming SQL language, and triggers actions. It performs both Stream Processing and Complex Event Processing.
-      This plugin supports development of Siddhi programs with IntelliJ IDEA.
+      <a href="https://wso2.github.io/siddhi/">Siddhi</a> is a java library that listens to events from data streams, detects complex conditions described via a Streaming SQL language, and triggers actions. <br/>
+      It performs both Stream Processing and Complex Event Processing. <br/>
+      This plugin supports development of Siddhi applications with IntelliJ IDEA.<br/>
     ]]></description>
 
     <change-notes><![CDATA[
        <ul>
-        <li>Support Siddhi 4.0 grammar.</li>
-        <li>Run Siddhi files.</li>
-        <li>Debug Siddhi files.</li>
+        <li>Support Siddhi 4.0 Grammar.</li>
+        <li>Run Siddhi Applications.</li>
+        <li>Debug Siddhi Applications.</li>
         <li>Send events using an input text file.</li>
         <li>Send events through extensions.</li>
-        <li>Spell checking.</li>
       </ul>
     ]]>
     </change-notes>
