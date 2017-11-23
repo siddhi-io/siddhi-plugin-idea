@@ -1,0 +1,113 @@
+/*
+ *  Copyright (c) 2017, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+buildscript {
+    repositories {
+        maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
+    }
+}
+
+plugins {
+    id "org.jetbrains.intellij" version "0.2.17"
+    id "de.undercouch.download" version "3.2.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+dependencies{
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20170516'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', 'adaptor/src']
+        }
+    }
+}
+
+apply plugin: 'org.jetbrains.intellij'
+intellij {
+    //For a full list of IntelliJ IDEA releases, please see https://www.jetbrains.com/intellij-repository/releases.
+    version 'IC-2017.2.5'
+    pluginName 'Siddhi-IntelliJ-Plugin'
+    updateSinceUntilBuild false
+    plugins 'coverage' //Bundled plugin dependencies
+}
+
+apply plugin: 'antlr'
+dependencies {
+    antlr "org.antlr:antlr4:4.6"
+}
+
+apply plugin: 'checkstyle'
+checkstyle {
+    toolVersion '7.8.1'
+    configFile file("config/checkstyle/checkstyle.xml")
+}
+checkstyleMain {
+    source ='src/main/java'
+}
+checkstyleTest {
+    source ='src/test/java'
+}
+
+apply plugin: 'findbugs'
+findbugs {
+    ignoreFailures = false
+    toolVersion = "3.0.1"
+    sourceSets=[sourceSets.main]
+    excludeFilter = file("config/findbugs/excludeFilter.xml")
+    reportsDir = file("$project.buildDir/reports/findbugs")
+    effort = "max"
+}
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+apply plugin: "jacoco"
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/jacocoHtml"
+    }
+}
+
+apply plugin: 'de.undercouch.download'
+task downloadPsiViewerPlugin() {
+    download {
+        src 'https://plugins.jetbrains.com/plugin/download?updateId=31087'
+        dest new File("${buildDir}/tmp/plugins/", 'PsiViewer.jar')
+        onlyIfNewer true
+    }
+}
+
+task copyPsiViewerPluginToSandBox(type: Copy) {
+    from "${buildDir}/tmp/plugins/PsiViewer.jar"
+    into "${buildDir}/idea-sandbox/plugins/"
+}
+
+copyPsiViewerPluginToSandBox.dependsOn downloadPsiViewerPlugin
+copyPsiViewerPluginToSandBox.mustRunAfter prepareSandbox
+runIde.dependsOn copyPsiViewerPluginToSandBox,check

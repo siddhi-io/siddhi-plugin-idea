@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <Match>
+        <Package name="~org\.antlr.*"/>
+    </Match>
+    <Match>
+        <Package name="~org\.wso2\.siddhi\.plugins\.idea\.grammar.*"/>
+    </Match>
+    <Match>
+        <Class name="org.wso2.siddhi.plugins.idea.runconfig.ui.SiddhiApplicationSettingsEditor"/>
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+    <Match>
+        <Class name="org.wso2.siddhi.plugins.idea.runconfig.ui.SiddhiRemoteSettingsEditor"/>
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+    <Match>
+        <Class name="org.wso2.siddhi.plugins.idea.util.SiddhiUtil"/>
+        <Method name="isWorkspaceFile" />
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+    </Match>
+    <Match>
+        <Class name="org.wso2.siddhi.plugins.idea.SiddhiASTFactory"/>
+        <Method name="createLeaf" />
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+    </Match>
+    <Match>
+        <Class name="org.wso2.siddhi.plugins.idea.SiddhiASTFactory"/>
+        <Method name="createComposite" />
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+    </Match>
+    <Match>
+        <Class name="org.wso2.siddhi.plugins.idea.SiddhiIcons"/>
+        <Field name="ICON" />
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+    </Match>
+    <Match>
+        <Class name="org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode"/>
+        <Bug pattern="HE_INHERITS_EQUALS_USE_HASHCODE"/>
+    </Match>
+    <Match>
+        <Class name="org.wso2.siddhi.plugins.idea.SiddhiModuleBuilder"/>
+        <Bug pattern="HE_INHERITS_EQUALS_USE_HASHCODE"/>
+    </Match>
+    <!--Added following exclusions because FindBugs doesn't allow to add NotNull annotation from jetbrains
+    (import org.jetbrains.annotations.NotNull) But it is recommended to write the plugin according to the jetbrains
+    standards.-->
+    <!-- TODO: Remove following exclusions once FindBugs allows NotNull annotation from jetbrains.-->
+    <Match>
+        <Package name="~org\.wso2\.siddhi\.plugins\.idea.*"/>
+        <Bug pattern="NP_NULL_ON_SOME_PATH,NP_NULL_PARAM_DEREF,
+        RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE,NP_GUARANTEED_DEREF,
+        NP_NULL_ON_SOME_PATH_MIGHT_BE_INFEASIBLE,RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE,
+        RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"
+        />
+    </Match>
+</FindBugsFilter>
