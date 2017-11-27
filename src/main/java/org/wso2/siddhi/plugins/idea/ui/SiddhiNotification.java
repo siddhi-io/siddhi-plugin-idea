@@ -47,7 +47,7 @@ public class SiddhiNotification implements ApplicationComponent {
 
         Notifications.Bus.notify(SiddhiConstants.SIDDHI_NOTIFICATION_GROUP.createNotification(
                 "Learn Siddhi",
-                "Visit <a href=\"https://docs.wso2.com/display/CEP420\">Siddhi website<a/> to learn more about " +
+                "Visit <a href=\"https://wso2.github.io/siddhi/\">Siddhi website<a/> to learn more about " +
                         "Siddhi.",
                 NotificationType.INFORMATION,
                 NotificationListener.URL_OPENING_LISTENER));
