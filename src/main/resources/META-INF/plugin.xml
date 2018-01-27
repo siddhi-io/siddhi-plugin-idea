@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>org.wso2.siddhi</id>
     <name>Siddhi</name>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <vendor email="support@wso2.com" url="http://wso2.com">WSO2 Inc.</vendor>
     <description><![CDATA[
       <a href="https://wso2.github.io/siddhi/">Siddhi</a> is a java library that listens to events from data streams, detects complex conditions described via a Streaming SQL language, and triggers actions. <br/>
@@ -11,11 +11,8 @@
 
     <change-notes><![CDATA[
        <ul>
-        <li>Support Siddhi 4.0 Grammar.</li>
-        <li>Run Siddhi Applications.</li>
-        <li>Debug Siddhi Applications.</li>
-        <li>Send events using an input text file.</li>
-        <li>Send events through extensions.</li>
+        <li>Adding grammar support for 'order by', 'limit' clauses in queries.</li>
+        <li>Improvements on keyword completion.</li>
       </ul>
     ]]>
     </change-notes>
