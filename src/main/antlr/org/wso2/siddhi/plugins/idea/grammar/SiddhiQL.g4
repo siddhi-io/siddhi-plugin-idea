@@ -94,7 +94,13 @@ definition_function_final
     : definition_function ';'? EOF
     ;
 
+//Added a new rule named definition_function1(which has the same content previously used in the definition_function rule) to avoid
+//node collapsing issue in psi tree building
 definition_function
+    :definition_function1
+    ;
+
+definition_function1
     : DEFINE FUNCTION function_name '[' language_name ']' RETURN attribute_type function_body
     ;
 
@@ -126,7 +132,13 @@ definition_aggregation_final
     : definition_aggregation ';'? EOF
     ;
 
+//Added a new rule named definition_aggregation1(which has the same content previously used in the definition_aggregation rule) to avoid
+//node collapsing issue in psi tree building
 definition_aggregation
+    :definition_aggregation1
+    ;
+
+definition_aggregation1
     : DEFINE AGGREGATION aggregation_name FROM standard_stream group_by_query_selection AGGREGATE (BY attribute_reference)? EVERY aggregation_time
     ;
 
@@ -169,7 +181,7 @@ partition
 
 //Added a new rule named partition1(which has the same content previously used in the partition rule) to avoid
 //node collapsing issue in psi tree building
-partition1 //TODO:Add suggestions for partitions
+partition1
     :  PARTITION WITH '('partition_with_stream (','partition_with_stream)* ')' BEGIN (query|error) (';' (query|error))* ';'? END
     ;
 
@@ -456,7 +468,7 @@ query_section
     ;
 
 query_section1
-    : (SELECT ('*'| (output_attribute (',' output_attribute)* ))) group_by? having?
+    : (SELECT ('*'| (output_attribute (',' output_attribute)* ))) group_by? having? order_by? limit?
     ;
 
 //Added a new rule named group_by1(which has the same content previously used in the group_by rule) to avoid node
@@ -471,6 +483,28 @@ group_by1
 
 having
     : HAVING expression
+    ;
+
+//Added a new rule named order_by1(which has the same content previously used in the order_by rule) to avoid node
+// collapsing issue in psi tree building
+order_by
+    :order_by1
+    ;
+
+order_by1
+    : ORDER BY order_by_reference (',' order_by_reference )*
+    ;
+
+order_by_reference
+    : attribute_reference order?
+    ;
+
+order
+    : ASC | DESC
+    ;
+
+limit
+    : LIMIT expression
     ;
 
 query_output
@@ -525,7 +559,13 @@ output_event_type
     : ALL EVENTS | EXPIRED EVENTS | CURRENT? EVENTS
     ;
 
+//Added a new rule named output_rate1(which has the same content previously used in the output_rate rule) to
+// avoid node collapsing issue in psi tree building
 output_rate
+    :output_rate1
+    ;
+
+output_rate1
     : OUTPUT output_rate_type? EVERY ( time_value | INT_LITERAL EVENTS )
     | OUTPUT SNAPSHOT EVERY time_value
     ;
@@ -725,6 +765,10 @@ keyword
     | SELECT
     | GROUP
     | BY
+    | ORDER
+    | ASC
+    | DESC
+    | LIMIT
     | HAVING
     | INSERT
     | DELETE
@@ -904,6 +948,10 @@ WINDOW:   W I N D O W;
 SELECT:   S E L E C T;
 GROUP:    G R O U P;
 BY:       B Y;
+ORDER:    O R D E R;
+LIMIT:    L I M I T;
+ASC:      A S C;
+DESC:     D E S C;
 HAVING:   H A V I N G;
 INSERT:   I N S E R T;
 DELETE:   D E L E T E;

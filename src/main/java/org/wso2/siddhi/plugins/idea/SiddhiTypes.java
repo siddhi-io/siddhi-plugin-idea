@@ -122,10 +122,18 @@ public class SiddhiTypes {
             tokenIElementTypes.get(SiddhiQLLexer.SELECT);
     public static final TokenIElementType GROUP =
             tokenIElementTypes.get(SiddhiQLLexer.GROUP);
+    public static final TokenIElementType ORDER =
+            tokenIElementTypes.get(SiddhiQLLexer.ORDER);
     public static final TokenIElementType BY =
             tokenIElementTypes.get(SiddhiQLLexer.BY);
     public static final TokenIElementType HAVING =
             tokenIElementTypes.get(SiddhiQLLexer.HAVING);
+    public static final TokenIElementType LIMIT =
+            tokenIElementTypes.get(SiddhiQLLexer.LIMIT);
+    public static final TokenIElementType ASC =
+            tokenIElementTypes.get(SiddhiQLLexer.ASC);
+    public static final TokenIElementType DESC =
+            tokenIElementTypes.get(SiddhiQLLexer.DESC);
     public static final TokenIElementType INSERT =
             tokenIElementTypes.get(SiddhiQLLexer.INSERT);
     public static final TokenIElementType DELETE =

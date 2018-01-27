@@ -40,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser;
 import org.wso2.siddhi.plugins.idea.psi.AggregationDefinitionNode;
+import org.wso2.siddhi.plugins.idea.psi.AggregationNameNode;
 import org.wso2.siddhi.plugins.idea.psi.AliasNode;
 import org.wso2.siddhi.plugins.idea.psi.AnnotationElementNode;
 import org.wso2.siddhi.plugins.idea.psi.AnnotationNode;
@@ -74,10 +75,13 @@ import org.wso2.siddhi.plugins.idea.psi.JoinStreamNode;
 import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
 import org.wso2.siddhi.plugins.idea.psi.LeftSourceNode;
 import org.wso2.siddhi.plugins.idea.psi.LeftUnidirectionalJoinNode;
+import org.wso2.siddhi.plugins.idea.psi.LimitNode;
 import org.wso2.siddhi.plugins.idea.psi.MathOperationNode;
 import org.wso2.siddhi.plugins.idea.psi.NameNode;
 import org.wso2.siddhi.plugins.idea.psi.NullCheckNode;
 import org.wso2.siddhi.plugins.idea.psi.OnWithExpressionNode;
+import org.wso2.siddhi.plugins.idea.psi.OrderByNode;
+import org.wso2.siddhi.plugins.idea.psi.OrderByReferenceNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputAttributeNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.OutputRateNode;
@@ -120,6 +124,7 @@ import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.ALL;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.AND;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.APP;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.AS;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.ASC;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.AT;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.AT_SYMBOL;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.BEGIN;
@@ -129,6 +134,7 @@ import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.CURRENT;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.DAYS;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.DEFINE;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.DELETE;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.DESC;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.DOUBLE;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.END;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.EVENTS;
@@ -154,6 +160,7 @@ import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.IS;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.JOIN;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.LAST;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.LEFT;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.LIMIT;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.LONG;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.MILLISECONDS;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.MINUTES;
@@ -165,6 +172,7 @@ import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.OBJECT;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.OF;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.ON;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.OR;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.ORDER;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.OUTER;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.OUTPUT;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.PARTITION;
@@ -172,6 +180,7 @@ import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.PER;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RAW;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RETURN;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RIGHT;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_aggregation_name;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_alias;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_annotation;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_annotation_element;
@@ -211,10 +220,13 @@ import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_join_stre
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_language_name;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_left_source;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_left_unidirectional_join;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_limit;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_math_operation;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_name;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_null_check;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_on_with_expression;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_order_by;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_order_by_reference;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_output_attribute;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_output_event_type;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_output_rate;
@@ -283,7 +295,7 @@ public class SiddhiParserDefinition implements ParserDefinition {
             DELETE, UPDATE, RETURN, EVENTS, INTO, OUTPUT, EXPIRED, CURRENT, SNAPSHOT, FOR, RAW, OF, AS, AT, OR, AND,
             ON, IN, IS, NOT, WITHIN, WITH, BEGIN, END, NULL, EVERY, LAST, ALL, FIRST, JOIN, INNER, OUTER, RIGHT, LEFT,
             FULL, UNIDIRECTIONAL, YEARS, MONTHS, WEEKS, DAYS, HOURS, MINUTES, SECONDS, MILLISECONDS, FALSE, TRUE,
-            STRING, INT, LONG, FLOAT, DOUBLE, BOOL, OBJECT, AGGREGATION, AGGREGATE, PER);
+            STRING, INT, LONG, FLOAT, DOUBLE, BOOL, OBJECT, AGGREGATION, AGGREGATE, PER, ORDER, LIMIT, ASC, DESC);
 
     public static final TokenSet COMMENTS =
             PSIElementTypeFactory.createTokenSet(SiddhiLanguage.INSTANCE, SINGLE_LINE_COMMENT, MULTILINE_COMMENT);
@@ -543,6 +555,14 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new PartitionWithStreamNode(node);
             case RULE_string_value:
                 return new StringValueNode(node);
+            case RULE_order_by:
+                return new OrderByNode(node);
+            case RULE_order_by_reference:
+                return new OrderByReferenceNode(node);
+            case RULE_limit:
+                return new LimitNode(node);
+            case RULE_aggregation_name:
+                return new AggregationNameNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }
