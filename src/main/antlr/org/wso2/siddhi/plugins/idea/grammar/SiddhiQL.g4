@@ -36,7 +36,13 @@ siddhi_app
       annotation? definition_element(';' definition_element_with_execution_element)?';'?
     ;
 
+//Added a new rule named definition_element1(which has the same content previously used in the definition_element rule) to avoid
+//node collapsing issue in psi tree building
 definition_element
+    :definition_element1
+    ;
+
+definition_element1
     : (definition_stream | definition_table | definition_trigger | definition_function | definition_window
     | definition_aggregation)
     ;
@@ -146,21 +152,28 @@ aggregation_name
     : id
     ;
 
+// simplified the rule inorder to uniquely identify the sub rules. Antlr cannot build tree when the sub tree start
+// points are common. ex : aggregation_time_duration
 aggregation_time
-    : aggregation_time_range
-    | aggregation_time_interval
+    : aggregation_time_duration (aggregation_time_range | aggregation_time_interval)
     ;
 
+//Added a new rule named aggregation_time_duration1(which has the same content previously used in the aggregation_time_duration rule) to avoid
+//node collapsing issue in psi tree building
 aggregation_time_duration
+    :aggregation_time_duration1
+    ;
+
+aggregation_time_duration1
     : (SECONDS | MINUTES | HOURS | DAYS | WEEKS | MONTHS | YEARS)
     ;
 
 aggregation_time_range
-    : aggregation_time_duration TRIPLE_DOT aggregation_time_duration
+    : TRIPLE_DOT aggregation_time_duration
     ;
 
 aggregation_time_interval
-    :  aggregation_time_duration (COMMA aggregation_time_duration)*
+    : (COMMA aggregation_time_duration)*
     ;
 
 annotation

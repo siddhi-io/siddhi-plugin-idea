@@ -41,6 +41,7 @@ import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLLexer;
 import org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser;
 import org.wso2.siddhi.plugins.idea.psi.AggregationDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.AggregationNameNode;
+import org.wso2.siddhi.plugins.idea.psi.AggregationTimeDurationNode;
 import org.wso2.siddhi.plugins.idea.psi.AliasNode;
 import org.wso2.siddhi.plugins.idea.psi.AnnotationElementNode;
 import org.wso2.siddhi.plugins.idea.psi.AnnotationNode;
@@ -181,6 +182,7 @@ import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RAW;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RETURN;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RIGHT;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_aggregation_name;
+import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_aggregation_time_duration;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_alias;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_annotation;
 import static org.wso2.siddhi.plugins.idea.grammar.SiddhiQLParser.RULE_annotation_element;
@@ -563,6 +565,8 @@ public class SiddhiParserDefinition implements ParserDefinition {
                 return new LimitNode(node);
             case RULE_aggregation_name:
                 return new AggregationNameNode(node);
+            case RULE_aggregation_time_duration:
+                return new AggregationTimeDurationNode(node);
             default:
                 return new ANTLRPsiNode(node);
         }
