@@ -21,7 +21,6 @@ import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.psi.PsiComment;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -31,33 +30,18 @@ import org.wso2.siddhi.plugins.idea.completion.executionelements.partition.Parti
 import org.wso2.siddhi.plugins.idea.completion.executionelements.query.QueryCompletionContributor;
 import org.wso2.siddhi.plugins.idea.psi.AnnotationNode;
 import org.wso2.siddhi.plugins.idea.psi.AppAnnotationNode;
-import org.wso2.siddhi.plugins.idea.psi.AttributeNameNode;
-import org.wso2.siddhi.plugins.idea.psi.AttributeTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.DefinitionElementNode;
 import org.wso2.siddhi.plugins.idea.psi.ExecutionElementNode;
-import org.wso2.siddhi.plugins.idea.psi.FunctionDefinitionNode;
-import org.wso2.siddhi.plugins.idea.psi.FunctionNameNode;
-import org.wso2.siddhi.plugins.idea.psi.LanguageNameNode;
-import org.wso2.siddhi.plugins.idea.psi.OutputEventTypeNode;
 import org.wso2.siddhi.plugins.idea.psi.ParseNode;
 import org.wso2.siddhi.plugins.idea.psi.PartitionNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiAppNode;
 import org.wso2.siddhi.plugins.idea.psi.SiddhiFile;
-import org.wso2.siddhi.plugins.idea.psi.TriggerNameNode;
-import org.wso2.siddhi.plugins.idea.psi.WindowDefinitionNode;
 
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAfterATSymbolLookups;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addAtKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addDefineTypesAsLookups;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addEveryKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addFromKeyword;
 import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addInitialTypesAsLookups;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addLanguageTypesKeywords;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addOutputEventTypeKeywords;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addReturnKeyword;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addValueTypesAsLookups;
-import static org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils.addWindowProcessorTypesAsLookups;
+import static org.wso2.siddhi.plugins.idea.completion.definitionelements.DefinitionCompletionContributor.definitionCompletion;
 import static org.wso2.siddhi.plugins.idea.completion.executionelements.partition.PartitionCompletionContributor.isEndOfAQueryOutput;
 import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.getPreviousVisibleSiblingSkippingComments;
 
@@ -116,11 +100,6 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     addAfterATSymbolLookups(result);
                     return;
                 }
-                // suggestions after define keyword
-                if (prevVisibleSiblingElementType == SiddhiTypes.DEFINE) {
-                    addDefineTypesAsLookups(result);
-                    return;
-                }
                 // suggestions after an annotation
                 if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR
                         && (PsiTreeUtil.getParentOfType(prevVisibleSibling, AppAnnotationNode.class) != null
@@ -128,39 +107,19 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
                     addInitialTypesAsLookups(result);
                     return;
                 }
-                // suggestions after an attribute type if it is in a definition element
-                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, AttributeNameNode.class) != null
-                        && PsiTreeUtil.getParentOfType(prevVisibleSibling, DefinitionElementNode.class) != null) {
-                    addValueTypesAsLookups(result);
-                    return;
-                }
-                // suggestions after a trigger name node AT keyword
-                if (PsiTreeUtil.getParentOfType(prevVisibleSibling, TriggerNameNode.class) != null) {
-                    addAtKeyword(result);
+                // suggestions related to a definition element
+                if (PsiTreeUtil.getParentOfType(element, DefinitionElementNode.class) != null) {
+                    definitionCompletion(result, element, prevVisibleSibling, prevVisibleSiblingElementType,
+                            prevPreVisibleSibling);
                     return;
                 }
                 if (prevPreVisibleSibling != null) {
-                    // Handling suggestions in a query
+                    //  suggestions related to a execution elements
                     if (PsiTreeUtil.getParentOfType(element, ExecutionElementNode.class) != null) {
                         executionElementRelatedKeywordCompletion(result, element, prevVisibleSibling,
                                 prevVisibleSiblingElementType, prevPreVisibleSibling);
                         return;
                     }
-                    // after AT in a Trigger definition, suggest EVERY keyword
-                    if (prevVisibleSiblingElementType == SiddhiTypes.AT && PsiTreeUtil.getParentOfType
-                            (prevPreVisibleSibling, TriggerNameNode.class) != null) {
-                        addEveryKeyword(result);
-                        return;
-                    }
-                    // Window definitions suggestions
-                    if (PsiTreeUtil.getParentOfType(element, WindowDefinitionNode.class) != null) {
-                        windowDefinitionRelatedKeywordCompletion(result, element, prevVisibleSibling,
-                                prevVisibleSiblingElementType);
-                    }
-                    // suggestions related to function definition
-                    functionDefinitionRelatedKeywordCompletion(result, element, prevPreVisibleSibling,
-                            prevVisibleSiblingElementType);
-                    //TODO: add aggregation definition
                 }
                 // Adding suggestions after a comment
                 if (prevVisibleSibling instanceof PsiComment && (prevVisibleSibling.getParent() instanceof
@@ -174,55 +133,6 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         }
     }
 
-    //TODO: Restructure definition related completions
-    private void windowDefinitionRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
-                                                          PsiElement prevVisibleSibling,
-                                                          IElementType prevVisibleSiblingElementType) {
-        if (getPreviousVisibleSiblingSkippingComments(prevVisibleSibling) != null) {
-            PsiElement prevPrevVisibleSibling = getPreviousVisibleSiblingSkippingComments(prevVisibleSibling);
-            if (element.getParent().getParent().getPrevSibling() != null) {
-                if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_PAR && PsiTreeUtil.getParentOfType
-                        (prevPrevVisibleSibling, AttributeTypeNode.class) != null && element.getParent()
-                        .getParent().getPrevSibling() instanceof PsiWhiteSpace) {
-                    addWindowProcessorTypesAsLookups(result);
-                    return;
-                }
-            }
-        }
-        if (PsiTreeUtil.getParentOfType(element, OutputEventTypeNode.class) != null) {
-            addOutputEventTypeKeywords(result);
-        }
-    }
-
-    private void functionDefinitionRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
-                                                            PsiElement prevPreVisibleSibling,
-                                                            IElementType prevVisibleSiblingElementType) {
-        if (PsiTreeUtil.getParentOfType(element, LanguageNameNode.class) != null
-                && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, FunctionNameNode.class) != null
-                && prevVisibleSiblingElementType == SiddhiTypes.OPEN_SQUARE_BRACKETS) {
-            addLanguageTypesKeywords(result);
-            return;
-        }
-        if (element.getParent().getPrevSibling() != null) {
-            if (prevVisibleSiblingElementType == SiddhiTypes.CLOSE_SQUARE_BRACKETS
-                    && PsiTreeUtil.getParentOfType(prevPreVisibleSibling, LanguageNameNode.class) != null
-                    && element.getParent().getPrevSibling() instanceof PsiWhiteSpace) {
-                addReturnKeyword(result);
-                return;
-            }
-        }
-        IElementType prevPrevVisibleSiblingElementType = null;
-        if (prevPreVisibleSibling != null) {
-            prevPrevVisibleSiblingElementType = ((LeafPsiElement) prevPreVisibleSibling)
-                    .getElementType();
-        }
-        if (PsiTreeUtil.getParentOfType(element, FunctionDefinitionNode.class) != null
-                && prevVisibleSiblingElementType == SiddhiTypes.RETURN
-                && prevPrevVisibleSiblingElementType == SiddhiTypes.CLOSE_SQUARE_BRACKETS) {
-            addValueTypesAsLookups(result);
-        }
-    }
-
     private void executionElementRelatedKeywordCompletion(@NotNull CompletionResultSet result, PsiElement element,
                                                           PsiElement prevVisibleSibling,
                                                           IElementType prevVisibleSiblingElementType,
@@ -230,8 +140,7 @@ public class SiddhiKeywordsCompletionContributor extends CompletionContributor {
         // keyword completion related to partitions
         if (PsiTreeUtil.getParentOfType(element, PartitionNode.class) != null) {
             PartitionCompletionContributor.partitionCompletion(result, element, prevVisibleSibling,
-                    prevVisibleSiblingElementType,
-                    prevPreVisibleSibling);
+                    prevVisibleSiblingElementType, prevPreVisibleSibling);
             // Don't use 'return' here. Because inside a partition there can be queries as well. So if we return from
             // here then those code suggestions for queries will not work.
         }

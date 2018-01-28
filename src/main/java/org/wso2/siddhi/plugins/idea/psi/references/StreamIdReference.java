@@ -20,22 +20,28 @@ import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.wso2.siddhi.plugins.idea.SiddhiTypes;
 import org.wso2.siddhi.plugins.idea.completion.SiddhiCompletionUtils;
+import org.wso2.siddhi.plugins.idea.psi.AggregationDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.BasicSourceNode;
 import org.wso2.siddhi.plugins.idea.psi.IdentifierPSINode;
 import org.wso2.siddhi.plugins.idea.psi.JoinSourceNode;
 import org.wso2.siddhi.plugins.idea.psi.QueryOutputNode;
 import org.wso2.siddhi.plugins.idea.psi.RightSourceNode;
 import org.wso2.siddhi.plugins.idea.psi.StandardStreamNode;
+import org.wso2.siddhi.plugins.idea.psi.StreamDefinitionNode;
 import org.wso2.siddhi.plugins.idea.psi.StreamIdNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.wso2.siddhi.plugins.idea.completion.util.KeywordCompletionUtils.
+        getPreviousVisibleSiblingSkippingComments;
 
 /**
  * Provides element reference for stream ids.
@@ -57,7 +63,6 @@ public class StreamIdReference extends SiddhiElementReference {
     public Object[] getVariants() {
         IdentifierPSINode identifier = getElement();
         int caretOffSet = identifier.getTextOffset();
-        // TODO:check(with the grammar file) the actual place that can be applied these stream name
         /*
           We suggest stream ids in the following places
           1. after "from" in a Standard Stream node
@@ -83,18 +88,50 @@ public class StreamIdReference extends SiddhiElementReference {
                 return new LookupElement[0];
             }
             PsiFile psiFile = identifier.getContainingFile();
-            List streamDefinitionNodesWithDuplicates = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile,
+            // for aggregation definitions we need to suggest only stream definitions. All the table, window
+            // definitions should be removed
+            if (PsiTreeUtil.getParentOfType(identifier, AggregationDefinitionNode.class) != null) {
+                PsiElement prevVisibleSibling = getPreviousVisibleSiblingSkippingComments(identifier);
+                if (prevVisibleSibling == null) {
+                    return new LookupElement[0];
+                }
+                IElementType prevVisibleSiblingElementType = null;
+                if (prevVisibleSibling instanceof LeafPsiElement) {
+                    prevVisibleSiblingElementType = ((LeafPsiElement) prevVisibleSibling).getElementType();
+                }
+                //StreamIds should be suggested only after the 'from' clause in aggregation definition
+                if (prevVisibleSiblingElementType != SiddhiTypes.FROM) {
+                    return new LookupElement[0];
+                }
+                // streamDefinitionNodes has all stream definitions
+                List streamDefinitionNodes = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile,
+                        StreamDefinitionNode.class).toArray()));
+                List<StreamIdNode> streamIdNodesInStreamDefinitionsUpToCursorPoint = new ArrayList<>();
+                for (Object streamDefinition: streamDefinitionNodes) {
+                    PsiElement streamDefinitionNode = ((StreamDefinitionNode) streamDefinition);
+                    StreamIdNode streamDefinitionNodeIdentifier = PsiTreeUtil.findChildOfType(streamDefinitionNode,
+                            StreamIdNode.class);
+                    if (streamDefinitionNodeIdentifier != null
+                            && streamDefinitionNodeIdentifier.getTextOffset() < caretOffSet) {
+                        streamIdNodesInStreamDefinitionsUpToCursorPoint.add(streamDefinitionNodeIdentifier);
+                    }
+                }
+                List<LookupElement> results = SiddhiCompletionUtils.createSourceLookupElements
+                        (streamIdNodesInStreamDefinitionsUpToCursorPoint.toArray());
+                return results.toArray(new LookupElement[results.size()]);
+            }
+            List streamDefinitionNodesInFile = Arrays.asList((PsiTreeUtil.findChildrenOfType(psiFile,
                     StreamIdNode.class).toArray()));
-            List<StreamIdNode> streamDefinitionNodesWithoutDuplicates = new ArrayList<>();
-            for (Object streamDefinitionNode : streamDefinitionNodesWithDuplicates) {
-                PsiElement streamDefinitionNodeIdentifier = ((StreamIdNode) streamDefinitionNode);
+            List<StreamIdNode> streamDefinitionNodesUpToCursorPoint = new ArrayList<>();
+            for (Object streamDefinitionNode : streamDefinitionNodesInFile) {
+                StreamIdNode streamDefinitionNodeIdentifier = ((StreamIdNode) streamDefinitionNode);
                 if (streamDefinitionNodeIdentifier != null
                         && streamDefinitionNodeIdentifier.getTextOffset() < caretOffSet) {
-                    streamDefinitionNodesWithoutDuplicates.add((StreamIdNode) streamDefinitionNodeIdentifier);
+                    streamDefinitionNodesUpToCursorPoint.add(streamDefinitionNodeIdentifier);
                 }
             }
             List<LookupElement> results = SiddhiCompletionUtils.createSourceLookupElements
-                    (streamDefinitionNodesWithoutDuplicates.toArray());
+                    (streamDefinitionNodesUpToCursorPoint.toArray());
             return results.toArray(new LookupElement[results.size()]);
         }
         return new LookupElement[0];

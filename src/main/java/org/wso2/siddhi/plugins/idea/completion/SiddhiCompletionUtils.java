@@ -69,16 +69,17 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder DEFINITION_STREAM;
     private static final LookupElementBuilder ANNOTATION_EXPORTSTREAM;
     private static final LookupElementBuilder ANNOTATION_IMPORTSTREAM;
-    private static final LookupElementBuilder ANNOTATION_PLANTRACE;
-    private static final LookupElementBuilder ANNOTATION_PLANSTATS;
-    private static final LookupElementBuilder ANNOTATION_PLANDESC;
-    private static final LookupElementBuilder ANNOTATION_PLANNAME;
+    private static final LookupElementBuilder ANNOTATION_APPTRACE;
+    private static final LookupElementBuilder ANNOTATION_APPSTATS;
+    private static final LookupElementBuilder ANNOTATION_APPDESC;
+    private static final LookupElementBuilder ANNOTATION_APPNAME;
     private static final LookupElementBuilder ANNOTATION_PRIMARYKEY;
     private static final LookupElementBuilder ANNOTATION_INDEX;
     private static final LookupElementBuilder DEFINE_FUNCTION;
     private static final LookupElementBuilder DEFINE_TRIGGER;
     private static final LookupElementBuilder DEFINE_WINDOW;
     private static final LookupElementBuilder DEFINE_TABLE;
+    private static final LookupElementBuilder DEFINE_AGGREGATION;
     private static final LookupElementBuilder ANNOTATION_INFO;
 
     //annotations without @ sign(used to display suggestions after @)
@@ -87,10 +88,10 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder ANNOTATION_CONFIG_SNIIP2;
     private static final LookupElementBuilder ANNOTATION_EXPORTSTREAM2;
     private static final LookupElementBuilder ANNOTATION_IMPORTSTREAM2;
-    private static final LookupElementBuilder ANNOTATION_PLANTRACE2;
-    private static final LookupElementBuilder ANNOTATION_PLANSTATS2;
-    private static final LookupElementBuilder ANNOTATION_PLANDESC2;
-    private static final LookupElementBuilder ANNOTATION_PLANNAME2;
+    private static final LookupElementBuilder ANNOTATION_APPTRACE2;
+    private static final LookupElementBuilder ANNOTATION_APPSTATS2;
+    private static final LookupElementBuilder ANNOTATION_APPDESC2;
+    private static final LookupElementBuilder ANNOTATION_APPNAME2;
     private static final LookupElementBuilder ANNOTATION_PRIMARYKEY2;
     private static final LookupElementBuilder ANNOTATION_INDEX2;
     private static final LookupElementBuilder ANNOTATION_INFO2;
@@ -196,6 +197,10 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder SET;
     private static final LookupElementBuilder SELECT;
     private static final LookupElementBuilder GROUP;
+    private static final LookupElementBuilder ORDER;
+    private static final LookupElementBuilder LIMIT;
+    private static final LookupElementBuilder ASC;
+    private static final LookupElementBuilder DESC;
     private static final LookupElementBuilder BY;
     private static final LookupElementBuilder HAVING;
     private static final LookupElementBuilder INSERT;
@@ -217,6 +222,7 @@ public class SiddhiCompletionUtils {
     private static final LookupElementBuilder BEGIN;
     private static final LookupElementBuilder END;
     private static final LookupElementBuilder NULL;
+    private static final LookupElementBuilder ALL;
     private static final LookupElementBuilder LAST;
     private static final LookupElementBuilder FIRST;
     private static final LookupElementBuilder JOIN;
@@ -301,14 +307,14 @@ public class SiddhiCompletionUtils {
                 .withPresentableText("annotation-ExportStream");
         ANNOTATION_IMPORTSTREAM = createDefineSnippetTypeLookupElement("@Import(\"Stream_ID\")")
                 .withPresentableText("annotaion-ImportStream");
-        ANNOTATION_PLANTRACE = createDefineSnippetTypeLookupElement("@App:Trace(\"Plan_Trace\")")
-                .withPresentableText("annotation-PlanTrace");
-        ANNOTATION_PLANSTATS = createDefineSnippetTypeLookupElement("@App:Statistics(\"Plan_Statistics\")")
-                .withPresentableText("annotation-PlanStatistics");
-        ANNOTATION_PLANDESC = createDefineSnippetTypeLookupElement("@App:Description(\"Plan_Description\")")
-                .withPresentableText("annotation-PlanDesc");
-        ANNOTATION_PLANNAME = createDefineSnippetTypeLookupElement("@App:name(\"Plan_Name\")")
-                .withPresentableText("annotation-PlanName");
+        ANNOTATION_APPTRACE = createDefineSnippetTypeLookupElement("@App:Trace(\"App_Trace\")")
+                .withPresentableText("annotation-AppTrace");
+        ANNOTATION_APPSTATS = createDefineSnippetTypeLookupElement("@App:Statistics(\"App_Statistics\")")
+                .withPresentableText("annotation-AppStatistics");
+        ANNOTATION_APPDESC = createDefineSnippetTypeLookupElement("@App:Description(\"App_Description\")")
+                .withPresentableText("annotation-AppDesc");
+        ANNOTATION_APPNAME = createDefineSnippetTypeLookupElement("@App:name(\"App_Name\")")
+                .withPresentableText("annotation-AppName");
         ANNOTATION_PRIMARYKEY = createDefineSnippetTypeLookupElement("@PrimaryKey('attribute_name')")
                 .withPresentableText("annotation-PrimaryKey");
         ANNOTATION_INDEX = createDefineSnippetTypeLookupElement("@Index('attribute_name')").withPresentableText
@@ -323,6 +329,12 @@ public class SiddhiCompletionUtils {
                 "window_type output event_type events;").withPresentableText("define-Window");
         DEFINE_TABLE = createDefineSnippetTypeLookupElement("define table table_name (attr1 Type1, attN TypeN);")
                 .withPresentableText("define-Table");
+        DEFINE_AGGREGATION = createDefineSnippetTypeLookupElement("define aggregation aggregation_name " +
+                "\nfrom input_stream" +
+                "\nselect attribute_name, aggregate_function() (attribute_name) as attribute_name, ..." +
+                "\n\tgroup by attribute_name" +
+                "\n\taggregate by timestamp_attribute every time_periods;")
+                .withPresentableText("define-Aggregation");
         ANNOTATION_INFO = createDefineSnippetTypeLookupElement("@info(name = \"Stream_ID\")")
                 .withPresentableText("annotation-Info");
 
@@ -333,10 +345,10 @@ public class SiddhiCompletionUtils {
         ANNOTATION_CONFIG_SNIIP2 = createDefineSnippetTypeLookupElement("config(async = 'true')");
         ANNOTATION_EXPORTSTREAM2 = createDefineSnippetTypeLookupElement("Export(\"Stream_ID\")");
         ANNOTATION_IMPORTSTREAM2 = createDefineSnippetTypeLookupElement("Import(\"Stream_ID\")");
-        ANNOTATION_PLANTRACE2 = createDefineSnippetTypeLookupElement("App:Trace(\"Plan_Trace\")");
-        ANNOTATION_PLANSTATS2 = createDefineSnippetTypeLookupElement("App:Statistics(\"Plan_Statistics\")");
-        ANNOTATION_PLANDESC2 = createDefineSnippetTypeLookupElement("App:Description(\"Plan_Description\")");
-        ANNOTATION_PLANNAME2 = createDefineSnippetTypeLookupElement("App:name(\"Plan_Name\")");
+        ANNOTATION_APPTRACE2 = createDefineSnippetTypeLookupElement("App:Trace(\"App_Trace\")");
+        ANNOTATION_APPSTATS2 = createDefineSnippetTypeLookupElement("App:Statistics(\"App_Statistics\")");
+        ANNOTATION_APPDESC2 = createDefineSnippetTypeLookupElement("App:Description(\"App_Description\")");
+        ANNOTATION_APPNAME2 = createDefineSnippetTypeLookupElement("App:name(\"App_Name\")");
         ANNOTATION_PRIMARYKEY2 = createDefineSnippetTypeLookupElement("PrimaryKey('attribute_name')");
         ANNOTATION_INDEX2 = createDefineSnippetTypeLookupElement("Index('attribute_name')");
         ANNOTATION_INFO2 = createDefineSnippetTypeLookupElement("info(name = \"Stream_ID\")");
@@ -380,6 +392,10 @@ public class SiddhiCompletionUtils {
 
         SELECT = createKeywordLookupElement("select");
         GROUP = createKeywordLookupElement("group");
+        ORDER = createKeywordLookupElement("order");
+        ASC = createKeywordLookupElement("asc");
+        DESC = createKeywordLookupElement("desc");
+        LIMIT = createKeywordLookupElement("limit");
         BY = createKeywordLookupElement("by");
         HAVING = createKeywordLookupElement("having");
         INSERT = createKeywordLookupElement("insert");
@@ -424,6 +440,7 @@ public class SiddhiCompletionUtils {
 
         WITH_AND_PARENTHESES = createKeywordLookupElement("with ( )");
 
+        ALL = createKeywordLookupElement("all");
         LAST = createKeywordLookupElement("last");
         FIRST = createKeywordLookupElement("first");
         JOIN = createKeywordLookupElement("join");
@@ -641,16 +658,17 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINITION_STREAM, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_EXPORTSTREAM, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_IMPORTSTREAM, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANTRACE, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANSTATS, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANDESC, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANNAME, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_APPTRACE, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_APPSTATS, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_APPDESC, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_APPNAME, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PRIMARYKEY, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INDEX, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_FUNCTION, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_TRIGGER, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_WINDOW, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_TABLE, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(DEFINE_AGGREGATION, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INFO, VALUE_TYPES_PRIORITY));
     }
 
@@ -674,10 +692,10 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_CONFIG_SNIIP2, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_EXPORTSTREAM2, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_IMPORTSTREAM2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANTRACE2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANSTATS2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANDESC2, VALUE_TYPES_PRIORITY));
-        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PLANNAME2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_APPTRACE2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_APPSTATS2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_APPDESC2, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_APPNAME2, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_PRIMARYKEY2, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INDEX2, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(ANNOTATION_INFO2, VALUE_TYPES_PRIORITY));
@@ -723,6 +741,7 @@ public class SiddhiCompletionUtils {
         resultSet.addElement(PrioritizedLookupElement.withPriority(TRIGGER, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(FUNCTION, VALUE_TYPES_PRIORITY));
         resultSet.addElement(PrioritizedLookupElement.withPriority(WINDOW, VALUE_TYPES_PRIORITY));
+        resultSet.addElement(PrioritizedLookupElement.withPriority(AGGREGATION, VALUE_TYPES_PRIORITY));
     }
 
     /**
@@ -752,12 +771,65 @@ public class SiddhiCompletionUtils {
         addKeywordAsLookup(resultSet, FROM);
     }
 
+    public static void addSelectKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, SELECT);
+    }
+
     public static void addByKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, BY);
     }
 
     public static void addHavingKeyword(@NotNull CompletionResultSet resultSet) {
         addKeywordAsLookup(resultSet, HAVING);
+    }
+
+    public static void addGroupKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, GROUP);
+    }
+
+    public static void addAggregateKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, AGGREGATE);
+    }
+
+    public static void addAggregationTimeTypesKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, SECONDS);
+        addKeywordAsLookup(resultSet, MINUTES);
+        addKeywordAsLookup(resultSet, HOURS);
+        addKeywordAsLookup(resultSet, DAYS);
+        addKeywordAsLookup(resultSet, WEEKS);
+        addKeywordAsLookup(resultSet, MONTHS);
+        addKeywordAsLookup(resultSet, YEARS);
+    }
+
+    public static void addOrderKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, ORDER);
+    }
+
+    public static void addLimitKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, LIMIT);
+    }
+
+    public static void addOrderRelatedKeywords(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, ASC);
+        addKeywordAsLookup(resultSet, DESC);
+    }
+
+    public static void addOutputKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, OUTPUT);
+    }
+
+    public static void addSnapshotKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, SNAPSHOT);
+    }
+
+    public static void addOutputRateTypesKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, ALL);
+        addKeywordAsLookup(resultSet, LAST);
+        addKeywordAsLookup(resultSet, FIRST);
+    }
+
+    public static void addEventsKeyword(@NotNull CompletionResultSet resultSet) {
+        addKeywordAsLookup(resultSet, EVENTS);
     }
 
     public static void addReturnKeyword(@NotNull CompletionResultSet resultSet) {
