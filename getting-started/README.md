@@ -6,5 +6,5 @@
 4. [Creating, Running and Debugging a sample Siddhi Application.](sample-program)
 5. [Features.](features)
 
-### For Developers
-* [Running the plugin using IDEA.](running-the-plugin)
+### For Plugin Developers
+* [Running the plugin project using IDEA.](running-the-plugin)
