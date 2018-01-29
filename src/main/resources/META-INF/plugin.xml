@@ -6,13 +6,13 @@
     <description><![CDATA[
       <a href="https://wso2.github.io/siddhi/">Siddhi</a> is a java library that listens to events from data streams, detects complex conditions described via a Streaming SQL language, and triggers actions. <br/>
       It performs both Stream Processing and Complex Event Processing. <br/>
-      This plugin supports development of Siddhi applications with IntelliJ IDEA.<br/>
+      Siddhi application development related to <a href="https://wso2.com/analytics">WSO2 Stream Processor</a> and its <a href="https://wso2.github.io/siddhi/extensions">extensions</a> is supported from plugin version 1.1.0 onwards.<br/>
+      <a href="https://wso2.com/analytics">WSO2 Stream Processor (WSO2 SP)</a> is packed with features that will enable any enterprise to build streaming analytics capabilities and derive meaningful insights out of the organization's data.<br/>
     ]]></description>
 
     <change-notes><![CDATA[
        <ul>
-        <li>Adding grammar support for 'order by', 'limit' clauses in queries.</li>
-        <li>Improvements on keyword completion.</li>
+        <li>Supports WSO2 Stream Processor 4.0.0 (WSO2 SP) and its extensions related Siddhi Application development</li>
       </ul>
     ]]>
     </change-notes>
