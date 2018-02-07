@@ -1,4 +1,4 @@
-## Installing the plugin to IDEA
+## Installing the plugin to Intellij IDEA
 
 ### From Jetbrains plugin repository
 1. Go to **Settings** (**Preferences** in **MacOS**)-> **Plugins**. 
