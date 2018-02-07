@@ -20,3 +20,8 @@ IntelliJ Platfom.
 | Plugin Version | Platform Version |
 | --- | --- |
 | 1.0.0+ | IntelliJ IDEA 2017.2.5+ |
+    
+   
+---     
+>**Next Step:** [Download Siddhi SDK.](../download-siddhi-sdk)  
+> **Go to Home:** [Home](../README.md)

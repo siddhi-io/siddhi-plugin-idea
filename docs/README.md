@@ -17,8 +17,8 @@ This plugin supports **Syntax Highlighting** and **Auto Code Completions** relat
 
 ## Setup the Siddhi plugin for Intellij IDEA and Siddhi SDK
 
-1. [Install the plugin to IDEA.](install-plugin)
-2. [Download Siddhi SDK.](https://github.com/wso2/siddhi-sdk/releases/)  
+1. [Install the plugin to intellij IDEA.](install-plugin)
+2. [Download Siddhi SDK.](download-siddhi-sdk)  
 3. [Setup Siddhi SDK.](setting-up-siddhi-sdk)
 
 ## Create, Run or Debug a Siddhi Application

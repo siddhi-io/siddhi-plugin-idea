@@ -43,4 +43,9 @@ SDK** and selecting **Siddhi SDK**.
 
 ![alt text](images/Figure-2-3.png)
 
-4) Select **OK** or **Apply** to save changes.
+4) Select **OK** or **Apply** to save changes.   
+    
+    
+---   
+> **Previous Step:** [Download Siddhi SDK.](../download-siddhi-sdk)   
+> **Go to Home:** [Home](../README.md)

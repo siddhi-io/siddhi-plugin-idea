@@ -23,3 +23,7 @@ You can debug Siddhi files.
 Spell checking is enabled for all identifiers.
 
 ![alt text](images/SpellChecking.gif)
+     
+     
+---      
+> **Go to Home:** [Home](../README.md)
