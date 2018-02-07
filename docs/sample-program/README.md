@@ -95,3 +95,7 @@ query output.
 2. The output will be shown in the **Debug** window.
 
 ![alt text](images/Figure-3-10.png)
+     
+     
+---    
+> **Go to Home:** [Home](../README.md)

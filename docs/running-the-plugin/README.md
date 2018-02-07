@@ -33,3 +33,8 @@ If the **Gradle projects** window is not visible, you can use **View -> Tool Win
 * Now you can **Run** or **Debug** the plugin using the created Gradle configuration very easily.
 
 ![alt text](images/Figure-7.png)
+     
+     
+---     
+> **Go to Home:** [Home](../README.md)  
+  
