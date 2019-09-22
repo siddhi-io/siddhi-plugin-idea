@@ -37,7 +37,7 @@ public class SiddhiSyntaxHighlightingColors {
             HighlighterColors.BAD_CHARACTER);
     public static final TextAttributesKey STREAM_ID = createTextAttributesKey("SIDDHI_STREAM_TOKEN",
             DefaultLanguageHighlighterColors.CONSTANT);
-    public static final TextAttributesKey SEMICOLON = createTextAttributesKey("SIDDHI_COMMA_TOKEN",
+    public static final TextAttributesKey SEMICOLON = createTextAttributesKey("SIDDHI_SEMICOLON_TOKEN",
             DefaultLanguageHighlighterColors.SEMICOLON);
     public static final TextAttributesKey COL = createTextAttributesKey("SIDDHI_COLON_TOKEN",
             DefaultLanguageHighlighterColors.KEYWORD);
