@@ -16,14 +16,14 @@ git clone --recursive https://github.com/wso2/siddhi-plugin-idea.git
 
 ## Getting started
 
-Please refer the [Getting Started](https://wso2.github.io/siddhi-plugin-idea/) section.
+Please refer the [Getting Started](https://siddhi-io.github.io/siddhi-plugin-idea/) section.
 
 ## How to Contribute
  
-  * Please report issues at <a target="_blank" href="https://github.com/wso2/siddhi-plugin-idea/issues">GitHub Issue 
+  * Please report issues at <a target="_blank" href="https://github.com/siddhi-io/siddhi-plugin-idea/issues">GitHub Issue 
   Tracker</a>.
   
-  * Send your contributions as pull requests to <a target="_blank" href="https://github.com/wso2/siddhi-plugin-idea/tree/master">master branch</a>. 
+  * Send your contributions as pull requests to <a target="_blank" href="https://github.com/siddhi-io/siddhi-plugin-idea/tree/master">master branch</a>. 
  
 ## Contact us 
 
